@@ -1,0 +1,463 @@
+openapi: 3.1.0
+info:
+  title: Binance Simple Earn API
+  description: >-
+    The Binance Simple Earn API provides programmatic access to flexible
+    and locked savings and staking products. Developers can subscribe to
+    and redeem earn products, query available products and their interest
+    rates, check subscription records and earned interest, and manage
+    auto-subscribe settings.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Simple Earn Documentation
+  url: https://developers.binance.com/docs/simple_earn/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Flexible Products
+    description: >-
+      Flexible savings products that allow instant redemption.
+  - name: Locked Products
+    description: >-
+      Locked savings products with fixed-term commitments.
+  - name: Account
+    description: >-
+      Simple Earn account information.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/simple-earn/flexible/list:
+    get:
+      operationId: listFlexibleProducts
+      summary: Get simple earn flexible product list
+      description: >-
+        Get available flexible earn products.
+      tags:
+        - Flexible Products
+      parameters:
+        - name: asset
+          in: query
+          schema:
+            type: string
+        - name: current
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 100
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        asset:
+                          type: string
+                        latestAnnualPercentageRate:
+                          type: string
+                        tierAnnualPercentageRate:
+                          type: object
+                        airDropPercentageRate:
+                          type: string
+                        canPurchase:
+                          type: boolean
+                        canRedeem:
+                          type: boolean
+                        isSoldOut:
+                          type: boolean
+                        hot:
+                          type: boolean
+                        minPurchaseAmount:
+                          type: string
+                        productId:
+                          type: string
+                        subscriptionStartTime:
+                          type: string
+                        status:
+                          type: string
+                  total:
+                    type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/simple-earn/flexible/subscribe:
+    post:
+      operationId: subscribeFlexibleProduct
+      summary: Subscribe flexible product
+      description: >-
+        Subscribe to a flexible earn product.
+      tags:
+        - Flexible Products
+      parameters:
+        - name: productId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: autoSubscribe
+          in: query
+          schema:
+            type: boolean
+        - name: sourceAccount
+          in: query
+          schema:
+            type: string
+            enum: [SPOT, FUND, ALL]
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  purchaseId:
+                    type: integer
+                    format: int64
+                  success:
+                    type: boolean
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/simple-earn/flexible/redeem:
+    post:
+      operationId: redeemFlexibleProduct
+      summary: Redeem flexible product
+      description: >-
+        Redeem from a flexible earn product.
+      tags:
+        - Flexible Products
+      parameters:
+        - name: productId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: redeemAll
+          in: query
+          schema:
+            type: boolean
+        - name: amount
+          in: query
+          schema:
+            type: string
+        - name: destAccount
+          in: query
+          schema:
+            type: string
+            enum: [SPOT, FUND]
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  redeemId:
+                    type: integer
+                    format: int64
+                  success:
+                    type: boolean
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/simple-earn/flexible/position:
+    get:
+      operationId: getFlexiblePosition
+      summary: Get flexible product position
+      description: >-
+        Get flexible earn product positions.
+      tags:
+        - Flexible Products
+      parameters:
+        - name: asset
+          in: query
+          schema:
+            type: string
+        - name: productId
+          in: query
+          schema:
+            type: string
+        - name: current
+          in: query
+          schema:
+            type: integer
+        - name: size
+          in: query
+          schema:
+            type: integer
+            maximum: 100
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                  total:
+                    type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/simple-earn/locked/list:
+    get:
+      operationId: listLockedProducts
+      summary: Get simple earn locked product list
+      description: >-
+        Get available locked earn products.
+      tags:
+        - Locked Products
+      parameters:
+        - name: asset
+          in: query
+          schema:
+            type: string
+        - name: current
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 100
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                  total:
+                    type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/simple-earn/locked/subscribe:
+    post:
+      operationId: subscribeLockedProduct
+      summary: Subscribe locked product
+      description: >-
+        Subscribe to a locked earn product.
+      tags:
+        - Locked Products
+      parameters:
+        - name: projectId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: autoSubscribe
+          in: query
+          schema:
+            type: boolean
+        - name: sourceAccount
+          in: query
+          schema:
+            type: string
+            enum: [SPOT, FUND, ALL]
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  purchaseId:
+                    type: integer
+                    format: int64
+                  positionId:
+                    type: string
+                  success:
+                    type: boolean
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/simple-earn/account:
+    get:
+      operationId: getSimpleEarnAccount
+      summary: Simple account
+      description: >-
+        Get simple earn account information.
+      tags:
+        - Account
+      parameters:
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalAmountInBTC:
+                    type: string
+                  totalAmountInUSDT:
+                    type: string
+                  totalFlexibleAmountInBTC:
+                    type: string
+                  totalFlexibleAmountInUSDT:
+                    type: string
+                  totalLockedInBTC:
+                    type: string
+                  totalLockedInUSDT:
+                    type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

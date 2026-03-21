@@ -1,0 +1,1734 @@
+openapi: 3.1.0
+info:
+  title: Binance USD-S Margined Futures API
+  description: >-
+    The Binance USD-S Margined Futures API enables trading of USDT and BUSD
+    margined perpetual and delivery futures contracts. Developers can place
+    leveraged long and short positions, manage margin and leverage settings,
+    query funding rates, and access futures-specific market data including
+    mark price, index price, and open interest.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance USD-S Margined Futures Documentation
+  url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
+servers:
+  - url: https://fapi.binance.com
+    description: Production Server
+  - url: https://demo-fapi.binance.com
+    description: Testnet Server
+tags:
+  - name: Market Data
+    description: >-
+      Public market data endpoints for futures exchange information, order
+      book, trades, klines, mark price, funding rate, and open interest.
+  - name: Trading
+    description: >-
+      Trading endpoints for placing, querying, and canceling futures orders.
+      Requires SIGNED authentication.
+  - name: Account
+    description: >-
+      Account endpoints for querying positions, balances, leverage, margin
+      type, and income history. Requires SIGNED authentication.
+  - name: User Data Stream
+    description: >-
+      Endpoints for managing user data stream listen keys for futures.
+security:
+  - apiKey: []
+paths:
+  /fapi/v1/ping:
+    get:
+      operationId: testConnectivity
+      summary: Test connectivity
+      description: >-
+        Test connectivity to the futures REST API.
+      tags:
+        - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security: []
+  /fapi/v1/time:
+    get:
+      operationId: getServerTime
+      summary: Check server time
+      description: >-
+        Test connectivity and get the current server time.
+      tags:
+        - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serverTime:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Current server time in milliseconds.
+      security: []
+  /fapi/v1/exchangeInfo:
+    get:
+      operationId: getExchangeInfo
+      summary: Exchange information
+      description: >-
+        Get current futures exchange trading rules and symbol information
+        including contract types, margin assets, and filters.
+      tags:
+        - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exchangeFilters:
+                    type: array
+                    items:
+                      type: object
+                    description: >-
+                      Exchange-level filters.
+                  rateLimits:
+                    type: array
+                    items:
+                      type: object
+                    description: >-
+                      Rate limit rules.
+                  serverTime:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Current server time.
+                  assets:
+                    type: array
+                    items:
+                      type: object
+                    description: >-
+                      Supported margin assets.
+                  symbols:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FuturesSymbol'
+                    description: >-
+                      Available futures trading pairs.
+                  timezone:
+                    type: string
+                    description: >-
+                      Server timezone.
+      security: []
+  /fapi/v1/depth:
+    get:
+      operationId: getOrderBook
+      summary: Order book
+      description: >-
+        Get the current order book depth for a futures symbol.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: limit
+          in: query
+          description: >-
+            Number of levels. Default 500. Valid values are 5, 10, 20,
+            50, 100, 500, 1000.
+          schema:
+            type: integer
+            default: 500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lastUpdateId:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Last update ID.
+                  E:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Message output time.
+                  T:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Transaction time.
+                  bids:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                    description: >-
+                      Bid price and quantity pairs.
+                  asks:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                    description: >-
+                      Ask price and quantity pairs.
+      security: []
+  /fapi/v1/trades:
+    get:
+      operationId: getRecentTrades
+      summary: Recent trades list
+      description: >-
+        Get recent futures trades for a symbol.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: limit
+          in: query
+          description: >-
+            Number of trades. Default 500, max 1000.
+          schema:
+            type: integer
+            default: 500
+            maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FuturesTrade'
+      security: []
+  /fapi/v1/klines:
+    get:
+      operationId: getKlines
+      summary: Kline/Candlestick data
+      description: >-
+        Get kline/candlestick bars for a futures symbol.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: interval
+          in: query
+          required: true
+          description: >-
+            Kline interval.
+          schema:
+            type: string
+            enum: [1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M]
+        - name: startTime
+          in: query
+          description: >-
+            Start time in milliseconds.
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          description: >-
+            End time in milliseconds.
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          description: >-
+            Number of results. Default 500, max 1500.
+          schema:
+            type: integer
+            default: 500
+            maximum: 1500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+      security: []
+  /fapi/v1/premiumIndex:
+    get:
+      operationId: getMarkPrice
+      summary: Mark price
+      description: >-
+        Get mark price and funding rate for a futures symbol or all symbols.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbol'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/MarkPrice'
+                  - type: array
+                    items:
+                      $ref: '#/components/schemas/MarkPrice'
+      security: []
+  /fapi/v1/fundingRate:
+    get:
+      operationId: getFundingRateHistory
+      summary: Get funding rate history
+      description: >-
+        Get historical funding rate data for a futures symbol.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: startTime
+          in: query
+          description: >-
+            Start time in milliseconds.
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          description: >-
+            End time in milliseconds.
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          description: >-
+            Number of results. Default 100, max 1000.
+          schema:
+            type: integer
+            default: 100
+            maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      description: >-
+                        Futures symbol.
+                    fundingRate:
+                      type: string
+                      description: >-
+                        Funding rate as decimal string.
+                    fundingTime:
+                      type: integer
+                      format: int64
+                      description: >-
+                        Funding time in milliseconds.
+                    markPrice:
+                      type: string
+                      description: >-
+                        Mark price at funding time.
+      security: []
+  /fapi/v1/fundingInfo:
+    get:
+      operationId: getFundingInfo
+      summary: Get funding rate info
+      description: >-
+        Get funding rate configuration for all symbols including funding
+        interval and cap/floor rates.
+      tags:
+        - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      description: >-
+                        Futures symbol.
+                    adjustedFundingRateCap:
+                      type: string
+                      description: >-
+                        Adjusted funding rate cap.
+                    adjustedFundingRateFloor:
+                      type: string
+                      description: >-
+                        Adjusted funding rate floor.
+                    fundingIntervalHours:
+                      type: integer
+                      description: >-
+                        Funding interval in hours.
+      security: []
+  /fapi/v1/ticker/24hr:
+    get:
+      operationId: get24hrTicker
+      summary: 24hr ticker price change statistics
+      description: >-
+        Get 24-hour rolling window price change statistics for futures.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbol'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/FuturesTicker24hr'
+                  - type: array
+                    items:
+                      $ref: '#/components/schemas/FuturesTicker24hr'
+      security: []
+  /fapi/v1/ticker/price:
+    get:
+      operationId: getTickerPrice
+      summary: Symbol price ticker
+      description: >-
+        Get the latest price for a futures symbol or all symbols.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbol'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      symbol:
+                        type: string
+                      price:
+                        type: string
+                      time:
+                        type: integer
+                        format: int64
+                  - type: array
+                    items:
+                      type: object
+                      properties:
+                        symbol:
+                          type: string
+                        price:
+                          type: string
+                        time:
+                          type: integer
+                          format: int64
+      security: []
+  /fapi/v1/openInterest:
+    get:
+      operationId: getOpenInterest
+      summary: Open interest
+      description: >-
+        Get present open interest of a specific symbol.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  openInterest:
+                    type: string
+                    description: >-
+                      Total open interest.
+                  symbol:
+                    type: string
+                    description: >-
+                      Futures symbol.
+                  time:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Timestamp in milliseconds.
+      security: []
+  /fapi/v1/order:
+    post:
+      operationId: createOrder
+      summary: New order
+      description: >-
+        Send in a new futures order. Supports LIMIT, MARKET, STOP,
+        STOP_MARKET, TAKE_PROFIT, TAKE_PROFIT_MARKET, and
+        TRAILING_STOP_MARKET order types.
+      tags:
+        - Trading
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: side
+          in: query
+          required: true
+          description: >-
+            Order side.
+          schema:
+            type: string
+            enum: [BUY, SELL]
+        - name: positionSide
+          in: query
+          description: >-
+            Position side for hedge mode. BOTH for one-way mode.
+          schema:
+            type: string
+            enum: [BOTH, LONG, SHORT]
+            default: BOTH
+        - name: type
+          in: query
+          required: true
+          description: >-
+            Order type.
+          schema:
+            type: string
+            enum:
+              - LIMIT
+              - MARKET
+              - STOP
+              - STOP_MARKET
+              - TAKE_PROFIT
+              - TAKE_PROFIT_MARKET
+              - TRAILING_STOP_MARKET
+        - name: timeInForce
+          in: query
+          description: >-
+            Time in force. Required for LIMIT orders.
+          schema:
+            type: string
+            enum: [GTC, IOC, FOK, GTX, GTD]
+        - name: quantity
+          in: query
+          description: >-
+            Order quantity.
+          schema:
+            type: string
+        - name: reduceOnly
+          in: query
+          description: >-
+            Reduce only flag. Cannot be sent with closePosition.
+          schema:
+            type: boolean
+        - name: price
+          in: query
+          description: >-
+            Order price.
+          schema:
+            type: string
+        - name: newClientOrderId
+          in: query
+          description: >-
+            A unique ID among open orders.
+          schema:
+            type: string
+        - name: stopPrice
+          in: query
+          description: >-
+            Stop price for stop orders.
+          schema:
+            type: string
+        - name: closePosition
+          in: query
+          description: >-
+            Close all positions when triggered.
+          schema:
+            type: boolean
+        - name: activationPrice
+          in: query
+          description: >-
+            Activation price for TRAILING_STOP_MARKET orders.
+          schema:
+            type: string
+        - name: callbackRate
+          in: query
+          description: >-
+            Callback rate for TRAILING_STOP_MARKET orders.
+          schema:
+            type: string
+        - name: workingType
+          in: query
+          description: >-
+            Stop price working type.
+          schema:
+            type: string
+            enum: [MARK_PRICE, CONTRACT_PRICE]
+            default: CONTRACT_PRICE
+        - name: priceProtect
+          in: query
+          description: >-
+            Price protection flag.
+          schema:
+            type: boolean
+        - name: newOrderRespType
+          in: query
+          description: >-
+            Response type. ACK or RESULT.
+          schema:
+            type: string
+            enum: [ACK, RESULT]
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuturesOrderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKey: []
+          hmacSignature: []
+    get:
+      operationId: getOrder
+      summary: Query order
+      description: >-
+        Check a futures order's status.
+      tags:
+        - Trading
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: orderId
+          in: query
+          description: >-
+            Order ID.
+          schema:
+            type: integer
+            format: int64
+        - name: origClientOrderId
+          in: query
+          description: >-
+            Client order ID.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuturesOrder'
+      security:
+        - apiKey: []
+          hmacSignature: []
+    delete:
+      operationId: cancelOrder
+      summary: Cancel order
+      description: >-
+        Cancel an active futures order.
+      tags:
+        - Trading
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: orderId
+          in: query
+          description: >-
+            Order ID.
+          schema:
+            type: integer
+            format: int64
+        - name: origClientOrderId
+          in: query
+          description: >-
+            Client order ID.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuturesOrder'
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /fapi/v1/batchOrders:
+    post:
+      operationId: createBatchOrders
+      summary: Place multiple orders
+      description: >-
+        Send in new multiple orders. Maximum of 5 orders per request.
+      tags:
+        - Trading
+      parameters:
+        - name: batchOrders
+          in: query
+          required: true
+          description: >-
+            JSON array of order parameters. Max 5 orders.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FuturesOrderResponse'
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /fapi/v1/openOrders:
+    get:
+      operationId: getOpenOrders
+      summary: Current all open orders
+      description: >-
+        Get all open futures orders for a symbol or all symbols.
+      tags:
+        - Trading
+      parameters:
+        - $ref: '#/components/parameters/symbol'
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FuturesOrder'
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /fapi/v2/account:
+    get:
+      operationId: getAccountInfo
+      summary: Account information
+      description: >-
+        Get current futures account information including positions
+        and balances.
+      tags:
+        - Account
+      parameters:
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuturesAccount'
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /fapi/v2/balance:
+    get:
+      operationId: getBalance
+      summary: Futures account balance
+      description: >-
+        Get futures account balance.
+      tags:
+        - Account
+      parameters:
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FuturesBalance'
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /fapi/v2/positionRisk:
+    get:
+      operationId: getPositionRisk
+      summary: Position information
+      description: >-
+        Get current position information for all or a specific symbol.
+      tags:
+        - Account
+      parameters:
+        - $ref: '#/components/parameters/symbol'
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PositionRisk'
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /fapi/v1/leverage:
+    post:
+      operationId: changeLeverage
+      summary: Change initial leverage
+      description: >-
+        Change user's initial leverage of a specific futures symbol.
+      tags:
+        - Account
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: leverage
+          in: query
+          required: true
+          description: >-
+            Target initial leverage. 1 to 125.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 125
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  leverage:
+                    type: integer
+                    description: >-
+                      New leverage setting.
+                  maxNotionalValue:
+                    type: string
+                    description: >-
+                      Maximum notional value at this leverage.
+                  symbol:
+                    type: string
+                    description: >-
+                      Futures symbol.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /fapi/v1/marginType:
+    post:
+      operationId: changeMarginType
+      summary: Change margin type
+      description: >-
+        Change the margin type for a futures symbol between ISOLATED
+        and CROSSED.
+      tags:
+        - Account
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: marginType
+          in: query
+          required: true
+          description: >-
+            Margin type.
+          schema:
+            type: string
+            enum: [ISOLATED, CROSSED]
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: >-
+                      Response code.
+                  msg:
+                    type: string
+                    description: >-
+                      Response message.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /fapi/v1/income:
+    get:
+      operationId: getIncomeHistory
+      summary: Get income history
+      description: >-
+        Get futures income history including realized PnL, funding fees,
+        commissions, and transfers.
+      tags:
+        - Account
+      parameters:
+        - $ref: '#/components/parameters/symbol'
+        - name: incomeType
+          in: query
+          description: >-
+            Income type filter.
+          schema:
+            type: string
+            enum:
+              - TRANSFER
+              - WELCOME_BONUS
+              - REALIZED_PNL
+              - FUNDING_FEE
+              - COMMISSION
+              - INSURANCE_CLEAR
+              - REFERRAL_KICKBACK
+              - COMMISSION_REBATE
+              - API_REBATE
+              - CONTEST_REWARD
+              - CROSS_COLLATERAL_TRANSFER
+              - OPTIONS_PREMIUM_FEE
+              - OPTIONS_SETTLE_PROFIT
+              - INTERNAL_TRANSFER
+              - AUTO_EXCHANGE
+              - DELIVERED_SETTELMENT
+              - COIN_SWAP_DEPOSIT
+              - COIN_SWAP_WITHDRAW
+              - POSITION_LIMIT_INCREASE_FEE
+        - name: startTime
+          in: query
+          description: >-
+            Start time in milliseconds.
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          description: >-
+            End time in milliseconds.
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          description: >-
+            Number of results. Default 100, max 1000.
+          schema:
+            type: integer
+            default: 100
+            maximum: 1000
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      description: >-
+                        Futures symbol.
+                    incomeType:
+                      type: string
+                      description: >-
+                        Income type.
+                    income:
+                      type: string
+                      description: >-
+                        Income amount.
+                    asset:
+                      type: string
+                      description: >-
+                        Asset.
+                    info:
+                      type: string
+                      description: >-
+                        Additional information.
+                    time:
+                      type: integer
+                      format: int64
+                      description: >-
+                        Timestamp in milliseconds.
+                    tranId:
+                      type: integer
+                      format: int64
+                      description: >-
+                        Transaction ID.
+                    tradeId:
+                      type: string
+                      description: >-
+                        Trade ID.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /fapi/v1/listenKey:
+    post:
+      operationId: createListenKey
+      summary: Start user data stream
+      description: >-
+        Start a new user data stream for futures. Returns a listen key
+        that can be used to subscribe to user data WebSocket streams.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  listenKey:
+                    type: string
+                    description: >-
+                      Listen key for WebSocket subscription.
+      security:
+        - apiKey: []
+    put:
+      operationId: keepAliveListenKey
+      summary: Keepalive user data stream
+      description: >-
+        Keepalive a user data stream to prevent timeout.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+    delete:
+      operationId: closeListenKey
+      summary: Close user data stream
+      description: >-
+        Close out a user data stream.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+      description: >-
+        Binance API key passed in the X-MBX-APIKEY header.
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+      description: >-
+        HMAC SHA256 signature of the query string.
+  parameters:
+    symbol:
+      name: symbol
+      in: query
+      description: >-
+        Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    symbolRequired:
+      name: symbol
+      in: query
+      required: true
+      description: >-
+        Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    recvWindow:
+      name: recvWindow
+      in: query
+      description: >-
+        Milliseconds the request is valid for.
+      schema:
+        type: integer
+        default: 5000
+        maximum: 60000
+    timestamp:
+      name: timestamp
+      in: query
+      required: true
+      description: >-
+        Request timestamp in milliseconds.
+      schema:
+        type: integer
+        format: int64
+    signature:
+      name: signature
+      in: query
+      required: true
+      description: >-
+        HMAC SHA256 signature.
+      schema:
+        type: string
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: >-
+            Error code.
+        msg:
+          type: string
+          description: >-
+            Error message.
+    FuturesSymbol:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: >-
+            Trading pair symbol.
+        pair:
+          type: string
+          description: >-
+            Underlying pair.
+        contractType:
+          type: string
+          enum: [PERPETUAL, CURRENT_MONTH, NEXT_MONTH, CURRENT_QUARTER, NEXT_QUARTER]
+          description: >-
+            Contract type.
+        deliveryDate:
+          type: integer
+          format: int64
+          description: >-
+            Delivery date in milliseconds.
+        onboardDate:
+          type: integer
+          format: int64
+          description: >-
+            Onboard date in milliseconds.
+        status:
+          type: string
+          description: >-
+            Symbol status.
+        baseAsset:
+          type: string
+          description: >-
+            Base asset.
+        quoteAsset:
+          type: string
+          description: >-
+            Quote asset.
+        marginAsset:
+          type: string
+          description: >-
+            Margin asset.
+        pricePrecision:
+          type: integer
+          description: >-
+            Price precision.
+        quantityPrecision:
+          type: integer
+          description: >-
+            Quantity precision.
+        underlyingType:
+          type: string
+          description: >-
+            Underlying asset type.
+        settlePlan:
+          type: integer
+          description: >-
+            Settlement plan.
+        triggerProtect:
+          type: string
+          description: >-
+            Trigger protection threshold.
+        filters:
+          type: array
+          items:
+            type: object
+          description: >-
+            Symbol filters.
+        orderTypes:
+          type: array
+          items:
+            type: string
+          description: >-
+            Allowed order types.
+        timeInForce:
+          type: array
+          items:
+            type: string
+          description: >-
+            Allowed time in force values.
+    FuturesTrade:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: >-
+            Trade ID.
+        price:
+          type: string
+          description: >-
+            Trade price.
+        qty:
+          type: string
+          description: >-
+            Trade quantity.
+        quoteQty:
+          type: string
+          description: >-
+            Quote quantity.
+        time:
+          type: integer
+          format: int64
+          description: >-
+            Trade time.
+        isBuyerMaker:
+          type: boolean
+          description: >-
+            Whether buyer is maker.
+    MarkPrice:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: >-
+            Futures symbol.
+        markPrice:
+          type: string
+          description: >-
+            Mark price.
+        indexPrice:
+          type: string
+          description: >-
+            Index price.
+        estimatedSettlePrice:
+          type: string
+          description: >-
+            Estimated settle price.
+        lastFundingRate:
+          type: string
+          description: >-
+            Last funding rate.
+        nextFundingTime:
+          type: integer
+          format: int64
+          description: >-
+            Next funding time in milliseconds.
+        interestRate:
+          type: string
+          description: >-
+            Interest rate.
+        time:
+          type: integer
+          format: int64
+          description: >-
+            Timestamp.
+    FuturesTicker24hr:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: >-
+            Symbol.
+        priceChange:
+          type: string
+          description: >-
+            Price change.
+        priceChangePercent:
+          type: string
+          description: >-
+            Price change percent.
+        weightedAvgPrice:
+          type: string
+          description: >-
+            Weighted average price.
+        lastPrice:
+          type: string
+          description: >-
+            Last price.
+        lastQty:
+          type: string
+          description: >-
+            Last quantity.
+        openPrice:
+          type: string
+          description: >-
+            Open price.
+        highPrice:
+          type: string
+          description: >-
+            High price.
+        lowPrice:
+          type: string
+          description: >-
+            Low price.
+        volume:
+          type: string
+          description: >-
+            Total traded base asset volume.
+        quoteVolume:
+          type: string
+          description: >-
+            Total traded quote asset volume.
+        openTime:
+          type: integer
+          format: int64
+          description: >-
+            Statistics open time.
+        closeTime:
+          type: integer
+          format: int64
+          description: >-
+            Statistics close time.
+        firstId:
+          type: integer
+          format: int64
+          description: >-
+            First trade ID.
+        lastId:
+          type: integer
+          format: int64
+          description: >-
+            Last trade ID.
+        count:
+          type: integer
+          description: >-
+            Number of trades.
+    FuturesOrderResponse:
+      type: object
+      properties:
+        clientOrderId:
+          type: string
+          description: >-
+            Client order ID.
+        cumQty:
+          type: string
+          description: >-
+            Cumulative filled quantity.
+        cumQuote:
+          type: string
+          description: >-
+            Cumulative filled quote.
+        executedQty:
+          type: string
+          description: >-
+            Executed quantity.
+        orderId:
+          type: integer
+          format: int64
+          description: >-
+            Order ID.
+        avgPrice:
+          type: string
+          description: >-
+            Average fill price.
+        origQty:
+          type: string
+          description: >-
+            Original quantity.
+        price:
+          type: string
+          description: >-
+            Order price.
+        reduceOnly:
+          type: boolean
+          description: >-
+            Reduce only flag.
+        side:
+          type: string
+          description: >-
+            Order side.
+        positionSide:
+          type: string
+          description: >-
+            Position side.
+        status:
+          type: string
+          description: >-
+            Order status.
+        stopPrice:
+          type: string
+          description: >-
+            Stop price.
+        closePosition:
+          type: boolean
+          description: >-
+            Close position flag.
+        symbol:
+          type: string
+          description: >-
+            Symbol.
+        timeInForce:
+          type: string
+          description: >-
+            Time in force.
+        type:
+          type: string
+          description: >-
+            Order type.
+        origType:
+          type: string
+          description: >-
+            Original order type.
+        activatePrice:
+          type: string
+          description: >-
+            Activation price for trailing stop.
+        priceRate:
+          type: string
+          description: >-
+            Callback rate for trailing stop.
+        updateTime:
+          type: integer
+          format: int64
+          description: >-
+            Update time.
+        workingType:
+          type: string
+          description: >-
+            Working type.
+        priceProtect:
+          type: boolean
+          description: >-
+            Price protection.
+    FuturesOrder:
+      type: object
+      properties:
+        avgPrice:
+          type: string
+          description: >-
+            Average fill price.
+        clientOrderId:
+          type: string
+          description: >-
+            Client order ID.
+        cumQuote:
+          type: string
+          description: >-
+            Cumulative quote quantity.
+        executedQty:
+          type: string
+          description: >-
+            Executed quantity.
+        orderId:
+          type: integer
+          format: int64
+          description: >-
+            Order ID.
+        origQty:
+          type: string
+          description: >-
+            Original quantity.
+        origType:
+          type: string
+          description: >-
+            Original order type.
+        price:
+          type: string
+          description: >-
+            Order price.
+        reduceOnly:
+          type: boolean
+          description: >-
+            Reduce only.
+        side:
+          type: string
+          description: >-
+            Order side.
+        positionSide:
+          type: string
+          description: >-
+            Position side.
+        status:
+          type: string
+          description: >-
+            Order status.
+        stopPrice:
+          type: string
+          description: >-
+            Stop price.
+        closePosition:
+          type: boolean
+          description: >-
+            Close position flag.
+        symbol:
+          type: string
+          description: >-
+            Symbol.
+        time:
+          type: integer
+          format: int64
+          description: >-
+            Order time.
+        timeInForce:
+          type: string
+          description: >-
+            Time in force.
+        type:
+          type: string
+          description: >-
+            Order type.
+        activatePrice:
+          type: string
+          description: >-
+            Activation price.
+        priceRate:
+          type: string
+          description: >-
+            Callback rate.
+        updateTime:
+          type: integer
+          format: int64
+          description: >-
+            Update time.
+        workingType:
+          type: string
+          description: >-
+            Working type.
+        priceProtect:
+          type: boolean
+          description: >-
+            Price protect flag.
+    FuturesAccount:
+      type: object
+      properties:
+        feeTier:
+          type: integer
+          description: >-
+            Account fee tier.
+        canTrade:
+          type: boolean
+          description: >-
+            Can trade.
+        canDeposit:
+          type: boolean
+          description: >-
+            Can deposit.
+        canWithdraw:
+          type: boolean
+          description: >-
+            Can withdraw.
+        updateTime:
+          type: integer
+          format: int64
+          description: >-
+            Update time.
+        multiAssetsMargin:
+          type: boolean
+          description: >-
+            Multi-asset margin mode.
+        totalInitialMargin:
+          type: string
+          description: >-
+            Total initial margin.
+        totalMaintMargin:
+          type: string
+          description: >-
+            Total maintenance margin.
+        totalWalletBalance:
+          type: string
+          description: >-
+            Total wallet balance.
+        totalUnrealizedProfit:
+          type: string
+          description: >-
+            Total unrealized profit.
+        totalMarginBalance:
+          type: string
+          description: >-
+            Total margin balance.
+        totalPositionInitialMargin:
+          type: string
+          description: >-
+            Total position initial margin.
+        totalOpenOrderInitialMargin:
+          type: string
+          description: >-
+            Total open order initial margin.
+        totalCrossWalletBalance:
+          type: string
+          description: >-
+            Total cross wallet balance.
+        totalCrossUnPnl:
+          type: string
+          description: >-
+            Total cross unrealized PnL.
+        availableBalance:
+          type: string
+          description: >-
+            Available balance.
+        maxWithdrawAmount:
+          type: string
+          description: >-
+            Maximum withdrawal amount.
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/FuturesBalance'
+          description: >-
+            Asset balances.
+        positions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PositionRisk'
+          description: >-
+            Positions.
+    FuturesBalance:
+      type: object
+      properties:
+        accountAlias:
+          type: string
+          description: >-
+            Account alias.
+        asset:
+          type: string
+          description: >-
+            Asset symbol.
+        balance:
+          type: string
+          description: >-
+            Total balance.
+        crossWalletBalance:
+          type: string
+          description: >-
+            Cross wallet balance.
+        crossUnPnl:
+          type: string
+          description: >-
+            Cross unrealized PnL.
+        availableBalance:
+          type: string
+          description: >-
+            Available balance.
+        maxWithdrawAmount:
+          type: string
+          description: >-
+            Maximum withdrawal amount.
+        marginAvailable:
+          type: boolean
+          description: >-
+            Whether the asset can be used as margin.
+        updateTime:
+          type: integer
+          format: int64
+          description: >-
+            Update time.
+    PositionRisk:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: >-
+            Symbol.
+        positionAmt:
+          type: string
+          description: >-
+            Position amount.
+        entryPrice:
+          type: string
+          description: >-
+            Entry price.
+        breakEvenPrice:
+          type: string
+          description: >-
+            Break-even price.
+        markPrice:
+          type: string
+          description: >-
+            Mark price.
+        unRealizedProfit:
+          type: string
+          description: >-
+            Unrealized profit.
+        liquidationPrice:
+          type: string
+          description: >-
+            Liquidation price.
+        leverage:
+          type: string
+          description: >-
+            Leverage.
+        maxNotionalValue:
+          type: string
+          description: >-
+            Maximum notional value.
+        marginType:
+          type: string
+          description: >-
+            Margin type (cross or isolated).
+        isolatedMargin:
+          type: string
+          description: >-
+            Isolated margin amount.
+        isAutoAddMargin:
+          type: boolean
+          description: >-
+            Auto add margin flag.
+        positionSide:
+          type: string
+          description: >-
+            Position side.
+        notional:
+          type: string
+          description: >-
+            Notional value.
+        isolatedWallet:
+          type: string
+          description: >-
+            Isolated wallet balance.
+        updateTime:
+          type: integer
+          format: int64
+          description: >-
+            Update time.

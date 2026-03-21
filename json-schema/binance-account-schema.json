@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/binance/account.json",
+  "title": "Binance Account",
+  "description": "Represents a Binance user account with balances, permissions, and commission rates.",
+  "type": "object",
+  "properties": {
+    "makerCommission": {
+      "type": "integer",
+      "description": "Maker commission rate in basis points."
+    },
+    "takerCommission": {
+      "type": "integer",
+      "description": "Taker commission rate in basis points."
+    },
+    "buyerCommission": {
+      "type": "integer",
+      "description": "Buyer commission rate in basis points."
+    },
+    "sellerCommission": {
+      "type": "integer",
+      "description": "Seller commission rate in basis points."
+    },
+    "commissionRates": {
+      "type": "object",
+      "description": "Detailed commission rate structure.",
+      "properties": {
+        "maker": {
+          "type": "string",
+          "description": "Maker rate as decimal string."
+        },
+        "taker": {
+          "type": "string",
+          "description": "Taker rate as decimal string."
+        },
+        "buyer": {
+          "type": "string",
+          "description": "Buyer rate as decimal string."
+        },
+        "seller": {
+          "type": "string",
+          "description": "Seller rate as decimal string."
+        }
+      }
+    },
+    "canTrade": {
+      "type": "boolean",
+      "description": "Whether the account has trading permission."
+    },
+    "canWithdraw": {
+      "type": "boolean",
+      "description": "Whether the account has withdrawal permission."
+    },
+    "canDeposit": {
+      "type": "boolean",
+      "description": "Whether the account has deposit permission."
+    },
+    "brokered": {
+      "type": "boolean",
+      "description": "Whether this is a brokered account."
+    },
+    "requireSelfTradePrevention": {
+      "type": "boolean",
+      "description": "Whether self-trade prevention is required."
+    },
+    "preventSor": {
+      "type": "boolean",
+      "description": "Whether Smart Order Routing is prevented."
+    },
+    "updateTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Last account update time in milliseconds since epoch."
+    },
+    "accountType": {
+      "type": "string",
+      "description": "Account type identifier.",
+      "enum": ["SPOT", "MARGIN", "FUTURES"]
+    },
+    "balances": {
+      "type": "array",
+      "description": "List of asset balances in the account.",
+      "items": {
+        "$ref": "#/$defs/Balance"
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "description": "Account permission types.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "uid": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unique user identifier."
+    }
+  },
+  "$defs": {
+    "Balance": {
+      "type": "object",
+      "description": "Asset balance within an account.",
+      "required": ["asset", "free", "locked"],
+      "properties": {
+        "asset": {
+          "type": "string",
+          "description": "Asset symbol, e.g. BTC, USDT.",
+          "pattern": "^[A-Z0-9]+$"
+        },
+        "free": {
+          "type": "string",
+          "description": "Available balance for trading and withdrawal.",
+          "pattern": "^\\d+\\.?\\d*$"
+        },
+        "locked": {
+          "type": "string",
+          "description": "Balance locked in open orders or pending operations.",
+          "pattern": "^\\d+\\.?\\d*$"
+        }
+      }
+    }
+  }
+}

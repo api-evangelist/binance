@@ -1,0 +1,869 @@
+openapi: 3.1.0
+info:
+  title: Binance European Options API
+  description: >-
+    The Binance European Options API provides access to European-style
+    cryptocurrency options contracts. Developers can trade call and put
+    options on assets like BTC and ETH, query options chains with various
+    strike prices and expiration dates, and retrieve options-specific market
+    data including implied volatility and Greeks.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance European Options Documentation
+  url: https://developers.binance.com/docs/derivatives/option/general-info
+servers:
+  - url: https://eapi.binance.com
+    description: Production Server
+tags:
+  - name: Market Data
+    description: >-
+      Public market data for options including exchange info, order book,
+      trades, klines, mark price, and open interest.
+  - name: Trading
+    description: >-
+      Options trading endpoints for placing and managing orders.
+  - name: Account
+    description: >-
+      Account endpoints for options positions, balances, and history.
+  - name: User Data Stream
+    description: >-
+      User data stream listen key management for options.
+security:
+  - apiKey: []
+paths:
+  /eapi/v1/ping:
+    get:
+      operationId: testConnectivity
+      summary: Test connectivity
+      description: >-
+        Test connectivity to the options REST API.
+      tags:
+        - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security: []
+  /eapi/v1/time:
+    get:
+      operationId: getServerTime
+      summary: Check server time
+      description: >-
+        Get the current server time.
+      tags:
+        - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serverTime:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Current server time in milliseconds.
+      security: []
+  /eapi/v1/exchangeInfo:
+    get:
+      operationId: getExchangeInfo
+      summary: Exchange information
+      description: >-
+        Get current options exchange information including available
+        options symbols, strike prices, and expiration dates.
+      tags:
+        - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timezone:
+                    type: string
+                    description: >-
+                      Server timezone.
+                  serverTime:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Server time.
+                  optionContracts:
+                    type: array
+                    items:
+                      type: object
+                    description: >-
+                      Available option contracts.
+                  optionAssets:
+                    type: array
+                    items:
+                      type: object
+                    description: >-
+                      Available option assets.
+                  optionSymbols:
+                    type: array
+                    items:
+                      type: object
+                    description: >-
+                      Available option symbols with details.
+                  rateLimits:
+                    type: array
+                    items:
+                      type: object
+                    description: >-
+                      Rate limit rules.
+      security: []
+  /eapi/v1/depth:
+    get:
+      operationId: getOrderBook
+      summary: Order book
+      description: >-
+        Get the current order book for an options symbol.
+      tags:
+        - Market Data
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: >-
+            Option symbol, e.g. BTC-250328-80000-C.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: >-
+            Number of levels. Default 100.
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bids:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                    description: >-
+                      Bid levels.
+                  asks:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                    description: >-
+                      Ask levels.
+      security: []
+  /eapi/v1/trades:
+    get:
+      operationId: getRecentTrades
+      summary: Recent trades list
+      description: >-
+        Get recent options trades.
+      tags:
+        - Market Data
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: >-
+            Option symbol.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: >-
+            Number of trades. Default 100, max 500.
+          schema:
+            type: integer
+            default: 100
+            maximum: 500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      format: int64
+                      description: >-
+                        Trade ID.
+                    symbol:
+                      type: string
+                      description: >-
+                        Option symbol.
+                    price:
+                      type: string
+                      description: >-
+                        Trade price.
+                    qty:
+                      type: string
+                      description: >-
+                        Trade quantity.
+                    quoteQty:
+                      type: string
+                      description: >-
+                        Quote quantity.
+                    side:
+                      type: integer
+                      description: >-
+                        Trade side. -1 for sell, 1 for buy.
+                    time:
+                      type: integer
+                      format: int64
+                      description: >-
+                        Trade time.
+      security: []
+  /eapi/v1/klines:
+    get:
+      operationId: getKlines
+      summary: Kline/Candlestick data
+      description: >-
+        Get kline/candlestick data for an options symbol.
+      tags:
+        - Market Data
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: interval
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 12h, 1d, 3d, 1w, 1M]
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 500
+            maximum: 1500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+      security: []
+  /eapi/v1/mark:
+    get:
+      operationId: getMarkPrice
+      summary: Option mark price
+      description: >-
+        Get mark price for options symbols.
+      tags:
+        - Market Data
+      parameters:
+        - name: symbol
+          in: query
+          description: >-
+            Option symbol. If not specified, returns all symbols.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      description: >-
+                        Option symbol.
+                    markPrice:
+                      type: string
+                      description: >-
+                        Mark price.
+                    bidIV:
+                      type: string
+                      description: >-
+                        Bid implied volatility.
+                    askIV:
+                      type: string
+                      description: >-
+                        Ask implied volatility.
+                    markIV:
+                      type: string
+                      description: >-
+                        Mark implied volatility.
+                    delta:
+                      type: string
+                      description: >-
+                        Option delta.
+                    theta:
+                      type: string
+                      description: >-
+                        Option theta.
+                    gamma:
+                      type: string
+                      description: >-
+                        Option gamma.
+                    vega:
+                      type: string
+                      description: >-
+                        Option vega.
+                    highPriceLimit:
+                      type: string
+                      description: >-
+                        Upper price limit.
+                    lowPriceLimit:
+                      type: string
+                      description: >-
+                        Lower price limit.
+      security: []
+  /eapi/v1/ticker:
+    get:
+      operationId: getTicker
+      summary: 24hr ticker price change statistics
+      description: >-
+        Get 24-hour ticker statistics for options.
+      tags:
+        - Market Data
+      parameters:
+        - name: symbol
+          in: query
+          description: >-
+            Option symbol.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                    priceChange:
+                      type: string
+                    priceChangePercent:
+                      type: string
+                    lastPrice:
+                      type: string
+                    lastQty:
+                      type: string
+                    open:
+                      type: string
+                    high:
+                      type: string
+                    low:
+                      type: string
+                    volume:
+                      type: string
+                    amount:
+                      type: string
+                    bidPrice:
+                      type: string
+                    askPrice:
+                      type: string
+                    openTime:
+                      type: integer
+                      format: int64
+                    closeTime:
+                      type: integer
+                      format: int64
+                    firstTradeId:
+                      type: integer
+                      format: int64
+                    tradeCount:
+                      type: integer
+                    strikePrice:
+                      type: string
+                    exercisePrice:
+                      type: string
+      security: []
+  /eapi/v1/openInterest:
+    get:
+      operationId: getOpenInterest
+      summary: Open interest
+      description: >-
+        Get open interest for an options underlying asset.
+      tags:
+        - Market Data
+      parameters:
+        - name: underlyingAsset
+          in: query
+          required: true
+          description: >-
+            Underlying asset, e.g. BTC.
+          schema:
+            type: string
+        - name: expiration
+          in: query
+          required: true
+          description: >-
+            Expiration date, e.g. 250328.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                    sumOpenInterest:
+                      type: string
+                    sumOpenInterestUsd:
+                      type: string
+                    timestamp:
+                      type: string
+      security: []
+  /eapi/v1/order:
+    post:
+      operationId: createOrder
+      summary: New order
+      description: >-
+        Send in a new options order.
+      tags:
+        - Trading
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: >-
+            Option symbol.
+          schema:
+            type: string
+        - name: side
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [BUY, SELL]
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [LIMIT]
+        - name: quantity
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: price
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: timeInForce
+          in: query
+          schema:
+            type: string
+            enum: [GTC, IOC, FOK]
+        - name: reduceOnly
+          in: query
+          schema:
+            type: boolean
+        - name: postOnly
+          in: query
+          schema:
+            type: boolean
+        - name: newOrderRespType
+          in: query
+          schema:
+            type: string
+            enum: [ACK, RESULT]
+        - name: clientOrderId
+          in: query
+          schema:
+            type: string
+        - name: isMmp
+          in: query
+          description: >-
+            Market maker protection flag.
+          schema:
+            type: boolean
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKey: []
+          hmacSignature: []
+    get:
+      operationId: getOrder
+      summary: Query single order
+      description: >-
+        Check an options order status.
+      tags:
+        - Trading
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: orderId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: clientOrderId
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+    delete:
+      operationId: cancelOrder
+      summary: Cancel order
+      description: >-
+        Cancel an active options order.
+      tags:
+        - Trading
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: orderId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: clientOrderId
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /eapi/v1/openOrders:
+    get:
+      operationId: getOpenOrders
+      summary: Query current open orders
+      description: >-
+        Get all open options orders.
+      tags:
+        - Trading
+      parameters:
+        - name: symbol
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /eapi/v1/position:
+    get:
+      operationId: getPosition
+      summary: Option position information
+      description: >-
+        Get current options position information.
+      tags:
+        - Account
+      parameters:
+        - name: symbol
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                    side:
+                      type: string
+                    quantity:
+                      type: string
+                    reducibleQty:
+                      type: string
+                    markValue:
+                      type: string
+                    ror:
+                      type: string
+                    unrealizedPNL:
+                      type: string
+                    markPrice:
+                      type: string
+                    strikePrice:
+                      type: string
+                    positionCost:
+                      type: string
+                    expiryDate:
+                      type: integer
+                      format: int64
+                    priceScale:
+                      type: integer
+                    quantityScale:
+                      type: integer
+                    optionSide:
+                      type: string
+                    quoteAsset:
+                      type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /eapi/v1/account:
+    get:
+      operationId: getAccountInfo
+      summary: Account information
+      description: >-
+        Get current options account information.
+      tags:
+        - Account
+      parameters:
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /eapi/v1/listenKey:
+    post:
+      operationId: createListenKey
+      summary: Start user data stream
+      description: >-
+        Start a new options user data stream.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  listenKey:
+                    type: string
+      security:
+        - apiKey: []
+    put:
+      operationId: keepAliveListenKey
+      summary: Keepalive user data stream
+      description: >-
+        Keepalive an options user data stream.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+    delete:
+      operationId: closeListenKey
+      summary: Close user data stream
+      description: >-
+        Close an options user data stream.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string

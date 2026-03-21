@@ -1,0 +1,413 @@
+openapi: 3.1.0
+info:
+  title: Binance Sub-Account API
+  description: >-
+    The Binance Sub-Account API enables institutional and enterprise users
+    to manage multiple sub-accounts under a master account. Developers can
+    create and manage sub-accounts, transfer assets between them, set
+    trading permissions, and query sub-account balances and transaction
+    histories.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Sub-Account Documentation
+  url: https://developers.binance.com/docs/sub_account/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Sub-Account Management
+    description: >-
+      Endpoints for creating and managing sub-accounts.
+  - name: Sub-Account Assets
+    description: >-
+      Endpoints for querying and transferring sub-account assets.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/sub-account/list:
+    get:
+      operationId: getSubAccountList
+      summary: Query sub-account list
+      description: >-
+        Get the list of sub-accounts under the master account.
+      tags:
+        - Sub-Account Management
+      parameters:
+        - name: email
+          in: query
+          description: >-
+            Sub-account email.
+          schema:
+            type: string
+        - name: isFreeze
+          in: query
+          description: >-
+            Filter by freeze status.
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 1
+            maximum: 200
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subAccounts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                        isFreeze:
+                          type: boolean
+                        createTime:
+                          type: integer
+                          format: int64
+                        isManagedSubAccount:
+                          type: boolean
+                        isAssetManagementSubAccount:
+                          type: boolean
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/sub-account/virtualSubAccount:
+    post:
+      operationId: createVirtualSubAccount
+      summary: Create a virtual sub-account
+      description: >-
+        Create a virtual sub-account under the master account.
+      tags:
+        - Sub-Account Management
+      parameters:
+        - name: subAccountString
+          in: query
+          required: true
+          description: >-
+            Sub-account email prefix.
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v3/sub-account/assets:
+    get:
+      operationId: getSubAccountAssets
+      summary: Query sub-account assets
+      description: >-
+        Fetch sub-account assets.
+      tags:
+        - Sub-Account Assets
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balances:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        asset:
+                          type: string
+                        free:
+                          type: string
+                        locked:
+                          type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/sub-account/universalTransfer:
+    post:
+      operationId: universalTransfer
+      summary: Universal transfer
+      description: >-
+        Transfer assets between sub-accounts or between master and sub-accounts.
+      tags:
+        - Sub-Account Assets
+      parameters:
+        - name: fromEmail
+          in: query
+          schema:
+            type: string
+        - name: toEmail
+          in: query
+          schema:
+            type: string
+        - name: fromAccountType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [SPOT, USDT_FUTURE, COIN_FUTURE, MARGIN, ISOLATED_MARGIN]
+        - name: toAccountType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [SPOT, USDT_FUTURE, COIN_FUTURE, MARGIN, ISOLATED_MARGIN]
+        - name: clientTranId
+          in: query
+          schema:
+            type: string
+        - name: asset
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tranId:
+                    type: integer
+                    format: int64
+                  clientTranId:
+                    type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+    get:
+      operationId: getUniversalTransferHistory
+      summary: Query universal transfer history
+      description: >-
+        Query sub-account universal transfer history.
+      tags:
+        - Sub-Account Assets
+      parameters:
+        - name: fromEmail
+          in: query
+          schema:
+            type: string
+        - name: toEmail
+          in: query
+          schema:
+            type: string
+        - name: clientTranId
+          in: query
+          schema:
+            type: string
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 500
+            maximum: 500
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      type: object
+                  totalCount:
+                    type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/sub-account/status:
+    get:
+      operationId: getSubAccountStatus
+      summary: Query sub-account status
+      description: >-
+        Get sub-account status including margin and futures enable status.
+      tags:
+        - Sub-Account Management
+      parameters:
+        - name: email
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    isSubUserEnabled:
+                      type: boolean
+                    isUserActive:
+                      type: boolean
+                    insertTime:
+                      type: integer
+                      format: int64
+                    isMarginEnabled:
+                      type: boolean
+                    isFutureEnabled:
+                      type: boolean
+                    mobile:
+                      type: integer
+                      format: int64
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

@@ -1,0 +1,253 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "binance": "https://api.binance.com/schema/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "fibo": "https://spec.edmcouncil.org/fibo/ontology/",
+
+    "TradingPair": {
+      "@id": "binance:TradingPair",
+      "@context": {
+        "symbol": "binance:symbol",
+        "baseAsset": "binance:baseAsset",
+        "quoteAsset": "binance:quoteAsset",
+        "status": "binance:status",
+        "baseAssetPrecision": {
+          "@id": "binance:baseAssetPrecision",
+          "@type": "xsd:integer"
+        },
+        "quotePrecision": {
+          "@id": "binance:quotePrecision",
+          "@type": "xsd:integer"
+        },
+        "isSpotTradingAllowed": {
+          "@id": "binance:isSpotTradingAllowed",
+          "@type": "xsd:boolean"
+        },
+        "isMarginTradingAllowed": {
+          "@id": "binance:isMarginTradingAllowed",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "Order": {
+      "@id": "binance:Order",
+      "@context": {
+        "orderId": {
+          "@id": "schema:identifier",
+          "@type": "xsd:long"
+        },
+        "symbol": "binance:symbol",
+        "side": "binance:side",
+        "type": "binance:orderType",
+        "status": "binance:orderStatus",
+        "price": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "origQty": {
+          "@id": "binance:originalQuantity",
+          "@type": "xsd:decimal"
+        },
+        "executedQty": {
+          "@id": "binance:executedQuantity",
+          "@type": "xsd:decimal"
+        },
+        "time": {
+          "@id": "dcterms:created",
+          "@type": "xsd:long"
+        },
+        "updateTime": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:long"
+        },
+        "timeInForce": "binance:timeInForce",
+        "clientOrderId": "binance:clientOrderId"
+      }
+    },
+
+    "Trade": {
+      "@id": "binance:Trade",
+      "@context": {
+        "tradeId": {
+          "@id": "schema:identifier",
+          "@type": "xsd:long"
+        },
+        "symbol": "binance:symbol",
+        "price": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "quantity": {
+          "@id": "binance:quantity",
+          "@type": "xsd:decimal"
+        },
+        "commission": {
+          "@id": "binance:commission",
+          "@type": "xsd:decimal"
+        },
+        "commissionAsset": "binance:commissionAsset",
+        "time": {
+          "@id": "dcterms:created",
+          "@type": "xsd:long"
+        },
+        "isBuyer": {
+          "@id": "binance:isBuyer",
+          "@type": "xsd:boolean"
+        },
+        "isMaker": {
+          "@id": "binance:isMaker",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "Account": {
+      "@id": "binance:Account",
+      "@context": {
+        "uid": {
+          "@id": "schema:identifier",
+          "@type": "xsd:long"
+        },
+        "accountType": "binance:accountType",
+        "canTrade": {
+          "@id": "binance:canTrade",
+          "@type": "xsd:boolean"
+        },
+        "canWithdraw": {
+          "@id": "binance:canWithdraw",
+          "@type": "xsd:boolean"
+        },
+        "canDeposit": {
+          "@id": "binance:canDeposit",
+          "@type": "xsd:boolean"
+        },
+        "updateTime": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:long"
+        },
+        "balances": {
+          "@id": "binance:balances",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Balance": {
+      "@id": "binance:Balance",
+      "@context": {
+        "asset": "binance:asset",
+        "free": {
+          "@id": "binance:freeBalance",
+          "@type": "xsd:decimal"
+        },
+        "locked": {
+          "@id": "binance:lockedBalance",
+          "@type": "xsd:decimal"
+        }
+      }
+    },
+
+    "Kline": {
+      "@id": "binance:Kline",
+      "@context": {
+        "symbol": "binance:symbol",
+        "interval": "binance:interval",
+        "openTime": {
+          "@id": "binance:openTime",
+          "@type": "xsd:long"
+        },
+        "closeTime": {
+          "@id": "binance:closeTime",
+          "@type": "xsd:long"
+        },
+        "open": {
+          "@id": "binance:openPrice",
+          "@type": "xsd:decimal"
+        },
+        "high": {
+          "@id": "binance:highPrice",
+          "@type": "xsd:decimal"
+        },
+        "low": {
+          "@id": "binance:lowPrice",
+          "@type": "xsd:decimal"
+        },
+        "close": {
+          "@id": "binance:closePrice",
+          "@type": "xsd:decimal"
+        },
+        "volume": {
+          "@id": "binance:volume",
+          "@type": "xsd:decimal"
+        },
+        "numberOfTrades": {
+          "@id": "binance:numberOfTrades",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "PaymentOrder": {
+      "@id": "binance:PaymentOrder",
+      "@context": {
+        "merchantTradeNo": "binance:merchantTradeNo",
+        "prepayId": {
+          "@id": "schema:identifier"
+        },
+        "totalFee": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "currency": {
+          "@id": "schema:priceCurrency"
+        },
+        "orderStatus": "binance:orderStatus",
+        "transactTime": {
+          "@id": "dcterms:created",
+          "@type": "xsd:long"
+        },
+        "checkoutUrl": {
+          "@id": "schema:url",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "FuturesPosition": {
+      "@id": "binance:FuturesPosition",
+      "@context": {
+        "symbol": "binance:symbol",
+        "positionAmt": {
+          "@id": "binance:positionAmount",
+          "@type": "xsd:decimal"
+        },
+        "entryPrice": {
+          "@id": "binance:entryPrice",
+          "@type": "xsd:decimal"
+        },
+        "markPrice": {
+          "@id": "binance:markPrice",
+          "@type": "xsd:decimal"
+        },
+        "unRealizedProfit": {
+          "@id": "binance:unrealizedProfit",
+          "@type": "xsd:decimal"
+        },
+        "liquidationPrice": {
+          "@id": "binance:liquidationPrice",
+          "@type": "xsd:decimal"
+        },
+        "leverage": {
+          "@id": "binance:leverage",
+          "@type": "xsd:decimal"
+        },
+        "marginType": "binance:marginType",
+        "positionSide": "binance:positionSide"
+      }
+    }
+  }
+}

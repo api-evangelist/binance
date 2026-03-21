@@ -1,0 +1,287 @@
+asyncapi: 2.6.0
+info:
+  title: Binance Spot WebSocket API
+  description: >-
+    The Binance Spot WebSocket API provides an alternative way to access
+    spot trading functionality through persistent WebSocket connections. It
+    is functionally equivalent to the REST API, accepting the same parameters
+    and returning the same status and error codes, but offers lower latency
+    for time-sensitive trading operations. Developers can place orders, cancel
+    orders, and query account information over a single WebSocket connection.
+  version: '1.0.0'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  externalDocs:
+    description: Binance Spot WebSocket API Documentation
+    url: https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api
+servers:
+  production:
+    url: wss://ws-api.binance.com:443/ws-api/v3
+    protocol: wss
+    description: >-
+      Production WebSocket API server for spot trading operations.
+  testnet:
+    url: wss://testnet.binance.vision/ws-api/v3
+    protocol: wss
+    description: >-
+      Testnet WebSocket API server.
+channels:
+  /:
+    description: >-
+      Single WebSocket connection for sending trading requests and
+      receiving responses. All requests and responses are JSON-formatted
+      messages on this channel. Requests include a method name and
+      parameters; responses include a matching id field.
+    publish:
+      operationId: receiveResponse
+      summary: Receive API responses
+      message:
+        oneOf:
+          - $ref: '#/components/messages/OrderResponse'
+          - $ref: '#/components/messages/AccountResponse'
+          - $ref: '#/components/messages/MarketDataResponse'
+          - $ref: '#/components/messages/ErrorResponse'
+    subscribe:
+      operationId: sendRequest
+      summary: Send API requests
+      message:
+        oneOf:
+          - $ref: '#/components/messages/OrderRequest'
+          - $ref: '#/components/messages/CancelOrderRequest'
+          - $ref: '#/components/messages/AccountRequest'
+          - $ref: '#/components/messages/MarketDataRequest'
+components:
+  messages:
+    OrderRequest:
+      name: orderRequest
+      title: Order Request
+      summary: >-
+        Request to place a new order via WebSocket.
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+            description: >-
+              Arbitrary ID used to match responses.
+          method:
+            type: string
+            description: >-
+              Method name, e.g. order.place.
+            enum:
+              - order.place
+              - order.test
+          params:
+            type: object
+            description: >-
+              Order parameters matching REST API.
+            properties:
+              symbol:
+                type: string
+              side:
+                type: string
+                enum: [BUY, SELL]
+              type:
+                type: string
+              timeInForce:
+                type: string
+              price:
+                type: string
+              quantity:
+                type: string
+              apiKey:
+                type: string
+              signature:
+                type: string
+              timestamp:
+                type: integer
+                format: int64
+    CancelOrderRequest:
+      name: cancelOrderRequest
+      title: Cancel Order Request
+      summary: >-
+        Request to cancel an order via WebSocket.
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+          method:
+            type: string
+            enum:
+              - order.cancel
+              - openOrders.cancelAll
+          params:
+            type: object
+            properties:
+              symbol:
+                type: string
+              orderId:
+                type: integer
+                format: int64
+              origClientOrderId:
+                type: string
+              apiKey:
+                type: string
+              signature:
+                type: string
+              timestamp:
+                type: integer
+                format: int64
+    AccountRequest:
+      name: accountRequest
+      title: Account Request
+      summary: >-
+        Request for account information via WebSocket.
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+          method:
+            type: string
+            enum:
+              - account.status
+              - order.status
+              - openOrders.status
+              - allOrders
+              - myTrades
+          params:
+            type: object
+            properties:
+              symbol:
+                type: string
+              apiKey:
+                type: string
+              signature:
+                type: string
+              timestamp:
+                type: integer
+                format: int64
+    MarketDataRequest:
+      name: marketDataRequest
+      title: Market Data Request
+      summary: >-
+        Request for market data via WebSocket.
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+          method:
+            type: string
+            enum:
+              - ping
+              - time
+              - exchangeInfo
+              - depth
+              - trades.recent
+              - trades.historical
+              - trades.aggregate
+              - klines
+              - avgPrice
+              - ticker.24hr
+              - ticker.price
+              - ticker.book
+          params:
+            type: object
+            properties:
+              symbol:
+                type: string
+              symbols:
+                type: array
+                items:
+                  type: string
+              limit:
+                type: integer
+    OrderResponse:
+      name: orderResponse
+      title: Order Response
+      summary: >-
+        Response to an order request.
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+          status:
+            type: integer
+          result:
+            type: object
+            properties:
+              symbol:
+                type: string
+              orderId:
+                type: integer
+                format: int64
+              clientOrderId:
+                type: string
+              transactTime:
+                type: integer
+                format: int64
+              price:
+                type: string
+              origQty:
+                type: string
+              executedQty:
+                type: string
+              status:
+                type: string
+              timeInForce:
+                type: string
+              type:
+                type: string
+              side:
+                type: string
+          rateLimits:
+            type: array
+            items:
+              type: object
+    AccountResponse:
+      name: accountResponse
+      title: Account Response
+      summary: >-
+        Response to an account query.
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+          status:
+            type: integer
+          result:
+            type: object
+    MarketDataResponse:
+      name: marketDataResponse
+      title: Market Data Response
+      summary: >-
+        Response to a market data query.
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+          status:
+            type: integer
+          result:
+            type: object
+    ErrorResponse:
+      name: errorResponse
+      title: Error Response
+      summary: >-
+        Error response for failed requests.
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+          status:
+            type: integer
+          error:
+            type: object
+            properties:
+              code:
+                type: integer
+              msg:
+                type: string

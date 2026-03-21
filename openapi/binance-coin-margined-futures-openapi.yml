@@ -1,0 +1,733 @@
+openapi: 3.1.0
+info:
+  title: Binance COIN-M Futures API
+  description: >-
+    The Binance COIN-M Futures API provides access to coin-margined perpetual
+    and delivery futures contracts, where the margin and settlement currency
+    is the base cryptocurrency rather than a stablecoin. This allows traders
+    to use BTC, ETH, and other cryptocurrencies as collateral for leveraged
+    positions.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance COIN-M Futures Documentation
+  url: https://developers.binance.com/docs/derivatives/coin-margined-futures/general-info
+servers:
+  - url: https://dapi.binance.com
+    description: Production Server
+  - url: https://demo-dapi.binance.com
+    description: Testnet Server
+tags:
+  - name: Market Data
+    description: >-
+      Public market data endpoints for COIN-M futures.
+  - name: Trading
+    description: >-
+      Trading endpoints for COIN-M futures orders.
+  - name: Account
+    description: >-
+      Account endpoints for COIN-M futures positions and balances.
+  - name: User Data Stream
+    description: >-
+      User data stream listen key management for COIN-M futures.
+security:
+  - apiKey: []
+paths:
+  /dapi/v1/ping:
+    get:
+      operationId: testConnectivity
+      summary: Test connectivity
+      description: >-
+        Test connectivity to the COIN-M futures REST API.
+      tags:
+        - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security: []
+  /dapi/v1/time:
+    get:
+      operationId: getServerTime
+      summary: Check server time
+      description: >-
+        Get the current server time.
+      tags:
+        - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serverTime:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Current server time in milliseconds.
+      security: []
+  /dapi/v1/exchangeInfo:
+    get:
+      operationId: getExchangeInfo
+      summary: Exchange information
+      description: >-
+        Get current COIN-M futures exchange trading rules and symbol
+        information.
+      tags:
+        - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exchangeFilters:
+                    type: array
+                    items:
+                      type: object
+                  rateLimits:
+                    type: array
+                    items:
+                      type: object
+                  serverTime:
+                    type: integer
+                    format: int64
+                  symbols:
+                    type: array
+                    items:
+                      type: object
+                  timezone:
+                    type: string
+      security: []
+  /dapi/v1/depth:
+    get:
+      operationId: getOrderBook
+      summary: Order book
+      description: >-
+        Get the current order book for a COIN-M futures symbol.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: limit
+          in: query
+          description: >-
+            Number of levels. Default 500.
+          schema:
+            type: integer
+            default: 500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lastUpdateId:
+                    type: integer
+                    format: int64
+                  bids:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                  asks:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+      security: []
+  /dapi/v1/trades:
+    get:
+      operationId: getRecentTrades
+      summary: Recent trades list
+      description: >-
+        Get recent COIN-M futures trades.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: limit
+          in: query
+          description: >-
+            Number of trades. Default 500, max 1000.
+          schema:
+            type: integer
+            default: 500
+            maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      format: int64
+                    price:
+                      type: string
+                    qty:
+                      type: string
+                    baseQty:
+                      type: string
+                    time:
+                      type: integer
+                      format: int64
+                    isBuyerMaker:
+                      type: boolean
+      security: []
+  /dapi/v1/klines:
+    get:
+      operationId: getKlines
+      summary: Kline/Candlestick data
+      description: >-
+        Get kline/candlestick data for a COIN-M futures symbol.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: interval
+          in: query
+          required: true
+          description: >-
+            Kline interval.
+          schema:
+            type: string
+            enum: [1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M]
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 500
+            maximum: 1500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+      security: []
+  /dapi/v1/premiumIndex:
+    get:
+      operationId: getMarkPrice
+      summary: Mark price
+      description: >-
+        Get mark price and funding rate for COIN-M futures.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbol'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      symbol:
+                        type: string
+                      pair:
+                        type: string
+                      markPrice:
+                        type: string
+                      indexPrice:
+                        type: string
+                      estimatedSettlePrice:
+                        type: string
+                      lastFundingRate:
+                        type: string
+                      nextFundingTime:
+                        type: integer
+                        format: int64
+                      interestRate:
+                        type: string
+                      time:
+                        type: integer
+                        format: int64
+                  - type: array
+                    items:
+                      type: object
+      security: []
+  /dapi/v1/fundingRate:
+    get:
+      operationId: getFundingRateHistory
+      summary: Get funding rate history
+      description: >-
+        Get historical funding rate data for COIN-M futures.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+            maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                    fundingRate:
+                      type: string
+                    fundingTime:
+                      type: integer
+                      format: int64
+      security: []
+  /dapi/v1/openInterest:
+    get:
+      operationId: getOpenInterest
+      summary: Open interest
+      description: >-
+        Get open interest for a COIN-M futures symbol.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  openInterest:
+                    type: string
+                  symbol:
+                    type: string
+                  pair:
+                    type: string
+                  contractType:
+                    type: string
+                  time:
+                    type: integer
+                    format: int64
+      security: []
+  /dapi/v1/order:
+    post:
+      operationId: createOrder
+      summary: New order
+      description: >-
+        Send in a new COIN-M futures order.
+      tags:
+        - Trading
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: side
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [BUY, SELL]
+        - name: positionSide
+          in: query
+          schema:
+            type: string
+            enum: [BOTH, LONG, SHORT]
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [LIMIT, MARKET, STOP, STOP_MARKET, TAKE_PROFIT, TAKE_PROFIT_MARKET, TRAILING_STOP_MARKET]
+        - name: timeInForce
+          in: query
+          schema:
+            type: string
+            enum: [GTC, IOC, FOK, GTX]
+        - name: quantity
+          in: query
+          schema:
+            type: string
+        - name: reduceOnly
+          in: query
+          schema:
+            type: boolean
+        - name: price
+          in: query
+          schema:
+            type: string
+        - name: newClientOrderId
+          in: query
+          schema:
+            type: string
+        - name: stopPrice
+          in: query
+          schema:
+            type: string
+        - name: activationPrice
+          in: query
+          schema:
+            type: string
+        - name: callbackRate
+          in: query
+          schema:
+            type: string
+        - name: workingType
+          in: query
+          schema:
+            type: string
+            enum: [MARK_PRICE, CONTRACT_PRICE]
+        - name: newOrderRespType
+          in: query
+          schema:
+            type: string
+            enum: [ACK, RESULT]
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKey: []
+          hmacSignature: []
+    get:
+      operationId: getOrder
+      summary: Query order
+      description: >-
+        Check an order's status.
+      tags:
+        - Trading
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: orderId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: origClientOrderId
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+    delete:
+      operationId: cancelOrder
+      summary: Cancel order
+      description: >-
+        Cancel an active COIN-M futures order.
+      tags:
+        - Trading
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: orderId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: origClientOrderId
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /dapi/v1/openOrders:
+    get:
+      operationId: getOpenOrders
+      summary: Current all open orders
+      description: >-
+        Get all open COIN-M futures orders.
+      tags:
+        - Trading
+      parameters:
+        - $ref: '#/components/parameters/symbol'
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /dapi/v1/account:
+    get:
+      operationId: getAccountInfo
+      summary: Account information
+      description: >-
+        Get current COIN-M futures account information.
+      tags:
+        - Account
+      parameters:
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /dapi/v1/balance:
+    get:
+      operationId: getBalance
+      summary: Account balance
+      description: >-
+        Get COIN-M futures account balance.
+      tags:
+        - Account
+      parameters:
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /dapi/v1/positionRisk:
+    get:
+      operationId: getPositionRisk
+      summary: Position information
+      description: >-
+        Get current COIN-M position information.
+      tags:
+        - Account
+      parameters:
+        - $ref: '#/components/parameters/symbol'
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /dapi/v1/leverage:
+    post:
+      operationId: changeLeverage
+      summary: Change initial leverage
+      description: >-
+        Change initial leverage for a COIN-M futures symbol.
+      tags:
+        - Account
+      parameters:
+        - $ref: '#/components/parameters/symbolRequired'
+        - name: leverage
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 125
+        - $ref: '#/components/parameters/recvWindow'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /dapi/v1/listenKey:
+    post:
+      operationId: createListenKey
+      summary: Start user data stream
+      description: >-
+        Start a new COIN-M futures user data stream.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  listenKey:
+                    type: string
+      security:
+        - apiKey: []
+    put:
+      operationId: keepAliveListenKey
+      summary: Keepalive user data stream
+      description: >-
+        Keepalive a COIN-M futures user data stream.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+    delete:
+      operationId: closeListenKey
+      summary: Close user data stream
+      description: >-
+        Close a COIN-M futures user data stream.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+  parameters:
+    symbol:
+      name: symbol
+      in: query
+      schema:
+        type: string
+    symbolRequired:
+      name: symbol
+      in: query
+      required: true
+      schema:
+        type: string
+    recvWindow:
+      name: recvWindow
+      in: query
+      schema:
+        type: integer
+    timestamp:
+      name: timestamp
+      in: query
+      required: true
+      schema:
+        type: integer
+        format: int64
+    signature:
+      name: signature
+      in: query
+      required: true
+      schema:
+        type: string
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string

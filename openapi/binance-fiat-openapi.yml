@@ -1,0 +1,255 @@
+openapi: 3.1.0
+info:
+  title: Binance Fiat API
+  description: >-
+    The Binance Fiat API provides access to fiat currency deposit and
+    withdrawal operations on the Binance platform. Developers can query
+    fiat deposit and withdrawal order history, check available fiat
+    payment methods, and retrieve transaction details for fiat-to-crypto
+    and crypto-to-fiat conversions.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Fiat Documentation
+  url: https://developers.binance.com/docs/fiat/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Fiat
+    description: >-
+      Fiat deposit, withdrawal, and payment history endpoints.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/fiat/orders:
+    get:
+      operationId: getFiatDepositWithdrawHistory
+      summary: Get fiat deposit/withdraw history
+      description: >-
+        Get fiat deposit or withdrawal order history.
+      tags:
+        - Fiat
+      parameters:
+        - name: transactionType
+          in: query
+          required: true
+          description: >-
+            0 for deposit, 1 for withdraw.
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: beginTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: rows
+          in: query
+          description: >-
+            Number of rows. Default 100, max 500.
+          schema:
+            type: integer
+            default: 100
+            maximum: 500
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        orderNo:
+                          type: string
+                          description: >-
+                            Order number.
+                        fiatCurrency:
+                          type: string
+                          description: >-
+                            Fiat currency code.
+                        indicatedAmount:
+                          type: string
+                          description: >-
+                            Indicated amount.
+                        amount:
+                          type: string
+                          description: >-
+                            Actual amount.
+                        totalFee:
+                          type: string
+                          description: >-
+                            Total fee.
+                        method:
+                          type: string
+                          description: >-
+                            Payment method.
+                        status:
+                          type: string
+                          description: >-
+                            Order status.
+                        createTime:
+                          type: integer
+                          format: int64
+                          description: >-
+                            Order creation time.
+                        updateTime:
+                          type: integer
+                          format: int64
+                          description: >-
+                            Last update time.
+                  total:
+                    type: integer
+                  success:
+                    type: boolean
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/fiat/payments:
+    get:
+      operationId: getFiatPaymentsHistory
+      summary: Get fiat payments history
+      description: >-
+        Get fiat-to-crypto and crypto-to-fiat payment history.
+      tags:
+        - Fiat
+      parameters:
+        - name: transactionType
+          in: query
+          required: true
+          description: >-
+            0 for buy, 1 for sell.
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: beginTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: rows
+          in: query
+          schema:
+            type: integer
+            default: 100
+            maximum: 500
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        orderNo:
+                          type: string
+                        sourceAmount:
+                          type: string
+                        fiatCurrency:
+                          type: string
+                        obtainAmount:
+                          type: string
+                        cryptoCurrency:
+                          type: string
+                        totalFee:
+                          type: string
+                        price:
+                          type: string
+                        status:
+                          type: string
+                        paymentMethod:
+                          type: string
+                        createTime:
+                          type: integer
+                          format: int64
+                        updateTime:
+                          type: integer
+                          format: int64
+                  total:
+                    type: integer
+                  success:
+                    type: boolean
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

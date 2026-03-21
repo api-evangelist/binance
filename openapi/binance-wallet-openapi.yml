@@ -1,0 +1,859 @@
+openapi: 3.1.0
+info:
+  title: Binance Wallet API
+  description: >-
+    The Binance Wallet API provides endpoints for managing cryptocurrency
+    deposits, withdrawals, and account balances. Developers can query
+    deposit and withdrawal history, retrieve deposit addresses, initiate
+    withdrawals, check asset balances across all wallets, and access
+    network and fee information for supported coins.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Wallet Documentation
+  url: https://developers.binance.com/docs/wallet/introduction
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Deposits
+    description: >-
+      Deposit-related endpoints for addresses and history.
+  - name: Withdrawals
+    description: >-
+      Withdrawal endpoints for initiating and tracking withdrawals.
+  - name: Assets
+    description: >-
+      Asset balance and information endpoints.
+  - name: Account
+    description: >-
+      Account-level wallet operations and status.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/system/status:
+    get:
+      operationId: getSystemStatus
+      summary: System status
+      description: >-
+        Fetch system status. Returns 0 for normal and 1 for system
+        maintenance.
+      tags:
+        - Account
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: >-
+                      System status. 0 = normal, 1 = maintenance.
+                  msg:
+                    type: string
+                    description: >-
+                      Status message.
+      security: []
+  /sapi/v1/capital/config/getall:
+    get:
+      operationId: getAllCoinsInfo
+      summary: All coins information
+      description: >-
+        Get information of all coins available for deposit and withdrawal,
+        including networks and fee details.
+      tags:
+        - Assets
+      parameters:
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    coin:
+                      type: string
+                      description: >-
+                        Coin symbol.
+                    depositAllEnable:
+                      type: boolean
+                      description: >-
+                        Whether deposits are enabled.
+                    free:
+                      type: string
+                      description: >-
+                        Available balance.
+                    freeze:
+                      type: string
+                      description: >-
+                        Frozen balance.
+                    ipoable:
+                      type: string
+                      description: >-
+                        IPO-able balance.
+                    ipoing:
+                      type: string
+                      description: >-
+                        IPO-ing balance.
+                    isLegalMoney:
+                      type: boolean
+                      description: >-
+                        Whether the coin is legal money.
+                    locked:
+                      type: string
+                      description: >-
+                        Locked balance.
+                    name:
+                      type: string
+                      description: >-
+                        Full coin name.
+                    networkList:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          addressRegex:
+                            type: string
+                          coin:
+                            type: string
+                          depositDesc:
+                            type: string
+                          depositEnable:
+                            type: boolean
+                          isDefault:
+                            type: boolean
+                          memoRegex:
+                            type: string
+                          minConfirm:
+                            type: integer
+                          name:
+                            type: string
+                          network:
+                            type: string
+                          resetAddressStatus:
+                            type: boolean
+                          specialTips:
+                            type: string
+                          unLockConfirm:
+                            type: integer
+                          withdrawDesc:
+                            type: string
+                          withdrawEnable:
+                            type: boolean
+                          withdrawFee:
+                            type: string
+                          withdrawIntegerMultiple:
+                            type: string
+                          withdrawMax:
+                            type: string
+                          withdrawMin:
+                            type: string
+                          sameAddress:
+                            type: boolean
+                          estimatedArrivalTime:
+                            type: integer
+                          busy:
+                            type: boolean
+                      description: >-
+                        Available networks for the coin.
+                    storage:
+                      type: string
+                      description: >-
+                        Storage balance.
+                    trading:
+                      type: boolean
+                      description: >-
+                        Whether trading is enabled.
+                    withdrawAllEnable:
+                      type: boolean
+                      description: >-
+                        Whether withdrawals are enabled.
+                    withdrawing:
+                      type: string
+                      description: >-
+                        Withdrawing balance.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/capital/deposit/hisrec:
+    get:
+      operationId: getDepositHistory
+      summary: Deposit history
+      description: >-
+        Fetch deposit history.
+      tags:
+        - Deposits
+      parameters:
+        - name: coin
+          in: query
+          description: >-
+            Coin to query.
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: >-
+            Deposit status. 0=pending, 6=credited, 1=success.
+          schema:
+            type: integer
+            enum: [0, 1, 6]
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: offset
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: >-
+            Number of results. Default 1000, max 1000.
+          schema:
+            type: integer
+            default: 1000
+            maximum: 1000
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: txId
+          in: query
+          description: >-
+            Transaction ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    amount:
+                      type: string
+                    coin:
+                      type: string
+                    network:
+                      type: string
+                    status:
+                      type: integer
+                    address:
+                      type: string
+                    addressTag:
+                      type: string
+                    txId:
+                      type: string
+                    insertTime:
+                      type: integer
+                      format: int64
+                    transferType:
+                      type: integer
+                    confirmTimes:
+                      type: string
+                    unlockConfirm:
+                      type: integer
+                    walletType:
+                      type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/capital/deposit/address:
+    get:
+      operationId: getDepositAddress
+      summary: Deposit address
+      description: >-
+        Fetch deposit address for a coin and network.
+      tags:
+        - Deposits
+      parameters:
+        - name: coin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: network
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  address:
+                    type: string
+                    description: >-
+                      Deposit address.
+                  coin:
+                    type: string
+                    description: >-
+                      Coin symbol.
+                  tag:
+                    type: string
+                    description: >-
+                      Address tag/memo.
+                  url:
+                    type: string
+                    description: >-
+                      Explorer URL.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/capital/withdraw/apply:
+    post:
+      operationId: withdraw
+      summary: Withdraw
+      description: >-
+        Submit a withdrawal request.
+      tags:
+        - Withdrawals
+      parameters:
+        - name: coin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: withdrawOrderId
+          in: query
+          description: >-
+            Client ID for withdraw.
+          schema:
+            type: string
+        - name: network
+          in: query
+          schema:
+            type: string
+        - name: address
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: addressTag
+          in: query
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: transactionFeeFlag
+          in: query
+          description: >-
+            When true, the fee will be deducted from the amount.
+          schema:
+            type: boolean
+        - name: name
+          in: query
+          description: >-
+            Address label.
+          schema:
+            type: string
+        - name: walletType
+          in: query
+          description: >-
+            0 for spot wallet, 1 for funding wallet.
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: >-
+                      Withdrawal ID.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/capital/withdraw/history:
+    get:
+      operationId: getWithdrawHistory
+      summary: Withdraw history
+      description: >-
+        Fetch withdrawal history.
+      tags:
+        - Withdrawals
+      parameters:
+        - name: coin
+          in: query
+          schema:
+            type: string
+        - name: withdrawOrderId
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: >-
+            0=email sent, 1=cancelled, 2=awaiting approval, 3=rejected,
+            4=processing, 5=failure, 6=completed.
+          schema:
+            type: integer
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: offset
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 1000
+            maximum: 1000
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    amount:
+                      type: string
+                    transactionFee:
+                      type: string
+                    coin:
+                      type: string
+                    status:
+                      type: integer
+                    address:
+                      type: string
+                    txId:
+                      type: string
+                    applyTime:
+                      type: string
+                    network:
+                      type: string
+                    transferType:
+                      type: integer
+                    confirmNo:
+                      type: integer
+                    info:
+                      type: string
+                    walletType:
+                      type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/asset/dust:
+    post:
+      operationId: dustTransfer
+      summary: Dust transfer
+      description: >-
+        Convert dust (small balance assets) to BNB.
+      tags:
+        - Assets
+      parameters:
+        - name: asset
+          in: query
+          required: true
+          description: >-
+            Assets to convert, separated by comma.
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalServiceCharge:
+                    type: string
+                  totalTransfered:
+                    type: string
+                  transferResult:
+                    type: array
+                    items:
+                      type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/asset/assetDividend:
+    get:
+      operationId: getAssetDividend
+      summary: Asset dividend record
+      description: >-
+        Query asset dividend record.
+      tags:
+        - Assets
+      parameters:
+        - name: asset
+          in: query
+          schema:
+            type: string
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 500
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                  total:
+                    type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/asset/transfer:
+    post:
+      operationId: userUniversalTransfer
+      summary: User universal transfer
+      description: >-
+        Transfer assets between Binance accounts (spot, margin, futures,
+        etc.).
+      tags:
+        - Assets
+      parameters:
+        - name: type
+          in: query
+          required: true
+          description: >-
+            Transfer type, e.g. MAIN_UMFUTURE, MAIN_CMFUTURE,
+            MAIN_MARGIN, UMFUTURE_MAIN, etc.
+          schema:
+            type: string
+        - name: asset
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: fromSymbol
+          in: query
+          schema:
+            type: string
+        - name: toSymbol
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tranId:
+                    type: integer
+                    format: int64
+      security:
+        - apiKey: []
+          hmacSignature: []
+    get:
+      operationId: getUserUniversalTransferHistory
+      summary: Query user universal transfer history
+      description: >-
+        Query universal transfer history.
+      tags:
+        - Assets
+      parameters:
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: current
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 100
+        - name: fromSymbol
+          in: query
+          schema:
+            type: string
+        - name: toSymbol
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  rows:
+                    type: array
+                    items:
+                      type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/account/apiTradingStatus:
+    get:
+      operationId: getApiTradingStatus
+      summary: Account API trading status
+      description: >-
+        Fetch account API trading status with details.
+      tags:
+        - Account
+      parameters:
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      isLocked:
+                        type: boolean
+                      plannedRecoverTime:
+                        type: integer
+                        format: int64
+                      triggerCondition:
+                        type: object
+                      updateTime:
+                        type: integer
+                        format: int64
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

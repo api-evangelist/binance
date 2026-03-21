@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/binance/trade.json",
+  "title": "Binance Trade",
+  "description": "Represents a completed trade execution on the Binance exchange.",
+  "type": "object",
+  "required": ["symbol", "id", "price", "qty", "time"],
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol.",
+      "pattern": "^[A-Z0-9]+$"
+    },
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unique trade identifier."
+    },
+    "orderId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Order ID that generated this trade."
+    },
+    "orderListId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Order list ID if part of an OCO. -1 otherwise."
+    },
+    "price": {
+      "type": "string",
+      "description": "Trade execution price.",
+      "pattern": "^\\d+\\.?\\d*$"
+    },
+    "qty": {
+      "type": "string",
+      "description": "Trade quantity in base asset.",
+      "pattern": "^\\d+\\.?\\d*$"
+    },
+    "quoteQty": {
+      "type": "string",
+      "description": "Trade quantity in quote asset.",
+      "pattern": "^\\d+\\.?\\d*$"
+    },
+    "commission": {
+      "type": "string",
+      "description": "Commission amount charged for this trade.",
+      "pattern": "^\\d+\\.?\\d*$"
+    },
+    "commissionAsset": {
+      "type": "string",
+      "description": "Asset used for commission payment.",
+      "pattern": "^[A-Z0-9]+$"
+    },
+    "time": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Trade execution time in milliseconds since Unix epoch."
+    },
+    "isBuyer": {
+      "type": "boolean",
+      "description": "Whether the account was the buyer in this trade."
+    },
+    "isMaker": {
+      "type": "boolean",
+      "description": "Whether the account was the maker (liquidity provider) in this trade."
+    },
+    "isBestMatch": {
+      "type": "boolean",
+      "description": "Whether this trade was the best price match."
+    },
+    "isBuyerMaker": {
+      "type": "boolean",
+      "description": "Whether the buyer was the maker."
+    }
+  }
+}

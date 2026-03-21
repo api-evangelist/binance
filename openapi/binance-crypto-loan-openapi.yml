@@ -1,0 +1,379 @@
+openapi: 3.1.0
+info:
+  title: Binance Crypto Loan API
+  description: >-
+    The Binance Crypto Loan API provides programmatic access to
+    cryptocurrency-collateralized lending services. Developers can borrow
+    assets by pledging cryptocurrency as collateral, repay outstanding
+    loans, adjust collateral amounts, and query loan orders and repayment
+    history.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Crypto Loan Documentation
+  url: https://developers.binance.com/docs/crypto_loan/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Crypto Loan
+    description: >-
+      Loan borrowing, repayment, and query endpoints.
+security:
+  - apiKey: []
+paths:
+  /sapi/v2/loan/flexible/borrow:
+    post:
+      operationId: flexibleBorrow
+      summary: Flexible loan borrow
+      description: >-
+        Borrow assets via flexible crypto loan.
+      tags:
+        - Crypto Loan
+      parameters:
+        - name: loanCoin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: loanAmount
+          in: query
+          schema:
+            type: string
+        - name: collateralCoin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: collateralAmount
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  loanCoin:
+                    type: string
+                  loanAmount:
+                    type: string
+                  collateralCoin:
+                    type: string
+                  collateralAmount:
+                    type: string
+                  status:
+                    type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v2/loan/flexible/repay:
+    post:
+      operationId: flexibleRepay
+      summary: Flexible loan repay
+      description: >-
+        Repay a flexible crypto loan.
+      tags:
+        - Crypto Loan
+      parameters:
+        - name: loanCoin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: collateralCoin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: repayAmount
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: collateralReturn
+          in: query
+          schema:
+            type: boolean
+        - name: fullRepayment
+          in: query
+          schema:
+            type: boolean
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  loanCoin:
+                    type: string
+                  collateralCoin:
+                    type: string
+                  remainingDebt:
+                    type: string
+                  remainingCollateral:
+                    type: string
+                  fullRepayment:
+                    type: boolean
+                  currentLTV:
+                    type: string
+                  repayStatus:
+                    type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v2/loan/flexible/adjust/ltv:
+    post:
+      operationId: flexibleAdjustLtv
+      summary: Flexible loan adjust LTV
+      description: >-
+        Adjust the loan-to-value ratio by adding or removing collateral.
+      tags:
+        - Crypto Loan
+      parameters:
+        - name: loanCoin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: collateralCoin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: adjustmentAmount
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: direction
+          in: query
+          required: true
+          description: >-
+            ADDITIONAL to add collateral, REDUCED to remove.
+          schema:
+            type: string
+            enum: [ADDITIONAL, REDUCED]
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v2/loan/flexible/ongoing/orders:
+    get:
+      operationId: getFlexibleLoanOrders
+      summary: Get flexible loan ongoing orders
+      description: >-
+        Get ongoing flexible loan orders.
+      tags:
+        - Crypto Loan
+      parameters:
+        - name: loanCoin
+          in: query
+          schema:
+            type: string
+        - name: collateralCoin
+          in: query
+          schema:
+            type: string
+        - name: current
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 100
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                  total:
+                    type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v2/loan/flexible/loanable/data:
+    get:
+      operationId: getLoanableAssets
+      summary: Get flexible loan assets data
+      description: >-
+        Get available loanable assets and their details.
+      tags:
+        - Crypto Loan
+      parameters:
+        - name: loanCoin
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                  total:
+                    type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v2/loan/flexible/collateral/data:
+    get:
+      operationId: getCollateralAssets
+      summary: Get flexible loan collateral assets data
+      description: >-
+        Get available collateral assets and their details.
+      tags:
+        - Crypto Loan
+      parameters:
+        - name: collateralCoin
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                  total:
+                    type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

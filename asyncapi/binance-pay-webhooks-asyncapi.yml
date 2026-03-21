@@ -1,0 +1,140 @@
+asyncapi: 2.6.0
+info:
+  title: Binance Pay Webhooks
+  description: >-
+    Binance Pay sends webhook notifications to merchants for real-time
+    payment status updates. When a customer completes a payment or a
+    refund is processed, Binance Pay sends an HTTPS POST request to
+    the merchant's configured webhook URL with event details.
+  version: '1.0.0'
+  contact:
+    name: Binance Pay Support
+    url: https://merchant.binance.com/en/docs/getting-started
+  externalDocs:
+    description: Binance Pay Webhook Documentation
+    url: https://developers.binance.com/docs/binance-pay/introduction
+servers:
+  merchantWebhook:
+    url: '{merchantWebhookUrl}'
+    protocol: https
+    description: >-
+      Merchant-configured webhook endpoint that receives payment
+      notifications from Binance Pay.
+    variables:
+      merchantWebhookUrl:
+        description: >-
+          The HTTPS URL configured by the merchant to receive webhooks.
+channels:
+  /webhook:
+    description: >-
+      Webhook endpoint that receives Binance Pay event notifications.
+      Merchants must verify the signature header to authenticate
+      webhook requests.
+    publish:
+      operationId: receivePaymentNotification
+      summary: Receive payment event notifications
+      message:
+        oneOf:
+          - $ref: '#/components/messages/PaymentSuccess'
+          - $ref: '#/components/messages/PaymentCanceled'
+          - $ref: '#/components/messages/PaymentExpired'
+          - $ref: '#/components/messages/RefundSuccess'
+components:
+  messages:
+    PaymentSuccess:
+      name: paymentSuccess
+      title: Payment Success
+      summary: >-
+        Notification sent when a customer successfully completes a payment.
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    PaymentCanceled:
+      name: paymentCanceled
+      title: Payment Canceled
+      summary: >-
+        Notification sent when a payment is canceled.
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    PaymentExpired:
+      name: paymentExpired
+      title: Payment Expired
+      summary: >-
+        Notification sent when a payment order expires.
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    RefundSuccess:
+      name: refundSuccess
+      title: Refund Success
+      summary: >-
+        Notification sent when a refund is successfully processed.
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+  schemas:
+    WebhookPayload:
+      type: object
+      properties:
+        bizType:
+          type: string
+          description: >-
+            Business type. PAY for payments, PAY_REFUND for refunds.
+          enum:
+            - PAY
+            - PAY_REFUND
+        bizId:
+          type: string
+          description: >-
+            Unique business ID for the event.
+        bizStatus:
+          type: string
+          description: >-
+            Business status of the event.
+          enum:
+            - PAY_SUCCESS
+            - PAY_CLOSED
+            - REFUND_SUCCESS
+        merchantTradeNo:
+          type: string
+          description: >-
+            Merchant trade number from the original order.
+        productType:
+          type: string
+          description: >-
+            Product type.
+        productName:
+          type: string
+          description: >-
+            Product name.
+        transactTime:
+          type: integer
+          format: int64
+          description: >-
+            Transaction time in milliseconds.
+        totalFee:
+          type: string
+          description: >-
+            Total transaction amount.
+        currency:
+          type: string
+          description: >-
+            Transaction currency.
+        transactionId:
+          type: string
+          description: >-
+            Binance Pay transaction ID.
+        payerInfo:
+          type: object
+          description: >-
+            Payer information.
+          properties:
+            payerId:
+              type: string
+              description: >-
+                Payer ID.
+            payerName:
+              type: string
+              description: >-
+                Payer name.
+        commission:
+          type: string
+          description: >-
+            Commission amount.

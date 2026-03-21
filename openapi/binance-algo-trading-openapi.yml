@@ -1,0 +1,424 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Trading API
+  description: >-
+    The Binance Algo Trading API provides access to algorithmic order
+    execution strategies such as TWAP (Time-Weighted Average Price) and
+    volume participation algorithms. Developers can place large orders
+    that are automatically broken into smaller child orders and executed
+    over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Spot Algo
+    description: >-
+      Spot algorithmic trading endpoints.
+  - name: Futures Algo
+    description: >-
+      Futures algorithmic trading endpoints.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/algo/spot/newOrderTwap:
+    post:
+      operationId: createSpotTwapOrder
+      summary: Spot TWAP new order
+      description: >-
+        Place a new spot TWAP algorithmic order that executes over a
+        specified duration.
+      tags:
+        - Spot Algo
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: side
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [BUY, SELL]
+        - name: quantity
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: duration
+          in: query
+          required: true
+          description: >-
+            Duration in seconds. Min 300, max 86400.
+          schema:
+            type: integer
+            minimum: 300
+            maximum: 86400
+        - name: clientAlgoId
+          in: query
+          schema:
+            type: string
+        - name: limitPrice
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  algoId:
+                    type: integer
+                    format: int64
+                  success:
+                    type: boolean
+                  code:
+                    type: integer
+                  msg:
+                    type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/algo/spot/order:
+    delete:
+      operationId: cancelSpotAlgoOrder
+      summary: Cancel spot algo order
+      description: >-
+        Cancel an active spot algo order.
+      tags:
+        - Spot Algo
+      parameters:
+        - name: algoId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/algo/spot/openOrders:
+    get:
+      operationId: getSpotOpenAlgoOrders
+      summary: Query current spot algo open orders
+      description: >-
+        Get all open spot algo orders.
+      tags:
+        - Spot Algo
+      parameters:
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/algo/spot/historicalOrders:
+    get:
+      operationId: getSpotHistoricalAlgoOrders
+      summary: Query historical spot algo orders
+      description: >-
+        Get historical spot algo orders.
+      tags:
+        - Spot Algo
+      parameters:
+        - name: symbol
+          in: query
+          schema:
+            type: string
+        - name: side
+          in: query
+          schema:
+            type: string
+            enum: [BUY, SELL]
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            default: 100
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/algo/futures/newOrderVp:
+    post:
+      operationId: createFuturesVpOrder
+      summary: Futures volume participation new order
+      description: >-
+        Place a new futures volume participation algorithmic order.
+      tags:
+        - Futures Algo
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: side
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [BUY, SELL]
+        - name: positionSide
+          in: query
+          schema:
+            type: string
+            enum: [BOTH, LONG, SHORT]
+        - name: quantity
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: urgency
+          in: query
+          required: true
+          description: >-
+            Execution urgency. LOW, MEDIUM, HIGH.
+          schema:
+            type: string
+            enum: [LOW, MEDIUM, HIGH]
+        - name: clientAlgoId
+          in: query
+          schema:
+            type: string
+        - name: reduceOnly
+          in: query
+          schema:
+            type: boolean
+        - name: limitPrice
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  algoId:
+                    type: integer
+                    format: int64
+                  success:
+                    type: boolean
+                  code:
+                    type: integer
+                  msg:
+                    type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/algo/futures/newOrderTwap:
+    post:
+      operationId: createFuturesTwapOrder
+      summary: Futures TWAP new order
+      description: >-
+        Place a new futures TWAP algorithmic order.
+      tags:
+        - Futures Algo
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: side
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [BUY, SELL]
+        - name: positionSide
+          in: query
+          schema:
+            type: string
+            enum: [BOTH, LONG, SHORT]
+        - name: quantity
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: duration
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 300
+            maximum: 86400
+        - name: clientAlgoId
+          in: query
+          schema:
+            type: string
+        - name: reduceOnly
+          in: query
+          schema:
+            type: boolean
+        - name: limitPrice
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  algoId:
+                    type: integer
+                    format: int64
+                  success:
+                    type: boolean
+                  code:
+                    type: integer
+                  msg:
+                    type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

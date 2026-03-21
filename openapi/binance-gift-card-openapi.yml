@@ -1,0 +1,274 @@
+openapi: 3.1.0
+info:
+  title: Binance Gift Card API
+  description: >-
+    The Binance Gift Card API allows developers to create, redeem, and
+    verify cryptocurrency gift cards programmatically. Businesses can
+    integrate gift card creation into rewards programs, promotional
+    campaigns, and gifting platforms.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Gift Card Documentation
+  url: https://developers.binance.com/docs/gift_card/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Gift Card
+    description: >-
+      Gift card creation, redemption, and verification endpoints.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/giftcard/createCode:
+    post:
+      operationId: createGiftCard
+      summary: Create a gift card
+      description: >-
+        Create a Binance gift card with a specified token and amount.
+      tags:
+        - Gift Card
+      parameters:
+        - name: token
+          in: query
+          required: true
+          description: >-
+            Token type for the gift card, e.g. BNB, USDT.
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          description: >-
+            Gift card amount.
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      referenceNo:
+                        type: string
+                      code:
+                        type: string
+                      expiredTime:
+                        type: integer
+                        format: int64
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/giftcard/redeemCode:
+    post:
+      operationId: redeemGiftCard
+      summary: Redeem a gift card
+      description: >-
+        Redeem a Binance gift card by its code.
+      tags:
+        - Gift Card
+      parameters:
+        - name: code
+          in: query
+          required: true
+          description: >-
+            Gift card redemption code.
+          schema:
+            type: string
+        - name: externalUid
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      referenceNo:
+                        type: string
+                      identityNo:
+                        type: string
+                      token:
+                        type: string
+                      amount:
+                        type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/giftcard/verify:
+    get:
+      operationId: verifyGiftCard
+      summary: Verify gift card
+      description: >-
+        Verify a Binance gift card by its reference number.
+      tags:
+        - Gift Card
+      parameters:
+        - name: referenceNo
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      valid:
+                        type: boolean
+                      token:
+                        type: string
+                      amount:
+                        type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/giftcard/buyCode:
+    post:
+      operationId: buyGiftCard
+      summary: Buy a gift card with another token
+      description: >-
+        Create a gift card paid with a different token than the face
+        value token (dual-token gift card).
+      tags:
+        - Gift Card
+      parameters:
+        - name: baseToken
+          in: query
+          required: true
+          description: >-
+            Token to pay with.
+          schema:
+            type: string
+        - name: faceToken
+          in: query
+          required: true
+          description: >-
+            Token the gift card is denominated in.
+          schema:
+            type: string
+        - name: baseTokenAmount
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

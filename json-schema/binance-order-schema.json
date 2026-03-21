@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/binance/order.json",
+  "title": "Binance Order",
+  "description": "Represents a trading order on the Binance exchange, applicable across spot, margin, and futures markets.",
+  "type": "object",
+  "required": ["symbol", "side", "type"],
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol, e.g. BTCUSDT.",
+      "pattern": "^[A-Z0-9]+$"
+    },
+    "orderId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unique order identifier assigned by Binance."
+    },
+    "orderListId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Order list identifier for OCO orders. -1 if not part of an OCO."
+    },
+    "clientOrderId": {
+      "type": "string",
+      "description": "Client-specified unique order identifier.",
+      "maxLength": 36
+    },
+    "price": {
+      "type": "string",
+      "description": "Order price as a decimal string.",
+      "pattern": "^\\d+\\.?\\d*$"
+    },
+    "origQty": {
+      "type": "string",
+      "description": "Original order quantity.",
+      "pattern": "^\\d+\\.?\\d*$"
+    },
+    "executedQty": {
+      "type": "string",
+      "description": "Quantity that has been executed/filled.",
+      "pattern": "^\\d+\\.?\\d*$"
+    },
+    "cummulativeQuoteQty": {
+      "type": "string",
+      "description": "Cumulative quote asset quantity transacted.",
+      "pattern": "^\\d+\\.?\\d*$"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current order status.",
+      "enum": [
+        "NEW",
+        "PARTIALLY_FILLED",
+        "FILLED",
+        "CANCELED",
+        "PENDING_CANCEL",
+        "REJECTED",
+        "EXPIRED",
+        "EXPIRED_IN_MATCH"
+      ]
+    },
+    "timeInForce": {
+      "type": "string",
+      "description": "Time in force policy.",
+      "enum": ["GTC", "IOC", "FOK", "GTX", "GTD"]
+    },
+    "type": {
+      "type": "string",
+      "description": "Order type.",
+      "enum": [
+        "LIMIT",
+        "MARKET",
+        "STOP_LOSS",
+        "STOP_LOSS_LIMIT",
+        "TAKE_PROFIT",
+        "TAKE_PROFIT_LIMIT",
+        "LIMIT_MAKER",
+        "STOP",
+        "STOP_MARKET",
+        "TAKE_PROFIT_MARKET",
+        "TRAILING_STOP_MARKET"
+      ]
+    },
+    "side": {
+      "type": "string",
+      "description": "Order side: buy or sell.",
+      "enum": ["BUY", "SELL"]
+    },
+    "stopPrice": {
+      "type": "string",
+      "description": "Stop/trigger price for conditional orders.",
+      "pattern": "^\\d+\\.?\\d*$"
+    },
+    "icebergQty": {
+      "type": "string",
+      "description": "Iceberg quantity for iceberg orders.",
+      "pattern": "^\\d+\\.?\\d*$"
+    },
+    "time": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Order creation time in milliseconds since Unix epoch."
+    },
+    "updateTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Last update time in milliseconds since Unix epoch."
+    },
+    "isWorking": {
+      "type": "boolean",
+      "description": "Whether the order is currently on the order book."
+    },
+    "workingTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Time when the order started working on the book."
+    },
+    "origQuoteOrderQty": {
+      "type": "string",
+      "description": "Original quote order quantity for market orders."
+    },
+    "selfTradePreventionMode": {
+      "type": "string",
+      "description": "Self-trade prevention mode.",
+      "enum": ["EXPIRE_TAKER", "EXPIRE_MAKER", "EXPIRE_BOTH", "NONE"]
+    },
+    "positionSide": {
+      "type": "string",
+      "description": "Position side for futures hedge mode.",
+      "enum": ["BOTH", "LONG", "SHORT"]
+    },
+    "reduceOnly": {
+      "type": "boolean",
+      "description": "Whether this is a reduce-only order (futures)."
+    },
+    "closePosition": {
+      "type": "boolean",
+      "description": "Whether this order closes the entire position (futures)."
+    },
+    "activatePrice": {
+      "type": "string",
+      "description": "Activation price for trailing stop market orders."
+    },
+    "priceRate": {
+      "type": "string",
+      "description": "Callback rate for trailing stop market orders."
+    },
+    "workingType": {
+      "type": "string",
+      "description": "Stop price trigger type for futures.",
+      "enum": ["MARK_PRICE", "CONTRACT_PRICE"]
+    },
+    "priceProtect": {
+      "type": "boolean",
+      "description": "Whether price protection is enabled."
+    }
+  },
+  "$defs": {
+    "Fill": {
+      "type": "object",
+      "description": "A trade fill executed against this order.",
+      "properties": {
+        "price": {
+          "type": "string",
+          "description": "Fill execution price."
+        },
+        "qty": {
+          "type": "string",
+          "description": "Fill quantity."
+        },
+        "commission": {
+          "type": "string",
+          "description": "Commission charged for this fill."
+        },
+        "commissionAsset": {
+          "type": "string",
+          "description": "Asset used for commission payment."
+        },
+        "tradeId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Trade ID for this fill."
+        }
+      },
+      "required": ["price", "qty", "commission", "commissionAsset"]
+    }
+  }
+}

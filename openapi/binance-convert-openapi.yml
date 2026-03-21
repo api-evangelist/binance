@@ -1,0 +1,385 @@
+openapi: 3.1.0
+info:
+  title: Binance Convert API
+  description: >-
+    The Binance Convert API provides a simple interface for converting
+    between cryptocurrencies and fiat currencies at quoted prices. Unlike
+    order-book trading, the Convert API offers instant swaps with price
+    quotes that are valid for a limited time window.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Convert Documentation
+  url: https://developers.binance.com/docs/convert/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Convert
+    description: >-
+      Cryptocurrency conversion quote and trade endpoints.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/convert/exchangeInfo:
+    get:
+      operationId: getExchangeInfo
+      summary: List all convert pairs
+      description: >-
+        Query for all convertible token pairs and the tokens' respective
+        upper/lower limits.
+      tags:
+        - Convert
+      parameters:
+        - name: fromAsset
+          in: query
+          schema:
+            type: string
+        - name: toAsset
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fromAsset:
+                      type: string
+                      description: >-
+                        Source asset.
+                    toAsset:
+                      type: string
+                      description: >-
+                        Target asset.
+                    fromAssetMinAmount:
+                      type: string
+                      description: >-
+                        Minimum from amount.
+                    fromAssetMaxAmount:
+                      type: string
+                      description: >-
+                        Maximum from amount.
+                    toAssetMinAmount:
+                      type: string
+                      description: >-
+                        Minimum to amount.
+                    toAssetMaxAmount:
+                      type: string
+                      description: >-
+                        Maximum to amount.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/convert/getQuote:
+    post:
+      operationId: sendQuoteRequest
+      summary: Send quote request
+      description: >-
+        Request a quote for asset conversion. The quote is valid for
+        a limited time.
+      tags:
+        - Convert
+      parameters:
+        - name: fromAsset
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: toAsset
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: fromAmount
+          in: query
+          description: >-
+            Amount to convert from. Either fromAmount or toAmount required.
+          schema:
+            type: string
+        - name: toAmount
+          in: query
+          description: >-
+            Amount to convert to. Either fromAmount or toAmount required.
+          schema:
+            type: string
+        - name: walletType
+          in: query
+          description: >-
+            SPOT or FUNDING.
+          schema:
+            type: string
+            enum: [SPOT, FUNDING]
+        - name: validTime
+          in: query
+          description: >-
+            Quote validity period in seconds. 10s, 30s, or 120s.
+          schema:
+            type: string
+            enum: [10s, 30s, 120s]
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  quoteId:
+                    type: string
+                    description: >-
+                      Quote ID for accepting.
+                  ratio:
+                    type: string
+                    description: >-
+                      Conversion ratio.
+                  inverseRatio:
+                    type: string
+                    description: >-
+                      Inverse conversion ratio.
+                  validTimestamp:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Quote validity timestamp.
+                  toAmount:
+                    type: string
+                    description: >-
+                      Converted amount.
+                  fromAmount:
+                    type: string
+                    description: >-
+                      Source amount.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/convert/acceptQuote:
+    post:
+      operationId: acceptQuote
+      summary: Accept quote
+      description: >-
+        Accept a previously requested quote to execute the conversion.
+      tags:
+        - Convert
+      parameters:
+        - name: quoteId
+          in: query
+          required: true
+          description: >-
+            Quote ID from the quote request.
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderId:
+                    type: string
+                    description: >-
+                      Order ID.
+                  createTime:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Order creation time.
+                  orderStatus:
+                    type: string
+                    description: >-
+                      Order status. PROCESS, ACCEPT_SUCCESS, SUCCESS, FAIL.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/convert/orderStatus:
+    get:
+      operationId: getOrderStatus
+      summary: Order status
+      description: >-
+        Query conversion order status.
+      tags:
+        - Convert
+      parameters:
+        - name: orderId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderId:
+                    type: integer
+                    format: int64
+                  orderStatus:
+                    type: string
+                  fromAsset:
+                    type: string
+                  fromAmount:
+                    type: string
+                  toAsset:
+                    type: string
+                  toAmount:
+                    type: string
+                  ratio:
+                    type: string
+                  inverseRatio:
+                    type: string
+                  createTime:
+                    type: integer
+                    format: int64
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/convert/tradeFlow:
+    get:
+      operationId: getTradeFlow
+      summary: Get convert trade history
+      description: >-
+        Query conversion trade history.
+      tags:
+        - Convert
+      parameters:
+        - name: startTime
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+            maximum: 1000
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  list:
+                    type: array
+                    items:
+                      type: object
+                  startTime:
+                    type: integer
+                    format: int64
+                  endTime:
+                    type: integer
+                    format: int64
+                  limit:
+                    type: integer
+                  moreData:
+                    type: boolean
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

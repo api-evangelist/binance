@@ -1,0 +1,687 @@
+asyncapi: 2.6.0
+info:
+  title: Binance Spot WebSocket Streams
+  description: >-
+    Binance Spot WebSocket Streams deliver real-time market data updates
+    via persistent WebSocket connections. Developers can subscribe to
+    individual symbol ticker streams, aggregate trade streams, kline and
+    candlestick data, depth-of-book updates, and mini-ticker streams.
+    A single connection is valid for 24 hours. The server sends a ping
+    frame every 20 minutes and will disconnect if no pong is received
+    within 60 seconds.
+  version: '1.0.0'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  externalDocs:
+    description: Binance WebSocket Streams Documentation
+    url: https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
+servers:
+  production:
+    url: wss://stream.binance.com:9443
+    protocol: wss
+    description: >-
+      Production WebSocket stream server. Supports up to 1024 streams
+      per connection and 300 connections per 5 minutes per IP.
+  productionAlt:
+    url: wss://stream.binance.com:443
+    protocol: wss
+    description: >-
+      Alternative production WebSocket stream server on port 443.
+channels:
+  /ws/{symbol}@aggTrade:
+    description: >-
+      Aggregate trade stream. Pushes trade information that is aggregated
+      for a single taker order.
+    parameters:
+      symbol:
+        description: >-
+          Trading pair symbol in lowercase, e.g. btcusdt.
+        schema:
+          type: string
+    publish:
+      operationId: receiveAggTrade
+      summary: Receive aggregate trade events
+      message:
+        $ref: '#/components/messages/AggTrade'
+  /ws/{symbol}@trade:
+    description: >-
+      Raw trade stream. Pushes raw trade information; each trade has a
+      unique buyer and seller.
+    parameters:
+      symbol:
+        description: >-
+          Trading pair symbol in lowercase.
+        schema:
+          type: string
+    publish:
+      operationId: receiveTrade
+      summary: Receive individual trade events
+      message:
+        $ref: '#/components/messages/Trade'
+  /ws/{symbol}@kline_{interval}:
+    description: >-
+      Kline/candlestick stream. Pushes updates to the current kline
+      every two seconds.
+    parameters:
+      symbol:
+        description: >-
+          Trading pair symbol in lowercase.
+        schema:
+          type: string
+      interval:
+        description: >-
+          Kline interval (1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h,
+          12h, 1d, 3d, 1w, 1M).
+        schema:
+          type: string
+    publish:
+      operationId: receiveKline
+      summary: Receive kline/candlestick events
+      message:
+        $ref: '#/components/messages/Kline'
+  /ws/{symbol}@miniTicker:
+    description: >-
+      Individual symbol mini ticker stream. Pushes 24hr rolling window
+      mini-ticker statistics every second.
+    parameters:
+      symbol:
+        description: >-
+          Trading pair symbol in lowercase.
+        schema:
+          type: string
+    publish:
+      operationId: receiveMiniTicker
+      summary: Receive mini ticker events
+      message:
+        $ref: '#/components/messages/MiniTicker'
+  /ws/!miniTicker@arr:
+    description: >-
+      All market mini tickers stream. Pushes mini-ticker for all symbols
+      every second.
+    publish:
+      operationId: receiveAllMiniTickers
+      summary: Receive all market mini ticker events
+      message:
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/MiniTickerPayload'
+  /ws/{symbol}@ticker:
+    description: >-
+      Individual symbol ticker stream. Pushes 24hr rolling window ticker
+      statistics every second.
+    parameters:
+      symbol:
+        description: >-
+          Trading pair symbol in lowercase.
+        schema:
+          type: string
+    publish:
+      operationId: receiveTicker
+      summary: Receive ticker events
+      message:
+        $ref: '#/components/messages/Ticker'
+  /ws/{symbol}@bookTicker:
+    description: >-
+      Individual symbol book ticker stream. Pushes the best bid or ask
+      in real-time.
+    parameters:
+      symbol:
+        description: >-
+          Trading pair symbol in lowercase.
+        schema:
+          type: string
+    publish:
+      operationId: receiveBookTicker
+      summary: Receive book ticker events
+      message:
+        $ref: '#/components/messages/BookTicker'
+  /ws/{symbol}@depth{levels}:
+    description: >-
+      Partial book depth stream. Pushes the top bids and asks at
+      specified depth levels (5, 10, or 20). Updated every second
+      or 100ms depending on the update speed parameter.
+    parameters:
+      symbol:
+        description: >-
+          Trading pair symbol in lowercase.
+        schema:
+          type: string
+      levels:
+        description: >-
+          Number of levels (5, 10, or 20).
+        schema:
+          type: string
+          enum: ['5', '10', '20']
+    publish:
+      operationId: receivePartialDepth
+      summary: Receive partial order book depth events
+      message:
+        $ref: '#/components/messages/PartialDepth'
+  /ws/{symbol}@depth:
+    description: >-
+      Diff depth stream. Pushes order book price and quantity changes
+      in real-time.
+    parameters:
+      symbol:
+        description: >-
+          Trading pair symbol in lowercase.
+        schema:
+          type: string
+    publish:
+      operationId: receiveDiffDepth
+      summary: Receive order book diff depth events
+      message:
+        $ref: '#/components/messages/DiffDepth'
+  /ws/{symbol}@avgPrice:
+    description: >-
+      Average price stream. Pushes changes in the average price over
+      a fixed time window.
+    parameters:
+      symbol:
+        description: >-
+          Trading pair symbol in lowercase.
+        schema:
+          type: string
+    publish:
+      operationId: receiveAvgPrice
+      summary: Receive average price events
+      message:
+        $ref: '#/components/messages/AvgPrice'
+components:
+  messages:
+    AggTrade:
+      name: aggTrade
+      title: Aggregate Trade
+      summary: >-
+        Aggregate trade event with price, quantity, and trade IDs.
+      payload:
+        type: object
+        properties:
+          e:
+            type: string
+            description: >-
+              Event type.
+          E:
+            type: integer
+            format: int64
+            description: >-
+              Event time.
+          s:
+            type: string
+            description: >-
+              Symbol.
+          a:
+            type: integer
+            format: int64
+            description: >-
+              Aggregate trade ID.
+          p:
+            type: string
+            description: >-
+              Price.
+          q:
+            type: string
+            description: >-
+              Quantity.
+          f:
+            type: integer
+            format: int64
+            description: >-
+              First trade ID.
+          l:
+            type: integer
+            format: int64
+            description: >-
+              Last trade ID.
+          T:
+            type: integer
+            format: int64
+            description: >-
+              Trade time.
+          m:
+            type: boolean
+            description: >-
+              Is the buyer the market maker.
+          M:
+            type: boolean
+            description: >-
+              Ignore.
+    Trade:
+      name: trade
+      title: Trade
+      summary: >-
+        Individual trade event.
+      payload:
+        type: object
+        properties:
+          e:
+            type: string
+            description: >-
+              Event type.
+          E:
+            type: integer
+            format: int64
+            description: >-
+              Event time.
+          s:
+            type: string
+            description: >-
+              Symbol.
+          t:
+            type: integer
+            format: int64
+            description: >-
+              Trade ID.
+          p:
+            type: string
+            description: >-
+              Price.
+          q:
+            type: string
+            description: >-
+              Quantity.
+          T:
+            type: integer
+            format: int64
+            description: >-
+              Trade time.
+          m:
+            type: boolean
+            description: >-
+              Is the buyer the market maker.
+          M:
+            type: boolean
+            description: >-
+              Ignore.
+    Kline:
+      name: kline
+      title: Kline/Candlestick
+      summary: >-
+        Kline/candlestick update event.
+      payload:
+        type: object
+        properties:
+          e:
+            type: string
+            description: >-
+              Event type.
+          E:
+            type: integer
+            format: int64
+            description: >-
+              Event time.
+          s:
+            type: string
+            description: >-
+              Symbol.
+          k:
+            type: object
+            description: >-
+              Kline data object.
+            properties:
+              t:
+                type: integer
+                format: int64
+                description: >-
+                  Kline start time.
+              T:
+                type: integer
+                format: int64
+                description: >-
+                  Kline close time.
+              s:
+                type: string
+                description: >-
+                  Symbol.
+              i:
+                type: string
+                description: >-
+                  Interval.
+              f:
+                type: integer
+                format: int64
+                description: >-
+                  First trade ID.
+              L:
+                type: integer
+                format: int64
+                description: >-
+                  Last trade ID.
+              o:
+                type: string
+                description: >-
+                  Open price.
+              c:
+                type: string
+                description: >-
+                  Close price.
+              h:
+                type: string
+                description: >-
+                  High price.
+              l:
+                type: string
+                description: >-
+                  Low price.
+              v:
+                type: string
+                description: >-
+                  Base asset volume.
+              n:
+                type: integer
+                description: >-
+                  Number of trades.
+              x:
+                type: boolean
+                description: >-
+                  Is this kline closed.
+              q:
+                type: string
+                description: >-
+                  Quote asset volume.
+              V:
+                type: string
+                description: >-
+                  Taker buy base asset volume.
+              Q:
+                type: string
+                description: >-
+                  Taker buy quote asset volume.
+    MiniTicker:
+      name: miniTicker
+      title: Mini Ticker
+      summary: >-
+        24hr mini ticker event with basic price statistics.
+      payload:
+        $ref: '#/components/schemas/MiniTickerPayload'
+    Ticker:
+      name: ticker
+      title: 24hr Ticker
+      summary: >-
+        24hr rolling window ticker statistics event.
+      payload:
+        type: object
+        properties:
+          e:
+            type: string
+            description: >-
+              Event type.
+          E:
+            type: integer
+            format: int64
+            description: >-
+              Event time.
+          s:
+            type: string
+            description: >-
+              Symbol.
+          p:
+            type: string
+            description: >-
+              Price change.
+          P:
+            type: string
+            description: >-
+              Price change percent.
+          w:
+            type: string
+            description: >-
+              Weighted average price.
+          x:
+            type: string
+            description: >-
+              Previous close price.
+          c:
+            type: string
+            description: >-
+              Last price.
+          Q:
+            type: string
+            description: >-
+              Last quantity.
+          b:
+            type: string
+            description: >-
+              Best bid price.
+          B:
+            type: string
+            description: >-
+              Best bid quantity.
+          a:
+            type: string
+            description: >-
+              Best ask price.
+          A:
+            type: string
+            description: >-
+              Best ask quantity.
+          o:
+            type: string
+            description: >-
+              Open price.
+          h:
+            type: string
+            description: >-
+              High price.
+          l:
+            type: string
+            description: >-
+              Low price.
+          v:
+            type: string
+            description: >-
+              Total traded base asset volume.
+          q:
+            type: string
+            description: >-
+              Total traded quote asset volume.
+          O:
+            type: integer
+            format: int64
+            description: >-
+              Statistics open time.
+          C:
+            type: integer
+            format: int64
+            description: >-
+              Statistics close time.
+          F:
+            type: integer
+            format: int64
+            description: >-
+              First trade ID.
+          L:
+            type: integer
+            format: int64
+            description: >-
+              Last trade ID.
+          n:
+            type: integer
+            description: >-
+              Total number of trades.
+    BookTicker:
+      name: bookTicker
+      title: Book Ticker
+      summary: >-
+        Best bid and ask update event.
+      payload:
+        type: object
+        properties:
+          u:
+            type: integer
+            format: int64
+            description: >-
+              Order book update ID.
+          s:
+            type: string
+            description: >-
+              Symbol.
+          b:
+            type: string
+            description: >-
+              Best bid price.
+          B:
+            type: string
+            description: >-
+              Best bid quantity.
+          a:
+            type: string
+            description: >-
+              Best ask price.
+          A:
+            type: string
+            description: >-
+              Best ask quantity.
+    PartialDepth:
+      name: partialDepth
+      title: Partial Book Depth
+      summary: >-
+        Top bids and asks at specified levels.
+      payload:
+        type: object
+        properties:
+          lastUpdateId:
+            type: integer
+            format: int64
+            description: >-
+              Last update ID.
+          bids:
+            type: array
+            items:
+              type: array
+              items:
+                type: string
+            description: >-
+              Bid levels.
+          asks:
+            type: array
+            items:
+              type: array
+              items:
+                type: string
+            description: >-
+              Ask levels.
+    DiffDepth:
+      name: diffDepth
+      title: Diff Depth
+      summary: >-
+        Order book price and quantity changes.
+      payload:
+        type: object
+        properties:
+          e:
+            type: string
+            description: >-
+              Event type.
+          E:
+            type: integer
+            format: int64
+            description: >-
+              Event time.
+          s:
+            type: string
+            description: >-
+              Symbol.
+          U:
+            type: integer
+            format: int64
+            description: >-
+              First update ID in event.
+          u:
+            type: integer
+            format: int64
+            description: >-
+              Final update ID in event.
+          b:
+            type: array
+            items:
+              type: array
+              items:
+                type: string
+            description: >-
+              Bids to be updated.
+          a:
+            type: array
+            items:
+              type: array
+              items:
+                type: string
+            description: >-
+              Asks to be updated.
+    AvgPrice:
+      name: avgPrice
+      title: Average Price
+      summary: >-
+        Average price update event.
+      payload:
+        type: object
+        properties:
+          e:
+            type: string
+            description: >-
+              Event type.
+          E:
+            type: integer
+            format: int64
+            description: >-
+              Event time.
+          s:
+            type: string
+            description: >-
+              Symbol.
+          i:
+            type: string
+            description: >-
+              Average price interval.
+          w:
+            type: string
+            description: >-
+              Average price.
+          T:
+            type: integer
+            format: int64
+            description: >-
+              Last trade time.
+  schemas:
+    MiniTickerPayload:
+      type: object
+      properties:
+        e:
+          type: string
+          description: >-
+            Event type.
+        E:
+          type: integer
+          format: int64
+          description: >-
+            Event time.
+        s:
+          type: string
+          description: >-
+            Symbol.
+        c:
+          type: string
+          description: >-
+            Close price.
+        o:
+          type: string
+          description: >-
+            Open price.
+        h:
+          type: string
+          description: >-
+            High price.
+        l:
+          type: string
+          description: >-
+            Low price.
+        v:
+          type: string
+          description: >-
+            Total traded base asset volume.
+        q:
+          type: string
+          description: >-
+            Total traded quote asset volume.

@@ -1,0 +1,455 @@
+openapi: 3.1.0
+info:
+  title: Binance Portfolio Margin API
+  description: >-
+    The Binance Portfolio Margin API enables cross-margining across spot,
+    futures, and options positions under a unified margin account. This
+    risk-based margining system calculates margin requirements based on the
+    overall portfolio risk rather than individual positions, allowing more
+    capital-efficient trading.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Portfolio Margin Documentation
+  url: https://developers.binance.com/docs/derivatives/portfolio-margin/general-info
+servers:
+  - url: https://papi.binance.com
+    description: Production Server
+tags:
+  - name: Account
+    description: >-
+      Portfolio margin account information and balance endpoints.
+  - name: Trading
+    description: >-
+      Cross-product trading endpoints for portfolio margin accounts.
+  - name: User Data Stream
+    description: >-
+      User data stream listen key management for portfolio margin.
+security:
+  - apiKey: []
+paths:
+  /papi/v1/balance:
+    get:
+      operationId: getBalance
+      summary: Query portfolio margin balance
+      description: >-
+        Get portfolio margin account balance information across all
+        asset types.
+      tags:
+        - Account
+      parameters:
+        - name: asset
+          in: query
+          description: >-
+            Asset to query. If not sent, returns all assets.
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    asset:
+                      type: string
+                      description: >-
+                        Asset symbol.
+                    totalWalletBalance:
+                      type: string
+                      description: >-
+                        Total wallet balance.
+                    crossMarginAsset:
+                      type: string
+                      description: >-
+                        Cross margin asset.
+                    crossMarginBorrowed:
+                      type: string
+                      description: >-
+                        Cross margin borrowed amount.
+                    crossMarginFree:
+                      type: string
+                      description: >-
+                        Cross margin free amount.
+                    crossMarginInterest:
+                      type: string
+                      description: >-
+                        Cross margin interest.
+                    crossMarginLocked:
+                      type: string
+                      description: >-
+                        Cross margin locked amount.
+                    umWalletBalance:
+                      type: string
+                      description: >-
+                        USDT-M wallet balance.
+                    umUnrealizedPNL:
+                      type: string
+                      description: >-
+                        USDT-M unrealized PnL.
+                    cmWalletBalance:
+                      type: string
+                      description: >-
+                        COIN-M wallet balance.
+                    cmUnrealizedPNL:
+                      type: string
+                      description: >-
+                        COIN-M unrealized PnL.
+                    updateTime:
+                      type: integer
+                      format: int64
+                      description: >-
+                        Update time.
+                    negativeBalance:
+                      type: string
+                      description: >-
+                        Negative balance.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /papi/v1/account:
+    get:
+      operationId: getAccountInfo
+      summary: Query portfolio margin account info
+      description: >-
+        Get portfolio margin account information including margin
+        ratios and account status.
+      tags:
+        - Account
+      parameters:
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uniMMR:
+                    type: string
+                    description: >-
+                      Unified maintenance margin ratio.
+                  accountEquity:
+                    type: string
+                    description: >-
+                      Account equity in USD.
+                  actualEquity:
+                    type: string
+                    description: >-
+                      Actual equity.
+                  accountInitialMargin:
+                    type: string
+                    description: >-
+                      Account initial margin.
+                  accountMaintMargin:
+                    type: string
+                    description: >-
+                      Account maintenance margin.
+                  accountStatus:
+                    type: string
+                    description: >-
+                      Account status.
+                  virtualMaxWithdrawAmount:
+                    type: string
+                    description: >-
+                      Virtual max withdraw amount.
+                  totalAvailableBalance:
+                    type: string
+                    description: >-
+                      Total available balance.
+                  totalMarginOpenLoss:
+                    type: string
+                    description: >-
+                      Total margin open loss.
+                  updateTime:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Update time.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /papi/v1/um/order:
+    post:
+      operationId: createUmOrder
+      summary: New UM order
+      description: >-
+        Place a new USDT-M futures order through portfolio margin.
+      tags:
+        - Trading
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: side
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [BUY, SELL]
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quantity
+          in: query
+          schema:
+            type: string
+        - name: price
+          in: query
+          schema:
+            type: string
+        - name: timeInForce
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /papi/v1/cm/order:
+    post:
+      operationId: createCmOrder
+      summary: New CM order
+      description: >-
+        Place a new COIN-M futures order through portfolio margin.
+      tags:
+        - Trading
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: side
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [BUY, SELL]
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quantity
+          in: query
+          schema:
+            type: string
+        - name: price
+          in: query
+          schema:
+            type: string
+        - name: timeInForce
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /papi/v1/margin/order:
+    post:
+      operationId: createMarginOrder
+      summary: New margin order
+      description: >-
+        Place a new margin order through portfolio margin.
+      tags:
+        - Trading
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: side
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [BUY, SELL]
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quantity
+          in: query
+          schema:
+            type: string
+        - name: price
+          in: query
+          schema:
+            type: string
+        - name: timeInForce
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /papi/v1/listenKey:
+    post:
+      operationId: createListenKey
+      summary: Start user data stream
+      description: >-
+        Start a portfolio margin user data stream.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  listenKey:
+                    type: string
+      security:
+        - apiKey: []
+    put:
+      operationId: keepAliveListenKey
+      summary: Keepalive user data stream
+      description: >-
+        Keepalive a portfolio margin user data stream.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+    delete:
+      operationId: closeListenKey
+      summary: Close user data stream
+      description: >-
+        Close a portfolio margin user data stream.
+      tags:
+        - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
