@@ -21,6 +21,10 @@ servers:
   - url: https://demo-fapi.binance.com
     description: Testnet Server
 tags:
+  - name: Account
+    description: >-
+      Account endpoints for querying positions, balances, leverage, margin
+      type, and income history. Requires SIGNED authentication.
   - name: Market Data
     description: >-
       Public market data endpoints for futures exchange information, order
@@ -29,10 +33,6 @@ tags:
     description: >-
       Trading endpoints for placing, querying, and canceling futures orders.
       Requires SIGNED authentication.
-  - name: Account
-    description: >-
-      Account endpoints for querying positions, balances, leverage, margin
-      type, and income history. Requires SIGNED authentication.
   - name: User Data Stream
     description: >-
       Endpoints for managing user data stream listen keys for futures.

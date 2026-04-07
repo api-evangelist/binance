@@ -19,12 +19,12 @@ servers:
   - url: https://api.binance.com
     description: Production Server
 tags:
-  - name: Spot Algo
-    description: >-
-      Spot algorithmic trading endpoints.
   - name: Futures Algo
     description: >-
       Futures algorithmic trading endpoints.
+  - name: Spot Algo
+    description: >-
+      Spot algorithmic trading endpoints.
 security:
   - apiKey: []
 paths:

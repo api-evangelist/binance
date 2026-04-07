@@ -19,6 +19,9 @@ servers:
   - url: https://eapi.binance.com
     description: Production Server
 tags:
+  - name: Account
+    description: >-
+      Account endpoints for options positions, balances, and history.
   - name: Market Data
     description: >-
       Public market data for options including exchange info, order book,
@@ -26,9 +29,6 @@ tags:
   - name: Trading
     description: >-
       Options trading endpoints for placing and managing orders.
-  - name: Account
-    description: >-
-      Account endpoints for options positions, balances, and history.
   - name: User Data Stream
     description: >-
       User data stream listen key management for options.

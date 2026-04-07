@@ -19,18 +19,18 @@ servers:
   - url: https://api.binance.com
     description: Production Server
 tags:
+  - name: Account
+    description: >-
+      Account-level wallet operations and status.
+  - name: Assets
+    description: >-
+      Asset balance and information endpoints.
   - name: Deposits
     description: >-
       Deposit-related endpoints for addresses and history.
   - name: Withdrawals
     description: >-
       Withdrawal endpoints for initiating and tracking withdrawals.
-  - name: Assets
-    description: >-
-      Asset balance and information endpoints.
-  - name: Account
-    description: >-
-      Account-level wallet operations and status.
 security:
   - apiKey: []
 paths:

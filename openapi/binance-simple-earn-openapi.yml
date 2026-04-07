@@ -19,15 +19,15 @@ servers:
   - url: https://api.binance.com
     description: Production Server
 tags:
+  - name: Account
+    description: >-
+      Simple Earn account information.
   - name: Flexible Products
     description: >-
       Flexible savings products that allow instant redemption.
   - name: Locked Products
     description: >-
       Locked savings products with fixed-term commitments.
-  - name: Account
-    description: >-
-      Simple Earn account information.
 security:
   - apiKey: []
 paths:

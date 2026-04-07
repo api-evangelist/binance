@@ -19,12 +19,12 @@ servers:
   - url: https://api.binance.com
     description: Production Server
 tags:
-  - name: Sub-Account Management
-    description: >-
-      Endpoints for creating and managing sub-accounts.
   - name: Sub-Account Assets
     description: >-
       Endpoints for querying and transferring sub-account assets.
+  - name: Sub-Account Management
+    description: >-
+      Endpoints for creating and managing sub-accounts.
 security:
   - apiKey: []
 paths:

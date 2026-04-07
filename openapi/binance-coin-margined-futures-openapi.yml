@@ -21,15 +21,15 @@ servers:
   - url: https://demo-dapi.binance.com
     description: Testnet Server
 tags:
+  - name: Account
+    description: >-
+      Account endpoints for COIN-M futures positions and balances.
   - name: Market Data
     description: >-
       Public market data endpoints for COIN-M futures.
   - name: Trading
     description: >-
       Trading endpoints for COIN-M futures orders.
-  - name: Account
-    description: >-
-      Account endpoints for COIN-M futures positions and balances.
   - name: User Data Stream
     description: >-
       User data stream listen key management for COIN-M futures.

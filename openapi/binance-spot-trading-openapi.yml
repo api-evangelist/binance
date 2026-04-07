@@ -31,6 +31,10 @@ servers:
   - url: https://testnet.binance.vision
     description: Testnet Server
 tags:
+  - name: Account
+    description: >-
+      Account endpoints for querying balances, trade history, order
+      history, and rate limit usage. Requires SIGNED authentication.
   - name: General
     description: >-
       General endpoints for connectivity testing and exchange information.
@@ -42,10 +46,6 @@ tags:
     description: >-
       Trading endpoints for placing, querying, and canceling orders on
       the spot exchange. Requires SIGNED authentication.
-  - name: Account
-    description: >-
-      Account endpoints for querying balances, trade history, order
-      history, and rate limit usage. Requires SIGNED authentication.
   - name: User Data Stream
     description: >-
       Endpoints for managing user data stream listen keys used to
