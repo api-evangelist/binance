@@ -1,5 +1,6 @@
 aid: binance
-url: https://raw.githubusercontent.com/api-evangelist/binance/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/binance/refs/heads/main/apis.yml
 modified: '2026-03-20'
 apis:
   - aid: binance:spot-trading-api
@@ -10,7 +11,8 @@ apis:
       - Spot
       - Exchange
       - Market Data
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
     properties:
@@ -34,22 +36,22 @@ apis:
       - Streaming
       - Real-Time
       - Market Data
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: wss://ws-api.binance.com
-    humanURL: https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api
+    humanURL: 
+      https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api
     properties:
-      - url: https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api
+      - url: 
+          https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api
         type: Documentation
       - url: asyncapi/binance-spot-websocket-api-asyncapi.yml
         type: AsyncAPI
     description: >-
-      The Binance Spot WebSocket API provides an alternative way to access
-      spot trading functionality through persistent WebSocket connections. It
-      is functionally equivalent to the REST API, accepting the same parameters
-      and returning the same status and error codes, but offers lower latency
-      for time-sensitive trading operations. Developers can place orders, cancel
-      orders, and query account information over a single WebSocket connection
-      without the overhead of establishing new HTTP connections for each request.
+      The Binance Spot WebSocket API provides an alternative way to access spot trading
+      functionality through persistent WebSocket connections. It is functionally equivalent
+      to the REST API, accepting the same parameters and returning the same status
+      and error codes, but offers lower latency for time-sensitive trading operations.
   - aid: binance:spot-websocket-streams
     name: Binance Spot WebSocket Streams
     tags:
@@ -58,11 +60,14 @@ apis:
       - Streaming
       - Market Data
       - Real-Time
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: wss://stream.binance.com
-    humanURL: https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
+    humanURL: 
+      https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
     properties:
-      - url: https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
+      - url: 
+          https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
         type: Documentation
       - url: asyncapi/binance-spot-websocket-streams-asyncapi.yml
         type: AsyncAPI
@@ -82,11 +87,14 @@ apis:
       - Derivatives
       - Trading
       - USDT
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://fapi.binance.com
-    humanURL: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
+    humanURL: 
+      https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
     properties:
-      - url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
+      - url: 
+          https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
         type: Documentation
       - url: openapi/binance-usds-margined-futures-openapi.yml
         type: OpenAPI
@@ -106,11 +114,14 @@ apis:
       - Derivatives
       - Trading
       - Coin Margined
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://dapi.binance.com
-    humanURL: https://developers.binance.com/docs/derivatives/coin-margined-futures/general-info
+    humanURL: 
+      https://developers.binance.com/docs/derivatives/coin-margined-futures/general-info
     properties:
-      - url: https://developers.binance.com/docs/derivatives/coin-margined-futures/general-info
+      - url: 
+          https://developers.binance.com/docs/derivatives/coin-margined-futures/general-info
         type: Documentation
       - url: openapi/binance-coin-margined-futures-openapi.yml
         type: OpenAPI
@@ -129,9 +140,11 @@ apis:
       - Options
       - Derivatives
       - Trading
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://eapi.binance.com
-    humanURL: https://developers.binance.com/docs/derivatives/option/general-info
+    humanURL: 
+      https://developers.binance.com/docs/derivatives/option/general-info
     properties:
       - url: https://developers.binance.com/docs/derivatives/option/general-info
         type: Documentation
@@ -153,11 +166,14 @@ apis:
       - Portfolio
       - Trading
       - Risk Management
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://papi.binance.com
-    humanURL: https://developers.binance.com/docs/derivatives/portfolio-margin/general-info
+    humanURL: 
+      https://developers.binance.com/docs/derivatives/portfolio-margin/general-info
     properties:
-      - url: https://developers.binance.com/docs/derivatives/portfolio-margin/general-info
+      - url: 
+          https://developers.binance.com/docs/derivatives/portfolio-margin/general-info
         type: Documentation
       - url: openapi/binance-portfolio-margin-openapi.yml
         type: OpenAPI
@@ -177,7 +193,8 @@ apis:
       - Leverage
       - Trading
       - Borrowing
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/margin_trading/general-info
     properties:
@@ -201,7 +218,8 @@ apis:
       - Deposits
       - Withdrawals
       - Account
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/wallet/introduction
     properties:
@@ -224,7 +242,8 @@ apis:
       - Sub-Account
       - Account Management
       - Enterprise
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/sub_account/general-info
     properties:
@@ -248,7 +267,8 @@ apis:
       - Staking
       - Yield
       - Savings
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/simple_earn/general-info
     properties:
@@ -271,7 +291,8 @@ apis:
       - Mining
       - Hash Rate
       - Pool
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/mining/general-info
     properties:
@@ -294,7 +315,8 @@ apis:
       - Copy Trading
       - Social Trading
       - Trading
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/copy_trading/general-info
     properties:
@@ -317,7 +339,8 @@ apis:
       - Convert
       - Swap
       - Exchange
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/convert/general-info
     properties:
@@ -340,7 +363,8 @@ apis:
       - Payments
       - Merchant
       - Commerce
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://bpay.binanceapi.com
     humanURL: https://developers.binance.com/docs/binance-pay/introduction
     properties:
@@ -365,7 +389,8 @@ apis:
       - Algorithmic Trading
       - TWAP
       - VWAP
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/algo/general-info
     properties:
@@ -374,14 +399,10 @@ apis:
       - url: openapi/binance-algo-trading-openapi.yml
         type: OpenAPI
     description: >-
-      The Binance Algo Trading API provides access to algorithmic order
-      execution strategies such as TWAP (Time-Weighted Average Price) and
-      volume participation algorithms. Developers can place large orders
-      that are automatically broken into smaller child orders and executed
-      over time to minimize market impact. The API supports creating,
-      monitoring, and canceling algorithmic orders for both spot and futures
-      markets, making it essential for institutional traders managing
-      large position entries and exits.
+      The Binance Algo Trading API provides access to algorithmic order execution
+      strategies such as TWAP (Time-Weighted Average Price) and volume participation
+      algorithms. Developers can place large orders that are automatically broken
+      into smaller child orders and executed over time to minimize market impact.
   - aid: binance:auto-invest-api
     name: Binance Auto-Invest API
     tags:
@@ -390,7 +411,8 @@ apis:
       - DCA
       - Savings
       - Recurring
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/auto_invest/general-info
     properties:
@@ -415,7 +437,8 @@ apis:
       - Lending
       - Borrowing
       - Collateral
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/crypto_loan/general-info
     properties:
@@ -439,7 +462,8 @@ apis:
       - Gift Card
       - Voucher
       - Rewards
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/gift_card/general-info
     properties:
@@ -462,7 +486,8 @@ apis:
       - NFT
       - Digital Assets
       - Collectibles
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/nft/general-info
     properties:
@@ -486,7 +511,8 @@ apis:
       - Deposits
       - Withdrawals
       - Currency
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.binance.com
     humanURL: https://developers.binance.com/docs/fiat/general-info
     properties:
@@ -511,3 +537,6 @@ common:
     url: json-schema/binance-account-schema.json
   - type: JSONSchema
     url: json-schema/binance-trade-schema.json
+description: >-
+  * The following base endpoints are available. Please use whichever works best for
+  your setup:.
