@@ -1,6 +1,6 @@
 aid: binance
 url: https://raw.githubusercontent.com/api-evangelist/binance/refs/heads/main/apis.yml
-modified: '2026-04-19'
+modified: '2026-04-21'
 apis:
 - aid: binance:spot-trading-api
   name: Binance Spot Trading API
