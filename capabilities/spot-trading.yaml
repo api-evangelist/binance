@@ -1,0 +1,150 @@
+name: Spot Trading
+description: >-
+  Workflow capability for executing spot cryptocurrency trades on Binance,
+  including market data retrieval, order placement and management, and
+  account balance monitoring.
+version: v1
+
+imports:
+  - shared/binance.yaml
+
+tools:
+  - name: get-ticker
+    import: binance.get-ticker
+    description: Get the current price for a cryptocurrency trading pair.
+    inputSchema:
+      type: object
+      required:
+        - symbol
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol (e.g. BTCUSDT)
+  - name: get-order-book
+    import: binance.get-order-book
+    description: Get order book depth showing bids and asks for a trading pair.
+    inputSchema:
+      type: object
+      required:
+        - symbol
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol
+        limit:
+          type: integer
+          description: Depth limit (5, 10, 20, 50, 100, 500, 1000)
+  - name: get-klines
+    import: binance.get-klines
+    description: Get candlestick (OHLCV) chart data for a trading pair.
+    inputSchema:
+      type: object
+      required:
+        - symbol
+        - interval
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol
+        interval:
+          type: string
+          description: Candlestick interval (1m, 5m, 15m, 1h, 4h, 1d)
+        limit:
+          type: integer
+          description: Number of candles to return
+  - name: get-account
+    import: binance.get-account
+    description: Get account balances for all assets and trading commissions.
+  - name: create-order
+    import: binance.create-order
+    description: Place a new spot buy or sell order on Binance.
+    inputSchema:
+      type: object
+      required:
+        - symbol
+        - side
+        - type
+        - quantity
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol (e.g. BTCUSDT)
+        side:
+          type: string
+          description: Order side (BUY or SELL)
+        type:
+          type: string
+          description: Order type (LIMIT, MARKET, STOP_LOSS_LIMIT)
+        quantity:
+          type: number
+          description: Order quantity
+        price:
+          type: number
+          description: Limit price (required for LIMIT orders)
+  - name: get-order
+    import: binance.get-order
+    description: Check the status of an existing order.
+    inputSchema:
+      type: object
+      required:
+        - symbol
+        - orderId
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol
+        orderId:
+          type: integer
+          description: Order ID to query
+  - name: cancel-order
+    import: binance.cancel-order
+    description: Cancel an active open order.
+    inputSchema:
+      type: object
+      required:
+        - symbol
+        - orderId
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol
+        orderId:
+          type: integer
+          description: Order ID to cancel
+  - name: list-orders
+    import: binance.list-orders
+    description: List all open orders for a symbol.
+    inputSchema:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol (omit for all symbols)
+  - name: list-trades
+    import: binance.list-trades
+    description: Get trade execution history for a symbol.
+    inputSchema:
+      type: object
+      required:
+        - symbol
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol
+        limit:
+          type: integer
+          description: Number of trades to return
+
+expose:
+  rest:
+    port: 8080
+  mcp:
+    port: 9080
+
+personas:
+  - id: trader
+    name: Trader
+    description: Cryptocurrency trader executing spot orders on Binance
+  - id: quant-developer
+    name: Quant Developer
+    description: Developer building algorithmic trading strategies on Binance

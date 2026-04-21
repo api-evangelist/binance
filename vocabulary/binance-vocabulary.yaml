@@ -1,0 +1,132 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: Binance
+  description: >-
+    Domain vocabulary for the Binance cryptocurrency exchange platform,
+    covering spot trading, futures, margin, wallet operations, and market data
+    across 19+ REST APIs.
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: binance-spot-v3
+      version: v3
+      baseUrl: https://api.binance.com
+      status: active
+      description: Binance Spot Trading REST API
+    - namespace: binance-futures-v1
+      version: v1
+      baseUrl: https://fapi.binance.com
+      status: active
+      description: Binance USD-M Futures API
+    - namespace: binance-margin-v1
+      version: v1
+      baseUrl: https://api.binance.com
+      status: active
+      description: Binance Margin Trading API
+    - namespace: binance-wallet-v1
+      version: v1
+      baseUrl: https://api.binance.com
+      status: active
+      description: Binance Wallet API for deposits and withdrawals
+
+  resources:
+    - name: orders
+      api: binance-spot-v3
+      actions: [list, get, create, cancel]
+      description: Spot trading orders
+    - name: account
+      api: binance-spot-v3
+      actions: [get]
+      description: Account balances and information
+    - name: trades
+      api: binance-spot-v3
+      actions: [list]
+      description: Trade history
+    - name: ticker
+      api: binance-spot-v3
+      actions: [get]
+      description: Market price ticker data
+    - name: depth
+      api: binance-spot-v3
+      actions: [get]
+      description: Order book depth data
+    - name: withdrawals
+      api: binance-wallet-v1
+      actions: [list, create]
+      description: Cryptocurrency withdrawals
+    - name: deposits
+      api: binance-wallet-v1
+      actions: [list, get]
+      description: Cryptocurrency deposits
+
+  actions:
+    - name: list
+      httpMethod: GET
+      pattern: read
+    - name: get
+      httpMethod: GET
+      pattern: read
+    - name: create
+      httpMethod: POST
+      pattern: write
+    - name: cancel
+      httpMethod: DELETE
+      pattern: write
+
+  schemas:
+    core:
+      - name: Order
+        keyProperties: [symbol, orderId, side, type, status, price, quantity]
+      - name: Account
+        keyProperties: [balances, makerCommission, takerCommission]
+      - name: Trade
+        keyProperties: [id, orderId, symbol, price, qty, commission]
+
+  authentication:
+    schemes:
+      - type: apiKey
+        header: X-MBX-APIKEY
+        description: API key header; private endpoints require HMAC SHA256 signed requests
+
+capability:
+  workflows:
+    - id: spot-trading
+      name: Spot Trading
+      description: Place and manage spot orders and retrieve market data on Binance
+      tools: [get-ticker, get-order-book, create-order, list-orders, cancel-order, get-account]
+
+  personas:
+    - id: trader
+      name: Trader
+      description: Cryptocurrency trader executing spot orders on Binance
+      workflows: [spot-trading]
+    - id: quant-developer
+      name: Quant Developer
+      description: Developer building algorithmic trading strategies on Binance
+      workflows: [spot-trading]
+
+  domains:
+    - name: Spot Trading
+      description: Buy and sell cryptocurrency spot pairs on the Binance exchange
+    - name: Futures Trading
+      description: Trade USD-M and Coin-M perpetual futures contracts
+    - name: Margin Trading
+      description: Trade on margin with borrowed assets
+    - name: Market Data
+      description: Real-time and historical price, depth, and trade data
+    - name: Wallet Operations
+      description: Deposits, withdrawals, and asset management
+    - name: Account Management
+      description: API key management, account balances, and commission rates
+
+crossReference:
+  resources:
+    - operational: orders
+      capability: create-order
+    - operational: account
+      capability: get-account
+    - operational: ticker
+      capability: get-ticker

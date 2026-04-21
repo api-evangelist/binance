@@ -1,0 +1,223 @@
+rules:
+
+  binance-info-title-prefix:
+    description: API title must start with "Binance"
+    message: 'Info title must start with "Binance": {{value}}'
+    severity: error
+    given: $.info.title
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Binance"
+
+  binance-info-version-present:
+    description: API info must have a version field
+    message: Info object must include a version
+    severity: error
+    given: $.info
+    then:
+      field: version
+      function: truthy
+
+  binance-info-contact-present:
+    description: API info must include contact details
+    message: Info object must include contact
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  binance-operation-summary-prefix:
+    description: Operation summaries must start with "Binance"
+    message: 'Operation summary must start with "Binance": {{value}}'
+    severity: error
+    given: "$.paths[*][*].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Binance"
+
+  binance-operation-id-camel-case:
+    description: Operation IDs must be camelCase
+    message: 'OperationId must be camelCase: {{value}}'
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  binance-operation-tags-present:
+    description: Every operation must have at least one tag
+    message: Operations must include tags
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: tags
+      function: truthy
+
+  binance-operation-description-present:
+    description: Every operation must have a description
+    message: Operations must include description
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: description
+      function: truthy
+
+  binance-path-kebab-case:
+    description: Path segments must use kebab-case or standard patterns
+    message: 'Path segments should be lowercase: {{value}}'
+    severity: warn
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9/_{}.]*)+$"
+
+  binance-request-body-post:
+    description: POST operations must have a request body
+    message: POST operations must include requestBody
+    severity: error
+    given: "$.paths[*].post"
+    then:
+      field: requestBody
+      function: truthy
+
+  binance-response-success-present:
+    description: Every operation must define a success response
+    message: Operations must include a 200 or 201 response
+    severity: error
+    given: "$.paths[*][*].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: ['200']
+            - required: ['201']
+
+  binance-schema-title-present:
+    description: All schemas must have a title
+    message: Schemas must include title
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      field: title
+      function: truthy
+
+  binance-schema-description-present:
+    description: All schemas must have a description
+    message: Schemas must include description
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      field: description
+      function: truthy
+
+  binance-security-scheme-present:
+    description: API must define at least one security scheme
+    message: Components must include securitySchemes
+    severity: error
+    given: "$.components"
+    then:
+      field: securitySchemes
+      function: truthy
+
+  binance-hmac-auth-used:
+    description: Binance APIs use HMAC SHA256 signed requests
+    message: Security scheme must include API key authentication
+    severity: warn
+    given: "$.components.securitySchemes[*]"
+    then:
+      function: truthy
+
+  binance-operation-security-present:
+    description: Private operations must declare security
+    message: Trade operations must include security definition
+    severity: warn
+    given: "$.paths[*][post,delete]"
+    then:
+      field: security
+      function: truthy
+
+  binance-tags-defined:
+    description: All tags used in operations must be defined at top level
+    message: Tags must be defined in the global tags section
+    severity: warn
+    given: "$.tags"
+    then:
+      function: truthy
+
+  binance-servers-present:
+    description: API must define servers
+    message: Servers array must be present and non-empty
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  binance-server-https:
+    description: Server URL must use HTTPS
+    message: 'Server URL must use HTTPS: {{value}}'
+    severity: error
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  binance-operation-examples-present:
+    description: Responses with content should include examples
+    message: Response content should include examples
+    severity: warn
+    given: "$.paths[*][*].responses[*].content[*]"
+    then:
+      field: examples
+      function: truthy
+
+  binance-microcks-operation-present:
+    description: Every operation must include x-microcks-operation extension
+    message: Operations must include x-microcks-operation
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: x-microcks-operation
+      function: truthy
+
+  binance-timestamp-parameter:
+    description: Signed endpoints should include timestamp parameter
+    message: Signed endpoint parameters should include timestamp
+    severity: warn
+    given: "$.paths[*][get,post,delete].parameters[?(@.name=='timestamp')]"
+    then:
+      function: truthy
+
+  binance-recvwindow-parameter:
+    description: Signed endpoints may include recvWindow parameter
+    message: recvWindow parameter should be optional integer
+    severity: info
+    given: "$.paths[*][*].parameters[?(@.name=='recvWindow')]"
+    then:
+      function: truthy
+
+  binance-license-present:
+    description: API info must include license
+    message: Info must include license
+    severity: warn
+    given: "$.info"
+    then:
+      field: license
+      function: truthy
+
+  binance-schema-properties-described:
+    description: Schema properties must have descriptions
+    message: Schema properties must include description
+    severity: warn
+    given: "$.components.schemas[*].properties[*]"
+    then:
+      field: description
+      function: truthy

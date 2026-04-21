@@ -1,0 +1,81 @@
+name: Binance Spot Trading API
+description: Shared capability definitions for the Binance spot trading REST API
+version: v3
+baseUrl: https://api.binance.com
+
+authentication:
+  type: apiKey
+  header: X-MBX-APIKEY
+  value: "{{BINANCE_API_KEY}}"
+  note: Private endpoints require HMAC SHA256 signature on query string
+
+operations:
+  - operationId: getTickerPrice
+    name: get-ticker
+    summary: Get current price for a trading pair
+    method: GET
+    path: /api/v3/ticker/price
+    tags:
+      - Market Data
+  - operationId: getOrderBook
+    name: get-order-book
+    summary: Get order book depth for a trading pair
+    method: GET
+    path: /api/v3/depth
+    tags:
+      - Market Data
+  - operationId: getKlines
+    name: get-klines
+    summary: Get candlestick chart data
+    method: GET
+    path: /api/v3/klines
+    tags:
+      - Market Data
+  - operationId: getAccount
+    name: get-account
+    summary: Get account balances and information
+    method: GET
+    path: /api/v3/account
+    tags:
+      - Account
+  - operationId: createOrder
+    name: create-order
+    summary: Place a new spot order
+    method: POST
+    path: /api/v3/order
+    tags:
+      - Trading
+  - operationId: getOrder
+    name: get-order
+    summary: Get status of a specific order
+    method: GET
+    path: /api/v3/order
+    tags:
+      - Trading
+  - operationId: cancelOrder
+    name: cancel-order
+    summary: Cancel an active order
+    method: DELETE
+    path: /api/v3/order
+    tags:
+      - Trading
+  - operationId: listOpenOrders
+    name: list-orders
+    summary: List all open orders for a symbol
+    method: GET
+    path: /api/v3/openOrders
+    tags:
+      - Trading
+  - operationId: getMyTrades
+    name: list-trades
+    summary: Get trade history for a symbol
+    method: GET
+    path: /api/v3/myTrades
+    tags:
+      - Trading
+
+expose:
+  rest:
+    port: 8100
+  mcp:
+    port: 9100
