@@ -4,7 +4,8 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Binance
 providerId: binance
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Cryptocurrency
   - Exchange
@@ -13,234 +14,164 @@ tags:
   - Finance
   - DeFi
   - Market Data
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: Binance does not charge for API access itself; commercial pricing is expressed as
+  spot/futures trading commissions and a tiered VIP fee schedule based on 30-day trading volume and BNB
+  holdings. API connectivity, market data, and WebSocket streams are provided at no cost to authenticated
+  users; revenue is captured per-trade. Higher VIP tiers also confer raised request weight ceilings.
+sources:
+  - https://www.binance.com/en/fee/schedule
+  - https://www.binance.com/en/binance-api
+  - https://developers.binance.com/docs/binance-spot-api-docs/rest-api/limits
 plans:
-  - id: binance-free
-    name: Free
+  - id: binance-api-access
+    name: API Access (No Fee)
     type: freemium
-    description: Free entry tier for the Binance API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    description: Free programmatic access to Binance's REST and WebSocket APIs for any authenticated
+      account. Trading is what is billed, not connectivity.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
+      - label: API connectivity
+        name: api_access
+        type: flat
+        metric: request
+        limit: -1
+        timeFrame: usage
         geo: global
-        domains:
-          - https://api.binance.com
-          - wss://ws-api.binance.com
-          - wss://stream.binance.com
-          - https://fapi.binance.com
-          - https://dapi.binance.com
-          - https://eapi.binance.com
-          - https://papi.binance.com
-          - https://bpay.binanceapi.com
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
+      - label: Market data (REST + WebSocket)
+        name: market_data
+        type: flat
+        metric: request
+        limit: -1
+        timeFrame: usage
         geo: global
-        domains:
-          - https://api.binance.com
-          - wss://ws-api.binance.com
-          - wss://stream.binance.com
-          - https://fapi.binance.com
-          - https://dapi.binance.com
-          - https://eapi.binance.com
-          - https://papi.binance.com
-          - https://bpay.binanceapi.com
         unit: 1
         price: '0.00'
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Binance Spot Trading API
-      - name: Binance Spot WebSocket API
-      - name: Binance Spot WebSocket Streams
-      - name: Binance USD-S Margined Futures API
-      - name: Binance COIN-M Futures API
-      - name: Binance European Options API
-      - name: Binance Portfolio Margin API
-      - name: Binance Margin Trading API
-  - id: binance-pro
-    name: Professional
-    type: paid
-    description: Production tier for Binance. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+      - name: Spot Trading API
+      - name: USD-S Margined Futures API
+      - name: COIN-M Futures API
+      - name: European Options API
+      - name: Margin Trading API
+      - name: Wallet API
+      - name: WebSocket Streams
+      - name: Sandbox / Spot Testnet
+  - id: binance-spot-regular
+    name: Spot Trading - Regular User
+    type: usage-based
+    description: Default maker/taker commission for accounts under VIP 1 thresholds (less than $1M
+      30-day spot volume). BNB holders receive a 25% discount when paying fees in BNB.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.binance.com
-          - wss://ws-api.binance.com
-          - wss://stream.binance.com
-          - https://fapi.binance.com
-          - https://dapi.binance.com
-          - https://eapi.binance.com
-          - https://papi.binance.com
-          - https://bpay.binanceapi.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.binance.com
-          - wss://ws-api.binance.com
-          - wss://stream.binance.com
-          - https://fapi.binance.com
-          - https://dapi.binance.com
-          - https://eapi.binance.com
-          - https://papi.binance.com
-          - https://bpay.binanceapi.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Maker fee
+        name: spot_maker_regular
         type: metered
-        metric: requests
+        metric: transaction
         limit: -1
-        timeFrame: month
+        timeFrame: usage
         geo: global
-        domains:
-          - https://api.binance.com
-          - wss://ws-api.binance.com
-          - wss://stream.binance.com
-          - https://fapi.binance.com
-          - https://dapi.binance.com
-          - https://eapi.binance.com
-          - https://papi.binance.com
-          - https://bpay.binanceapi.com
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: '0.1000%'
         userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Binance Spot Trading API
-      - name: Binance Spot WebSocket API
-      - name: Binance Spot WebSocket Streams
-      - name: Binance USD-S Margined Futures API
-      - name: Binance COIN-M Futures API
-      - name: Binance European Options API
-      - name: Binance Portfolio Margin API
-      - name: Binance Margin Trading API
-      - name: Binance Wallet API
-      - name: Binance Sub-Account API
-      - name: Binance Simple Earn API
-      - name: Binance Mining API
-      - name: Binance Copy Trading API
-      - name: Binance Convert API
-      - name: Binance Pay API
-      - name: Binance Algo Trading API
-      - name: Binance Auto-Invest API
-      - name: Binance Crypto Loan API
-      - name: Binance Gift Card API
-      - name: Binance NFT API
-      - name: Binance Fiat API
-  - id: binance-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Binance. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Taker fee
+        name: spot_taker_regular
+        type: metered
+        metric: transaction
         limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://api.binance.com
-          - wss://ws-api.binance.com
-          - wss://stream.binance.com
-          - https://fapi.binance.com
-          - https://dapi.binance.com
-          - https://eapi.binance.com
-          - https://papi.binance.com
-          - https://bpay.binanceapi.com
+        timeFrame: usage
+        geo: global
         unit: 1
-        price: custom
+        price: '0.1000%'
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api.binance.com
-          - wss://ws-api.binance.com
-          - wss://stream.binance.com
-          - https://fapi.binance.com
-          - https://dapi.binance.com
-          - https://eapi.binance.com
-          - https://papi.binance.com
-          - https://bpay.binanceapi.com
+      - label: BNB fee discount
+        name: bnb_discount
+        type: tiered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
         unit: 1
-        price: custom
+        price: '-25% when paid in BNB'
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Binance Spot Trading API
-      - name: Binance Spot WebSocket API
-      - name: Binance Spot WebSocket Streams
-      - name: Binance USD-S Margined Futures API
-      - name: Binance COIN-M Futures API
-      - name: Binance European Options API
-      - name: Binance Portfolio Margin API
-      - name: Binance Margin Trading API
-      - name: Binance Wallet API
-      - name: Binance Sub-Account API
-      - name: Binance Simple Earn API
-      - name: Binance Mining API
-      - name: Binance Copy Trading API
-      - name: Binance Convert API
-      - name: Binance Pay API
-      - name: Binance Algo Trading API
-      - name: Binance Auto-Invest API
-      - name: Binance Crypto Loan API
-      - name: Binance Gift Card API
-      - name: Binance NFT API
-      - name: Binance Fiat API
+      - name: Spot Trading
+      - name: Margin Trading
+      - name: Convert
+      - name: Copy Trading
+      - name: Trading Bots
+  - id: binance-spot-vip
+    name: Spot Trading - VIP Tiers
+    type: tiered
+    description: Volume-discounted maker/taker fees for accounts that meet 30-day trading volume and BNB
+      balance thresholds. VIP status applies universally across Binance products.
+    entries:
+      - label: VIP 1 maker / taker (>= $1M volume, >= 5 BNB)
+        name: spot_vip1
+        type: tiered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.0900% / 0.1000%'
+        userMultiplied: false
+      - label: VIP 3 maker / taker (>= $20M volume, >= 100 BNB)
+        name: spot_vip3
+        type: tiered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.0400% / 0.0600%'
+        userMultiplied: false
+      - label: VIP 5 maker / taker (>= $150M volume, >= 1000 BNB)
+        name: spot_vip5
+        type: tiered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.0250% / 0.0310%'
+        userMultiplied: false
+      - label: VIP 9 maker / taker (>= $4B volume, >= 5500 BNB)
+        name: spot_vip9
+        type: tiered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.0110% / 0.0230%'
+        userMultiplied: false
+    elements:
+      - name: Reduced Spot/Margin/Convert/Copy/Bot fees
+      - name: Higher API request weight ceilings at higher VIP tiers
+      - name: Priority customer support at upper tiers
+  - id: binance-institutional
+    name: Institutional / Broker
+    type: enterprise
+    description: Negotiated fee schedules for institutional, market maker, broker, and Binance Link
+      partners. Pricing and rebates negotiated per relationship.
+    entries:
+      - label: Institutional fees
+        name: institutional_fees
+        type: tiered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+    elements:
+      - name: Binance Link / Broker Program
+      - name: Market Maker Program
+      - name: Liquidity Provider rebates
+      - name: Sub-account hierarchy
+      - name: Dedicated relationship management
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
