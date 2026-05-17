@@ -555,7 +555,7 @@ common:
 description: >-
   Binance is the world's largest cryptocurrency exchange by trading volume, providing APIs for spot trading, futures, margin, wallet management, and market data across 19+ specialized REST APIs and WebSocket streams.
 name: Binance
-type: Contract
+kind: contract
 access: 3rd-Party
 position: Consuming
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
