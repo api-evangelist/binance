@@ -1,0 +1,561 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Binance Spot Trading API — Market Data
+  description: 'Binance Spot Trading API — Market Data. 11 operations. Lead operation: Compressed/Aggregate trades list. Self-contained
+    Naftiko capability covering one Binance business surface.'
+  tags:
+  - Binance
+  - Market Data
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BINANCE_API_KEY: BINANCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: spot-trading-market-data
+    baseUri: https://api.binance.com
+    description: Binance Spot Trading API — Market Data business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v3-aggTrades
+      path: /api/v3/aggTrades
+      operations:
+      - name: getaggtrades
+        method: GET
+        description: Compressed/Aggregate trades list
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fromId
+          in: query
+          type: integer
+          description: ID to get aggregate trades from (inclusive).
+        - name: startTime
+          in: query
+          type: integer
+          description: Start time in milliseconds (inclusive).
+        - name: endTime
+          in: query
+          type: integer
+          description: End time in milliseconds (inclusive).
+        - name: limit
+          in: query
+          type: integer
+          description: Number of results to return. Default 500, max 1000.
+    - name: api-v3-avgPrice
+      path: /api/v3/avgPrice
+      operations:
+      - name: getavgprice
+        method: GET
+        description: Current average price
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v3-depth
+      path: /api/v3/depth
+      operations:
+      - name: getorderbook
+        method: GET
+        description: Order book
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Number of price levels to return. Default 100. Valid limits are 5, 10, 20, 50, 100, 500, 1000, 5000.
+    - name: api-v3-historicalTrades
+      path: /api/v3/historicalTrades
+      operations:
+      - name: gethistoricaltrades
+        method: GET
+        description: Old trade lookup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Number of trades to return. Default 500, max 1000.
+        - name: fromId
+          in: query
+          type: integer
+          description: Trade ID to fetch from. Default gets most recent trades.
+    - name: api-v3-klines
+      path: /api/v3/klines
+      operations:
+      - name: getklines
+        method: GET
+        description: Kline/Candlestick data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startTime
+          in: query
+          type: integer
+          description: Start time in milliseconds.
+        - name: endTime
+          in: query
+          type: integer
+          description: End time in milliseconds.
+        - name: timeZone
+          in: query
+          type: string
+          description: Timezone for kline open/close times. Default is UTC.
+        - name: limit
+          in: query
+          type: integer
+          description: Number of results to return. Default 500, max 1000.
+    - name: api-v3-ticker
+      path: /api/v3/ticker
+      operations:
+      - name: getrollingwindowticker
+        method: GET
+        description: Rolling window price change statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbols
+          in: query
+          type: string
+          description: JSON array of symbols to query.
+        - name: windowSize
+          in: query
+          type: string
+          description: Window size for the rolling statistics. Defaults to 1d. Supported values include 1m, 2m, ... 59m, 1h,
+            2h, ... 23h, 1d, 2d, ... 7d.
+        - name: type
+          in: query
+          type: string
+          description: Response type. FULL or MINI.
+    - name: api-v3-ticker-24hr
+      path: /api/v3/ticker/24hr
+      operations:
+      - name: get24hrticker
+        method: GET
+        description: 24hr ticker price change statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbols
+          in: query
+          type: string
+          description: JSON array of symbols to query.
+        - name: type
+          in: query
+          type: string
+          description: Supported values are FULL or MINI. MINI omits some fields.
+    - name: api-v3-ticker-bookTicker
+      path: /api/v3/ticker/bookTicker
+      operations:
+      - name: getbookticker
+        method: GET
+        description: Symbol order book ticker
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbols
+          in: query
+          type: string
+          description: JSON array of symbols to query.
+    - name: api-v3-ticker-price
+      path: /api/v3/ticker/price
+      operations:
+      - name: gettickerprice
+        method: GET
+        description: Symbol price ticker
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbols
+          in: query
+          type: string
+          description: JSON array of symbols to query.
+    - name: api-v3-trades
+      path: /api/v3/trades
+      operations:
+      - name: getrecenttrades
+        method: GET
+        description: Recent trades list
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Number of trades to return. Default 500, max 1000.
+    - name: api-v3-uiKlines
+      path: /api/v3/uiKlines
+      operations:
+      - name: getuiklines
+        method: GET
+        description: UIKlines
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startTime
+          in: query
+          type: integer
+          description: Start time in milliseconds.
+        - name: endTime
+          in: query
+          type: integer
+          description: End time in milliseconds.
+        - name: timeZone
+          in: query
+          type: string
+          description: Timezone for kline open/close times. Default is UTC.
+        - name: limit
+          in: query
+          type: integer
+          description: Number of results to return. Default 500, max 1000.
+    authentication:
+      type: apikey
+      key: X-MBX-APIKEY
+      value: '{{env.BINANCE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: spot-trading-market-data-rest
+    port: 8080
+    description: REST adapter for Binance Spot Trading API — Market Data. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v3/aggtrades
+      name: api-v3-aggtrades
+      description: REST surface for api-v3-aggTrades.
+      operations:
+      - method: GET
+        name: getaggtrades
+        description: Compressed/Aggregate trades list
+        call: spot-trading-market-data.getaggtrades
+        with:
+          fromId: rest.fromId
+          startTime: rest.startTime
+          endTime: rest.endTime
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/avgprice
+      name: api-v3-avgprice
+      description: REST surface for api-v3-avgPrice.
+      operations:
+      - method: GET
+        name: getavgprice
+        description: Current average price
+        call: spot-trading-market-data.getavgprice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/depth
+      name: api-v3-depth
+      description: REST surface for api-v3-depth.
+      operations:
+      - method: GET
+        name: getorderbook
+        description: Order book
+        call: spot-trading-market-data.getorderbook
+        with:
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/historicaltrades
+      name: api-v3-historicaltrades
+      description: REST surface for api-v3-historicalTrades.
+      operations:
+      - method: GET
+        name: gethistoricaltrades
+        description: Old trade lookup
+        call: spot-trading-market-data.gethistoricaltrades
+        with:
+          limit: rest.limit
+          fromId: rest.fromId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/klines
+      name: api-v3-klines
+      description: REST surface for api-v3-klines.
+      operations:
+      - method: GET
+        name: getklines
+        description: Kline/Candlestick data
+        call: spot-trading-market-data.getklines
+        with:
+          startTime: rest.startTime
+          endTime: rest.endTime
+          timeZone: rest.timeZone
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/ticker
+      name: api-v3-ticker
+      description: REST surface for api-v3-ticker.
+      operations:
+      - method: GET
+        name: getrollingwindowticker
+        description: Rolling window price change statistics
+        call: spot-trading-market-data.getrollingwindowticker
+        with:
+          symbols: rest.symbols
+          windowSize: rest.windowSize
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/ticker/24hr
+      name: api-v3-ticker-24hr
+      description: REST surface for api-v3-ticker-24hr.
+      operations:
+      - method: GET
+        name: get24hrticker
+        description: 24hr ticker price change statistics
+        call: spot-trading-market-data.get24hrticker
+        with:
+          symbols: rest.symbols
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/ticker/bookticker
+      name: api-v3-ticker-bookticker
+      description: REST surface for api-v3-ticker-bookTicker.
+      operations:
+      - method: GET
+        name: getbookticker
+        description: Symbol order book ticker
+        call: spot-trading-market-data.getbookticker
+        with:
+          symbols: rest.symbols
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/ticker/price
+      name: api-v3-ticker-price
+      description: REST surface for api-v3-ticker-price.
+      operations:
+      - method: GET
+        name: gettickerprice
+        description: Symbol price ticker
+        call: spot-trading-market-data.gettickerprice
+        with:
+          symbols: rest.symbols
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/trades
+      name: api-v3-trades
+      description: REST surface for api-v3-trades.
+      operations:
+      - method: GET
+        name: getrecenttrades
+        description: Recent trades list
+        call: spot-trading-market-data.getrecenttrades
+        with:
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/uiklines
+      name: api-v3-uiklines
+      description: REST surface for api-v3-uiKlines.
+      operations:
+      - method: GET
+        name: getuiklines
+        description: UIKlines
+        call: spot-trading-market-data.getuiklines
+        with:
+          startTime: rest.startTime
+          endTime: rest.endTime
+          timeZone: rest.timeZone
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: spot-trading-market-data-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Binance Spot Trading API — Market Data. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: compressed-aggregate-trades-list
+      description: Compressed/Aggregate trades list
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-market-data.getaggtrades
+      with:
+        fromId: tools.fromId
+        startTime: tools.startTime
+        endTime: tools.endTime
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: current-average-price
+      description: Current average price
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-market-data.getavgprice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: order-book
+      description: Order book
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-market-data.getorderbook
+      with:
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: old-trade-lookup
+      description: Old trade lookup
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-market-data.gethistoricaltrades
+      with:
+        limit: tools.limit
+        fromId: tools.fromId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kline-candlestick-data
+      description: Kline/Candlestick data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-market-data.getklines
+      with:
+        startTime: tools.startTime
+        endTime: tools.endTime
+        timeZone: tools.timeZone
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: rolling-window-price-change-statistics
+      description: Rolling window price change statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-market-data.getrollingwindowticker
+      with:
+        symbols: tools.symbols
+        windowSize: tools.windowSize
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: 24hr-ticker-price-change-statistics
+      description: 24hr ticker price change statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-market-data.get24hrticker
+      with:
+        symbols: tools.symbols
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: symbol-order-book-ticker
+      description: Symbol order book ticker
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-market-data.getbookticker
+      with:
+        symbols: tools.symbols
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: symbol-price-ticker
+      description: Symbol price ticker
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-market-data.gettickerprice
+      with:
+        symbols: tools.symbols
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: recent-trades-list
+      description: Recent trades list
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-market-data.getrecenttrades
+      with:
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uiklines
+      description: UIKlines
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-market-data.getuiklines
+      with:
+        startTime: tools.startTime
+        endTime: tools.endTime
+        timeZone: tools.timeZone
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.

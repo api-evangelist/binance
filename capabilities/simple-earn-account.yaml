@@ -1,0 +1,92 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Binance Simple Earn API — Account
+  description: 'Binance Simple Earn API — Account. 1 operations. Lead operation: Simple account. Self-contained Naftiko capability
+    covering one Binance business surface.'
+  tags:
+  - Binance
+  - Account
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BINANCE_API_KEY: BINANCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: simple-earn-account
+    baseUri: https://api.binance.com
+    description: Binance Simple Earn API — Account business capability. Self-contained, no shared references.
+    resources:
+    - name: sapi-v1-simple-earn-account
+      path: /sapi/v1/simple-earn/account
+      operations:
+      - name: getsimpleearnaccount
+        method: GET
+        description: Simple account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: recvWindow
+          in: query
+          type: integer
+        - name: timestamp
+          in: query
+          type: integer
+          required: true
+        - name: signature
+          in: query
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: X-MBX-APIKEY
+      value: '{{env.BINANCE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: simple-earn-account-rest
+    port: 8080
+    description: REST adapter for Binance Simple Earn API — Account. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/sapi/v1/simple-earn/account
+      name: sapi-v1-simple-earn-account
+      description: REST surface for sapi-v1-simple-earn-account.
+      operations:
+      - method: GET
+        name: getsimpleearnaccount
+        description: Simple account
+        call: simple-earn-account.getsimpleearnaccount
+        with:
+          recvWindow: rest.recvWindow
+          timestamp: rest.timestamp
+          signature: rest.signature
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: simple-earn-account-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Binance Simple Earn API — Account. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: simple-account
+      description: Simple account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: simple-earn-account.getsimpleearnaccount
+      with:
+        recvWindow: tools.recvWindow
+        timestamp: tools.timestamp
+        signature: tools.signature
+      outputParameters:
+      - type: object
+        mapping: $.

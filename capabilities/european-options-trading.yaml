@@ -1,0 +1,333 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Binance European Options API — Trading
+  description: 'Binance European Options API — Trading. 4 operations. Lead operation: Query current open orders. Self-contained
+    Naftiko capability covering one Binance business surface.'
+  tags:
+  - Binance
+  - Trading
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BINANCE_API_KEY: BINANCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: european-options-trading
+    baseUri: https://eapi.binance.com
+    description: Binance European Options API — Trading business capability. Self-contained, no shared references.
+    resources:
+    - name: eapi-v1-openOrders
+      path: /eapi/v1/openOrders
+      operations:
+      - name: getopenorders
+        method: GET
+        description: Query current open orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbol
+          in: query
+          type: string
+        - name: recvWindow
+          in: query
+          type: integer
+        - name: timestamp
+          in: query
+          type: integer
+          required: true
+        - name: signature
+          in: query
+          type: string
+          required: true
+    - name: eapi-v1-order
+      path: /eapi/v1/order
+      operations:
+      - name: createorder
+        method: POST
+        description: New order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbol
+          in: query
+          type: string
+          description: Option symbol.
+          required: true
+        - name: side
+          in: query
+          type: string
+          required: true
+        - name: type
+          in: query
+          type: string
+          required: true
+        - name: quantity
+          in: query
+          type: string
+          required: true
+        - name: price
+          in: query
+          type: string
+          required: true
+        - name: timeInForce
+          in: query
+          type: string
+        - name: reduceOnly
+          in: query
+          type: boolean
+        - name: postOnly
+          in: query
+          type: boolean
+        - name: newOrderRespType
+          in: query
+          type: string
+        - name: clientOrderId
+          in: query
+          type: string
+        - name: isMmp
+          in: query
+          type: boolean
+          description: Market maker protection flag.
+        - name: recvWindow
+          in: query
+          type: integer
+        - name: timestamp
+          in: query
+          type: integer
+          required: true
+        - name: signature
+          in: query
+          type: string
+          required: true
+      - name: getorder
+        method: GET
+        description: Query single order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbol
+          in: query
+          type: string
+          required: true
+        - name: orderId
+          in: query
+          type: integer
+        - name: clientOrderId
+          in: query
+          type: string
+        - name: recvWindow
+          in: query
+          type: integer
+        - name: timestamp
+          in: query
+          type: integer
+          required: true
+        - name: signature
+          in: query
+          type: string
+          required: true
+      - name: cancelorder
+        method: DELETE
+        description: Cancel order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbol
+          in: query
+          type: string
+          required: true
+        - name: orderId
+          in: query
+          type: integer
+        - name: clientOrderId
+          in: query
+          type: string
+        - name: recvWindow
+          in: query
+          type: integer
+        - name: timestamp
+          in: query
+          type: integer
+          required: true
+        - name: signature
+          in: query
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: X-MBX-APIKEY
+      value: '{{env.BINANCE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: european-options-trading-rest
+    port: 8080
+    description: REST adapter for Binance European Options API — Trading. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/eapi/v1/openorders
+      name: eapi-v1-openorders
+      description: REST surface for eapi-v1-openOrders.
+      operations:
+      - method: GET
+        name: getopenorders
+        description: Query current open orders
+        call: european-options-trading.getopenorders
+        with:
+          symbol: rest.symbol
+          recvWindow: rest.recvWindow
+          timestamp: rest.timestamp
+          signature: rest.signature
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/eapi/v1/order
+      name: eapi-v1-order
+      description: REST surface for eapi-v1-order.
+      operations:
+      - method: POST
+        name: createorder
+        description: New order
+        call: european-options-trading.createorder
+        with:
+          symbol: rest.symbol
+          side: rest.side
+          type: rest.type
+          quantity: rest.quantity
+          price: rest.price
+          timeInForce: rest.timeInForce
+          reduceOnly: rest.reduceOnly
+          postOnly: rest.postOnly
+          newOrderRespType: rest.newOrderRespType
+          clientOrderId: rest.clientOrderId
+          isMmp: rest.isMmp
+          recvWindow: rest.recvWindow
+          timestamp: rest.timestamp
+          signature: rest.signature
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getorder
+        description: Query single order
+        call: european-options-trading.getorder
+        with:
+          symbol: rest.symbol
+          orderId: rest.orderId
+          clientOrderId: rest.clientOrderId
+          recvWindow: rest.recvWindow
+          timestamp: rest.timestamp
+          signature: rest.signature
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: cancelorder
+        description: Cancel order
+        call: european-options-trading.cancelorder
+        with:
+          symbol: rest.symbol
+          orderId: rest.orderId
+          clientOrderId: rest.clientOrderId
+          recvWindow: rest.recvWindow
+          timestamp: rest.timestamp
+          signature: rest.signature
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: european-options-trading-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Binance European Options API — Trading. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: query-current-open-orders
+      description: Query current open orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: european-options-trading.getopenorders
+      with:
+        symbol: tools.symbol
+        recvWindow: tools.recvWindow
+        timestamp: tools.timestamp
+        signature: tools.signature
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: new-order
+      description: New order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: european-options-trading.createorder
+      with:
+        symbol: tools.symbol
+        side: tools.side
+        type: tools.type
+        quantity: tools.quantity
+        price: tools.price
+        timeInForce: tools.timeInForce
+        reduceOnly: tools.reduceOnly
+        postOnly: tools.postOnly
+        newOrderRespType: tools.newOrderRespType
+        clientOrderId: tools.clientOrderId
+        isMmp: tools.isMmp
+        recvWindow: tools.recvWindow
+        timestamp: tools.timestamp
+        signature: tools.signature
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: query-single-order
+      description: Query single order
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: european-options-trading.getorder
+      with:
+        symbol: tools.symbol
+        orderId: tools.orderId
+        clientOrderId: tools.clientOrderId
+        recvWindow: tools.recvWindow
+        timestamp: tools.timestamp
+        signature: tools.signature
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-order
+      description: Cancel order
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: european-options-trading.cancelorder
+      with:
+        symbol: tools.symbol
+        orderId: tools.orderId
+        clientOrderId: tools.clientOrderId
+        recvWindow: tools.recvWindow
+        timestamp: tools.timestamp
+        signature: tools.signature
+      outputParameters:
+      - type: object
+        mapping: $.

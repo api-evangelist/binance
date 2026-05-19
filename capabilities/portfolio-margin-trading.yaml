@@ -1,0 +1,295 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Binance Portfolio Margin API — Trading
+  description: 'Binance Portfolio Margin API — Trading. 3 operations. Lead operation: New CM order. Self-contained Naftiko
+    capability covering one Binance business surface.'
+  tags:
+  - Binance
+  - Trading
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BINANCE_API_KEY: BINANCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portfolio-margin-trading
+    baseUri: https://papi.binance.com
+    description: Binance Portfolio Margin API — Trading business capability. Self-contained, no shared references.
+    resources:
+    - name: papi-v1-cm-order
+      path: /papi/v1/cm/order
+      operations:
+      - name: createcmorder
+        method: POST
+        description: New CM order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbol
+          in: query
+          type: string
+          required: true
+        - name: side
+          in: query
+          type: string
+          required: true
+        - name: type
+          in: query
+          type: string
+          required: true
+        - name: quantity
+          in: query
+          type: string
+        - name: price
+          in: query
+          type: string
+        - name: timeInForce
+          in: query
+          type: string
+        - name: recvWindow
+          in: query
+          type: integer
+        - name: timestamp
+          in: query
+          type: integer
+          required: true
+        - name: signature
+          in: query
+          type: string
+          required: true
+    - name: papi-v1-margin-order
+      path: /papi/v1/margin/order
+      operations:
+      - name: createmarginorder
+        method: POST
+        description: New margin order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbol
+          in: query
+          type: string
+          required: true
+        - name: side
+          in: query
+          type: string
+          required: true
+        - name: type
+          in: query
+          type: string
+          required: true
+        - name: quantity
+          in: query
+          type: string
+        - name: price
+          in: query
+          type: string
+        - name: timeInForce
+          in: query
+          type: string
+        - name: recvWindow
+          in: query
+          type: integer
+        - name: timestamp
+          in: query
+          type: integer
+          required: true
+        - name: signature
+          in: query
+          type: string
+          required: true
+    - name: papi-v1-um-order
+      path: /papi/v1/um/order
+      operations:
+      - name: createumorder
+        method: POST
+        description: New UM order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbol
+          in: query
+          type: string
+          required: true
+        - name: side
+          in: query
+          type: string
+          required: true
+        - name: type
+          in: query
+          type: string
+          required: true
+        - name: quantity
+          in: query
+          type: string
+        - name: price
+          in: query
+          type: string
+        - name: timeInForce
+          in: query
+          type: string
+        - name: recvWindow
+          in: query
+          type: integer
+        - name: timestamp
+          in: query
+          type: integer
+          required: true
+        - name: signature
+          in: query
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: X-MBX-APIKEY
+      value: '{{env.BINANCE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: portfolio-margin-trading-rest
+    port: 8080
+    description: REST adapter for Binance Portfolio Margin API — Trading. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/papi/v1/cm/order
+      name: papi-v1-cm-order
+      description: REST surface for papi-v1-cm-order.
+      operations:
+      - method: POST
+        name: createcmorder
+        description: New CM order
+        call: portfolio-margin-trading.createcmorder
+        with:
+          symbol: rest.symbol
+          side: rest.side
+          type: rest.type
+          quantity: rest.quantity
+          price: rest.price
+          timeInForce: rest.timeInForce
+          recvWindow: rest.recvWindow
+          timestamp: rest.timestamp
+          signature: rest.signature
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/papi/v1/margin/order
+      name: papi-v1-margin-order
+      description: REST surface for papi-v1-margin-order.
+      operations:
+      - method: POST
+        name: createmarginorder
+        description: New margin order
+        call: portfolio-margin-trading.createmarginorder
+        with:
+          symbol: rest.symbol
+          side: rest.side
+          type: rest.type
+          quantity: rest.quantity
+          price: rest.price
+          timeInForce: rest.timeInForce
+          recvWindow: rest.recvWindow
+          timestamp: rest.timestamp
+          signature: rest.signature
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/papi/v1/um/order
+      name: papi-v1-um-order
+      description: REST surface for papi-v1-um-order.
+      operations:
+      - method: POST
+        name: createumorder
+        description: New UM order
+        call: portfolio-margin-trading.createumorder
+        with:
+          symbol: rest.symbol
+          side: rest.side
+          type: rest.type
+          quantity: rest.quantity
+          price: rest.price
+          timeInForce: rest.timeInForce
+          recvWindow: rest.recvWindow
+          timestamp: rest.timestamp
+          signature: rest.signature
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portfolio-margin-trading-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Binance Portfolio Margin API — Trading. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: new-cm-order
+      description: New CM order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portfolio-margin-trading.createcmorder
+      with:
+        symbol: tools.symbol
+        side: tools.side
+        type: tools.type
+        quantity: tools.quantity
+        price: tools.price
+        timeInForce: tools.timeInForce
+        recvWindow: tools.recvWindow
+        timestamp: tools.timestamp
+        signature: tools.signature
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: new-margin-order
+      description: New margin order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portfolio-margin-trading.createmarginorder
+      with:
+        symbol: tools.symbol
+        side: tools.side
+        type: tools.type
+        quantity: tools.quantity
+        price: tools.price
+        timeInForce: tools.timeInForce
+        recvWindow: tools.recvWindow
+        timestamp: tools.timestamp
+        signature: tools.signature
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: new-um-order
+      description: New UM order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portfolio-margin-trading.createumorder
+      with:
+        symbol: tools.symbol
+        side: tools.side
+        type: tools.type
+        quantity: tools.quantity
+        price: tools.price
+        timeInForce: tools.timeInForce
+        recvWindow: tools.recvWindow
+        timestamp: tools.timestamp
+        signature: tools.signature
+      outputParameters:
+      - type: object
+        mapping: $.

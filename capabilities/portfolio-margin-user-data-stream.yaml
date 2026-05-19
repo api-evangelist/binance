@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Binance Portfolio Margin API — User Data Stream
+  description: 'Binance Portfolio Margin API — User Data Stream. 3 operations. Lead operation: Start user data stream. Self-contained
+    Naftiko capability covering one Binance business surface.'
+  tags:
+  - Binance
+  - User Data Stream
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BINANCE_API_KEY: BINANCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portfolio-margin-user-data-stream
+    baseUri: https://papi.binance.com
+    description: Binance Portfolio Margin API — User Data Stream business capability. Self-contained, no shared references.
+    resources:
+    - name: papi-v1-listenKey
+      path: /papi/v1/listenKey
+      operations:
+      - name: createlistenkey
+        method: POST
+        description: Start user data stream
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: keepalivelistenkey
+        method: PUT
+        description: Keepalive user data stream
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: closelistenkey
+        method: DELETE
+        description: Close user data stream
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-MBX-APIKEY
+      value: '{{env.BINANCE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: portfolio-margin-user-data-stream-rest
+    port: 8080
+    description: REST adapter for Binance Portfolio Margin API — User Data Stream. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/papi/v1/listenkey
+      name: papi-v1-listenkey
+      description: REST surface for papi-v1-listenKey.
+      operations:
+      - method: POST
+        name: createlistenkey
+        description: Start user data stream
+        call: portfolio-margin-user-data-stream.createlistenkey
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: keepalivelistenkey
+        description: Keepalive user data stream
+        call: portfolio-margin-user-data-stream.keepalivelistenkey
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: closelistenkey
+        description: Close user data stream
+        call: portfolio-margin-user-data-stream.closelistenkey
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portfolio-margin-user-data-stream-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Binance Portfolio Margin API — User Data Stream. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: start-user-data-stream
+      description: Start user data stream
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portfolio-margin-user-data-stream.createlistenkey
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: keepalive-user-data-stream
+      description: Keepalive user data stream
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: portfolio-margin-user-data-stream.keepalivelistenkey
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: close-user-data-stream
+      description: Close user data stream
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portfolio-margin-user-data-stream.closelistenkey
+      outputParameters:
+      - type: object
+        mapping: $.

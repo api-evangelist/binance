@@ -1,0 +1,548 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Binance Spot Trading API — Trading
+  description: 'Binance Spot Trading API — Trading. 9 operations. Lead operation: All orders. Self-contained Naftiko capability
+    covering one Binance business surface.'
+  tags:
+  - Binance
+  - Trading
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BINANCE_API_KEY: BINANCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: spot-trading-trading
+    baseUri: https://api.binance.com
+    description: Binance Spot Trading API — Trading business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v3-allOrders
+      path: /api/v3/allOrders
+      operations:
+      - name: getallorders
+        method: GET
+        description: All orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderId
+          in: query
+          type: integer
+          description: Order ID to start from.
+        - name: startTime
+          in: query
+          type: integer
+          description: Start time in milliseconds.
+        - name: endTime
+          in: query
+          type: integer
+          description: End time in milliseconds.
+        - name: limit
+          in: query
+          type: integer
+          description: Number of results. Default 500, max 1000.
+    - name: api-v3-openOrders
+      path: /api/v3/openOrders
+      operations:
+      - name: getopenorders
+        method: GET
+        description: Current open orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: cancelallopenorders
+        method: DELETE
+        description: Cancel all open orders on a symbol
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v3-order
+      path: /api/v3/order
+      operations:
+      - name: createorder
+        method: POST
+        description: New order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: quantity
+          in: query
+          type: string
+          description: Order quantity in base asset.
+        - name: quoteOrderQty
+          in: query
+          type: string
+          description: Order quantity in quote asset. Used for MARKET orders.
+        - name: price
+          in: query
+          type: string
+          description: Order price. Required for LIMIT orders.
+        - name: newClientOrderId
+          in: query
+          type: string
+          description: A unique ID for the order. Automatically generated if not sent.
+        - name: strategyId
+          in: query
+          type: integer
+          description: Arbitrary numeric value identifying the strategy.
+        - name: strategyType
+          in: query
+          type: integer
+          description: Arbitrary numeric value identifying the strategy type. Values smaller than 1000000 are reserved.
+        - name: stopPrice
+          in: query
+          type: string
+          description: Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
+        - name: trailingDelta
+          in: query
+          type: integer
+          description: Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders. Basis points.
+        - name: icebergQty
+          in: query
+          type: string
+          description: Used with LIMIT, STOP_LOSS_LIMIT, and TAKE_PROFIT_LIMIT to create an iceberg order.
+        - name: newOrderRespType
+          in: query
+          type: string
+          description: Set the response JSON. ACK, RESULT, or FULL.
+        - name: selfTradePreventionMode
+          in: query
+          type: string
+          description: The self-trade prevention mode.
+      - name: getorder
+        method: GET
+        description: Query order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderId
+          in: query
+          type: integer
+          description: The order ID to query.
+        - name: origClientOrderId
+          in: query
+          type: string
+          description: The client order ID to query.
+      - name: cancelorder
+        method: DELETE
+        description: Cancel order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderId
+          in: query
+          type: integer
+          description: The order ID to cancel.
+        - name: origClientOrderId
+          in: query
+          type: string
+          description: The client order ID to cancel.
+        - name: newClientOrderId
+          in: query
+          type: string
+          description: Used to uniquely identify this cancel request.
+        - name: cancelRestrictions
+          in: query
+          type: string
+          description: Supported values ONLY_NEW and ONLY_PARTIALLY_FILLED.
+    - name: api-v3-order-oco
+      path: /api/v3/order/oco
+      operations:
+      - name: createocoorder
+        method: POST
+        description: New OCO order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: quantity
+          in: query
+          type: string
+          description: Order quantity.
+          required: true
+        - name: price
+          in: query
+          type: string
+          description: Limit order price.
+          required: true
+        - name: stopPrice
+          in: query
+          type: string
+          description: Stop-loss trigger price.
+          required: true
+        - name: stopLimitPrice
+          in: query
+          type: string
+          description: Stop-loss limit order price. Required if stop-loss order type is STOP_LOSS_LIMIT.
+        - name: stopLimitTimeInForce
+          in: query
+          type: string
+          description: Time in force for the stop-loss limit order.
+        - name: listClientOrderId
+          in: query
+          type: string
+          description: A unique ID for the OCO order list.
+        - name: limitClientOrderId
+          in: query
+          type: string
+          description: A unique ID for the limit order.
+        - name: stopClientOrderId
+          in: query
+          type: string
+          description: A unique ID for the stop-loss order.
+        - name: newOrderRespType
+          in: query
+          type: string
+          description: Set the response JSON type.
+    - name: api-v3-order-test
+      path: /api/v3/order/test
+      operations:
+      - name: testneworder
+        method: POST
+        description: Test new order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: quantity
+          in: query
+          type: string
+          description: Order quantity.
+        - name: price
+          in: query
+          type: string
+          description: Order price.
+    - name: api-v3-sor-order
+      path: /api/v3/sor/order
+      operations:
+      - name: createsororder
+        method: POST
+        description: New order using SOR
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: quantity
+          in: query
+          type: string
+          description: Order quantity.
+          required: true
+        - name: price
+          in: query
+          type: string
+          description: Order price.
+        - name: newClientOrderId
+          in: query
+          type: string
+          description: A unique ID for the order.
+        - name: newOrderRespType
+          in: query
+          type: string
+          description: Set the response JSON type.
+    authentication:
+      type: apikey
+      key: X-MBX-APIKEY
+      value: '{{env.BINANCE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: spot-trading-trading-rest
+    port: 8080
+    description: REST adapter for Binance Spot Trading API — Trading. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v3/allorders
+      name: api-v3-allorders
+      description: REST surface for api-v3-allOrders.
+      operations:
+      - method: GET
+        name: getallorders
+        description: All orders
+        call: spot-trading-trading.getallorders
+        with:
+          orderId: rest.orderId
+          startTime: rest.startTime
+          endTime: rest.endTime
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/openorders
+      name: api-v3-openorders
+      description: REST surface for api-v3-openOrders.
+      operations:
+      - method: GET
+        name: getopenorders
+        description: Current open orders
+        call: spot-trading-trading.getopenorders
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: cancelallopenorders
+        description: Cancel all open orders on a symbol
+        call: spot-trading-trading.cancelallopenorders
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/order
+      name: api-v3-order
+      description: REST surface for api-v3-order.
+      operations:
+      - method: POST
+        name: createorder
+        description: New order
+        call: spot-trading-trading.createorder
+        with:
+          quantity: rest.quantity
+          quoteOrderQty: rest.quoteOrderQty
+          price: rest.price
+          newClientOrderId: rest.newClientOrderId
+          strategyId: rest.strategyId
+          strategyType: rest.strategyType
+          stopPrice: rest.stopPrice
+          trailingDelta: rest.trailingDelta
+          icebergQty: rest.icebergQty
+          newOrderRespType: rest.newOrderRespType
+          selfTradePreventionMode: rest.selfTradePreventionMode
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getorder
+        description: Query order
+        call: spot-trading-trading.getorder
+        with:
+          orderId: rest.orderId
+          origClientOrderId: rest.origClientOrderId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: cancelorder
+        description: Cancel order
+        call: spot-trading-trading.cancelorder
+        with:
+          orderId: rest.orderId
+          origClientOrderId: rest.origClientOrderId
+          newClientOrderId: rest.newClientOrderId
+          cancelRestrictions: rest.cancelRestrictions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/order/oco
+      name: api-v3-order-oco
+      description: REST surface for api-v3-order-oco.
+      operations:
+      - method: POST
+        name: createocoorder
+        description: New OCO order
+        call: spot-trading-trading.createocoorder
+        with:
+          quantity: rest.quantity
+          price: rest.price
+          stopPrice: rest.stopPrice
+          stopLimitPrice: rest.stopLimitPrice
+          stopLimitTimeInForce: rest.stopLimitTimeInForce
+          listClientOrderId: rest.listClientOrderId
+          limitClientOrderId: rest.limitClientOrderId
+          stopClientOrderId: rest.stopClientOrderId
+          newOrderRespType: rest.newOrderRespType
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/order/test
+      name: api-v3-order-test
+      description: REST surface for api-v3-order-test.
+      operations:
+      - method: POST
+        name: testneworder
+        description: Test new order
+        call: spot-trading-trading.testneworder
+        with:
+          quantity: rest.quantity
+          price: rest.price
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/sor/order
+      name: api-v3-sor-order
+      description: REST surface for api-v3-sor-order.
+      operations:
+      - method: POST
+        name: createsororder
+        description: New order using SOR
+        call: spot-trading-trading.createsororder
+        with:
+          quantity: rest.quantity
+          price: rest.price
+          newClientOrderId: rest.newClientOrderId
+          newOrderRespType: rest.newOrderRespType
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: spot-trading-trading-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Binance Spot Trading API — Trading. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: all-orders
+      description: All orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-trading.getallorders
+      with:
+        orderId: tools.orderId
+        startTime: tools.startTime
+        endTime: tools.endTime
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: current-open-orders
+      description: Current open orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-trading.getopenorders
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-all-open-orders-symbol
+      description: Cancel all open orders on a symbol
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: spot-trading-trading.cancelallopenorders
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: new-order
+      description: New order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: spot-trading-trading.createorder
+      with:
+        quantity: tools.quantity
+        quoteOrderQty: tools.quoteOrderQty
+        price: tools.price
+        newClientOrderId: tools.newClientOrderId
+        strategyId: tools.strategyId
+        strategyType: tools.strategyType
+        stopPrice: tools.stopPrice
+        trailingDelta: tools.trailingDelta
+        icebergQty: tools.icebergQty
+        newOrderRespType: tools.newOrderRespType
+        selfTradePreventionMode: tools.selfTradePreventionMode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: query-order
+      description: Query order
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: spot-trading-trading.getorder
+      with:
+        orderId: tools.orderId
+        origClientOrderId: tools.origClientOrderId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-order
+      description: Cancel order
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: spot-trading-trading.cancelorder
+      with:
+        orderId: tools.orderId
+        origClientOrderId: tools.origClientOrderId
+        newClientOrderId: tools.newClientOrderId
+        cancelRestrictions: tools.cancelRestrictions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: new-oco-order
+      description: New OCO order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: spot-trading-trading.createocoorder
+      with:
+        quantity: tools.quantity
+        price: tools.price
+        stopPrice: tools.stopPrice
+        stopLimitPrice: tools.stopLimitPrice
+        stopLimitTimeInForce: tools.stopLimitTimeInForce
+        listClientOrderId: tools.listClientOrderId
+        limitClientOrderId: tools.limitClientOrderId
+        stopClientOrderId: tools.stopClientOrderId
+        newOrderRespType: tools.newOrderRespType
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: test-new-order
+      description: Test new order
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: spot-trading-trading.testneworder
+      with:
+        quantity: tools.quantity
+        price: tools.price
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: new-order-using-sor
+      description: New order using SOR
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: spot-trading-trading.createsororder
+      with:
+        quantity: tools.quantity
+        price: tools.price
+        newClientOrderId: tools.newClientOrderId
+        newOrderRespType: tools.newOrderRespType
+      outputParameters:
+      - type: object
+        mapping: $.

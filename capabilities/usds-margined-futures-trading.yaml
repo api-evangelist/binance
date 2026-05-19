@@ -1,0 +1,321 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Binance USD-S Margined Futures API — Trading
+  description: 'Binance USD-S Margined Futures API — Trading. 5 operations. Lead operation: Place multiple orders. Self-contained
+    Naftiko capability covering one Binance business surface.'
+  tags:
+  - Binance
+  - Trading
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BINANCE_API_KEY: BINANCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: usds-margined-futures-trading
+    baseUri: https://fapi.binance.com
+    description: Binance USD-S Margined Futures API — Trading business capability. Self-contained, no shared references.
+    resources:
+    - name: fapi-v1-batchOrders
+      path: /fapi/v1/batchOrders
+      operations:
+      - name: createbatchorders
+        method: POST
+        description: Place multiple orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: batchOrders
+          in: query
+          type: string
+          description: JSON array of order parameters. Max 5 orders.
+          required: true
+    - name: fapi-v1-openOrders
+      path: /fapi/v1/openOrders
+      operations:
+      - name: getopenorders
+        method: GET
+        description: Current all open orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: fapi-v1-order
+      path: /fapi/v1/order
+      operations:
+      - name: createorder
+        method: POST
+        description: New order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: side
+          in: query
+          type: string
+          description: Order side.
+          required: true
+        - name: positionSide
+          in: query
+          type: string
+          description: Position side for hedge mode. BOTH for one-way mode.
+        - name: type
+          in: query
+          type: string
+          description: Order type.
+          required: true
+        - name: timeInForce
+          in: query
+          type: string
+          description: Time in force. Required for LIMIT orders.
+        - name: quantity
+          in: query
+          type: string
+          description: Order quantity.
+        - name: reduceOnly
+          in: query
+          type: boolean
+          description: Reduce only flag. Cannot be sent with closePosition.
+        - name: price
+          in: query
+          type: string
+          description: Order price.
+        - name: newClientOrderId
+          in: query
+          type: string
+          description: A unique ID among open orders.
+        - name: stopPrice
+          in: query
+          type: string
+          description: Stop price for stop orders.
+        - name: closePosition
+          in: query
+          type: boolean
+          description: Close all positions when triggered.
+        - name: activationPrice
+          in: query
+          type: string
+          description: Activation price for TRAILING_STOP_MARKET orders.
+        - name: callbackRate
+          in: query
+          type: string
+          description: Callback rate for TRAILING_STOP_MARKET orders.
+        - name: workingType
+          in: query
+          type: string
+          description: Stop price working type.
+        - name: priceProtect
+          in: query
+          type: boolean
+          description: Price protection flag.
+        - name: newOrderRespType
+          in: query
+          type: string
+          description: Response type. ACK or RESULT.
+      - name: getorder
+        method: GET
+        description: Query order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderId
+          in: query
+          type: integer
+          description: Order ID.
+        - name: origClientOrderId
+          in: query
+          type: string
+          description: Client order ID.
+      - name: cancelorder
+        method: DELETE
+        description: Cancel order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderId
+          in: query
+          type: integer
+          description: Order ID.
+        - name: origClientOrderId
+          in: query
+          type: string
+          description: Client order ID.
+    authentication:
+      type: apikey
+      key: X-MBX-APIKEY
+      value: '{{env.BINANCE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: usds-margined-futures-trading-rest
+    port: 8080
+    description: REST adapter for Binance USD-S Margined Futures API — Trading. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/fapi/v1/batchorders
+      name: fapi-v1-batchorders
+      description: REST surface for fapi-v1-batchOrders.
+      operations:
+      - method: POST
+        name: createbatchorders
+        description: Place multiple orders
+        call: usds-margined-futures-trading.createbatchorders
+        with:
+          batchOrders: rest.batchOrders
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/fapi/v1/openorders
+      name: fapi-v1-openorders
+      description: REST surface for fapi-v1-openOrders.
+      operations:
+      - method: GET
+        name: getopenorders
+        description: Current all open orders
+        call: usds-margined-futures-trading.getopenorders
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/fapi/v1/order
+      name: fapi-v1-order
+      description: REST surface for fapi-v1-order.
+      operations:
+      - method: POST
+        name: createorder
+        description: New order
+        call: usds-margined-futures-trading.createorder
+        with:
+          side: rest.side
+          positionSide: rest.positionSide
+          type: rest.type
+          timeInForce: rest.timeInForce
+          quantity: rest.quantity
+          reduceOnly: rest.reduceOnly
+          price: rest.price
+          newClientOrderId: rest.newClientOrderId
+          stopPrice: rest.stopPrice
+          closePosition: rest.closePosition
+          activationPrice: rest.activationPrice
+          callbackRate: rest.callbackRate
+          workingType: rest.workingType
+          priceProtect: rest.priceProtect
+          newOrderRespType: rest.newOrderRespType
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getorder
+        description: Query order
+        call: usds-margined-futures-trading.getorder
+        with:
+          orderId: rest.orderId
+          origClientOrderId: rest.origClientOrderId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: cancelorder
+        description: Cancel order
+        call: usds-margined-futures-trading.cancelorder
+        with:
+          orderId: rest.orderId
+          origClientOrderId: rest.origClientOrderId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: usds-margined-futures-trading-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Binance USD-S Margined Futures API — Trading. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: place-multiple-orders
+      description: Place multiple orders
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: usds-margined-futures-trading.createbatchorders
+      with:
+        batchOrders: tools.batchOrders
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: current-all-open-orders
+      description: Current all open orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: usds-margined-futures-trading.getopenorders
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: new-order
+      description: New order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: usds-margined-futures-trading.createorder
+      with:
+        side: tools.side
+        positionSide: tools.positionSide
+        type: tools.type
+        timeInForce: tools.timeInForce
+        quantity: tools.quantity
+        reduceOnly: tools.reduceOnly
+        price: tools.price
+        newClientOrderId: tools.newClientOrderId
+        stopPrice: tools.stopPrice
+        closePosition: tools.closePosition
+        activationPrice: tools.activationPrice
+        callbackRate: tools.callbackRate
+        workingType: tools.workingType
+        priceProtect: tools.priceProtect
+        newOrderRespType: tools.newOrderRespType
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: query-order
+      description: Query order
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: usds-margined-futures-trading.getorder
+      with:
+        orderId: tools.orderId
+        origClientOrderId: tools.origClientOrderId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-order
+      description: Cancel order
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: usds-margined-futures-trading.cancelorder
+      with:
+        orderId: tools.orderId
+        origClientOrderId: tools.origClientOrderId
+      outputParameters:
+      - type: object
+        mapping: $.
