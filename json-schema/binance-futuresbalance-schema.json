@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FuturesBalance",
+  "title": "FuturesBalance",
+  "type": "object",
+  "properties": {
+    "accountAlias": {
+      "type": "string",
+      "description": "Account alias."
+    },
+    "asset": {
+      "type": "string",
+      "description": "Asset symbol."
+    },
+    "balance": {
+      "type": "string",
+      "description": "Total balance."
+    },
+    "crossWalletBalance": {
+      "type": "string",
+      "description": "Cross wallet balance."
+    },
+    "crossUnPnl": {
+      "type": "string",
+      "description": "Cross unrealized PnL."
+    },
+    "availableBalance": {
+      "type": "string",
+      "description": "Available balance."
+    },
+    "maxWithdrawAmount": {
+      "type": "string",
+      "description": "Maximum withdrawal amount."
+    },
+    "marginAvailable": {
+      "type": "boolean",
+      "description": "Whether the asset can be used as margin."
+    },
+    "updateTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Update time."
+    }
+  }
+}

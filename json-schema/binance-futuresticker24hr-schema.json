@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FuturesTicker24hr",
+  "title": "FuturesTicker24hr",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Symbol."
+    },
+    "priceChange": {
+      "type": "string",
+      "description": "Price change."
+    },
+    "priceChangePercent": {
+      "type": "string",
+      "description": "Price change percent."
+    },
+    "weightedAvgPrice": {
+      "type": "string",
+      "description": "Weighted average price."
+    },
+    "lastPrice": {
+      "type": "string",
+      "description": "Last price."
+    },
+    "lastQty": {
+      "type": "string",
+      "description": "Last quantity."
+    },
+    "openPrice": {
+      "type": "string",
+      "description": "Open price."
+    },
+    "highPrice": {
+      "type": "string",
+      "description": "High price."
+    },
+    "lowPrice": {
+      "type": "string",
+      "description": "Low price."
+    },
+    "volume": {
+      "type": "string",
+      "description": "Total traded base asset volume."
+    },
+    "quoteVolume": {
+      "type": "string",
+      "description": "Total traded quote asset volume."
+    },
+    "openTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Statistics open time."
+    },
+    "closeTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Statistics close time."
+    },
+    "firstId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "First trade ID."
+    },
+    "lastId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Last trade ID."
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of trades."
+    }
+  }
+}

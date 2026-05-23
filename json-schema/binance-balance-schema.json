@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Balance",
+  "title": "Balance",
+  "type": "object",
+  "properties": {
+    "asset": {
+      "type": "string",
+      "description": "Asset symbol."
+    },
+    "free": {
+      "type": "string",
+      "description": "Available balance."
+    },
+    "locked": {
+      "type": "string",
+      "description": "Locked balance (in open orders)."
+    }
+  }
+}

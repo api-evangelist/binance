@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OcoOrderResponse",
+  "title": "OcoOrderResponse",
+  "type": "object",
+  "properties": {
+    "orderListId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Order list ID."
+    },
+    "contingencyType": {
+      "type": "string",
+      "description": "Contingency type, always OCO."
+    },
+    "listStatusType": {
+      "type": "string",
+      "description": "List status type."
+    },
+    "listOrderStatus": {
+      "type": "string",
+      "description": "List order status."
+    },
+    "listClientOrderId": {
+      "type": "string",
+      "description": "Client order ID for the list."
+    },
+    "transactionTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Transaction time."
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol."
+    },
+    "orders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "symbol": {
+            "type": "string"
+          },
+          "orderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "clientOrderId": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "List of orders in the OCO."
+    },
+    "orderReports": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/OrderResponse"
+      },
+      "description": "Detailed order reports."
+    }
+  }
+}

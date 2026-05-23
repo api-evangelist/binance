@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MarkPrice",
+  "title": "MarkPrice",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Futures symbol."
+    },
+    "markPrice": {
+      "type": "string",
+      "description": "Mark price."
+    },
+    "indexPrice": {
+      "type": "string",
+      "description": "Index price."
+    },
+    "estimatedSettlePrice": {
+      "type": "string",
+      "description": "Estimated settle price."
+    },
+    "lastFundingRate": {
+      "type": "string",
+      "description": "Last funding rate."
+    },
+    "nextFundingTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Next funding time in milliseconds."
+    },
+    "interestRate": {
+      "type": "string",
+      "description": "Interest rate."
+    },
+    "time": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Timestamp."
+    }
+  }
+}

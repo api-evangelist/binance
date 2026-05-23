@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FuturesOrderResponse",
+  "title": "FuturesOrderResponse",
+  "type": "object",
+  "properties": {
+    "clientOrderId": {
+      "type": "string",
+      "description": "Client order ID."
+    },
+    "cumQty": {
+      "type": "string",
+      "description": "Cumulative filled quantity."
+    },
+    "cumQuote": {
+      "type": "string",
+      "description": "Cumulative filled quote."
+    },
+    "executedQty": {
+      "type": "string",
+      "description": "Executed quantity."
+    },
+    "orderId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Order ID."
+    },
+    "avgPrice": {
+      "type": "string",
+      "description": "Average fill price."
+    },
+    "origQty": {
+      "type": "string",
+      "description": "Original quantity."
+    },
+    "price": {
+      "type": "string",
+      "description": "Order price."
+    },
+    "reduceOnly": {
+      "type": "boolean",
+      "description": "Reduce only flag."
+    },
+    "side": {
+      "type": "string",
+      "description": "Order side."
+    },
+    "positionSide": {
+      "type": "string",
+      "description": "Position side."
+    },
+    "status": {
+      "type": "string",
+      "description": "Order status."
+    },
+    "stopPrice": {
+      "type": "string",
+      "description": "Stop price."
+    },
+    "closePosition": {
+      "type": "boolean",
+      "description": "Close position flag."
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Symbol."
+    },
+    "timeInForce": {
+      "type": "string",
+      "description": "Time in force."
+    },
+    "type": {
+      "type": "string",
+      "description": "Order type."
+    },
+    "origType": {
+      "type": "string",
+      "description": "Original order type."
+    },
+    "activatePrice": {
+      "type": "string",
+      "description": "Activation price for trailing stop."
+    },
+    "priceRate": {
+      "type": "string",
+      "description": "Callback rate for trailing stop."
+    },
+    "updateTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Update time."
+    },
+    "workingType": {
+      "type": "string",
+      "description": "Working type."
+    },
+    "priceProtect": {
+      "type": "boolean",
+      "description": "Price protection."
+    }
+  }
+}

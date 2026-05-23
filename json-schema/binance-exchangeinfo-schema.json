@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExchangeInfo",
+  "title": "ExchangeInfo",
+  "type": "object",
+  "properties": {
+    "timezone": {
+      "type": "string",
+      "description": "Server timezone, always UTC."
+    },
+    "serverTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Current server time in milliseconds."
+    },
+    "rateLimits": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/RateLimit"
+      },
+      "description": "Rate limit rules for the exchange."
+    },
+    "exchangeFilters": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Exchange-level filters."
+    },
+    "symbols": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/SymbolInfo"
+      },
+      "description": "List of trading pair symbols and their rules."
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BookTicker",
+  "title": "BookTicker",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol."
+    },
+    "bidPrice": {
+      "type": "string",
+      "description": "Best bid price."
+    },
+    "bidQty": {
+      "type": "string",
+      "description": "Best bid quantity."
+    },
+    "askPrice": {
+      "type": "string",
+      "description": "Best ask price."
+    },
+    "askQty": {
+      "type": "string",
+      "description": "Best ask quantity."
+    }
+  }
+}

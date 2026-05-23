@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FuturesSymbol",
+  "title": "FuturesSymbol",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol."
+    },
+    "pair": {
+      "type": "string",
+      "description": "Underlying pair."
+    },
+    "contractType": {
+      "type": "string",
+      "enum": [
+        "PERPETUAL",
+        "CURRENT_MONTH",
+        "NEXT_MONTH",
+        "CURRENT_QUARTER",
+        "NEXT_QUARTER"
+      ],
+      "description": "Contract type."
+    },
+    "deliveryDate": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Delivery date in milliseconds."
+    },
+    "onboardDate": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Onboard date in milliseconds."
+    },
+    "status": {
+      "type": "string",
+      "description": "Symbol status."
+    },
+    "baseAsset": {
+      "type": "string",
+      "description": "Base asset."
+    },
+    "quoteAsset": {
+      "type": "string",
+      "description": "Quote asset."
+    },
+    "marginAsset": {
+      "type": "string",
+      "description": "Margin asset."
+    },
+    "pricePrecision": {
+      "type": "integer",
+      "description": "Price precision."
+    },
+    "quantityPrecision": {
+      "type": "integer",
+      "description": "Quantity precision."
+    },
+    "underlyingType": {
+      "type": "string",
+      "description": "Underlying asset type."
+    },
+    "settlePlan": {
+      "type": "integer",
+      "description": "Settlement plan."
+    },
+    "triggerProtect": {
+      "type": "string",
+      "description": "Trigger protection threshold."
+    },
+    "filters": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Symbol filters."
+    },
+    "orderTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Allowed order types."
+    },
+    "timeInForce": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Allowed time in force values."
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FuturesTrade",
+  "title": "FuturesTrade",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Trade ID."
+    },
+    "price": {
+      "type": "string",
+      "description": "Trade price."
+    },
+    "qty": {
+      "type": "string",
+      "description": "Trade quantity."
+    },
+    "quoteQty": {
+      "type": "string",
+      "description": "Quote quantity."
+    },
+    "time": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Trade time."
+    },
+    "isBuyerMaker": {
+      "type": "boolean",
+      "description": "Whether buyer is maker."
+    }
+  }
+}

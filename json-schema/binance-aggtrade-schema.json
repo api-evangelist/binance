@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AggTrade",
+  "title": "AggTrade",
+  "type": "object",
+  "properties": {
+    "a": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Aggregate trade ID."
+    },
+    "p": {
+      "type": "string",
+      "description": "Price."
+    },
+    "q": {
+      "type": "string",
+      "description": "Quantity."
+    },
+    "f": {
+      "type": "integer",
+      "format": "int64",
+      "description": "First trade ID."
+    },
+    "l": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Last trade ID."
+    },
+    "T": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Timestamp in milliseconds."
+    },
+    "m": {
+      "type": "boolean",
+      "description": "Was the buyer the maker."
+    },
+    "M": {
+      "type": "boolean",
+      "description": "Was the trade the best price match."
+    }
+  }
+}

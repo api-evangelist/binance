@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RateLimit",
+  "title": "RateLimit",
+  "type": "object",
+  "properties": {
+    "rateLimitType": {
+      "type": "string",
+      "enum": [
+        "REQUEST_WEIGHT",
+        "ORDERS",
+        "RAW_REQUESTS"
+      ],
+      "description": "The type of rate limit."
+    },
+    "interval": {
+      "type": "string",
+      "enum": [
+        "SECOND",
+        "MINUTE",
+        "DAY"
+      ],
+      "description": "The interval unit."
+    },
+    "intervalNum": {
+      "type": "integer",
+      "description": "The interval number."
+    },
+    "limit": {
+      "type": "integer",
+      "description": "The maximum count within the interval."
+    }
+  }
+}

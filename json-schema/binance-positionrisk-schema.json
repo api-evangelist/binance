@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PositionRisk",
+  "title": "PositionRisk",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Symbol."
+    },
+    "positionAmt": {
+      "type": "string",
+      "description": "Position amount."
+    },
+    "entryPrice": {
+      "type": "string",
+      "description": "Entry price."
+    },
+    "breakEvenPrice": {
+      "type": "string",
+      "description": "Break-even price."
+    },
+    "markPrice": {
+      "type": "string",
+      "description": "Mark price."
+    },
+    "unRealizedProfit": {
+      "type": "string",
+      "description": "Unrealized profit."
+    },
+    "liquidationPrice": {
+      "type": "string",
+      "description": "Liquidation price."
+    },
+    "leverage": {
+      "type": "string",
+      "description": "Leverage."
+    },
+    "maxNotionalValue": {
+      "type": "string",
+      "description": "Maximum notional value."
+    },
+    "marginType": {
+      "type": "string",
+      "description": "Margin type (cross or isolated)."
+    },
+    "isolatedMargin": {
+      "type": "string",
+      "description": "Isolated margin amount."
+    },
+    "isAutoAddMargin": {
+      "type": "boolean",
+      "description": "Auto add margin flag."
+    },
+    "positionSide": {
+      "type": "string",
+      "description": "Position side."
+    },
+    "notional": {
+      "type": "string",
+      "description": "Notional value."
+    },
+    "isolatedWallet": {
+      "type": "string",
+      "description": "Isolated wallet balance."
+    },
+    "updateTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Update time."
+    }
+  }
+}

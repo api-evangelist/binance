@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccountTrade",
+  "title": "AccountTrade",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol."
+    },
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Trade ID."
+    },
+    "orderId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Order ID."
+    },
+    "orderListId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Order list ID."
+    },
+    "price": {
+      "type": "string",
+      "description": "Trade price."
+    },
+    "qty": {
+      "type": "string",
+      "description": "Trade quantity."
+    },
+    "quoteQty": {
+      "type": "string",
+      "description": "Quote quantity."
+    },
+    "commission": {
+      "type": "string",
+      "description": "Commission paid."
+    },
+    "commissionAsset": {
+      "type": "string",
+      "description": "Asset used for commission."
+    },
+    "time": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Trade time in milliseconds."
+    },
+    "isBuyer": {
+      "type": "boolean",
+      "description": "Whether the trade was a buy."
+    },
+    "isMaker": {
+      "type": "boolean",
+      "description": "Whether the trade was a maker."
+    },
+    "isBestMatch": {
+      "type": "boolean",
+      "description": "Whether this was the best price match."
+    }
+  }
+}

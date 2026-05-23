@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Ticker24hr",
+  "title": "Ticker24hr",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol."
+    },
+    "priceChange": {
+      "type": "string",
+      "description": "Price change over the period."
+    },
+    "priceChangePercent": {
+      "type": "string",
+      "description": "Price change percentage."
+    },
+    "weightedAvgPrice": {
+      "type": "string",
+      "description": "Weighted average price."
+    },
+    "prevClosePrice": {
+      "type": "string",
+      "description": "Previous close price."
+    },
+    "lastPrice": {
+      "type": "string",
+      "description": "Last trade price."
+    },
+    "lastQty": {
+      "type": "string",
+      "description": "Last trade quantity."
+    },
+    "bidPrice": {
+      "type": "string",
+      "description": "Best bid price."
+    },
+    "bidQty": {
+      "type": "string",
+      "description": "Best bid quantity."
+    },
+    "askPrice": {
+      "type": "string",
+      "description": "Best ask price."
+    },
+    "askQty": {
+      "type": "string",
+      "description": "Best ask quantity."
+    },
+    "openPrice": {
+      "type": "string",
+      "description": "Open price."
+    },
+    "highPrice": {
+      "type": "string",
+      "description": "High price."
+    },
+    "lowPrice": {
+      "type": "string",
+      "description": "Low price."
+    },
+    "volume": {
+      "type": "string",
+      "description": "Base asset volume."
+    },
+    "quoteVolume": {
+      "type": "string",
+      "description": "Quote asset volume."
+    },
+    "openTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Statistics open time in milliseconds."
+    },
+    "closeTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Statistics close time in milliseconds."
+    },
+    "firstId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "First trade ID."
+    },
+    "lastId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Last trade ID."
+    },
+    "count": {
+      "type": "integer",
+      "description": "Total number of trades."
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PriceTicker",
+  "title": "PriceTicker",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol."
+    },
+    "price": {
+      "type": "string",
+      "description": "Current price."
+    }
+  }
+}

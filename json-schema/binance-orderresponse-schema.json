@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OrderResponse",
+  "title": "OrderResponse",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol."
+    },
+    "orderId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Order ID."
+    },
+    "orderListId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Order list ID."
+    },
+    "clientOrderId": {
+      "type": "string",
+      "description": "Client order ID."
+    },
+    "transactTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Transaction time."
+    },
+    "price": {
+      "type": "string",
+      "description": "Order price."
+    },
+    "origQty": {
+      "type": "string",
+      "description": "Original quantity."
+    },
+    "executedQty": {
+      "type": "string",
+      "description": "Executed quantity."
+    },
+    "cummulativeQuoteQty": {
+      "type": "string",
+      "description": "Cumulative quote asset transacted quantity."
+    },
+    "status": {
+      "type": "string",
+      "description": "Order status."
+    },
+    "timeInForce": {
+      "type": "string",
+      "description": "Time in force."
+    },
+    "type": {
+      "type": "string",
+      "description": "Order type."
+    },
+    "side": {
+      "type": "string",
+      "description": "Order side."
+    },
+    "workingTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Time when order started working."
+    },
+    "selfTradePreventionMode": {
+      "type": "string",
+      "description": "Self-trade prevention mode."
+    },
+    "fills": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Fill"
+      },
+      "description": "Trade fills for the order (FULL response type)."
+    }
+  }
+}

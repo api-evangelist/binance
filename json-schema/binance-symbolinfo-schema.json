@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SymbolInfo",
+  "title": "SymbolInfo",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol."
+    },
+    "status": {
+      "type": "string",
+      "description": "Trading status of the symbol."
+    },
+    "baseAsset": {
+      "type": "string",
+      "description": "Base asset of the trading pair."
+    },
+    "baseAssetPrecision": {
+      "type": "integer",
+      "description": "Precision of the base asset."
+    },
+    "quoteAsset": {
+      "type": "string",
+      "description": "Quote asset of the trading pair."
+    },
+    "quotePrecision": {
+      "type": "integer",
+      "description": "Precision of the quote asset."
+    },
+    "orderTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Allowed order types for this symbol."
+    },
+    "icebergAllowed": {
+      "type": "boolean",
+      "description": "Whether iceberg orders are allowed."
+    },
+    "ocoAllowed": {
+      "type": "boolean",
+      "description": "Whether OCO orders are allowed."
+    },
+    "isSpotTradingAllowed": {
+      "type": "boolean",
+      "description": "Whether spot trading is allowed."
+    },
+    "isMarginTradingAllowed": {
+      "type": "boolean",
+      "description": "Whether margin trading is allowed."
+    },
+    "filters": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Symbol-specific filters such as price filter, lot size, etc."
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Account permissions required to trade this symbol."
+    }
+  }
+}

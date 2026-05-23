@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FuturesAccount",
+  "title": "FuturesAccount",
+  "type": "object",
+  "properties": {
+    "feeTier": {
+      "type": "integer",
+      "description": "Account fee tier."
+    },
+    "canTrade": {
+      "type": "boolean",
+      "description": "Can trade."
+    },
+    "canDeposit": {
+      "type": "boolean",
+      "description": "Can deposit."
+    },
+    "canWithdraw": {
+      "type": "boolean",
+      "description": "Can withdraw."
+    },
+    "updateTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Update time."
+    },
+    "multiAssetsMargin": {
+      "type": "boolean",
+      "description": "Multi-asset margin mode."
+    },
+    "totalInitialMargin": {
+      "type": "string",
+      "description": "Total initial margin."
+    },
+    "totalMaintMargin": {
+      "type": "string",
+      "description": "Total maintenance margin."
+    },
+    "totalWalletBalance": {
+      "type": "string",
+      "description": "Total wallet balance."
+    },
+    "totalUnrealizedProfit": {
+      "type": "string",
+      "description": "Total unrealized profit."
+    },
+    "totalMarginBalance": {
+      "type": "string",
+      "description": "Total margin balance."
+    },
+    "totalPositionInitialMargin": {
+      "type": "string",
+      "description": "Total position initial margin."
+    },
+    "totalOpenOrderInitialMargin": {
+      "type": "string",
+      "description": "Total open order initial margin."
+    },
+    "totalCrossWalletBalance": {
+      "type": "string",
+      "description": "Total cross wallet balance."
+    },
+    "totalCrossUnPnl": {
+      "type": "string",
+      "description": "Total cross unrealized PnL."
+    },
+    "availableBalance": {
+      "type": "string",
+      "description": "Available balance."
+    },
+    "maxWithdrawAmount": {
+      "type": "string",
+      "description": "Maximum withdrawal amount."
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/FuturesBalance"
+      },
+      "description": "Asset balances."
+    },
+    "positions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PositionRisk"
+      },
+      "description": "Positions."
+    }
+  }
+}

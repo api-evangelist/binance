@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OrderBook",
+  "title": "OrderBook",
+  "type": "object",
+  "properties": {
+    "lastUpdateId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Last update ID for the order book."
+    },
+    "bids": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "description": "Bid price and quantity pairs."
+    },
+    "asks": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "description": "Ask price and quantity pairs."
+    }
+  }
+}

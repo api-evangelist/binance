@@ -1,0 +1,390 @@
+{
+  "provider": "Binance",
+  "providerId": "binance",
+  "kind": "json-structure",
+  "description": "Structural overview of the Binance API surface; extracted from openapi/.",
+  "schemaCount": 18,
+  "operationCount": 30,
+  "schemas": [
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ExchangeInfo",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "RateLimit",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "SymbolInfo",
+      "type": "object",
+      "propertyCount": 13,
+      "required": []
+    },
+    {
+      "name": "OrderBook",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Trade",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "AggTrade",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "Ticker24hr",
+      "type": "object",
+      "propertyCount": 21,
+      "required": []
+    },
+    {
+      "name": "PriceTicker",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "BookTicker",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Order",
+      "type": "object",
+      "propertyCount": 20,
+      "required": []
+    },
+    {
+      "name": "OrderResponse",
+      "type": "object",
+      "propertyCount": 16,
+      "required": []
+    },
+    {
+      "name": "Fill",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "CancelOrderResponse",
+      "type": "object",
+      "propertyCount": 15,
+      "required": []
+    },
+    {
+      "name": "OcoOrderResponse",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "Account",
+      "type": "object",
+      "propertyCount": 16,
+      "required": []
+    },
+    {
+      "name": "Balance",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "AccountTrade",
+      "type": "object",
+      "propertyCount": 13,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/api/v3/ping",
+      "operationId": "testConnectivity",
+      "summary": "Test connectivity",
+      "tags": [
+        "General"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/time",
+      "operationId": "getServerTime",
+      "summary": "Check server time",
+      "tags": [
+        "General"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/exchangeInfo",
+      "operationId": "getExchangeInfo",
+      "summary": "Exchange information",
+      "tags": [
+        "General"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/depth",
+      "operationId": "getOrderBook",
+      "summary": "Order book",
+      "tags": [
+        "Market Data"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/trades",
+      "operationId": "getRecentTrades",
+      "summary": "Recent trades list",
+      "tags": [
+        "Market Data"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/historicalTrades",
+      "operationId": "getHistoricalTrades",
+      "summary": "Old trade lookup",
+      "tags": [
+        "Market Data"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/aggTrades",
+      "operationId": "getAggTrades",
+      "summary": "Compressed/Aggregate trades list",
+      "tags": [
+        "Market Data"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/klines",
+      "operationId": "getKlines",
+      "summary": "Kline/Candlestick data",
+      "tags": [
+        "Market Data"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/uiKlines",
+      "operationId": "getUiKlines",
+      "summary": "UIKlines",
+      "tags": [
+        "Market Data"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/avgPrice",
+      "operationId": "getAvgPrice",
+      "summary": "Current average price",
+      "tags": [
+        "Market Data"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/ticker/24hr",
+      "operationId": "get24hrTicker",
+      "summary": "24hr ticker price change statistics",
+      "tags": [
+        "Market Data"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/ticker/price",
+      "operationId": "getTickerPrice",
+      "summary": "Symbol price ticker",
+      "tags": [
+        "Market Data"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/ticker/bookTicker",
+      "operationId": "getBookTicker",
+      "summary": "Symbol order book ticker",
+      "tags": [
+        "Market Data"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/ticker",
+      "operationId": "getRollingWindowTicker",
+      "summary": "Rolling window price change statistics",
+      "tags": [
+        "Market Data"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/order",
+      "operationId": "getOrder",
+      "summary": "Query order",
+      "tags": [
+        "Trading"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v3/order",
+      "operationId": "createOrder",
+      "summary": "New order",
+      "tags": [
+        "Trading"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v3/order",
+      "operationId": "cancelOrder",
+      "summary": "Cancel order",
+      "tags": [
+        "Trading"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/openOrders",
+      "operationId": "getOpenOrders",
+      "summary": "Current open orders",
+      "tags": [
+        "Trading"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v3/openOrders",
+      "operationId": "cancelAllOpenOrders",
+      "summary": "Cancel all open orders on a symbol",
+      "tags": [
+        "Trading"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/allOrders",
+      "operationId": "getAllOrders",
+      "summary": "All orders",
+      "tags": [
+        "Trading"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v3/order/oco",
+      "operationId": "createOcoOrder",
+      "summary": "New OCO order",
+      "tags": [
+        "Trading"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v3/order/test",
+      "operationId": "testNewOrder",
+      "summary": "Test new order",
+      "tags": [
+        "Trading"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v3/sor/order",
+      "operationId": "createSorOrder",
+      "summary": "New order using SOR",
+      "tags": [
+        "Trading"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/account",
+      "operationId": "getAccountInfo",
+      "summary": "Account information",
+      "tags": [
+        "Account"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/myTrades",
+      "operationId": "getMyTrades",
+      "summary": "Account trade list",
+      "tags": [
+        "Account"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/rateLimit/order",
+      "operationId": "getOrderRateLimit",
+      "summary": "Query current order count usage",
+      "tags": [
+        "Account"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v3/myPreventedMatches",
+      "operationId": "getPreventedMatches",
+      "summary": "Query prevented matches",
+      "tags": [
+        "Account"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v3/userDataStream",
+      "operationId": "createListenKey",
+      "summary": "Create a listen key",
+      "tags": [
+        "User Data Stream"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v3/userDataStream",
+      "operationId": "keepAliveListenKey",
+      "summary": "Ping/Keep-alive a listen key",
+      "tags": [
+        "User Data Stream"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v3/userDataStream",
+      "operationId": "closeListenKey",
+      "summary": "Close a listen key",
+      "tags": [
+        "User Data Stream"
+      ]
+    }
+  ]
+}

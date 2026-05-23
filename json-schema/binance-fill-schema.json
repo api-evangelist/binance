@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Fill",
+  "title": "Fill",
+  "type": "object",
+  "properties": {
+    "price": {
+      "type": "string",
+      "description": "Fill price."
+    },
+    "qty": {
+      "type": "string",
+      "description": "Fill quantity."
+    },
+    "commission": {
+      "type": "string",
+      "description": "Commission amount."
+    },
+    "commissionAsset": {
+      "type": "string",
+      "description": "Commission asset."
+    },
+    "tradeId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Trade ID."
+    }
+  }
+}

@@ -1,0 +1,17 @@
+name: Binance Domain Vocabulary
+provider: Binance
+providerId: binance
+description: Tag-derived vocabulary for the Binance API surface; sourced from openapi/ tags.
+terms:
+- term: Account
+  description: Account endpoints for querying balances, trade history, order history, and rate limit usage. Requires SIGNED
+    authentication.
+- term: General
+  description: General endpoints for connectivity testing and exchange information.
+- term: Market Data
+  description: Public market data endpoints for order book depth, recent trades, aggregate trades, klines, ticker prices,
+    and average prices.
+- term: Trading
+  description: Trading endpoints for placing, querying, and canceling orders on the spot exchange. Requires SIGNED authentication.
+- term: User Data Stream
+  description: Endpoints for managing user data stream listen keys used to subscribe to account update WebSocket streams.
