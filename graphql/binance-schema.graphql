@@ -1,0 +1,1257 @@
+"""
+Binance GraphQL Schema
+Conceptual schema modeling the Binance REST and WebSocket API surface.
+Covers spot trading, margin, futures, wallet, market data, and account operations.
+Source APIs: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
+"""
+
+# ---------------------------------------------------------------------------
+# Enumerations
+# ---------------------------------------------------------------------------
+
+enum OrderType {
+  LIMIT
+  MARKET
+  STOP_LOSS
+  STOP_LOSS_LIMIT
+  TAKE_PROFIT
+  TAKE_PROFIT_LIMIT
+  LIMIT_MAKER
+  TRAILING_STOP_MARKET
+}
+
+enum TimeInForce {
+  GTC
+  IOC
+  FOK
+  GTX
+  GTD
+}
+
+enum Side {
+  BUY
+  SELL
+}
+
+enum OrderStatus {
+  NEW
+  PARTIALLY_FILLED
+  FILLED
+  CANCELED
+  PENDING_CANCEL
+  REJECTED
+  EXPIRED
+  EXPIRED_IN_MATCH
+}
+
+enum ExecutionType {
+  NEW
+  CANCELED
+  REPLACED
+  REJECTED
+  TRADE
+  EXPIRED
+}
+
+enum Permission {
+  SPOT
+  MARGIN
+  LEVERAGED
+  TRD_GRP_002
+  TRD_GRP_003
+  TRD_GRP_004
+  TRD_GRP_005
+}
+
+enum PositionSide {
+  BOTH
+  LONG
+  SHORT
+}
+
+enum MarginType {
+  ISOLATED
+  CROSSED
+}
+
+enum ContractType {
+  PERPETUAL
+  CURRENT_MONTH
+  NEXT_MONTH
+  CURRENT_QUARTER
+  NEXT_QUARTER
+}
+
+enum SymbolStatus {
+  PRE_TRADING
+  TRADING
+  POST_TRADING
+  END_OF_DAY
+  HALT
+  AUCTION_MATCH
+  BREAK
+}
+
+enum RateLimitType {
+  REQUEST_WEIGHT
+  ORDERS
+  RAW_REQUESTS
+}
+
+enum RateLimitInterval {
+  SECOND
+  MINUTE
+  DAY
+}
+
+enum KlineInterval {
+  ONE_SECOND
+  ONE_MINUTE
+  THREE_MINUTES
+  FIVE_MINUTES
+  FIFTEEN_MINUTES
+  THIRTY_MINUTES
+  ONE_HOUR
+  TWO_HOURS
+  FOUR_HOURS
+  SIX_HOURS
+  EIGHT_HOURS
+  TWELVE_HOURS
+  ONE_DAY
+  THREE_DAYS
+  ONE_WEEK
+  ONE_MONTH
+}
+
+enum NetworkStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum WithdrawalStatus {
+  EMAIL_SENT
+  CANCELLED
+  AWAITING_APPROVAL
+  REJECTED
+  PROCESSING
+  FAILURE
+  COMPLETED
+}
+
+enum DepositStatus {
+  PENDING
+  WAITING_CONFIRMATION
+  SUCCESS
+  CREDITED
+  WRONG_DEPOSIT
+  WAITING_USER_CONFIRM
+}
+
+enum LoanStatus {
+  PENDING
+  CONFIRMED
+  FAILED
+}
+
+enum EarnProductStatus {
+  SUBSCRIBABLE
+  UNSUBSCRIBABLE
+}
+
+# ---------------------------------------------------------------------------
+# Market Data Types
+# ---------------------------------------------------------------------------
+
+"""A single entry in an order book at a specific price level."""
+type OrderBookEntry {
+  price: String!
+  quantity: String!
+}
+
+"""Current order book depth for a symbol."""
+type OrderBook {
+  symbol: String!
+  lastUpdateId: Int!
+  bids: [OrderBookEntry!]!
+  asks: [OrderBookEntry!]!
+}
+
+"""An incremental order book depth update."""
+type Depth {
+  symbol: String!
+  firstUpdateId: Int!
+  finalUpdateId: Int!
+  bids: [OrderBookEntry!]!
+  asks: [OrderBookEntry!]!
+}
+
+"""24-hour rolling window price change statistics for a symbol."""
+type Ticker {
+  symbol: String!
+  priceChange: String!
+  priceChangePercent: String!
+  weightedAvgPrice: String!
+  prevClosePrice: String!
+  lastPrice: String!
+  lastQty: String!
+  bidPrice: String!
+  bidQty: String!
+  askPrice: String!
+  askQty: String!
+  openPrice: String!
+  highPrice: String!
+  lowPrice: String!
+  volume: String!
+  quoteVolume: String!
+  openTime: Float!
+  closeTime: Float!
+  firstId: Int!
+  lastId: Int!
+  count: Int!
+}
+
+"""Compact 24-hour statistics with reduced fields."""
+type MiniTicker {
+  symbol: String!
+  closePrice: String!
+  openPrice: String!
+  highPrice: String!
+  lowPrice: String!
+  baseVolume: String!
+  quoteVolume: String!
+  eventTime: Float!
+}
+
+"""Best bid and ask price and quantity for a symbol."""
+type BookTicker {
+  symbol: String!
+  bidPrice: String!
+  bidQty: String!
+  askPrice: String!
+  askQty: String!
+}
+
+"""A single aggregated trade record compressing multiple same-price fills."""
+type AggTrade {
+  aggregateTradeId: Int!
+  symbol: String!
+  price: String!
+  quantity: String!
+  firstTradeId: Int!
+  lastTradeId: Int!
+  timestamp: Float!
+  isBuyerMaker: Boolean!
+  isBestMatch: Boolean!
+}
+
+"""A raw individual trade on the exchange."""
+type Trade {
+  id: Int!
+  symbol: String!
+  price: String!
+  qty: String!
+  quoteQty: String!
+  time: Float!
+  isBuyerMaker: Boolean!
+  isBestMatch: Boolean!
+}
+
+"""OHLCV data for a time period."""
+type OHLCV {
+  open: String!
+  high: String!
+  low: String!
+  close: String!
+  volume: String!
+  quoteAssetVolume: String!
+  numberOfTrades: Int!
+}
+
+"""A candlestick data record for a symbol and interval."""
+type KlineData {
+  symbol: String!
+  interval: KlineInterval!
+  openTime: Float!
+  closeTime: Float!
+  ohlcv: OHLCV!
+  takerBuyBaseAssetVolume: String!
+  takerBuyQuoteAssetVolume: String!
+}
+
+"""Directional market movement and momentum summary."""
+type MarketTrend {
+  symbol: String!
+  direction: String!
+  changePercent: Float!
+  momentum: Float!
+  period: String!
+}
+
+"""Exchange-wide aggregate market statistics."""
+type MarketSummary {
+  totalSymbols: Int!
+  activeSymbols: Int!
+  totalVolume24h: String!
+  totalQuoteVolume24h: String!
+  advancers: Int!
+  decliners: Int!
+  unchanged: Int!
+  timestamp: Float!
+}
+
+# ---------------------------------------------------------------------------
+# Symbol and Exchange Info Types
+# ---------------------------------------------------------------------------
+
+"""Filter constraining trading for a symbol."""
+type SymbolFilter {
+  filterType: String!
+  minPrice: String
+  maxPrice: String
+  tickSize: String
+  minQty: String
+  maxQty: String
+  stepSize: String
+  minNotional: String
+  applyToMarket: Boolean
+  avgPriceMins: Int
+  limit: Int
+  maxNumOrders: Int
+  maxNumAlgoOrders: Int
+  maxNumIcebergOrders: Int
+  maxPosition: String
+  bidMultiplierUp: String
+  bidMultiplierDown: String
+  askMultiplierUp: String
+  askMultiplierDown: String
+  multiplierDecimal: String
+}
+
+"""Full metadata and trading rules for a trading pair."""
+type SymbolInfo {
+  symbol: String!
+  status: SymbolStatus!
+  baseAsset: String!
+  baseAssetPrecision: Int!
+  quoteAsset: String!
+  quotePrecision: Int!
+  quoteAssetPrecision: Int!
+  baseCommissionPrecision: Int!
+  quoteCommissionPrecision: Int!
+  orderTypes: [OrderType!]!
+  icebergAllowed: Boolean!
+  ocoAllowed: Boolean!
+  quoteOrderQtyMarketAllowed: Boolean!
+  allowTrailingStop: Boolean!
+  cancelReplaceAllowed: Boolean!
+  isSpotTradingAllowed: Boolean!
+  isMarginTradingAllowed: Boolean!
+  filters: [SymbolFilter!]!
+  permissions: [Permission!]!
+}
+
+"""Lightweight reference to a trading pair."""
+type Symbol {
+  symbol: String!
+  baseAsset: String!
+  quoteAsset: String!
+  status: SymbolStatus!
+}
+
+"""Rate limiting rule from the exchange."""
+type RateLimits {
+  rateLimitType: RateLimitType!
+  interval: RateLimitInterval!
+  intervalNum: Int!
+  limit: Int!
+}
+
+"""Full exchange configuration including all symbols and rate limits."""
+type ExchangeInfo {
+  timezone: String!
+  serverTime: Float!
+  rateLimits: [RateLimits!]!
+  exchangeFilters: [SymbolFilter!]!
+  symbols: [SymbolInfo!]!
+}
+
+"""Current operational status of the Binance exchange."""
+type SystemStatus {
+  status: Int!
+  msg: String!
+}
+
+"""Exchange server timestamp."""
+type ServerTime {
+  serverTime: Float!
+}
+
+# ---------------------------------------------------------------------------
+# Coin and Network Types
+# ---------------------------------------------------------------------------
+
+"""A blockchain network available for a coin."""
+type NetworkInfo {
+  network: String!
+  coin: String!
+  withdrawIntegerMultiple: String!
+  isDefault: Boolean!
+  depositEnable: Boolean!
+  withdrawEnable: Boolean!
+  depositDesc: String
+  withdrawDesc: String
+  specialTips: String
+  specialWithdrawTips: String
+  name: String!
+  resetAddressStatus: Boolean!
+  addressRegex: String!
+  memoRegex: String!
+  withdrawFee: String!
+  withdrawMin: String!
+  withdrawMax: String!
+  minConfirm: Int!
+  unLockConfirm: Int!
+  sameAddress: Boolean!
+  estimatedArrivalTime: Int!
+  busy: Boolean!
+  country: String
+  status: NetworkStatus!
+}
+
+"""Metadata about a cryptocurrency available on Binance."""
+type CoinInfo {
+  coin: String!
+  depositAllEnable: Boolean!
+  withdrawAllEnable: Boolean!
+  name: String!
+  free: String!
+  locked: String!
+  freeze: String!
+  withdrawing: String!
+  ipoing: String!
+  ipoable: String!
+  storage: String!
+  isLegalMoney: Boolean!
+  trading: Boolean!
+  networkList: [NetworkInfo!]!
+}
+
+"""A generated deposit address for a coin on a specific network."""
+type DepositAddress {
+  address: String!
+  coin: String!
+  tag: String!
+  url: String!
+  network: String
+}
+
+# ---------------------------------------------------------------------------
+# Wallet and Transfer Types
+# ---------------------------------------------------------------------------
+
+"""Record of a cryptocurrency withdrawal."""
+type WithdrawalRecord {
+  id: String!
+  amount: String!
+  transactionFee: String!
+  coin: String!
+  status: WithdrawalStatus!
+  address: String!
+  txId: String
+  applyTime: String!
+  network: String!
+  transferType: Int!
+  withdrawOrderId: String
+  info: String
+  confirmNo: Int
+  walletType: Int!
+  txKey: String
+  completeTime: String
+}
+
+"""Record of a cryptocurrency deposit."""
+type DepositRecord {
+  id: String!
+  amount: String!
+  coin: String!
+  network: String!
+  status: DepositStatus!
+  address: String!
+  addressTag: String
+  txId: String!
+  insertTime: Float!
+  transferType: Int!
+  confirmTimes: String!
+  unlockConfirm: Int!
+  walletType: Int!
+}
+
+# ---------------------------------------------------------------------------
+# Account and Balance Types
+# ---------------------------------------------------------------------------
+
+"""Balance for a single asset in a spot wallet."""
+type AssetBalance {
+  asset: String!
+  free: String!
+  locked: String!
+}
+
+"""Balance for a single asset in a margin account."""
+type MarginBalance {
+  asset: String!
+  borrowed: String!
+  free: String!
+  interest: String!
+  locked: String!
+  netAsset: String!
+}
+
+"""Balance for a single asset in a futures wallet."""
+type FuturesBalance {
+  accountAlias: String!
+  asset: String!
+  balance: String!
+  crossWalletBalance: String!
+  crossUnPnl: String!
+  availableBalance: String!
+  maxWithdrawAmount: String!
+  marginAvailable: Boolean!
+  updateTime: Float!
+}
+
+"""Top-level account object for a Binance user."""
+type Account {
+  makerCommission: Int!
+  takerCommission: Int!
+  buyerCommission: Int!
+  sellerCommission: Int!
+  commissionRates: CommissionRates!
+  canTrade: Boolean!
+  canWithdraw: Boolean!
+  canDeposit: Boolean!
+  brokered: Boolean!
+  requireSelfTradePrevention: Boolean!
+  preventSor: Boolean!
+  updateTime: Float!
+  accountType: String!
+  balances: [AssetBalance!]!
+  permissions: [Permission!]!
+  uid: Float!
+}
+
+"""Commission rate configuration for an account."""
+type CommissionRates {
+  maker: String!
+  taker: String!
+  buyer: String!
+  seller: String!
+}
+
+"""Account balance summary including all wallet types."""
+type AccountBalance {
+  totalAssetOfBtc: String!
+  totalLiabilityOfBtc: String!
+  totalNetAssetOfBtc: String!
+  spotBalances: [AssetBalance!]!
+  marginBalances: [MarginBalance!]!
+  futuresBalances: [FuturesBalance!]!
+}
+
+# ---------------------------------------------------------------------------
+# Order Types
+# ---------------------------------------------------------------------------
+
+"""A fill event for an individual order execution."""
+type OrderFill {
+  price: String!
+  qty: String!
+  commission: String!
+  commissionAsset: String!
+  tradeId: Int!
+}
+
+"""A spot market order."""
+type SpotOrder {
+  symbol: String!
+  orderId: Int!
+  orderListId: Int!
+  clientOrderId: String!
+  price: String!
+  origQty: String!
+  executedQty: String!
+  cummulativeQuoteQty: String!
+  status: OrderStatus!
+  timeInForce: TimeInForce!
+  type: OrderType!
+  side: Side!
+  stopPrice: String
+  icebergQty: String
+  time: Float!
+  updateTime: Float!
+  isWorking: Boolean!
+  workingTime: Float!
+  origQuoteOrderQty: String!
+  fills: [OrderFill!]
+  selfTradePreventionMode: String!
+}
+
+"""An order placed in the margin trading account."""
+type MarginOrder {
+  clientOrderId: String!
+  cummulativeQuoteQty: String!
+  executedQty: String!
+  icebergQty: String
+  isWorking: Boolean!
+  orderId: Int!
+  origQty: String!
+  price: String!
+  side: Side!
+  status: OrderStatus!
+  stopPrice: String
+  symbol: String!
+  isIsolated: Boolean!
+  time: Float!
+  timeInForce: TimeInForce!
+  type: OrderType!
+  updateTime: Float!
+  selfTradePreventionMode: String!
+}
+
+"""An order placed on the futures exchange."""
+type FuturesOrder {
+  avgPrice: String!
+  clientOrderId: String!
+  cumQuote: String!
+  executedQty: String!
+  orderId: Int!
+  origQty: String!
+  origType: OrderType!
+  price: String!
+  reduceOnly: Boolean!
+  side: Side!
+  positionSide: PositionSide!
+  status: OrderStatus!
+  stopPrice: String
+  closePosition: Boolean!
+  symbol: String!
+  time: Float!
+  timeInForce: TimeInForce!
+  type: OrderType!
+  activatePrice: String
+  priceRate: String
+  updateTime: Float!
+  workingType: String!
+  priceProtect: Boolean!
+  priceMatch: String
+  selfTradePreventionMode: String!
+  goodTillDate: Float
+}
+
+"""An OCO (One-Cancels-the-Other) order pair."""
+type OCOOrder {
+  orderListId: Int!
+  contingencyType: String!
+  listStatusType: String!
+  listOrderStatus: String!
+  listClientOrderId: String!
+  transactionTime: Float!
+  symbol: String!
+  orders: [OCOOrderRef!]!
+  orderReports: [SpotOrder!]!
+}
+
+"""A reference to one of the two orders within an OCO."""
+type OCOOrderRef {
+  symbol: String!
+  orderId: Int!
+  clientOrderId: String!
+}
+
+"""Acknowledgment returned when an order is cancelled."""
+type CancelResponse {
+  symbol: String!
+  origClientOrderId: String!
+  orderId: Int!
+  orderListId: Int!
+  clientOrderId: String!
+  transactTime: Float!
+  price: String!
+  origQty: String!
+  executedQty: String!
+  cummulativeQuoteQty: String!
+  status: OrderStatus!
+  timeInForce: TimeInForce!
+  type: OrderType!
+  side: Side!
+  selfTradePreventionMode: String!
+}
+
+# ---------------------------------------------------------------------------
+# Margin-Specific Types
+# ---------------------------------------------------------------------------
+
+"""An order placed using cross-margin collateral."""
+type CrossMarginOrder {
+  clientOrderId: String!
+  cummulativeQuoteQty: String!
+  executedQty: String!
+  orderId: Int!
+  origQty: String!
+  price: String!
+  side: Side!
+  status: OrderStatus!
+  symbol: String!
+  isIsolated: Boolean!
+  timeInForce: TimeInForce!
+  type: OrderType!
+  updateTime: Float!
+  marginBuyBorrowAmount: String
+  marginBuyBorrowAsset: String
+}
+
+"""An order placed against an isolated margin pool for a specific symbol."""
+type IsolatedMarginOrder {
+  clientOrderId: String!
+  executedQty: String!
+  orderId: Int!
+  origQty: String!
+  price: String!
+  side: Side!
+  status: OrderStatus!
+  symbol: String!
+  timeInForce: TimeInForce!
+  type: OrderType!
+  updateTime: Float!
+  baseAsset: String!
+  quoteAsset: String!
+}
+
+"""A margin borrow event."""
+type MarginLoan {
+  isolatedSymbol: String
+  txId: Float!
+  asset: String!
+  principal: String!
+  timestamp: Float!
+  status: LoanStatus!
+}
+
+"""A margin loan repayment event."""
+type MarginRepay {
+  isolatedSymbol: String
+  amount: String!
+  asset: String!
+  interest: String!
+  principal: String!
+  status: LoanStatus!
+  timestamp: Float!
+  txId: Float!
+}
+
+# ---------------------------------------------------------------------------
+# Futures and Derivatives Types
+# ---------------------------------------------------------------------------
+
+"""An open futures position."""
+type Position {
+  symbol: String!
+  positionAmt: String!
+  entryPrice: String!
+  breakEvenPrice: String!
+  markPrice: String!
+  unRealizedProfit: String!
+  liquidationPrice: String!
+  leverage: String!
+  maxNotionalValue: String!
+  marginType: MarginType!
+  isolatedMargin: String!
+  isAutoAddMargin: Boolean!
+  positionSide: PositionSide!
+  notional: String!
+  isolatedWallet: String!
+  updateTime: Float!
+}
+
+"""Risk metrics for an open futures position."""
+type PositionRisk {
+  entryPrice: String!
+  breakEvenPrice: String!
+  marginType: MarginType!
+  isAutoAddMargin: Boolean!
+  isolatedMargin: String!
+  leverage: String!
+  liquidationPrice: String!
+  markPrice: String!
+  maxNotionalValue: String!
+  positionAmt: String!
+  notional: String!
+  isolatedWallet: String!
+  symbol: String!
+  unrealizedProfit: String!
+  positionSide: PositionSide!
+  updateTime: Float!
+}
+
+"""Current mark price for a futures symbol."""
+type MarkPrice {
+  symbol: String!
+  markPrice: String!
+  indexPrice: String!
+  estimatedSettlePrice: String!
+  lastFundingRate: String!
+  nextFundingTime: Float!
+  interestRate: String!
+  time: Float!
+}
+
+"""The spot index price underlying a futures contract."""
+type IndexPrice {
+  symbol: String!
+  price: String!
+  time: Float!
+}
+
+"""A funding payment event in futures."""
+type Funding {
+  symbol: String!
+  incomeType: String!
+  income: String!
+  asset: String!
+  info: String
+  time: Float!
+  tranId: Float!
+  tradeId: String
+}
+
+"""The funding fee charged or credited at each funding interval."""
+type FundingFee {
+  symbol: String!
+  fundingRate: String!
+  fundingTime: Float!
+  markPrice: String
+}
+
+"""A forced liquidation event for a futures position."""
+type Liquidation {
+  symbol: String!
+  price: String!
+  origQty: String!
+  executedQty: String!
+  averagePrice: String!
+  status: OrderStatus!
+  timeInForce: TimeInForce!
+  type: OrderType!
+  side: Side!
+  time: Float!
+}
+
+# ---------------------------------------------------------------------------
+# Portfolio Margin
+# ---------------------------------------------------------------------------
+
+"""Unified cross-product portfolio margin account state."""
+type PortfolioMargin {
+  uniMMR: String!
+  accountEquity: String!
+  actualEquity: String!
+  accountInitialMargin: String!
+  accountMaintMargin: String!
+  accountStatus: String!
+  virtualMaxWithdrawAmount: String!
+  totalAvailableBalance: String!
+  totalMarginOpenLoss: String!
+  updateTime: Float!
+}
+
+# ---------------------------------------------------------------------------
+# User Data Stream Types
+# ---------------------------------------------------------------------------
+
+"""Authentication token for a private WebSocket user data stream."""
+type ListenKey {
+  listenKey: String!
+}
+
+"""A private WebSocket user data stream session."""
+type UserDataStream {
+  listenKey: String!
+  createdAt: Float!
+  expiresAt: Float!
+}
+
+# ---------------------------------------------------------------------------
+# Earn and Staking Types
+# ---------------------------------------------------------------------------
+
+"""A simple earn flexible savings product."""
+type FlexibleProduct {
+  asset: String!
+  latestAnnualPercentageRate: String!
+  tierAnnualPercentageRate: String
+  airDropPercentageRate: String
+  canPurchase: Boolean!
+  canRedeem: Boolean!
+  isSoldOut: Boolean!
+  hot: Boolean!
+  minPurchaseAmount: String!
+  productId: String!
+  subscriptionStartTime: Float
+  status: EarnProductStatus!
+}
+
+"""A locked staking product with a fixed term."""
+type StakingProduct {
+  projectId: String!
+  detail: StakingProductDetail!
+  quota: StakingQuota!
+}
+
+"""Detail fields for a staking product."""
+type StakingProductDetail {
+  asset: String!
+  rewardAsset: String!
+  duration: Int!
+  renewable: Boolean!
+  apy: String!
+}
+
+"""Quota and subscription limit information for a staking product."""
+type StakingQuota {
+  totalPersonalQuota: String!
+  minimum: String!
+}
+
+# ---------------------------------------------------------------------------
+# Root Types
+# ---------------------------------------------------------------------------
+
+type Query {
+  """Authenticated account information including balances and permissions."""
+  account: Account
+
+  """Aggregated balance view across spot, margin, and futures wallets."""
+  accountBalance: AccountBalance
+
+  """Retrieve a single spot order by symbol and order ID."""
+  spotOrder(symbol: String!, orderId: Int!): SpotOrder
+
+  """List all orders for a symbol, optionally filtered by status."""
+  spotOrders(symbol: String!, startTime: Float, endTime: Float, limit: Int): [SpotOrder!]
+
+  """All currently open spot orders, optionally filtered by symbol."""
+  openOrders(symbol: String): [SpotOrder!]
+
+  """OCO order details by order list ID."""
+  ocoOrder(orderListId: Int!): OCOOrder
+
+  """Current order book for a symbol."""
+  orderBook(symbol: String!, limit: Int): OrderBook
+
+  """24-hour rolling price change statistics for a symbol."""
+  ticker(symbol: String!): Ticker
+
+  """24-hour rolling statistics for all symbols."""
+  tickers: [Ticker!]
+
+  """Compact ticker statistics for a symbol."""
+  miniTicker(symbol: String!): MiniTicker
+
+  """Best bid and ask for a symbol."""
+  bookTicker(symbol: String!): BookTicker
+
+  """Candlestick data for a symbol and interval."""
+  klines(symbol: String!, interval: KlineInterval!, startTime: Float, endTime: Float, limit: Int): [KlineData!]
+
+  """Recent trades for a symbol."""
+  recentTrades(symbol: String!, limit: Int): [Trade!]
+
+  """Aggregated trade history for a symbol."""
+  aggTrades(symbol: String!, fromId: Int, startTime: Float, endTime: Float, limit: Int): [AggTrade!]
+
+  """Full exchange configuration including symbols and rate limits."""
+  exchangeInfo(symbol: String): ExchangeInfo
+
+  """Current system operational status."""
+  systemStatus: SystemStatus
+
+  """Current exchange server time."""
+  serverTime: ServerTime
+
+  """Market trend summary for a symbol."""
+  marketTrend(symbol: String!, period: String!): MarketTrend
+
+  """Aggregate market summary statistics."""
+  marketSummary: MarketSummary
+
+  """Metadata for a specific coin."""
+  coinInfo(coin: String!): CoinInfo
+
+  """All coins available on the platform."""
+  allCoins: [CoinInfo!]
+
+  """Generated deposit address for a coin on a network."""
+  depositAddress(coin: String!, network: String): DepositAddress
+
+  """Deposit history for the authenticated account."""
+  depositHistory(coin: String, status: DepositStatus, startTime: Float, endTime: Float, limit: Int): [DepositRecord!]
+
+  """Withdrawal history for the authenticated account."""
+  withdrawalHistory(coin: String, status: WithdrawalStatus, startTime: Float, endTime: Float, limit: Int): [WithdrawalRecord!]
+
+  """Open futures positions for the authenticated account."""
+  positions(symbol: String): [Position!]
+
+  """Risk metrics for open futures positions."""
+  positionRisk(symbol: String): [PositionRisk!]
+
+  """Current mark price for a futures symbol."""
+  markPrice(symbol: String!): MarkPrice
+
+  """Current index price for a futures symbol."""
+  indexPrice(symbol: String!): IndexPrice
+
+  """Funding rate history for a futures symbol."""
+  fundingRates(symbol: String!, startTime: Float, endTime: Float, limit: Int): [FundingFee!]
+
+  """Funding payment income history."""
+  fundingHistory(symbol: String, startTime: Float, endTime: Float, limit: Int): [Funding!]
+
+  """Futures order details."""
+  futuresOrder(symbol: String!, orderId: Int!): FuturesOrder
+
+  """All open futures orders."""
+  openFuturesOrders(symbol: String): [FuturesOrder!]
+
+  """Cross-margin account details."""
+  crossMarginAccount: CrossMarginAccount
+
+  """Isolated margin account details for all symbols."""
+  isolatedMarginAccount: IsolatedMarginAccount
+
+  """Margin loan history."""
+  marginLoans(asset: String!, startTime: Float, endTime: Float, limit: Int): [MarginLoan!]
+
+  """Margin repayment history."""
+  marginRepayments(asset: String!, startTime: Float, endTime: Float, limit: Int): [MarginRepay!]
+
+  """Portfolio margin account state."""
+  portfolioMargin: PortfolioMargin
+
+  """Available flexible earn products."""
+  flexibleProducts(asset: String, status: EarnProductStatus): [FlexibleProduct!]
+
+  """Available staking products."""
+  stakingProducts(asset: String): [StakingProduct!]
+
+  """Liquidation history for futures positions."""
+  liquidationHistory(symbol: String, startTime: Float, endTime: Float, limit: Int): [Liquidation!]
+}
+
+type Mutation {
+  """Place a new spot order."""
+  placeSpotOrder(
+    symbol: String!
+    side: Side!
+    type: OrderType!
+    timeInForce: TimeInForce
+    quantity: String
+    quoteOrderQty: String
+    price: String
+    newClientOrderId: String
+    stopPrice: String
+    icebergQty: String
+    newOrderRespType: String
+  ): SpotOrder
+
+  """Cancel an existing spot order."""
+  cancelSpotOrder(symbol: String!, orderId: Int, origClientOrderId: String): CancelResponse
+
+  """Place an OCO order pair."""
+  placeOCOOrder(
+    symbol: String!
+    side: Side!
+    quantity: String!
+    price: String!
+    stopPrice: String!
+    stopLimitPrice: String
+    stopLimitTimeInForce: TimeInForce
+  ): OCOOrder
+
+  """Cancel an OCO order."""
+  cancelOCOOrder(symbol: String!, orderListId: Int, listClientOrderId: String): OCOOrder
+
+  """Place a new futures order."""
+  placeFuturesOrder(
+    symbol: String!
+    side: Side!
+    positionSide: PositionSide
+    type: OrderType!
+    timeInForce: TimeInForce
+    quantity: String
+    reduceOnly: Boolean
+    price: String
+    newClientOrderId: String
+    stopPrice: String
+    closePosition: Boolean
+    activationPrice: String
+    callbackRate: String
+    workingType: String
+    priceProtect: Boolean
+  ): FuturesOrder
+
+  """Cancel an existing futures order."""
+  cancelFuturesOrder(symbol: String!, orderId: Int, origClientOrderId: String): FuturesOrder
+
+  """Create a new user data stream listen key."""
+  createListenKey: ListenKey
+
+  """Renew a user data stream listen key to prevent expiry."""
+  keepAliveListenKey(listenKey: String!): Boolean
+
+  """Close a user data stream."""
+  closeListenKey(listenKey: String!): Boolean
+
+  """Initiate a cryptocurrency withdrawal."""
+  withdraw(
+    coin: String!
+    withdrawOrderId: String
+    network: String
+    address: String!
+    addressTag: String
+    amount: String!
+    transactionFeeFlag: Boolean
+    name: String
+    walletType: Int
+  ): WithdrawalRecord
+
+  """Borrow assets for margin trading."""
+  borrowMargin(
+    asset: String!
+    amount: String!
+    isIsolated: Boolean
+    symbol: String
+  ): MarginLoan
+
+  """Repay borrowed margin assets."""
+  repayMargin(
+    asset: String!
+    amount: String!
+    isIsolated: Boolean
+    symbol: String
+  ): MarginRepay
+
+  """Transfer assets between spot, margin, and futures wallets."""
+  transferAsset(
+    asset: String!
+    amount: String!
+    type: String!
+  ): AssetTransferResult
+
+  """Subscribe to a flexible earn product."""
+  subscribeFlexibleProduct(productId: String!, amount: String!): Boolean
+
+  """Redeem a flexible earn product."""
+  redeemFlexibleProduct(productId: String!, amount: String!): Boolean
+}
+
+type Subscription {
+  """Real-time incremental order book depth updates for a symbol."""
+  orderBookUpdate(symbol: String!, levels: Int): Depth
+
+  """Real-time 24-hour ticker statistics for a symbol."""
+  tickerUpdate(symbol: String!): Ticker
+
+  """Real-time ticker updates for all symbols."""
+  allTickersUpdate: [MiniTicker!]
+
+  """Live individual trade events for a symbol."""
+  tradeStream(symbol: String!): Trade
+
+  """Live aggregated trade events for a symbol."""
+  aggTradeStream(symbol: String!): AggTrade
+
+  """Real-time candlestick updates for a symbol and interval."""
+  klineStream(symbol: String!, interval: KlineInterval!): KlineData
+
+  """Real-time best bid and ask updates for a symbol."""
+  bookTickerStream(symbol: String!): BookTicker
+
+  """Private account events including order updates and balance changes."""
+  userDataStream(listenKey: String!): UserDataEvent
+
+  """Real-time mark price updates for a futures symbol."""
+  markPriceStream(symbol: String!): MarkPrice
+
+  """Real-time liquidation events across the exchange."""
+  liquidationStream(symbol: String): Liquidation
+}
+
+# ---------------------------------------------------------------------------
+# Supporting Types (referenced in Query/Mutation/Subscription)
+# ---------------------------------------------------------------------------
+
+"""A cross-margin account with aggregate balance and open positions."""
+type CrossMarginAccount {
+  borrowEnabled: Boolean!
+  marginLevel: String!
+  totalAssetOfBtc: String!
+  totalLiabilityOfBtc: String!
+  totalNetAssetOfBtc: String!
+  tradeEnabled: Boolean!
+  transferEnabled: Boolean!
+  userAssets: [MarginBalance!]!
+}
+
+"""Isolated margin account summary across all active symbols."""
+type IsolatedMarginAccount {
+  assets: [IsolatedMarginAsset!]!
+  totalAssetOfBtc: String
+  totalLiabilityOfBtc: String
+  totalNetAssetOfBtc: String
+}
+
+"""Isolated margin position for a single symbol."""
+type IsolatedMarginAsset {
+  symbol: String!
+  isolatedCreated: Boolean!
+  enabled: Boolean!
+  marginLevel: String!
+  marginLevelStatus: String!
+  marginRatio: String!
+  indexPrice: String!
+  liquidatePrice: String!
+  liquidateRate: String!
+  tradeEnabled: Boolean!
+  baseAsset: IsolatedMarginBalance!
+  quoteAsset: IsolatedMarginBalance!
+}
+
+"""Balance details for one side of an isolated margin position."""
+type IsolatedMarginBalance {
+  asset: String!
+  borrowEnabled: Boolean!
+  borrowed: String!
+  free: String!
+  interest: String!
+  locked: String!
+  netAsset: String!
+  netAssetOfBtc: String!
+  repayEnabled: Boolean!
+  totalAsset: String!
+}
+
+"""Result of an inter-wallet asset transfer."""
+type AssetTransferResult {
+  tranId: Float!
+}
+
+"""A real-time user data event from the private WebSocket stream."""
+type UserDataEvent {
+  eventType: String!
+  eventTime: Float!
+  order: SpotOrder
+  balance: AssetBalance
+  outboundAccountPosition: [AssetBalance!]
+}
