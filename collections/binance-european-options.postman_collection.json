@@ -1,0 +1,2308 @@
+{
+  "item": [
+    {
+      "id": "05df1593-eda4-40ec-bb41-bffda6c8bb22",
+      "name": "Account",
+      "description": {
+        "content": "Account endpoints for options positions, balances, and history.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1d7618f4-1c59-4363-8bbf-834087eec7d7",
+          "name": "Option position information",
+          "request": {
+            "name": "Option position information",
+            "description": {
+              "content": "Get current options position information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "position"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fe9250ee-4b67-4149-88b9-14a23fee075d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "position"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"side\": \"string\",\n    \"quantity\": \"string\",\n    \"reducibleQty\": \"string\",\n    \"markValue\": \"string\",\n    \"ror\": \"string\",\n    \"unrealizedPNL\": \"string\",\n    \"markPrice\": \"string\",\n    \"strikePrice\": \"string\",\n    \"positionCost\": \"string\",\n    \"expiryDate\": 7321,\n    \"priceScale\": 360,\n    \"quantityScale\": 3518,\n    \"optionSide\": \"string\",\n    \"quoteAsset\": \"string\"\n  },\n  {\n    \"symbol\": \"string\",\n    \"side\": \"string\",\n    \"quantity\": \"string\",\n    \"reducibleQty\": \"string\",\n    \"markValue\": \"string\",\n    \"ror\": \"string\",\n    \"unrealizedPNL\": \"string\",\n    \"markPrice\": \"string\",\n    \"strikePrice\": \"string\",\n    \"positionCost\": \"string\",\n    \"expiryDate\": 494,\n    \"priceScale\": 7361,\n    \"quantityScale\": 3960,\n    \"optionSide\": \"string\",\n    \"quoteAsset\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be50bcc4-2135-4183-b397-47ead9604594",
+          "name": "Account information",
+          "request": {
+            "name": "Account information",
+            "description": {
+              "content": "Get current options account information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8e4dac5d-fb47-4ec3-8f71-889c25f7509a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6d06ce64-2cf7-4af4-bb9b-4e16641c2ac1",
+      "name": "Market Data",
+      "description": {
+        "content": "Public market data for options including exchange info, order book, trades, klines, mark price, and open interest.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a5108ae2-3d19-43e6-a4b4-f44b42867eca",
+          "name": "Test connectivity",
+          "request": {
+            "name": "Test connectivity",
+            "description": {
+              "content": "Test connectivity to the options REST API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a47dc800-a563-4d04-a99a-e789ce102aee",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "ping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfa4f4cf-9c27-489d-983e-fde6289df831",
+          "name": "Check server time",
+          "request": {
+            "name": "Check server time",
+            "description": {
+              "content": "Get the current server time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93204c8c-61e8-42e3-b456-62c15336b3c8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"serverTime\": 2565\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db66b6df-ab4d-4a31-8eb5-74e4718b0876",
+          "name": "Exchange information",
+          "request": {
+            "name": "Exchange information",
+            "description": {
+              "content": "Get current options exchange information including available options symbols, strike prices, and expiration dates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "exchangeInfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d2f23b90-5b74-47ae-a752-6260696647ac",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "exchangeInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timezone\": \"string\",\n  \"serverTime\": 9267\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb16ceda-21f6-4729-9731-909f73073101",
+          "name": "Order book",
+          "request": {
+            "name": "Order book",
+            "description": {
+              "content": "Get the current order book for an options symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "depth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Option symbol, e.g. BTC-250328-80000-C."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of levels. Default 100."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6b8074ef-cdd4-487a-a815-ff7c4f71d55f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "depth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bids\": [\n    [\n      \"string\",\n      \"string\"\n    ],\n    [\n      \"string\",\n      \"string\"\n    ]\n  ],\n  \"asks\": [\n    [\n      \"string\",\n      \"string\"\n    ],\n    [\n      \"string\",\n      \"string\"\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05c931a1-e09a-4933-b756-92d774ab965d",
+          "name": "Recent trades list",
+          "request": {
+            "name": "Recent trades list",
+            "description": {
+              "content": "Get recent options trades.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "trades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Option symbol."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of trades. Default 100, max 500."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "671f6281-d773-49a5-8082-697083b9e0a7",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1680,\n    \"symbol\": \"string\",\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"side\": 4693,\n    \"time\": 7862\n  },\n  {\n    \"id\": 696,\n    \"symbol\": \"string\",\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"side\": 1673,\n    \"time\": 6690\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37b2891f-119c-4631-8e4c-212fe3431d0f",
+          "name": "Kline/Candlestick data",
+          "request": {
+            "name": "Kline/Candlestick data",
+            "description": {
+              "content": "Get kline/candlestick data for an options symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "klines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c36bc96c-8063-44ee-b343-893f3a1588b3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "klines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  [],\n  []\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33a81fc3-17b6-4261-9335-c5c9e460ca4c",
+          "name": "Option mark price",
+          "request": {
+            "name": "Option mark price",
+            "description": {
+              "content": "Get mark price for options symbols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "mark"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Option symbol. If not specified, returns all symbols."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1fe6650-295f-426b-b18f-d0cecf893623",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "mark"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"markPrice\": \"string\",\n    \"bidIV\": \"string\",\n    \"askIV\": \"string\",\n    \"markIV\": \"string\",\n    \"delta\": \"string\",\n    \"theta\": \"string\",\n    \"gamma\": \"string\",\n    \"vega\": \"string\",\n    \"highPriceLimit\": \"string\",\n    \"lowPriceLimit\": \"string\"\n  },\n  {\n    \"symbol\": \"string\",\n    \"markPrice\": \"string\",\n    \"bidIV\": \"string\",\n    \"askIV\": \"string\",\n    \"markIV\": \"string\",\n    \"delta\": \"string\",\n    \"theta\": \"string\",\n    \"gamma\": \"string\",\n    \"vega\": \"string\",\n    \"highPriceLimit\": \"string\",\n    \"lowPriceLimit\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e48ff05-344f-490a-9183-2f10999207eb",
+          "name": "24hr ticker price change statistics",
+          "request": {
+            "name": "24hr ticker price change statistics",
+            "description": {
+              "content": "Get 24-hour ticker statistics for options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "ticker"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Option symbol."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "608feb66-2fff-49c1-becd-eb5a1303e24e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "ticker"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"priceChange\": \"string\",\n    \"priceChangePercent\": \"string\",\n    \"lastPrice\": \"string\",\n    \"lastQty\": \"string\",\n    \"open\": \"string\",\n    \"high\": \"string\",\n    \"low\": \"string\",\n    \"volume\": \"string\",\n    \"amount\": \"string\",\n    \"bidPrice\": \"string\",\n    \"askPrice\": \"string\",\n    \"openTime\": 599,\n    \"closeTime\": 1452,\n    \"firstTradeId\": 4427,\n    \"tradeCount\": 2886,\n    \"strikePrice\": \"string\",\n    \"exercisePrice\": \"string\"\n  },\n  {\n    \"symbol\": \"string\",\n    \"priceChange\": \"string\",\n    \"priceChangePercent\": \"string\",\n    \"lastPrice\": \"string\",\n    \"lastQty\": \"string\",\n    \"open\": \"string\",\n    \"high\": \"string\",\n    \"low\": \"string\",\n    \"volume\": \"string\",\n    \"amount\": \"string\",\n    \"bidPrice\": \"string\",\n    \"askPrice\": \"string\",\n    \"openTime\": 4614,\n    \"closeTime\": 7326,\n    \"firstTradeId\": 8605,\n    \"tradeCount\": 7499,\n    \"strikePrice\": \"string\",\n    \"exercisePrice\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c7835ab-799c-46fe-96be-1d4a0970fcf0",
+          "name": "Open interest",
+          "request": {
+            "name": "Open interest",
+            "description": {
+              "content": "Get open interest for an options underlying asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "openInterest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "underlyingAsset",
+                  "value": "<string>",
+                  "description": "(Required) Underlying asset, e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "expiration",
+                  "value": "<string>",
+                  "description": "(Required) Expiration date, e.g. 250328."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8f09abbc-d32f-41bd-a7ac-6703396c6581",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "openInterest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "underlyingAsset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expiration",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"sumOpenInterest\": \"string\",\n    \"sumOpenInterestUsd\": \"string\",\n    \"timestamp\": \"string\"\n  },\n  {\n    \"symbol\": \"string\",\n    \"sumOpenInterest\": \"string\",\n    \"sumOpenInterestUsd\": \"string\",\n    \"timestamp\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f65b014e-a98d-4d50-9175-ecb5439eb13b",
+      "name": "Trading",
+      "description": {
+        "content": "Options trading endpoints for placing and managing orders.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e8b6a40a-f918-4662-8b97-97b157ce41fe",
+          "name": "New order",
+          "request": {
+            "name": "New order",
+            "description": {
+              "content": "Send in a new options order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Option symbol."
+                },
+                {
+                  "disabled": false,
+                  "key": "side",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "quantity",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "price",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "timeInForce",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "reduceOnly",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "postOnly",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "newOrderRespType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientOrderId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "isMmp",
+                  "value": "<boolean>",
+                  "description": "Market maker protection flag."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ce22295e-421f-4694-8990-90f0d103c0ff",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "side",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quantity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "price",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeInForce",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reduceOnly",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "postOnly",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "newOrderRespType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientOrderId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isMmp",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d24ae46-cc30-482f-8392-64efc4731bd8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "side",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quantity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "price",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeInForce",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reduceOnly",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "postOnly",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "newOrderRespType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "clientOrderId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isMmp",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5671,\n  \"msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "885c81d0-36e7-4d37-bcb8-6ca9535e08db",
+          "name": "Query single order",
+          "request": {
+            "name": "Query single order",
+            "description": {
+              "content": "Check an options order status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "orderId",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientOrderId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "beefc869-6084-4180-9624-07eda3cd3733",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "clientOrderId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3fad5c54-478c-4778-a502-37f984368c5a",
+          "name": "Cancel order",
+          "request": {
+            "name": "Cancel order",
+            "description": {
+              "content": "Cancel an active options order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "orderId",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "clientOrderId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "de1a5e0f-c1db-4367-b75f-102cb555981e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "clientOrderId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94e114e3-6dc0-4396-9915-6528e52169e0",
+          "name": "Query current open orders",
+          "request": {
+            "name": "Query current open orders",
+            "description": {
+              "content": "Get all open options orders.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "openOrders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "39d46b1c-f3a7-4853-8368-c785e0918b34",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "openOrders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "cc927872-ec74-4d35-bb7e-cdc58c662e4a",
+      "name": "User Data Stream",
+      "description": {
+        "content": "User data stream listen key management for options.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d908c9e4-6e18-4038-a3bc-51904b07c2b8",
+          "name": "Start user data stream",
+          "request": {
+            "name": "Start user data stream",
+            "description": {
+              "content": "Start a new options user data stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "listenKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b1b6ebda-56a8-4234-9cc4-2cce5d3a2402",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "listenKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"listenKey\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd549abe-675e-4523-b51b-823cde24cf86",
+          "name": "Keepalive user data stream",
+          "request": {
+            "name": "Keepalive user data stream",
+            "description": {
+              "content": "Keepalive an options user data stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "listenKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f576d069-2f1e-4bbf-9db5-18d2f24dfcba",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "listenKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2531e6c-ac0c-414b-8376-3bb890c29e47",
+          "name": "Close user data stream",
+          "request": {
+            "name": "Close user data stream",
+            "description": {
+              "content": "Close an options user data stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "listenKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "946ae487-c23c-4358-a964-66bb66e75bda",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "listenKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://eapi.binance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-MBX-APIKEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6227c942-8eb2-4e01-b390-7ccb561b5bda",
+    "name": "Binance European Options API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Binance European Options API provides access to European-style cryptocurrency options contracts. Developers can trade call and put options on assets like BTC and ETH, query options chains with various strike prices and expiration dates, and retrieve options-specific market data including implied volatility and Greeks.\n\nContact Support:\n Name: Binance Support",
+      "type": "text/plain"
+    }
+  }
+}

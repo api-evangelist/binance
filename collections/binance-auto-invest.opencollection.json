@@ -1,0 +1,376 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Binance Auto-Invest API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-MBX-APIKEY",
+      "value": "{{X-MBX-APIKEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auto-Invest",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get target asset list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/lending/auto-invest/target-asset/list",
+            "params": [
+              {
+                "name": "targetAsset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "current",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the list of target assets available for auto-invest plans."
+        },
+        {
+          "info": {
+            "name": "Get source asset list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/lending/auto-invest/source-asset/list",
+            "params": [
+              {
+                "name": "usageType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "targetAsset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "indexId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "flexibleAllowedToUse",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the list of source assets that can be used for auto-invest plans."
+        },
+        {
+          "info": {
+            "name": "Create auto-invest plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/sapi/v1/lending/auto-invest/plan/add",
+            "params": [
+              {
+                "name": "sourceType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "planType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subscriptionAmount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subscriptionCycle",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subscriptionStartTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sourceAsset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "flexibleAllowedToUse",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "details",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of target asset details."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new auto-invest plan for recurring or one-time purchases."
+        },
+        {
+          "info": {
+            "name": "Edit auto-invest plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/sapi/v1/lending/auto-invest/plan/edit",
+            "params": [
+              {
+                "name": "planId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subscriptionAmount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subscriptionCycle",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sourceAsset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "flexibleAllowedToUse",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "details",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Edit an existing auto-invest plan."
+        },
+        {
+          "info": {
+            "name": "List auto-invest plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/lending/auto-invest/plan/list",
+            "params": [
+              {
+                "name": "planType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the list of auto-invest plans."
+        },
+        {
+          "info": {
+            "name": "Query subscription transaction history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/lending/auto-invest/history/list",
+            "params": [
+              {
+                "name": "planId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "targetAsset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "planType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "current",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get auto-invest subscription transaction history."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

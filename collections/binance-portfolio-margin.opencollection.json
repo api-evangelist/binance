@@ -1,0 +1,359 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Binance Portfolio Margin API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-MBX-APIKEY",
+      "value": "{{X-MBX-APIKEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query portfolio margin balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://papi.binance.com/papi/v1/balance",
+            "params": [
+              {
+                "name": "asset",
+                "value": "",
+                "type": "query",
+                "description": "Asset to query. If not sent, returns all assets."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get portfolio margin account balance information across all asset types."
+        },
+        {
+          "info": {
+            "name": "Query portfolio margin account info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://papi.binance.com/papi/v1/account",
+            "params": [
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get portfolio margin account information including margin ratios and account status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Trading",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "New UM order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://papi.binance.com/papi/v1/um/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "side",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timeInForce",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Place a new USDT-M futures order through portfolio margin."
+        },
+        {
+          "info": {
+            "name": "New CM order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://papi.binance.com/papi/v1/cm/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "side",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timeInForce",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Place a new COIN-M futures order through portfolio margin."
+        },
+        {
+          "info": {
+            "name": "New margin order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://papi.binance.com/papi/v1/margin/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "side",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timeInForce",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Place a new margin order through portfolio margin."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Data Stream",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start user data stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://papi.binance.com/papi/v1/listenKey",
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Start a portfolio margin user data stream."
+        },
+        {
+          "info": {
+            "name": "Keepalive user data stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://papi.binance.com/papi/v1/listenKey",
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Keepalive a portfolio margin user data stream."
+        },
+        {
+          "info": {
+            "name": "Close user data stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://papi.binance.com/papi/v1/listenKey",
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Close a portfolio margin user data stream."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

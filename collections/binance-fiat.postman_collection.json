@@ -1,0 +1,404 @@
+{
+  "item": [
+    {
+      "id": "c4f0a57e-06b3-4b24-8198-e817d412e0c7",
+      "name": "Fiat",
+      "description": {
+        "content": "Fiat deposit, withdrawal, and payment history endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5f5719e4-702e-4e0c-8d7f-b80ffe3e81f1",
+          "name": "Get fiat deposit/withdraw history",
+          "request": {
+            "name": "Get fiat deposit/withdraw history",
+            "description": {
+              "content": "Get fiat deposit or withdrawal order history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "fiat",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "transactionType",
+                  "value": "<integer>",
+                  "description": "(Required) 0 for deposit, 1 for withdraw."
+                },
+                {
+                  "disabled": false,
+                  "key": "beginTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "rows",
+                  "value": "100",
+                  "description": "Number of rows. Default 100, max 500."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a928e687-21f9-4198-9996-5119d659eaef",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "fiat",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "transactionType",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "beginTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "rows",
+                      "value": "100"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": [\n    {\n      \"orderNo\": \"string\",\n      \"fiatCurrency\": \"string\",\n      \"indicatedAmount\": \"string\",\n      \"amount\": \"string\",\n      \"totalFee\": \"string\",\n      \"method\": \"string\",\n      \"status\": \"string\",\n      \"createTime\": 9732,\n      \"updateTime\": 8539\n    },\n    {\n      \"orderNo\": \"string\",\n      \"fiatCurrency\": \"string\",\n      \"indicatedAmount\": \"string\",\n      \"amount\": \"string\",\n      \"totalFee\": \"string\",\n      \"method\": \"string\",\n      \"status\": \"string\",\n      \"createTime\": 2360,\n      \"updateTime\": 1280\n    }\n  ],\n  \"total\": 1838,\n  \"success\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20a4b9a0-31b6-4cbc-abbd-543bc759d746",
+          "name": "Get fiat payments history",
+          "request": {
+            "name": "Get fiat payments history",
+            "description": {
+              "content": "Get fiat-to-crypto and crypto-to-fiat payment history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "fiat",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "transactionType",
+                  "value": "<integer>",
+                  "description": "(Required) 0 for buy, 1 for sell."
+                },
+                {
+                  "disabled": false,
+                  "key": "beginTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "rows",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "46f0d322-96a0-4a07-b83e-7d1b5b9a22ab",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "fiat",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "transactionType",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "beginTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "rows",
+                      "value": "100"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"data\": [\n    {\n      \"orderNo\": \"string\",\n      \"sourceAmount\": \"string\",\n      \"fiatCurrency\": \"string\",\n      \"obtainAmount\": \"string\",\n      \"cryptoCurrency\": \"string\",\n      \"totalFee\": \"string\",\n      \"price\": \"string\",\n      \"status\": \"string\",\n      \"paymentMethod\": \"string\",\n      \"createTime\": 6943,\n      \"updateTime\": 1483\n    },\n    {\n      \"orderNo\": \"string\",\n      \"sourceAmount\": \"string\",\n      \"fiatCurrency\": \"string\",\n      \"obtainAmount\": \"string\",\n      \"cryptoCurrency\": \"string\",\n      \"totalFee\": \"string\",\n      \"price\": \"string\",\n      \"status\": \"string\",\n      \"paymentMethod\": \"string\",\n      \"createTime\": 6341,\n      \"updateTime\": 6601\n    }\n  ],\n  \"total\": 6955,\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.binance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-MBX-APIKEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2509f32b-dea5-4eb5-b63c-ca3a3f13c741",
+    "name": "Binance Fiat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Binance Fiat API provides access to fiat currency deposit and withdrawal operations on the Binance platform. Developers can query fiat deposit and withdrawal order history, check available fiat payment methods, and retrieve transaction details for fiat-to-crypto and crypto-to-fiat conversions.\n\nContact Support:\n Name: Binance Support",
+      "type": "text/plain"
+    }
+  }
+}

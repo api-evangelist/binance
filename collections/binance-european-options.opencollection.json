@@ -1,0 +1,586 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Binance European Options API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-MBX-APIKEY",
+      "value": "{{X-MBX-APIKEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Market Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Test connectivity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/ping"
+          },
+          "docs": "Test connectivity to the options REST API."
+        },
+        {
+          "info": {
+            "name": "Check server time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/time"
+          },
+          "docs": "Get the current server time."
+        },
+        {
+          "info": {
+            "name": "Exchange information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/exchangeInfo"
+          },
+          "docs": "Get current options exchange information including available options symbols, strike prices, and expiration dates."
+        },
+        {
+          "info": {
+            "name": "Order book",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/depth",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Option symbol, e.g. BTC-250328-80000-C."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of levels. Default 100."
+              }
+            ]
+          },
+          "docs": "Get the current order book for an options symbol."
+        },
+        {
+          "info": {
+            "name": "Recent trades list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/trades",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Option symbol."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of trades. Default 100, max 500."
+              }
+            ]
+          },
+          "docs": "Get recent options trades."
+        },
+        {
+          "info": {
+            "name": "Kline/Candlestick data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/klines",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get kline/candlestick data for an options symbol."
+        },
+        {
+          "info": {
+            "name": "Option mark price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/mark",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Option symbol. If not specified, returns all symbols."
+              }
+            ]
+          },
+          "docs": "Get mark price for options symbols."
+        },
+        {
+          "info": {
+            "name": "24hr ticker price change statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/ticker",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Option symbol."
+              }
+            ]
+          },
+          "docs": "Get 24-hour ticker statistics for options."
+        },
+        {
+          "info": {
+            "name": "Open interest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/openInterest",
+            "params": [
+              {
+                "name": "underlyingAsset",
+                "value": "",
+                "type": "query",
+                "description": "Underlying asset, e.g. BTC."
+              },
+              {
+                "name": "expiration",
+                "value": "",
+                "type": "query",
+                "description": "Expiration date, e.g. 250328."
+              }
+            ]
+          },
+          "docs": "Get open interest for an options underlying asset."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Trading",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query single order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "clientOrderId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Check an options order status."
+        },
+        {
+          "info": {
+            "name": "New order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eapi.binance.com/eapi/v1/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Option symbol."
+              },
+              {
+                "name": "side",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timeInForce",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reduceOnly",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "postOnly",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "newOrderRespType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "clientOrderId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "isMmp",
+                "value": "",
+                "type": "query",
+                "description": "Market maker protection flag."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send in a new options order."
+        },
+        {
+          "info": {
+            "name": "Cancel order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://eapi.binance.com/eapi/v1/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "clientOrderId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancel an active options order."
+        },
+        {
+          "info": {
+            "name": "Query current open orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/openOrders",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all open options orders."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Option position information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/position",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get current options position information."
+        },
+        {
+          "info": {
+            "name": "Account information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eapi.binance.com/eapi/v1/account",
+            "params": [
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get current options account information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Data Stream",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start user data stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eapi.binance.com/eapi/v1/listenKey",
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Start a new options user data stream."
+        },
+        {
+          "info": {
+            "name": "Keepalive user data stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://eapi.binance.com/eapi/v1/listenKey",
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Keepalive an options user data stream."
+        },
+        {
+          "info": {
+            "name": "Close user data stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://eapi.binance.com/eapi/v1/listenKey",
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Close an options user data stream."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

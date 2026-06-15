@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Binance Pay API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "BinancePay-Certificate-SN",
+      "value": "{{BinancePay-Certificate-SN}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bpay.binanceapi.com/binancepay/openapi/v3/order/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new payment order. Returns a checkout URL and QR code data for the customer to complete payment."
+        },
+        {
+          "info": {
+            "name": "Query order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bpay.binanceapi.com/binancepay/openapi/v2/order/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query a payment order by merchant trade number or prepay ID."
+        },
+        {
+          "info": {
+            "name": "Close order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bpay.binanceapi.com/binancepay/openapi/order/close",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Close an unpaid order."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payouts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Batch payout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bpay.binanceapi.com/binancepay/openapi/payout/transfer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Make batch payout transfers to multiple recipients. Supports payout to Binance ID or email. Maximum 500 recipients per batch."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Refunds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Refund order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://bpay.binanceapi.com/binancepay/openapi/order/refund",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refund a paid order fully or partially."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

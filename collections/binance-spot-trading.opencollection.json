@@ -1,0 +1,1420 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Binance Spot Trading API",
+    "version": "3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-MBX-APIKEY",
+      "value": "{{X-MBX-APIKEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "General",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Test connectivity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/ping"
+          },
+          "docs": "Test connectivity to the REST API. Returns an empty object on success."
+        },
+        {
+          "info": {
+            "name": "Check server time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/time"
+          },
+          "docs": "Test connectivity to the REST API and get the current server time as a Unix timestamp in milliseconds."
+        },
+        {
+          "info": {
+            "name": "Exchange information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/exchangeInfo",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "symbols",
+                "value": "[\"BTCUSDT\",\"ETHUSDT\"]",
+                "type": "query",
+                "description": "JSON array of trading pair symbols to query. Cannot be used with the symbol parameter."
+              },
+              {
+                "name": "permissions",
+                "value": "",
+                "type": "query",
+                "description": "Filter by account permissions such as SPOT or MARGIN."
+              }
+            ]
+          },
+          "docs": "Get current exchange trading rules and symbol information, including available trading pairs, price filters, lot size filters, and order type constraints."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Market Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Order book",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/depth",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of price levels to return. Default 100. Valid limits are 5, 10, 20, 50, 100, 500, 1000, 5000."
+              }
+            ]
+          },
+          "docs": "Get the current order book depth for a given trading pair. Returns bids and asks with price and quantity at each level."
+        },
+        {
+          "info": {
+            "name": "Recent trades list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/trades",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of trades to return. Default 500, max 1000."
+              }
+            ]
+          },
+          "docs": "Get recent trades for a given symbol. Returns the most recent trades up to the specified limit."
+        },
+        {
+          "info": {
+            "name": "Old trade lookup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/historicalTrades",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of trades to return. Default 500, max 1000."
+              },
+              {
+                "name": "fromId",
+                "value": "",
+                "type": "query",
+                "description": "Trade ID to fetch from. Default gets most recent trades."
+              }
+            ]
+          },
+          "docs": "Get older trades for a given symbol. Requires API key authentication but does not require a signature."
+        },
+        {
+          "info": {
+            "name": "Compressed/Aggregate trades list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/aggTrades",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "fromId",
+                "value": "",
+                "type": "query",
+                "description": "ID to get aggregate trades from (inclusive)."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Start time in milliseconds (inclusive)."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "End time in milliseconds (inclusive)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return. Default 500, max 1000."
+              }
+            ]
+          },
+          "docs": "Get compressed, aggregate trades. Trades that fill at the same time, from the same order, with the same price will have the quantity aggregated."
+        },
+        {
+          "info": {
+            "name": "Kline/Candlestick data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/klines",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Kline/candlestick interval."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Start time in milliseconds."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "End time in milliseconds."
+              },
+              {
+                "name": "timeZone",
+                "value": "",
+                "type": "query",
+                "description": "Timezone for kline open/close times. Default is UTC."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return. Default 500, max 1000."
+              }
+            ]
+          },
+          "docs": "Get kline/candlestick bars for a symbol. Klines are uniquely identified by their open time."
+        },
+        {
+          "info": {
+            "name": "UIKlines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/uiKlines",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Kline/candlestick interval."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Start time in milliseconds."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "End time in milliseconds."
+              },
+              {
+                "name": "timeZone",
+                "value": "",
+                "type": "query",
+                "description": "Timezone for kline open/close times. Default is UTC."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return. Default 500, max 1000."
+              }
+            ]
+          },
+          "docs": "Get kline/candlestick bars optimized for presentation of candlestick charts. Returns modified kline data."
+        },
+        {
+          "info": {
+            "name": "Current average price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/avgPrice",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              }
+            ]
+          },
+          "docs": "Get the current average price for a symbol over the last 5 minutes."
+        },
+        {
+          "info": {
+            "name": "24hr ticker price change statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/ticker/24hr",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of symbols to query."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Supported values are FULL or MINI. MINI omits some fields."
+              }
+            ]
+          },
+          "docs": "Get 24-hour rolling window price change statistics for a symbol or all symbols. Careful when accessing this with no symbol as the weight is very high."
+        },
+        {
+          "info": {
+            "name": "Symbol price ticker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/ticker/price",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of symbols to query."
+              }
+            ]
+          },
+          "docs": "Get the latest price for a symbol or symbols."
+        },
+        {
+          "info": {
+            "name": "Symbol order book ticker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/ticker/bookTicker",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of symbols to query."
+              }
+            ]
+          },
+          "docs": "Get the best price and quantity on the order book for a symbol or symbols."
+        },
+        {
+          "info": {
+            "name": "Rolling window price change statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/ticker",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "JSON array of symbols to query."
+              },
+              {
+                "name": "windowSize",
+                "value": "",
+                "type": "query",
+                "description": "Window size for the rolling statistics. Defaults to 1d. Supported values include 1m, 2m, ... 59m, 1h, 2h, ... 23h, 1d, 2d, ... 7d."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Response type. FULL or MINI."
+              }
+            ]
+          },
+          "docs": "Get rolling window price change statistics with a configurable window size. Unlike the 24hr ticker, this allows specifying the statistics window."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Trading",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "query",
+                "description": "The order ID to query."
+              },
+              {
+                "name": "origClientOrderId",
+                "value": "",
+                "type": "query",
+                "description": "The client order ID to query."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Check an order's status. Either orderId or origClientOrderId must be sent."
+        },
+        {
+          "info": {
+            "name": "New order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/api/v3/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "side",
+                "value": "",
+                "type": "query",
+                "description": "Order side."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Order type."
+              },
+              {
+                "name": "timeInForce",
+                "value": "",
+                "type": "query",
+                "description": "Time in force policy for the order."
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "query",
+                "description": "Order quantity in base asset."
+              },
+              {
+                "name": "quoteOrderQty",
+                "value": "",
+                "type": "query",
+                "description": "Order quantity in quote asset. Used for MARKET orders."
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query",
+                "description": "Order price. Required for LIMIT orders."
+              },
+              {
+                "name": "newClientOrderId",
+                "value": "",
+                "type": "query",
+                "description": "A unique ID for the order. Automatically generated if not sent."
+              },
+              {
+                "name": "strategyId",
+                "value": "",
+                "type": "query",
+                "description": "Arbitrary numeric value identifying the strategy."
+              },
+              {
+                "name": "strategyType",
+                "value": "",
+                "type": "query",
+                "description": "Arbitrary numeric value identifying the strategy type. Values smaller than 1000000 are reserved."
+              },
+              {
+                "name": "stopPrice",
+                "value": "",
+                "type": "query",
+                "description": "Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders."
+              },
+              {
+                "name": "trailingDelta",
+                "value": "",
+                "type": "query",
+                "description": "Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders. Basis points."
+              },
+              {
+                "name": "icebergQty",
+                "value": "",
+                "type": "query",
+                "description": "Used with LIMIT, STOP_LOSS_LIMIT, and TAKE_PROFIT_LIMIT to create an iceberg order."
+              },
+              {
+                "name": "newOrderRespType",
+                "value": "",
+                "type": "query",
+                "description": "Set the response JSON. ACK, RESULT, or FULL."
+              },
+              {
+                "name": "selfTradePreventionMode",
+                "value": "",
+                "type": "query",
+                "description": "The self-trade prevention mode."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send in a new order. Requires SIGNED authentication with the TRADE permission. Order types include LIMIT, MARKET, STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, TAKE_PROFIT_LIMIT, and LIMIT_MAKER."
+        },
+        {
+          "info": {
+            "name": "Cancel order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.binance.com/api/v3/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "query",
+                "description": "The order ID to cancel."
+              },
+              {
+                "name": "origClientOrderId",
+                "value": "",
+                "type": "query",
+                "description": "The client order ID to cancel."
+              },
+              {
+                "name": "newClientOrderId",
+                "value": "",
+                "type": "query",
+                "description": "Used to uniquely identify this cancel request."
+              },
+              {
+                "name": "cancelRestrictions",
+                "value": "",
+                "type": "query",
+                "description": "Supported values ONLY_NEW and ONLY_PARTIALLY_FILLED."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancel an active order. Either orderId or origClientOrderId must be sent."
+        },
+        {
+          "info": {
+            "name": "Current open orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/openOrders",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all open orders on a symbol. Careful when accessing this with no symbol as the weight is very high."
+        },
+        {
+          "info": {
+            "name": "Cancel all open orders on a symbol",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.binance.com/api/v3/openOrders",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancels all active orders on a symbol, including OCO orders."
+        },
+        {
+          "info": {
+            "name": "All orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/allOrders",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "query",
+                "description": "Order ID to start from."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Start time in milliseconds."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "End time in milliseconds."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results. Default 500, max 1000."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all account orders for a symbol: active, canceled, or filled. If orderId is set, it will get orders starting from that orderId."
+        },
+        {
+          "info": {
+            "name": "New OCO order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/api/v3/order/oco",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "side",
+                "value": "",
+                "type": "query",
+                "description": "Order side."
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "query",
+                "description": "Order quantity."
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query",
+                "description": "Limit order price."
+              },
+              {
+                "name": "stopPrice",
+                "value": "",
+                "type": "query",
+                "description": "Stop-loss trigger price."
+              },
+              {
+                "name": "stopLimitPrice",
+                "value": "",
+                "type": "query",
+                "description": "Stop-loss limit order price. Required if stop-loss order type is STOP_LOSS_LIMIT."
+              },
+              {
+                "name": "stopLimitTimeInForce",
+                "value": "",
+                "type": "query",
+                "description": "Time in force for the stop-loss limit order."
+              },
+              {
+                "name": "listClientOrderId",
+                "value": "",
+                "type": "query",
+                "description": "A unique ID for the OCO order list."
+              },
+              {
+                "name": "limitClientOrderId",
+                "value": "",
+                "type": "query",
+                "description": "A unique ID for the limit order."
+              },
+              {
+                "name": "stopClientOrderId",
+                "value": "",
+                "type": "query",
+                "description": "A unique ID for the stop-loss order."
+              },
+              {
+                "name": "newOrderRespType",
+                "value": "",
+                "type": "query",
+                "description": "Set the response JSON type."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send in a new OCO (One-Cancels-the-Other) order. An OCO consists of a limit order and a stop-loss or stop-loss-limit order with the same quantity and side."
+        },
+        {
+          "info": {
+            "name": "Test new order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/api/v3/order/test",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "side",
+                "value": "",
+                "type": "query",
+                "description": "Order side."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Order type."
+              },
+              {
+                "name": "timeInForce",
+                "value": "",
+                "type": "query",
+                "description": "Time in force policy for the order."
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "query",
+                "description": "Order quantity."
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query",
+                "description": "Order price."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Test new order creation and signature/recvWindow validation. Creates and validates a new order but does not send it to the matching engine."
+        },
+        {
+          "info": {
+            "name": "New order using SOR",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/api/v3/sor/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "side",
+                "value": "",
+                "type": "query",
+                "description": "Order side."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Order type."
+              },
+              {
+                "name": "timeInForce",
+                "value": "",
+                "type": "query",
+                "description": "Time in force policy for the order."
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "query",
+                "description": "Order quantity."
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query",
+                "description": "Order price."
+              },
+              {
+                "name": "newClientOrderId",
+                "value": "",
+                "type": "query",
+                "description": "A unique ID for the order."
+              },
+              {
+                "name": "newOrderRespType",
+                "value": "",
+                "type": "query",
+                "description": "Set the response JSON type."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Place a new order using Smart Order Routing (SOR). SOR automatically routes orders across multiple liquidity sources for best execution."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Account information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/account",
+            "params": [
+              {
+                "name": "omitZeroBalances",
+                "value": "",
+                "type": "query",
+                "description": "When set to true, emits only non-zero balances."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get current account information including balances, permissions, and commission rates."
+        },
+        {
+          "info": {
+            "name": "Account trade list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/myTrades",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "query",
+                "description": "Only return trades for this order ID."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Start time in milliseconds."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "End time in milliseconds."
+              },
+              {
+                "name": "fromId",
+                "value": "",
+                "type": "query",
+                "description": "Trade ID to fetch from."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results. Default 500, max 1000."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get trades for a specific account and symbol."
+        },
+        {
+          "info": {
+            "name": "Query current order count usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/rateLimit/order",
+            "params": [
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Displays the user's current order count usage for all intervals."
+        },
+        {
+          "info": {
+            "name": "Query prevented matches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/api/v3/myPreventedMatches",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "BTCUSDT",
+                "type": "query",
+                "description": "Trading pair symbol, e.g. BTCUSDT."
+              },
+              {
+                "name": "preventedMatchId",
+                "value": "",
+                "type": "query",
+                "description": "Prevented match ID."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "query",
+                "description": "Order ID."
+              },
+              {
+                "name": "fromPreventedMatchId",
+                "value": "",
+                "type": "query",
+                "description": "Start from this prevented match ID."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results. Default 500, max 1000."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query",
+                "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Request timestamp in milliseconds since Unix epoch."
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query",
+                "description": "HMAC SHA256 signature of the total query string using the API secret key."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Displays the list of orders that were expired because of STP (Self Trade Prevention)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Data Stream",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a listen key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/api/v3/userDataStream",
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Start a new user data stream. The stream is closed after 60 minutes unless a keepalive is sent. If the account has an active listenKey, that listenKey will be returned and its validity extended for 60 minutes."
+        },
+        {
+          "info": {
+            "name": "Ping/Keep-alive a listen key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.binance.com/api/v3/userDataStream",
+            "params": [
+              {
+                "name": "listenKey",
+                "value": "",
+                "type": "query",
+                "description": "The listen key to keep alive."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Keepalive a user data stream to prevent a timeout. User data streams will close after 60 minutes. It is recommended to send a ping about every 30 minutes."
+        },
+        {
+          "info": {
+            "name": "Close a listen key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.binance.com/api/v3/userDataStream",
+            "params": [
+              {
+                "name": "listenKey",
+                "value": "",
+                "type": "query",
+                "description": "The listen key to close."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Close out a user data stream."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

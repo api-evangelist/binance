@@ -1,0 +1,622 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Binance Wallet API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-MBX-APIKEY",
+      "value": "{{X-MBX-APIKEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "System status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/system/status"
+          },
+          "docs": "Fetch system status. Returns 0 for normal and 1 for system maintenance."
+        },
+        {
+          "info": {
+            "name": "Account API trading status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/account/apiTradingStatus",
+            "params": [
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch account API trading status with details."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "All coins information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/capital/config/getall",
+            "params": [
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get information of all coins available for deposit and withdrawal, including networks and fee details."
+        },
+        {
+          "info": {
+            "name": "Dust transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/sapi/v1/asset/dust",
+            "params": [
+              {
+                "name": "asset",
+                "value": "",
+                "type": "query",
+                "description": "Assets to convert, separated by comma."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Convert dust (small balance assets) to BNB."
+        },
+        {
+          "info": {
+            "name": "Asset dividend record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/asset/assetDividend",
+            "params": [
+              {
+                "name": "asset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Query asset dividend record."
+        },
+        {
+          "info": {
+            "name": "Query user universal transfer history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/asset/transfer",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "current",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromSymbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toSymbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Query universal transfer history."
+        },
+        {
+          "info": {
+            "name": "User universal transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/sapi/v1/asset/transfer",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Transfer type, e.g. MAIN_UMFUTURE, MAIN_CMFUTURE, MAIN_MARGIN, UMFUTURE_MAIN, etc."
+              },
+              {
+                "name": "asset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromSymbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toSymbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Transfer assets between Binance accounts (spot, margin, futures, etc.)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Deposits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Deposit history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/capital/deposit/hisrec",
+            "params": [
+              {
+                "name": "coin",
+                "value": "",
+                "type": "query",
+                "description": "Coin to query."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Deposit status. 0=pending, 6=credited, 1=success."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results. Default 1000, max 1000."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "txId",
+                "value": "",
+                "type": "query",
+                "description": "Transaction ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch deposit history."
+        },
+        {
+          "info": {
+            "name": "Deposit address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/capital/deposit/address",
+            "params": [
+              {
+                "name": "coin",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "network",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch deposit address for a coin and network."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Withdrawals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Withdraw",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/sapi/v1/capital/withdraw/apply",
+            "params": [
+              {
+                "name": "coin",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "withdrawOrderId",
+                "value": "",
+                "type": "query",
+                "description": "Client ID for withdraw."
+              },
+              {
+                "name": "network",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "addressTag",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "transactionFeeFlag",
+                "value": "",
+                "type": "query",
+                "description": "When true, the fee will be deducted from the amount."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Address label."
+              },
+              {
+                "name": "walletType",
+                "value": "",
+                "type": "query",
+                "description": "0 for spot wallet, 1 for funding wallet."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit a withdrawal request."
+        },
+        {
+          "info": {
+            "name": "Withdraw history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/capital/withdraw/history",
+            "params": [
+              {
+                "name": "coin",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "withdrawOrderId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "0=email sent, 1=cancelled, 2=awaiting approval, 3=rejected, 4=processing, 5=failure, 6=completed."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch withdrawal history."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

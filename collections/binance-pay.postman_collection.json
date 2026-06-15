@@ -1,0 +1,600 @@
+{
+  "item": [
+    {
+      "id": "4161ed28-9995-499a-b26a-26ff2fa01d14",
+      "name": "Orders",
+      "description": {
+        "content": "Payment order management endpoints for creating, querying, and closing orders.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6a51c18a-cfb5-4788-9d15-3a19dcdb7d41",
+          "name": "Create order",
+          "request": {
+            "name": "Create order",
+            "description": {
+              "content": "Create a new payment order. Returns a checkout URL and QR code data for the customer to complete payment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "binancepay",
+                "openapi",
+                "v3",
+                "order",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"totalFee\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"productType\": \"<string>\",\n  \"productName\": \"<string>\",\n  \"productDetail\": \"<string>\",\n  \"tradeType\": \"<string>\",\n  \"orderExpireTime\": \"<long>\",\n  \"returnUrl\": \"<string>\",\n  \"cancelUrl\": \"<string>\",\n  \"webhookUrl\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c63bca1-4d77-4163-af28-7634106aa6b5",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "binancepay",
+                    "openapi",
+                    "v3",
+                    "order",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "BinancePay-Certificate-SN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"totalFee\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"productType\": \"<string>\",\n  \"productName\": \"<string>\",\n  \"productDetail\": \"<string>\",\n  \"tradeType\": \"<string>\",\n  \"orderExpireTime\": \"<long>\",\n  \"returnUrl\": \"<string>\",\n  \"cancelUrl\": \"<string>\",\n  \"webhookUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"code\": \"string\",\n  \"data\": {\n    \"prepayId\": \"string\",\n    \"terminalType\": \"string\",\n    \"expireTime\": 3497,\n    \"qrcodeLink\": \"string\",\n    \"qrContent\": \"string\",\n    \"checkoutUrl\": \"string\",\n    \"deeplink\": \"string\",\n    \"universalUrl\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "991d1f93-8bf4-42cc-aea1-10aa213d30b0",
+          "name": "Query order",
+          "request": {
+            "name": "Query order",
+            "description": {
+              "content": "Query a payment order by merchant trade number or prepay ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "binancepay",
+                "openapi",
+                "v2",
+                "order",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"prepayId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "09c0dfc5-4650-4827-9152-8b4b7de5792d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "binancepay",
+                    "openapi",
+                    "v2",
+                    "order",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "BinancePay-Certificate-SN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"prepayId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"code\": \"string\",\n  \"data\": {\n    \"merchantTradeNo\": \"string\",\n    \"prepayId\": \"string\",\n    \"transactTime\": 5518,\n    \"totalFee\": \"string\",\n    \"currency\": \"string\",\n    \"orderStatus\": \"PAID\",\n    \"transactionId\": \"string\",\n    \"payerInfo\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a6761e5-4a0d-44b7-aff1-db22c6812f61",
+          "name": "Close order",
+          "request": {
+            "name": "Close order",
+            "description": {
+              "content": "Close an unpaid order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "binancepay",
+                "openapi",
+                "order",
+                "close"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"prepayId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d41680f-1f73-4110-b74f-856e2b9a4be2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "binancepay",
+                    "openapi",
+                    "order",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "BinancePay-Certificate-SN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"prepayId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"code\": \"string\",\n  \"data\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a9d222d2-5471-4679-9ce6-a8283973ce6e",
+      "name": "Payouts",
+      "description": {
+        "content": "Batch payout and transfer endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3321bc83-cbf3-42be-9d38-cf1116894b1d",
+          "name": "Batch payout",
+          "request": {
+            "name": "Batch payout",
+            "description": {
+              "content": "Make batch payout transfers to multiple recipients. Supports payout to Binance ID or email. Maximum 500 recipients per batch.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "binancepay",
+                "openapi",
+                "payout",
+                "transfer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"batchName\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"totalAmount\": \"<string>\",\n  \"totalNumber\": \"<integer>\",\n  \"transferDetailList\": [\n    {\n      \"merchantSendId\": \"<string>\",\n      \"transferAmount\": \"<string>\",\n      \"receiveType\": \"<string>\",\n      \"receiver\": \"<string>\",\n      \"remark\": \"<string>\"\n    },\n    {\n      \"merchantSendId\": \"<string>\",\n      \"transferAmount\": \"<string>\",\n      \"receiveType\": \"<string>\",\n      \"receiver\": \"<string>\",\n      \"remark\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "db622a84-40aa-4011-a56d-282e5e3b4924",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "binancepay",
+                    "openapi",
+                    "payout",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "BinancePay-Certificate-SN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"<string>\",\n  \"batchName\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"totalAmount\": \"<string>\",\n  \"totalNumber\": \"<integer>\",\n  \"transferDetailList\": [\n    {\n      \"merchantSendId\": \"<string>\",\n      \"transferAmount\": \"<string>\",\n      \"receiveType\": \"<string>\",\n      \"receiver\": \"<string>\",\n      \"remark\": \"<string>\"\n    },\n    {\n      \"merchantSendId\": \"<string>\",\n      \"transferAmount\": \"<string>\",\n      \"receiveType\": \"<string>\",\n      \"receiver\": \"<string>\",\n      \"remark\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"code\": \"string\",\n  \"data\": {\n    \"requestId\": \"string\",\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "84649cc7-a72a-4cc3-b5c6-cc85c2ad35c6",
+      "name": "Refunds",
+      "description": {
+        "content": "Refund processing endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5e1ca2ae-0966-4d8c-ba96-f5798f91f139",
+          "name": "Refund order",
+          "request": {
+            "name": "Refund order",
+            "description": {
+              "content": "Refund a paid order fully or partially.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "binancepay",
+                "openapi",
+                "order",
+                "refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refundRequestId\": \"<string>\",\n  \"prepayId\": \"<string>\",\n  \"refundAmount\": \"<string>\",\n  \"refundReason\": \"<string>\",\n  \"webhookUrl\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c2178ed1-25f3-44db-8660-3c0da0710a47",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "binancepay",
+                    "openapi",
+                    "order",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "BinancePay-Certificate-SN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refundRequestId\": \"<string>\",\n  \"prepayId\": \"<string>\",\n  \"refundAmount\": \"<string>\",\n  \"refundReason\": \"<string>\",\n  \"webhookUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"code\": \"string\",\n  \"data\": {\n    \"refundRequestId\": \"string\",\n    \"prepayId\": \"string\",\n    \"orderAmount\": \"string\",\n    \"refundedAmount\": \"string\",\n    \"refundAmount\": \"string\",\n    \"remainingAttempts\": 7338,\n    \"payerOpenId\": \"string\",\n    \"duplicateRequest\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bpay.binanceapi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "BinancePay-Certificate-SN"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9e156b32-1898-4e63-8cf5-0e6cc592e62d",
+    "name": "Binance Pay API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Binance Pay API enables merchants and businesses to accept cryptocurrency payments from Binance users. Developers can create payment orders, query payment status, process refunds, and manage merchant accounts. The API supports QR code payments, in-app payments, and online checkout flows for e-commerce integration.\n\nContact Support:\n Name: Binance Pay Support",
+      "type": "text/plain"
+    }
+  }
+}

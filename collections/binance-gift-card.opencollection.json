@@ -1,0 +1,207 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Binance Gift Card API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-MBX-APIKEY",
+      "value": "{{X-MBX-APIKEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Gift Card",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a gift card",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/sapi/v1/giftcard/createCode",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token type for the gift card, e.g. BNB, USDT."
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "Gift card amount."
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a Binance gift card with a specified token and amount."
+        },
+        {
+          "info": {
+            "name": "Redeem a gift card",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/sapi/v1/giftcard/redeemCode",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Gift card redemption code."
+              },
+              {
+                "name": "externalUid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Redeem a Binance gift card by its code."
+        },
+        {
+          "info": {
+            "name": "Verify gift card",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/giftcard/verify",
+            "params": [
+              {
+                "name": "referenceNo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Verify a Binance gift card by its reference number."
+        },
+        {
+          "info": {
+            "name": "Buy a gift card with another token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/sapi/v1/giftcard/buyCode",
+            "params": [
+              {
+                "name": "baseToken",
+                "value": "",
+                "type": "query",
+                "description": "Token to pay with."
+              },
+              {
+                "name": "faceToken",
+                "value": "",
+                "type": "query",
+                "description": "Token the gift card is denominated in."
+              },
+              {
+                "name": "baseTokenAmount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a gift card paid with a different token than the face value token (dual-token gift card)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

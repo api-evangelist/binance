@@ -1,0 +1,682 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Binance COIN-M Futures API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-MBX-APIKEY",
+      "value": "{{X-MBX-APIKEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Market Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Test connectivity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/ping"
+          },
+          "docs": "Test connectivity to the COIN-M futures REST API."
+        },
+        {
+          "info": {
+            "name": "Check server time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/time"
+          },
+          "docs": "Get the current server time."
+        },
+        {
+          "info": {
+            "name": "Exchange information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/exchangeInfo"
+          },
+          "docs": "Get current COIN-M futures exchange trading rules and symbol information."
+        },
+        {
+          "info": {
+            "name": "Order book",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/depth",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of levels. Default 500."
+              }
+            ]
+          },
+          "docs": "Get the current order book for a COIN-M futures symbol."
+        },
+        {
+          "info": {
+            "name": "Recent trades list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/trades",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of trades. Default 500, max 1000."
+              }
+            ]
+          },
+          "docs": "Get recent COIN-M futures trades."
+        },
+        {
+          "info": {
+            "name": "Kline/Candlestick data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/klines",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Kline interval."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get kline/candlestick data for a COIN-M futures symbol."
+        },
+        {
+          "info": {
+            "name": "Mark price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/premiumIndex",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get mark price and funding rate for COIN-M futures."
+        },
+        {
+          "info": {
+            "name": "Get funding rate history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/fundingRate",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get historical funding rate data for COIN-M futures."
+        },
+        {
+          "info": {
+            "name": "Open interest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/openInterest",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get open interest for a COIN-M futures symbol."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Trading",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origClientOrderId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Check an order's status."
+        },
+        {
+          "info": {
+            "name": "New order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dapi.binance.com/dapi/v1/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "side",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "positionSide",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timeInForce",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reduceOnly",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "newClientOrderId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stopPrice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "activationPrice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "callbackRate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "workingType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "newOrderRespType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send in a new COIN-M futures order."
+        },
+        {
+          "info": {
+            "name": "Cancel order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://dapi.binance.com/dapi/v1/order",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origClientOrderId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancel an active COIN-M futures order."
+        },
+        {
+          "info": {
+            "name": "Current all open orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/openOrders",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all open COIN-M futures orders."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Account information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/account",
+            "params": [
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get current COIN-M futures account information."
+        },
+        {
+          "info": {
+            "name": "Account balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/balance",
+            "params": [
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get COIN-M futures account balance."
+        },
+        {
+          "info": {
+            "name": "Position information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dapi.binance.com/dapi/v1/positionRisk",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get current COIN-M position information."
+        },
+        {
+          "info": {
+            "name": "Change initial leverage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dapi.binance.com/dapi/v1/leverage",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "leverage",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change initial leverage for a COIN-M futures symbol."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Data Stream",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start user data stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dapi.binance.com/dapi/v1/listenKey",
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Start a new COIN-M futures user data stream."
+        },
+        {
+          "info": {
+            "name": "Keepalive user data stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://dapi.binance.com/dapi/v1/listenKey",
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Keepalive a COIN-M futures user data stream."
+        },
+        {
+          "info": {
+            "name": "Close user data stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://dapi.binance.com/dapi/v1/listenKey",
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Close a COIN-M futures user data stream."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
