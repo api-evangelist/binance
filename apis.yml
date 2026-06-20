@@ -10,7 +10,7 @@ apis:
   - Market Data
   - Spot
   - Trading
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
   properties:
@@ -35,7 +35,7 @@ apis:
   - Real-Time
   - Streaming
   - WebSocket
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: wss://ws-api.binance.com
   humanURL: https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api
   properties:
@@ -55,7 +55,7 @@ apis:
   - Real-Time
   - Streaming
   - WebSocket
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: wss://stream.binance.com
   humanURL: https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
   properties:
@@ -77,7 +77,7 @@ apis:
   - Futures
   - Trading
   - USDT
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://fapi.binance.com
   humanURL: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   properties:
@@ -99,7 +99,7 @@ apis:
   - Derivatives
   - Futures
   - Trading
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://dapi.binance.com
   humanURL: https://developers.binance.com/docs/derivatives/coin-margined-futures/general-info
   properties:
@@ -120,7 +120,7 @@ apis:
   - Derivatives
   - Options
   - Trading
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://eapi.binance.com
   humanURL: https://developers.binance.com/docs/derivatives/option/general-info
   properties:
@@ -142,7 +142,7 @@ apis:
   - Portfolio
   - Risk Management
   - Trading
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://papi.binance.com
   humanURL: https://developers.binance.com/docs/derivatives/portfolio-margin/general-info
   properties:
@@ -164,7 +164,7 @@ apis:
   - Leverage
   - Margin
   - Trading
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/margin_trading/general-info
   properties:
@@ -186,7 +186,7 @@ apis:
   - Deposits
   - Wallet
   - Withdrawals
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/wallet/introduction
   properties:
@@ -207,7 +207,7 @@ apis:
   - Cryptocurrency
   - Enterprise
   - Sub-Account
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/sub_account/general-info
   properties:
@@ -230,7 +230,7 @@ apis:
   - Savings
   - Staking
   - Yield
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/simple_earn/general-info
   properties:
@@ -251,7 +251,7 @@ apis:
   - Hash Rate
   - Mining
   - Pool
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/mining/general-info
   properties:
@@ -272,7 +272,7 @@ apis:
   - Cryptocurrency
   - Social Trading
   - Trading
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/copy_trading/general-info
   properties:
@@ -293,7 +293,7 @@ apis:
   - Cryptocurrency
   - Exchange
   - Swap
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/convert/general-info
   properties:
@@ -315,7 +315,7 @@ apis:
   - Cryptocurrency
   - Merchant
   - Payments
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://bpay.binanceapi.com
   humanURL: https://developers.binance.com/docs/binance-pay/introduction
   properties:
@@ -338,7 +338,7 @@ apis:
   - Cryptocurrency
   - TWAP
   - VWAP
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/algo/general-info
   properties:
@@ -358,7 +358,7 @@ apis:
   - DCA
   - Recurring
   - Savings
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/auto_invest/general-info
   properties:
@@ -381,7 +381,7 @@ apis:
   - Cryptocurrency
   - Lending
   - Loans
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/crypto_loan/general-info
   properties:
@@ -402,7 +402,7 @@ apis:
   - Gift Card
   - Rewards
   - Voucher
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/gift_card/general-info
   properties:
@@ -423,7 +423,7 @@ apis:
   - Cryptocurrency
   - Digital Assets
   - NFT
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/nft/general-info
   properties:
@@ -445,7 +445,7 @@ apis:
   - Deposits
   - Fiat
   - Withdrawals
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.binance.com
   humanURL: https://developers.binance.com/docs/fiat/general-info
   properties:
@@ -530,7 +530,7 @@ name: Binance
 kind: contract
 access: 3rd-Party
 position: Consuming
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Cryptocurrency
 - Exchange
