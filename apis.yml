@@ -522,7 +522,7 @@ common:
     description: Access Binance through the CCXT unified cryptocurrency exchange library.
 - name: Agent Skills
   url: https://github.com/binance/binance-skills-hub
-  type: AgentSkill
+  type: AgentSkills
 description: Binance is the world's largest cryptocurrency exchange by trading volume,
   providing APIs for spot trading, futures, margin, wallet management, and market
   data across 19+ specialized REST APIs and WebSocket streams.
