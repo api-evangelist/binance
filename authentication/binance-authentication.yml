@@ -1,0 +1,67 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/binance-algo-trading-openapi.yml, openapi/binance-auto-invest-openapi.yml, openapi/binance-coin-margined-futures-openapi.yml,
+  openapi/binance-convert-openapi.yml, openapi/binance-copy-trading-openapi.yml, openapi/binance-crypto-loan-openapi.yml,
+  openapi/binance-european-options-openapi.yml, openapi/binance-fiat-openapi.yml, openapi/binance-gift-card-openapi.yml,
+  openapi/binance-margin-trading-openapi.yml, openapi/binance-mining-openapi.yml, openapi/binance-nft-openapi.yml
+  ...
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  - query
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: X-MBX-APIKEY
+  sources:
+  - openapi/binance-algo-trading-openapi.yml
+  - openapi/binance-auto-invest-openapi.yml
+  - openapi/binance-coin-margined-futures-openapi.yml
+  - openapi/binance-convert-openapi.yml
+  - openapi/binance-copy-trading-openapi.yml
+  - openapi/binance-crypto-loan-openapi.yml
+  - openapi/binance-european-options-openapi.yml
+  - openapi/binance-fiat-openapi.yml
+  - openapi/binance-gift-card-openapi.yml
+  - openapi/binance-margin-trading-openapi.yml
+  - openapi/binance-mining-openapi.yml
+  - openapi/binance-nft-openapi.yml
+  - openapi/binance-portfolio-margin-openapi.yml
+  - openapi/binance-simple-earn-openapi.yml
+  - openapi/binance-spot-trading-openapi.yml
+  - openapi/binance-sub-account-openapi.yml
+  - openapi/binance-usds-margined-futures-openapi.yml
+  - openapi/binance-wallet-openapi.yml
+- name: hmacSignature
+  type: apiKey
+  in: query
+  parameter: signature
+  sources:
+  - openapi/binance-algo-trading-openapi.yml
+  - openapi/binance-auto-invest-openapi.yml
+  - openapi/binance-coin-margined-futures-openapi.yml
+  - openapi/binance-convert-openapi.yml
+  - openapi/binance-copy-trading-openapi.yml
+  - openapi/binance-crypto-loan-openapi.yml
+  - openapi/binance-european-options-openapi.yml
+  - openapi/binance-fiat-openapi.yml
+  - openapi/binance-gift-card-openapi.yml
+  - openapi/binance-margin-trading-openapi.yml
+  - openapi/binance-mining-openapi.yml
+  - openapi/binance-nft-openapi.yml
+  - openapi/binance-portfolio-margin-openapi.yml
+  - openapi/binance-simple-earn-openapi.yml
+  - openapi/binance-spot-trading-openapi.yml
+  - openapi/binance-sub-account-openapi.yml
+  - openapi/binance-usds-margined-futures-openapi.yml
+  - openapi/binance-wallet-openapi.yml
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: BinancePay-Certificate-SN
+  description: Binance Pay API key/certificate serial number.
+  sources:
+  - openapi/binance-pay-openapi.yml

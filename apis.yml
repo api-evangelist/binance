@@ -460,6 +460,12 @@ apis:
     fiat currencies and payment channels, enabling applications that bridge traditional
     finance and cryptocurrency markets.
 common:
+- type: VulnerabilityDisclosure
+  url: security/binance-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/binance-domain-security.yml
+- type: Authentication
+  url: authentication/binance-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/binance
 - type: Portal
