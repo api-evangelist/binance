@@ -460,6 +460,8 @@ apis:
     fiat currencies and payment channels, enabling applications that bridge traditional
     finance and cryptocurrency markets.
 common:
+- type: AgenticAccess
+  url: agentic-access/binance-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/binance-vulnerability-disclosure.yml
 - type: DomainSecurity
