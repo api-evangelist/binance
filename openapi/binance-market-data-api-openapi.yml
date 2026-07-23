@@ -1,0 +1,1942 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Trading Account Market Data API
+  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+servers:
+- url: https://api.binance.com
+  description: Production Server
+security:
+- apiKey: []
+tags:
+- name: Market Data
+  description: Public market data endpoints for COIN-M futures.
+paths:
+  /dapi/v1/ping:
+    get:
+      operationId: testConnectivity
+      summary: Test connectivity
+      description: Test connectivity to the COIN-M futures REST API.
+      tags:
+      - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security: []
+  /dapi/v1/time:
+    get:
+      operationId: getServerTime
+      summary: Check server time
+      description: Get the current server time.
+      tags:
+      - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serverTime:
+                    type: integer
+                    format: int64
+                    description: Current server time in milliseconds.
+      security: []
+  /dapi/v1/exchangeInfo:
+    get:
+      operationId: getExchangeInfo
+      summary: Exchange information
+      description: Get current COIN-M futures exchange trading rules and symbol information.
+      tags:
+      - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exchangeFilters:
+                    type: array
+                    items:
+                      type: object
+                  rateLimits:
+                    type: array
+                    items:
+                      type: object
+                  serverTime:
+                    type: integer
+                    format: int64
+                  symbols:
+                    type: array
+                    items:
+                      type: object
+                  timezone:
+                    type: string
+      security: []
+  /dapi/v1/depth:
+    get:
+      operationId: getOrderBook
+      summary: Order book
+      description: Get the current order book for a COIN-M futures symbol.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired'
+      - name: limit
+        in: query
+        description: Number of levels. Default 500.
+        schema:
+          type: integer
+          default: 500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lastUpdateId:
+                    type: integer
+                    format: int64
+                  bids:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                  asks:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+      security: []
+  /dapi/v1/trades:
+    get:
+      operationId: getRecentTrades
+      summary: Recent trades list
+      description: Get recent COIN-M futures trades.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired'
+      - name: limit
+        in: query
+        description: Number of trades. Default 500, max 1000.
+        schema:
+          type: integer
+          default: 500
+          maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      format: int64
+                    price:
+                      type: string
+                    qty:
+                      type: string
+                    baseQty:
+                      type: string
+                    time:
+                      type: integer
+                      format: int64
+                    isBuyerMaker:
+                      type: boolean
+      security: []
+  /dapi/v1/klines:
+    get:
+      operationId: getKlines
+      summary: Kline/Candlestick data
+      description: Get kline/candlestick data for a COIN-M futures symbol.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired'
+      - name: interval
+        in: query
+        required: true
+        description: Kline interval.
+        schema:
+          type: string
+          enum:
+          - 1m
+          - 3m
+          - 5m
+          - 15m
+          - 30m
+          - 1h
+          - 2h
+          - 4h
+          - 6h
+          - 8h
+          - 12h
+          - 1d
+          - 3d
+          - 1w
+          - 1M
+      - name: startTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 500
+          maximum: 1500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+      security: []
+  /dapi/v1/premiumIndex:
+    get:
+      operationId: getMarkPrice
+      summary: Mark price
+      description: Get mark price and funding rate for COIN-M futures.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbol'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    symbol:
+                      type: string
+                    pair:
+                      type: string
+                    markPrice:
+                      type: string
+                    indexPrice:
+                      type: string
+                    estimatedSettlePrice:
+                      type: string
+                    lastFundingRate:
+                      type: string
+                    nextFundingTime:
+                      type: integer
+                      format: int64
+                    interestRate:
+                      type: string
+                    time:
+                      type: integer
+                      format: int64
+                - type: array
+                  items:
+                    type: object
+      security: []
+  /dapi/v1/fundingRate:
+    get:
+      operationId: getFundingRateHistory
+      summary: Get funding rate history
+      description: Get historical funding rate data for COIN-M futures.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired'
+      - name: startTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
+          maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                    fundingRate:
+                      type: string
+                    fundingTime:
+                      type: integer
+                      format: int64
+      security: []
+  /dapi/v1/openInterest:
+    get:
+      operationId: getOpenInterest
+      summary: Open interest
+      description: Get open interest for a COIN-M futures symbol.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  openInterest:
+                    type: string
+                  symbol:
+                    type: string
+                  pair:
+                    type: string
+                  contractType:
+                    type: string
+                  time:
+                    type: integer
+                    format: int64
+      security: []
+  /eapi/v1/ping:
+    get:
+      operationId: testConnectivity
+      summary: Test connectivity
+      description: Test connectivity to the options REST API.
+      tags:
+      - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security: []
+  /eapi/v1/time:
+    get:
+      operationId: getServerTime
+      summary: Check server time
+      description: Get the current server time.
+      tags:
+      - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serverTime:
+                    type: integer
+                    format: int64
+                    description: Current server time in milliseconds.
+      security: []
+  /eapi/v1/exchangeInfo:
+    get:
+      operationId: getExchangeInfo
+      summary: Exchange information
+      description: Get current options exchange information including available options symbols, strike prices, and expiration dates.
+      tags:
+      - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timezone:
+                    type: string
+                    description: Server timezone.
+                  serverTime:
+                    type: integer
+                    format: int64
+                    description: Server time.
+                  optionContracts:
+                    type: array
+                    items:
+                      type: object
+                    description: Available option contracts.
+                  optionAssets:
+                    type: array
+                    items:
+                      type: object
+                    description: Available option assets.
+                  optionSymbols:
+                    type: array
+                    items:
+                      type: object
+                    description: Available option symbols with details.
+                  rateLimits:
+                    type: array
+                    items:
+                      type: object
+                    description: Rate limit rules.
+      security: []
+  /eapi/v1/depth:
+    get:
+      operationId: getOrderBook
+      summary: Order book
+      description: Get the current order book for an options symbol.
+      tags:
+      - Market Data
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        description: Option symbol, e.g. BTC-250328-80000-C.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of levels. Default 100.
+        schema:
+          type: integer
+          default: 100
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bids:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                    description: Bid levels.
+                  asks:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                    description: Ask levels.
+      security: []
+  /eapi/v1/trades:
+    get:
+      operationId: getRecentTrades
+      summary: Recent trades list
+      description: Get recent options trades.
+      tags:
+      - Market Data
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        description: Option symbol.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of trades. Default 100, max 500.
+        schema:
+          type: integer
+          default: 100
+          maximum: 500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      format: int64
+                      description: Trade ID.
+                    symbol:
+                      type: string
+                      description: Option symbol.
+                    price:
+                      type: string
+                      description: Trade price.
+                    qty:
+                      type: string
+                      description: Trade quantity.
+                    quoteQty:
+                      type: string
+                      description: Quote quantity.
+                    side:
+                      type: integer
+                      description: Trade side. -1 for sell, 1 for buy.
+                    time:
+                      type: integer
+                      format: int64
+                      description: Trade time.
+      security: []
+  /eapi/v1/klines:
+    get:
+      operationId: getKlines
+      summary: Kline/Candlestick data
+      description: Get kline/candlestick data for an options symbol.
+      tags:
+      - Market Data
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: interval
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - 1m
+          - 3m
+          - 5m
+          - 15m
+          - 30m
+          - 1h
+          - 2h
+          - 4h
+          - 6h
+          - 12h
+          - 1d
+          - 3d
+          - 1w
+          - 1M
+      - name: startTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 500
+          maximum: 1500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+      security: []
+  /eapi/v1/mark:
+    get:
+      operationId: getMarkPrice
+      summary: Option mark price
+      description: Get mark price for options symbols.
+      tags:
+      - Market Data
+      parameters:
+      - name: symbol
+        in: query
+        description: Option symbol. If not specified, returns all symbols.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      description: Option symbol.
+                    markPrice:
+                      type: string
+                      description: Mark price.
+                    bidIV:
+                      type: string
+                      description: Bid implied volatility.
+                    askIV:
+                      type: string
+                      description: Ask implied volatility.
+                    markIV:
+                      type: string
+                      description: Mark implied volatility.
+                    delta:
+                      type: string
+                      description: Option delta.
+                    theta:
+                      type: string
+                      description: Option theta.
+                    gamma:
+                      type: string
+                      description: Option gamma.
+                    vega:
+                      type: string
+                      description: Option vega.
+                    highPriceLimit:
+                      type: string
+                      description: Upper price limit.
+                    lowPriceLimit:
+                      type: string
+                      description: Lower price limit.
+      security: []
+  /eapi/v1/ticker:
+    get:
+      operationId: getTicker
+      summary: 24hr ticker price change statistics
+      description: Get 24-hour ticker statistics for options.
+      tags:
+      - Market Data
+      parameters:
+      - name: symbol
+        in: query
+        description: Option symbol.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                    priceChange:
+                      type: string
+                    priceChangePercent:
+                      type: string
+                    lastPrice:
+                      type: string
+                    lastQty:
+                      type: string
+                    open:
+                      type: string
+                    high:
+                      type: string
+                    low:
+                      type: string
+                    volume:
+                      type: string
+                    amount:
+                      type: string
+                    bidPrice:
+                      type: string
+                    askPrice:
+                      type: string
+                    openTime:
+                      type: integer
+                      format: int64
+                    closeTime:
+                      type: integer
+                      format: int64
+                    firstTradeId:
+                      type: integer
+                      format: int64
+                    tradeCount:
+                      type: integer
+                    strikePrice:
+                      type: string
+                    exercisePrice:
+                      type: string
+      security: []
+  /eapi/v1/openInterest:
+    get:
+      operationId: getOpenInterest
+      summary: Open interest
+      description: Get open interest for an options underlying asset.
+      tags:
+      - Market Data
+      parameters:
+      - name: underlyingAsset
+        in: query
+        required: true
+        description: Underlying asset, e.g. BTC.
+        schema:
+          type: string
+      - name: expiration
+        in: query
+        required: true
+        description: Expiration date, e.g. 250328.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                    sumOpenInterest:
+                      type: string
+                    sumOpenInterestUsd:
+                      type: string
+                    timestamp:
+                      type: string
+      security: []
+  /api/v3/depth:
+    get:
+      operationId: getOrderBook
+      summary: Order book
+      description: Get the current order book depth for a given trading pair. Returns bids and asks with price and quantity at each level.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - name: limit
+        in: query
+        description: Number of price levels to return. Default 100. Valid limits are 5, 10, 20, 50, 100, 500, 1000, 5000.
+        schema:
+          type: integer
+          default: 100
+          enum:
+          - 5
+          - 10
+          - 20
+          - 50
+          - 100
+          - 500
+          - 1000
+          - 5000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderBook'
+      security: []
+  /api/v3/trades:
+    get:
+      operationId: getRecentTrades
+      summary: Recent trades list
+      description: Get recent trades for a given symbol. Returns the most recent trades up to the specified limit.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - name: limit
+        in: query
+        description: Number of trades to return. Default 500, max 1000.
+        schema:
+          type: integer
+          default: 500
+          maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trade'
+      security: []
+  /api/v3/historicalTrades:
+    get:
+      operationId: getHistoricalTrades
+      summary: Old trade lookup
+      description: Get older trades for a given symbol. Requires API key authentication but does not require a signature.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - name: limit
+        in: query
+        description: Number of trades to return. Default 500, max 1000.
+        schema:
+          type: integer
+          default: 500
+          maximum: 1000
+      - name: fromId
+        in: query
+        description: Trade ID to fetch from. Default gets most recent trades.
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trade'
+  /api/v3/aggTrades:
+    get:
+      operationId: getAggTrades
+      summary: Compressed/Aggregate trades list
+      description: Get compressed, aggregate trades. Trades that fill at the same time, from the same order, with the same price will have the quantity aggregated.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - name: fromId
+        in: query
+        description: ID to get aggregate trades from (inclusive).
+        schema:
+          type: integer
+          format: int64
+      - name: startTime
+        in: query
+        description: Start time in milliseconds (inclusive).
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        description: End time in milliseconds (inclusive).
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: Number of results to return. Default 500, max 1000.
+        schema:
+          type: integer
+          default: 500
+          maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AggTrade'
+      security: []
+  /api/v3/klines:
+    get:
+      operationId: getKlines
+      summary: Kline/Candlestick data
+      description: Get kline/candlestick bars for a symbol. Klines are uniquely identified by their open time.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - $ref: '#/components/parameters/interval'
+      - name: startTime
+        in: query
+        description: Start time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        description: End time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: timeZone
+        in: query
+        description: Timezone for kline open/close times. Default is UTC.
+        schema:
+          type: string
+          default: '0'
+      - name: limit
+        in: query
+        description: Number of results to return. Default 500, max 1000.
+        schema:
+          type: integer
+          default: 500
+          maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+                  description: Kline data array with open time, open, high, low, close, volume, close time, quote asset volume, number of trades, taker buy base asset volume, taker buy quote asset volume.
+      security: []
+  /api/v3/uiKlines:
+    get:
+      operationId: getUiKlines
+      summary: UIKlines
+      description: Get kline/candlestick bars optimized for presentation of candlestick charts. Returns modified kline data.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - $ref: '#/components/parameters/interval'
+      - name: startTime
+        in: query
+        description: Start time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        description: End time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: timeZone
+        in: query
+        description: Timezone for kline open/close times. Default is UTC.
+        schema:
+          type: string
+          default: '0'
+      - name: limit
+        in: query
+        description: Number of results to return. Default 500, max 1000.
+        schema:
+          type: integer
+          default: 500
+          maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+      security: []
+  /api/v3/avgPrice:
+    get:
+      operationId: getAvgPrice
+      summary: Current average price
+      description: Get the current average price for a symbol over the last 5 minutes.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mins:
+                    type: integer
+                    description: Average price interval in minutes.
+                  price:
+                    type: string
+                    description: Average price as a decimal string.
+                  closeTime:
+                    type: integer
+                    format: int64
+                    description: Last trade time in milliseconds.
+      security: []
+  /api/v3/ticker/24hr:
+    get:
+      operationId: get24hrTicker
+      summary: 24hr ticker price change statistics
+      description: Get 24-hour rolling window price change statistics for a symbol or all symbols. Careful when accessing this with no symbol as the weight is very high.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbol_2'
+      - name: symbols
+        in: query
+        description: JSON array of symbols to query.
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Supported values are FULL or MINI. MINI omits some fields.
+        schema:
+          type: string
+          enum:
+          - FULL
+          - MINI
+          default: FULL
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/Ticker24hr'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/Ticker24hr'
+      security: []
+  /api/v3/ticker/price:
+    get:
+      operationId: getTickerPrice
+      summary: Symbol price ticker
+      description: Get the latest price for a symbol or symbols.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbol_2'
+      - name: symbols
+        in: query
+        description: JSON array of symbols to query.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/PriceTicker'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/PriceTicker'
+      security: []
+  /api/v3/ticker/bookTicker:
+    get:
+      operationId: getBookTicker
+      summary: Symbol order book ticker
+      description: Get the best price and quantity on the order book for a symbol or symbols.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbol_2'
+      - name: symbols
+        in: query
+        description: JSON array of symbols to query.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/BookTicker'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/BookTicker'
+      security: []
+  /api/v3/ticker:
+    get:
+      operationId: getRollingWindowTicker
+      summary: Rolling window price change statistics
+      description: Get rolling window price change statistics with a configurable window size. Unlike the 24hr ticker, this allows specifying the statistics window.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbol_2'
+      - name: symbols
+        in: query
+        description: JSON array of symbols to query.
+        schema:
+          type: string
+      - name: windowSize
+        in: query
+        description: Window size for the rolling statistics. Defaults to 1d. Supported values include 1m, 2m, ... 59m, 1h, 2h, ... 23h, 1d, 2d, ... 7d.
+        schema:
+          type: string
+          default: 1d
+      - name: type
+        in: query
+        description: Response type. FULL or MINI.
+        schema:
+          type: string
+          enum:
+          - FULL
+          - MINI
+          default: FULL
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/Ticker24hr'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/Ticker24hr'
+      security: []
+  /fapi/v1/ping:
+    get:
+      operationId: testConnectivity
+      summary: Test connectivity
+      description: Test connectivity to the futures REST API.
+      tags:
+      - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security: []
+  /fapi/v1/time:
+    get:
+      operationId: getServerTime
+      summary: Check server time
+      description: Test connectivity and get the current server time.
+      tags:
+      - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serverTime:
+                    type: integer
+                    format: int64
+                    description: Current server time in milliseconds.
+      security: []
+  /fapi/v1/exchangeInfo:
+    get:
+      operationId: getExchangeInfo
+      summary: Exchange information
+      description: Get current futures exchange trading rules and symbol information including contract types, margin assets, and filters.
+      tags:
+      - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exchangeFilters:
+                    type: array
+                    items:
+                      type: object
+                    description: Exchange-level filters.
+                  rateLimits:
+                    type: array
+                    items:
+                      type: object
+                    description: Rate limit rules.
+                  serverTime:
+                    type: integer
+                    format: int64
+                    description: Current server time.
+                  assets:
+                    type: array
+                    items:
+                      type: object
+                    description: Supported margin assets.
+                  symbols:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FuturesSymbol'
+                    description: Available futures trading pairs.
+                  timezone:
+                    type: string
+                    description: Server timezone.
+      security: []
+  /fapi/v1/depth:
+    get:
+      operationId: getOrderBook
+      summary: Order book
+      description: Get the current order book depth for a futures symbol.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_3'
+      - name: limit
+        in: query
+        description: Number of levels. Default 500. Valid values are 5, 10, 20, 50, 100, 500, 1000.
+        schema:
+          type: integer
+          default: 500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lastUpdateId:
+                    type: integer
+                    format: int64
+                    description: Last update ID.
+                  E:
+                    type: integer
+                    format: int64
+                    description: Message output time.
+                  T:
+                    type: integer
+                    format: int64
+                    description: Transaction time.
+                  bids:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                    description: Bid price and quantity pairs.
+                  asks:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                    description: Ask price and quantity pairs.
+      security: []
+  /fapi/v1/trades:
+    get:
+      operationId: getRecentTrades
+      summary: Recent trades list
+      description: Get recent futures trades for a symbol.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_3'
+      - name: limit
+        in: query
+        description: Number of trades. Default 500, max 1000.
+        schema:
+          type: integer
+          default: 500
+          maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FuturesTrade'
+      security: []
+  /fapi/v1/klines:
+    get:
+      operationId: getKlines
+      summary: Kline/Candlestick data
+      description: Get kline/candlestick bars for a futures symbol.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_3'
+      - name: interval
+        in: query
+        required: true
+        description: Kline interval.
+        schema:
+          type: string
+          enum:
+          - 1m
+          - 3m
+          - 5m
+          - 15m
+          - 30m
+          - 1h
+          - 2h
+          - 4h
+          - 6h
+          - 8h
+          - 12h
+          - 1d
+          - 3d
+          - 1w
+          - 1M
+      - name: startTime
+        in: query
+        description: Start time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        description: End time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: Number of results. Default 500, max 1500.
+        schema:
+          type: integer
+          default: 500
+          maximum: 1500
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+      security: []
+  /fapi/v1/premiumIndex:
+    get:
+      operationId: getMarkPrice
+      summary: Mark price
+      description: Get mark price and funding rate for a futures symbol or all symbols.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbol_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/MarkPrice'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/MarkPrice'
+      security: []
+  /fapi/v1/fundingRate:
+    get:
+      operationId: getFundingRateHistory
+      summary: Get funding rate history
+      description: Get historical funding rate data for a futures symbol.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_3'
+      - name: startTime
+        in: query
+        description: Start time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        description: End time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: Number of results. Default 100, max 1000.
+        schema:
+          type: integer
+          default: 100
+          maximum: 1000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      description: Futures symbol.
+                    fundingRate:
+                      type: string
+                      description: Funding rate as decimal string.
+                    fundingTime:
+                      type: integer
+                      format: int64
+                      description: Funding time in milliseconds.
+                    markPrice:
+                      type: string
+                      description: Mark price at funding time.
+      security: []
+  /fapi/v1/fundingInfo:
+    get:
+      operationId: getFundingInfo
+      summary: Get funding rate info
+      description: Get funding rate configuration for all symbols including funding interval and cap/floor rates.
+      tags:
+      - Market Data
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      description: Futures symbol.
+                    adjustedFundingRateCap:
+                      type: string
+                      description: Adjusted funding rate cap.
+                    adjustedFundingRateFloor:
+                      type: string
+                      description: Adjusted funding rate floor.
+                    fundingIntervalHours:
+                      type: integer
+                      description: Funding interval in hours.
+      security: []
+  /fapi/v1/ticker/24hr:
+    get:
+      operationId: get24hrTicker
+      summary: 24hr ticker price change statistics
+      description: Get 24-hour rolling window price change statistics for futures.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbol_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/FuturesTicker24hr'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/FuturesTicker24hr'
+      security: []
+  /fapi/v1/ticker/price:
+    get:
+      operationId: getTickerPrice
+      summary: Symbol price ticker
+      description: Get the latest price for a futures symbol or all symbols.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbol_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    symbol:
+                      type: string
+                    price:
+                      type: string
+                    time:
+                      type: integer
+                      format: int64
+                - type: array
+                  items:
+                    type: object
+                    properties:
+                      symbol:
+                        type: string
+                      price:
+                        type: string
+                      time:
+                        type: integer
+                        format: int64
+      security: []
+  /fapi/v1/openInterest:
+    get:
+      operationId: getOpenInterest
+      summary: Open interest
+      description: Get present open interest of a specific symbol.
+      tags:
+      - Market Data
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  openInterest:
+                    type: string
+                    description: Total open interest.
+                  symbol:
+                    type: string
+                    description: Futures symbol.
+                  time:
+                    type: integer
+                    format: int64
+                    description: Timestamp in milliseconds.
+      security: []
+components:
+  parameters:
+    symbol:
+      name: symbol
+      in: query
+      schema:
+        type: string
+    symbolRequired:
+      name: symbol
+      in: query
+      required: true
+      schema:
+        type: string
+    symbol_3:
+      name: symbol
+      in: query
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    symbol_2:
+      name: symbol
+      in: query
+      description: Trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+      example: BTCUSDT
+    symbolRequired_3:
+      name: symbol
+      in: query
+      required: true
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    symbolRequired_2:
+      name: symbol
+      in: query
+      required: true
+      description: Trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+      example: BTCUSDT
+    interval:
+      name: interval
+      in: query
+      required: true
+      description: Kline/candlestick interval.
+      schema:
+        type: string
+        enum:
+        - 1s
+        - 1m
+        - 3m
+        - 5m
+        - 15m
+        - 30m
+        - 1h
+        - 2h
+        - 4h
+        - 6h
+        - 8h
+        - 12h
+        - 1d
+        - 3d
+        - 1w
+        - 1M
+  schemas:
+    FuturesTrade:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Trade ID.
+        price:
+          type: string
+          description: Trade price.
+        qty:
+          type: string
+          description: Trade quantity.
+        quoteQty:
+          type: string
+          description: Quote quantity.
+        time:
+          type: integer
+          format: int64
+          description: Trade time.
+        isBuyerMaker:
+          type: boolean
+          description: Whether buyer is maker.
+    FuturesTicker24hr:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Symbol.
+        priceChange:
+          type: string
+          description: Price change.
+        priceChangePercent:
+          type: string
+          description: Price change percent.
+        weightedAvgPrice:
+          type: string
+          description: Weighted average price.
+        lastPrice:
+          type: string
+          description: Last price.
+        lastQty:
+          type: string
+          description: Last quantity.
+        openPrice:
+          type: string
+          description: Open price.
+        highPrice:
+          type: string
+          description: High price.
+        lowPrice:
+          type: string
+          description: Low price.
+        volume:
+          type: string
+          description: Total traded base asset volume.
+        quoteVolume:
+          type: string
+          description: Total traded quote asset volume.
+        openTime:
+          type: integer
+          format: int64
+          description: Statistics open time.
+        closeTime:
+          type: integer
+          format: int64
+          description: Statistics close time.
+        firstId:
+          type: integer
+          format: int64
+          description: First trade ID.
+        lastId:
+          type: integer
+          format: int64
+          description: Last trade ID.
+        count:
+          type: integer
+          description: Number of trades.
+    PriceTicker:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        price:
+          type: string
+          description: Current price.
+    Trade:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Trade ID.
+        price:
+          type: string
+          description: Trade price.
+        qty:
+          type: string
+          description: Trade quantity.
+        quoteQty:
+          type: string
+          description: Trade quote quantity.
+        time:
+          type: integer
+          format: int64
+          description: Trade time in milliseconds.
+        isBuyerMaker:
+          type: boolean
+          description: Whether the buyer is the maker.
+        isBestMatch:
+          type: boolean
+          description: Whether this is the best price match.
+    FuturesSymbol:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        pair:
+          type: string
+          description: Underlying pair.
+        contractType:
+          type: string
+          enum:
+          - PERPETUAL
+          - CURRENT_MONTH
+          - NEXT_MONTH
+          - CURRENT_QUARTER
+          - NEXT_QUARTER
+          description: Contract type.
+        deliveryDate:
+          type: integer
+          format: int64
+          description: Delivery date in milliseconds.
+        onboardDate:
+          type: integer
+          format: int64
+          description: Onboard date in milliseconds.
+        status:
+          type: string
+          description: Symbol status.
+        baseAsset:
+          type: string
+          description: Base asset.
+        quoteAsset:
+          type: string
+          description: Quote asset.
+        marginAsset:
+          type: string
+          description: Margin asset.
+        pricePrecision:
+          type: integer
+          description: Price precision.
+        quantityPrecision:
+          type: integer
+          description: Quantity precision.
+        underlyingType:
+          type: string
+          description: Underlying asset type.
+        settlePlan:
+          type: integer
+          description: Settlement plan.
+        triggerProtect:
+          type: string
+          description: Trigger protection threshold.
+        filters:
+          type: array
+          items:
+            type: object
+          description: Symbol filters.
+        orderTypes:
+          type: array
+          items:
+            type: string
+          description: Allowed order types.
+        timeInForce:
+          type: array
+          items:
+            type: string
+          description: Allowed time in force values.
+    OrderBook:
+      type: object
+      properties:
+        lastUpdateId:
+          type: integer
+          format: int64
+          description: Last update ID for the order book.
+        bids:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          description: Bid price and quantity pairs.
+        asks:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          description: Ask price and quantity pairs.
+    AggTrade:
+      type: object
+      properties:
+        a:
+          type: integer
+          format: int64
+          description: Aggregate trade ID.
+        p:
+          type: string
+          description: Price.
+        q:
+          type: string
+          description: Quantity.
+        f:
+          type: integer
+          format: int64
+          description: First trade ID.
+        l:
+          type: integer
+          format: int64
+          description: Last trade ID.
+        T:
+          type: integer
+          format: int64
+          description: Timestamp in milliseconds.
+        m:
+          type: boolean
+          description: Was the buyer the maker.
+        M:
+          type: boolean
+          description: Was the trade the best price match.
+    MarkPrice:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Futures symbol.
+        markPrice:
+          type: string
+          description: Mark price.
+        indexPrice:
+          type: string
+          description: Index price.
+        estimatedSettlePrice:
+          type: string
+          description: Estimated settle price.
+        lastFundingRate:
+          type: string
+          description: Last funding rate.
+        nextFundingTime:
+          type: integer
+          format: int64
+          description: Next funding time in milliseconds.
+        interestRate:
+          type: string
+          description: Interest rate.
+        time:
+          type: integer
+          format: int64
+          description: Timestamp.
+    Ticker24hr:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        priceChange:
+          type: string
+          description: Price change over the period.
+        priceChangePercent:
+          type: string
+          description: Price change percentage.
+        weightedAvgPrice:
+          type: string
+          description: Weighted average price.
+        prevClosePrice:
+          type: string
+          description: Previous close price.
+        lastPrice:
+          type: string
+          description: Last trade price.
+        lastQty:
+          type: string
+          description: Last trade quantity.
+        bidPrice:
+          type: string
+          description: Best bid price.
+        bidQty:
+          type: string
+          description: Best bid quantity.
+        askPrice:
+          type: string
+          description: Best ask price.
+        askQty:
+          type: string
+          description: Best ask quantity.
+        openPrice:
+          type: string
+          description: Open price.
+        highPrice:
+          type: string
+          description: High price.
+        lowPrice:
+          type: string
+          description: Low price.
+        volume:
+          type: string
+          description: Base asset volume.
+        quoteVolume:
+          type: string
+          description: Quote asset volume.
+        openTime:
+          type: integer
+          format: int64
+          description: Statistics open time in milliseconds.
+        closeTime:
+          type: integer
+          format: int64
+          description: Statistics close time in milliseconds.
+        firstId:
+          type: integer
+          format: int64
+          description: First trade ID.
+        lastId:
+          type: integer
+          format: int64
+          description: Last trade ID.
+        count:
+          type: integer
+          description: Total number of trades.
+    BookTicker:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        bidPrice:
+          type: string
+          description: Best bid price.
+        bidQty:
+          type: string
+          description: Best bid quantity.
+        askPrice:
+          type: string
+          description: Best ask price.
+        askQty:
+          type: string
+          description: Best ask quantity.
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info

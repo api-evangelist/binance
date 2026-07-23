@@ -1,0 +1,1497 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Trading Account API
+  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+servers:
+- url: https://api.binance.com
+  description: Production Server
+security:
+- apiKey: []
+tags:
+- name: Account
+  description: Account endpoints for COIN-M futures positions and balances.
+paths:
+  /dapi/v1/account:
+    get:
+      operationId: getAccountInfo
+      summary: Account information
+      description: Get current COIN-M futures account information.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/recvWindow'
+      - $ref: '#/components/parameters/timestamp'
+      - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /dapi/v1/balance:
+    get:
+      operationId: getBalance
+      summary: Account balance
+      description: Get COIN-M futures account balance.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/recvWindow'
+      - $ref: '#/components/parameters/timestamp'
+      - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /dapi/v1/positionRisk:
+    get:
+      operationId: getPositionRisk
+      summary: Position information
+      description: Get current COIN-M position information.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/symbol'
+      - $ref: '#/components/parameters/recvWindow'
+      - $ref: '#/components/parameters/timestamp'
+      - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /dapi/v1/leverage:
+    post:
+      operationId: changeLeverage
+      summary: Change initial leverage
+      description: Change initial leverage for a COIN-M futures symbol.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired'
+      - name: leverage
+        in: query
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 125
+      - $ref: '#/components/parameters/recvWindow'
+      - $ref: '#/components/parameters/timestamp'
+      - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /eapi/v1/position:
+    get:
+      operationId: getPosition
+      summary: Option position information
+      description: Get current options position information.
+      tags:
+      - Account
+      parameters:
+      - name: symbol
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                    side:
+                      type: string
+                    quantity:
+                      type: string
+                    reducibleQty:
+                      type: string
+                    markValue:
+                      type: string
+                    ror:
+                      type: string
+                    unrealizedPNL:
+                      type: string
+                    markPrice:
+                      type: string
+                    strikePrice:
+                      type: string
+                    positionCost:
+                      type: string
+                    expiryDate:
+                      type: integer
+                      format: int64
+                    priceScale:
+                      type: integer
+                    quantityScale:
+                      type: integer
+                    optionSide:
+                      type: string
+                    quoteAsset:
+                      type: string
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /eapi/v1/account:
+    get:
+      operationId: getAccountInfo
+      summary: Account information
+      description: Get current options account information.
+      tags:
+      - Account
+      parameters:
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/margin/account:
+    get:
+      operationId: getMarginAccountInfo
+      summary: Query cross margin account details
+      description: Get cross margin account details including balances and margin level.
+      tags:
+      - Account
+      parameters:
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  borrowEnabled:
+                    type: boolean
+                    description: Whether borrowing is enabled.
+                  marginLevel:
+                    type: string
+                    description: Current margin level.
+                  totalAssetOfBtc:
+                    type: string
+                    description: Total asset value in BTC.
+                  totalLiabilityOfBtc:
+                    type: string
+                    description: Total liability in BTC.
+                  totalNetAssetOfBtc:
+                    type: string
+                    description: Total net asset in BTC.
+                  tradeEnabled:
+                    type: boolean
+                    description: Whether trading is enabled.
+                  transferEnabled:
+                    type: boolean
+                    description: Whether transfers are enabled.
+                  accountType:
+                    type: string
+                    description: Account type.
+                  userAssets:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        asset:
+                          type: string
+                        borrowed:
+                          type: string
+                        free:
+                          type: string
+                        interest:
+                          type: string
+                        locked:
+                          type: string
+                        netAsset:
+                          type: string
+                    description: User asset balances.
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/margin/transfer:
+    post:
+      operationId: marginTransfer
+      summary: Cross margin account transfer
+      description: Execute a transfer between spot and cross margin accounts.
+      tags:
+      - Account
+      parameters:
+      - name: asset
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: true
+        description: 1 for spot to margin, 2 for margin to spot.
+        schema:
+          type: integer
+          enum:
+          - 1
+          - 2
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tranId:
+                    type: integer
+                    format: int64
+                    description: Transaction ID.
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/margin/interestRateHistory:
+    get:
+      operationId: getInterestRateHistory
+      summary: Query margin interest rate history
+      description: Get margin interest rate history for an asset.
+      tags:
+      - Account
+      parameters:
+      - name: asset
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: vipLevel
+        in: query
+        schema:
+          type: integer
+      - name: startTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    asset:
+                      type: string
+                    dailyInterestRate:
+                      type: string
+                    timestamp:
+                      type: integer
+                      format: int64
+                    vipLevel:
+                      type: integer
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /papi/v1/balance:
+    get:
+      operationId: getBalance
+      summary: Query portfolio margin balance
+      description: Get portfolio margin account balance information across all asset types.
+      tags:
+      - Account
+      parameters:
+      - name: asset
+        in: query
+        description: Asset to query. If not sent, returns all assets.
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    asset:
+                      type: string
+                      description: Asset symbol.
+                    totalWalletBalance:
+                      type: string
+                      description: Total wallet balance.
+                    crossMarginAsset:
+                      type: string
+                      description: Cross margin asset.
+                    crossMarginBorrowed:
+                      type: string
+                      description: Cross margin borrowed amount.
+                    crossMarginFree:
+                      type: string
+                      description: Cross margin free amount.
+                    crossMarginInterest:
+                      type: string
+                      description: Cross margin interest.
+                    crossMarginLocked:
+                      type: string
+                      description: Cross margin locked amount.
+                    umWalletBalance:
+                      type: string
+                      description: USDT-M wallet balance.
+                    umUnrealizedPNL:
+                      type: string
+                      description: USDT-M unrealized PnL.
+                    cmWalletBalance:
+                      type: string
+                      description: COIN-M wallet balance.
+                    cmUnrealizedPNL:
+                      type: string
+                      description: COIN-M unrealized PnL.
+                    updateTime:
+                      type: integer
+                      format: int64
+                      description: Update time.
+                    negativeBalance:
+                      type: string
+                      description: Negative balance.
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /papi/v1/account:
+    get:
+      operationId: getAccountInfo
+      summary: Query portfolio margin account info
+      description: Get portfolio margin account information including margin ratios and account status.
+      tags:
+      - Account
+      parameters:
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uniMMR:
+                    type: string
+                    description: Unified maintenance margin ratio.
+                  accountEquity:
+                    type: string
+                    description: Account equity in USD.
+                  actualEquity:
+                    type: string
+                    description: Actual equity.
+                  accountInitialMargin:
+                    type: string
+                    description: Account initial margin.
+                  accountMaintMargin:
+                    type: string
+                    description: Account maintenance margin.
+                  accountStatus:
+                    type: string
+                    description: Account status.
+                  virtualMaxWithdrawAmount:
+                    type: string
+                    description: Virtual max withdraw amount.
+                  totalAvailableBalance:
+                    type: string
+                    description: Total available balance.
+                  totalMarginOpenLoss:
+                    type: string
+                    description: Total margin open loss.
+                  updateTime:
+                    type: integer
+                    format: int64
+                    description: Update time.
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/simple-earn/account:
+    get:
+      operationId: getSimpleEarnAccount
+      summary: Simple account
+      description: Get simple earn account information.
+      tags:
+      - Account
+      parameters:
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalAmountInBTC:
+                    type: string
+                  totalAmountInUSDT:
+                    type: string
+                  totalFlexibleAmountInBTC:
+                    type: string
+                  totalFlexibleAmountInUSDT:
+                    type: string
+                  totalLockedInBTC:
+                    type: string
+                  totalLockedInUSDT:
+                    type: string
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /api/v3/account:
+    get:
+      operationId: getAccountInfo
+      summary: Account information
+      description: Get current account information including balances, permissions, and commission rates.
+      tags:
+      - Account
+      parameters:
+      - name: omitZeroBalances
+        in: query
+        description: When set to true, emits only non-zero balances.
+        schema:
+          type: boolean
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /api/v3/myTrades:
+    get:
+      operationId: getMyTrades
+      summary: Account trade list
+      description: Get trades for a specific account and symbol.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - name: orderId
+        in: query
+        description: Only return trades for this order ID.
+        schema:
+          type: integer
+          format: int64
+      - name: startTime
+        in: query
+        description: Start time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        description: End time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: fromId
+        in: query
+        description: Trade ID to fetch from.
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: Number of results. Default 500, max 1000.
+        schema:
+          type: integer
+          default: 500
+          maximum: 1000
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountTrade'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /api/v3/rateLimit/order:
+    get:
+      operationId: getOrderRateLimit
+      summary: Query current order count usage
+      description: Displays the user's current order count usage for all intervals.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    rateLimitType:
+                      type: string
+                      description: The rate limit type.
+                    interval:
+                      type: string
+                      description: The interval unit.
+                    intervalNum:
+                      type: integer
+                      description: The interval number.
+                    limit:
+                      type: integer
+                      description: The rate limit.
+                    count:
+                      type: integer
+                      description: The current usage count.
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /api/v3/myPreventedMatches:
+    get:
+      operationId: getPreventedMatches
+      summary: Query prevented matches
+      description: Displays the list of orders that were expired because of STP (Self Trade Prevention).
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - name: preventedMatchId
+        in: query
+        description: Prevented match ID.
+        schema:
+          type: integer
+          format: int64
+      - name: orderId
+        in: query
+        description: Order ID.
+        schema:
+          type: integer
+          format: int64
+      - name: fromPreventedMatchId
+        in: query
+        description: Start from this prevented match ID.
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: Number of results. Default 500, max 1000.
+        schema:
+          type: integer
+          default: 500
+          maximum: 1000
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                    preventedMatchId:
+                      type: integer
+                      format: int64
+                    takerOrderId:
+                      type: integer
+                      format: int64
+                    makerOrderId:
+                      type: integer
+                      format: int64
+                    tradeGroupId:
+                      type: integer
+                      format: int64
+                    selfTradePreventionMode:
+                      type: string
+                    price:
+                      type: string
+                    makerPreventedQuantity:
+                      type: string
+                    transactTime:
+                      type: integer
+                      format: int64
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /fapi/v2/account:
+    get:
+      operationId: getAccountInfo
+      summary: Account information
+      description: Get current futures account information including positions and balances.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/recvWindow_3'
+      - $ref: '#/components/parameters/timestamp_3'
+      - $ref: '#/components/parameters/signature_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuturesAccount'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /fapi/v2/balance:
+    get:
+      operationId: getBalance
+      summary: Futures account balance
+      description: Get futures account balance.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/recvWindow_3'
+      - $ref: '#/components/parameters/timestamp_3'
+      - $ref: '#/components/parameters/signature_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FuturesBalance'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /fapi/v2/positionRisk:
+    get:
+      operationId: getPositionRisk
+      summary: Position information
+      description: Get current position information for all or a specific symbol.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/symbol_2'
+      - $ref: '#/components/parameters/recvWindow_3'
+      - $ref: '#/components/parameters/timestamp_3'
+      - $ref: '#/components/parameters/signature_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PositionRisk'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /fapi/v1/leverage:
+    post:
+      operationId: changeLeverage
+      summary: Change initial leverage
+      description: Change user's initial leverage of a specific futures symbol.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_3'
+      - name: leverage
+        in: query
+        required: true
+        description: Target initial leverage. 1 to 125.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 125
+      - $ref: '#/components/parameters/recvWindow_3'
+      - $ref: '#/components/parameters/timestamp_3'
+      - $ref: '#/components/parameters/signature_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  leverage:
+                    type: integer
+                    description: New leverage setting.
+                  maxNotionalValue:
+                    type: string
+                    description: Maximum notional value at this leverage.
+                  symbol:
+                    type: string
+                    description: Futures symbol.
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /fapi/v1/marginType:
+    post:
+      operationId: changeMarginType
+      summary: Change margin type
+      description: Change the margin type for a futures symbol between ISOLATED and CROSSED.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_3'
+      - name: marginType
+        in: query
+        required: true
+        description: Margin type.
+        schema:
+          type: string
+          enum:
+          - ISOLATED
+          - CROSSED
+      - $ref: '#/components/parameters/recvWindow_3'
+      - $ref: '#/components/parameters/timestamp_3'
+      - $ref: '#/components/parameters/signature_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: Response code.
+                  msg:
+                    type: string
+                    description: Response message.
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /fapi/v1/income:
+    get:
+      operationId: getIncomeHistory
+      summary: Get income history
+      description: Get futures income history including realized PnL, funding fees, commissions, and transfers.
+      tags:
+      - Account
+      parameters:
+      - $ref: '#/components/parameters/symbol_2'
+      - name: incomeType
+        in: query
+        description: Income type filter.
+        schema:
+          type: string
+          enum:
+          - TRANSFER
+          - WELCOME_BONUS
+          - REALIZED_PNL
+          - FUNDING_FEE
+          - COMMISSION
+          - INSURANCE_CLEAR
+          - REFERRAL_KICKBACK
+          - COMMISSION_REBATE
+          - API_REBATE
+          - CONTEST_REWARD
+          - CROSS_COLLATERAL_TRANSFER
+          - OPTIONS_PREMIUM_FEE
+          - OPTIONS_SETTLE_PROFIT
+          - INTERNAL_TRANSFER
+          - AUTO_EXCHANGE
+          - DELIVERED_SETTELMENT
+          - COIN_SWAP_DEPOSIT
+          - COIN_SWAP_WITHDRAW
+          - POSITION_LIMIT_INCREASE_FEE
+      - name: startTime
+        in: query
+        description: Start time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        description: End time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: Number of results. Default 100, max 1000.
+        schema:
+          type: integer
+          default: 100
+          maximum: 1000
+      - $ref: '#/components/parameters/recvWindow_3'
+      - $ref: '#/components/parameters/timestamp_3'
+      - $ref: '#/components/parameters/signature_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    symbol:
+                      type: string
+                      description: Futures symbol.
+                    incomeType:
+                      type: string
+                      description: Income type.
+                    income:
+                      type: string
+                      description: Income amount.
+                    asset:
+                      type: string
+                      description: Asset.
+                    info:
+                      type: string
+                      description: Additional information.
+                    time:
+                      type: integer
+                      format: int64
+                      description: Timestamp in milliseconds.
+                    tranId:
+                      type: integer
+                      format: int64
+                      description: Transaction ID.
+                    tradeId:
+                      type: string
+                      description: Trade ID.
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/system/status:
+    get:
+      operationId: getSystemStatus
+      summary: System status
+      description: Fetch system status. Returns 0 for normal and 1 for system maintenance.
+      tags:
+      - Account
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: System status. 0 = normal, 1 = maintenance.
+                  msg:
+                    type: string
+                    description: Status message.
+      security: []
+  /sapi/v1/account/apiTradingStatus:
+    get:
+      operationId: getApiTradingStatus
+      summary: Account API trading status
+      description: Fetch account API trading status with details.
+      tags:
+      - Account
+      parameters:
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      isLocked:
+                        type: boolean
+                      plannedRecoverTime:
+                        type: integer
+                        format: int64
+                      triggerCondition:
+                        type: object
+                      updateTime:
+                        type: integer
+                        format: int64
+      security:
+      - apiKey: []
+        hmacSignature: []
+components:
+  schemas:
+    FuturesBalance:
+      type: object
+      properties:
+        accountAlias:
+          type: string
+          description: Account alias.
+        asset:
+          type: string
+          description: Asset symbol.
+        balance:
+          type: string
+          description: Total balance.
+        crossWalletBalance:
+          type: string
+          description: Cross wallet balance.
+        crossUnPnl:
+          type: string
+          description: Cross unrealized PnL.
+        availableBalance:
+          type: string
+          description: Available balance.
+        maxWithdrawAmount:
+          type: string
+          description: Maximum withdrawal amount.
+        marginAvailable:
+          type: boolean
+          description: Whether the asset can be used as margin.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
+    FuturesAccount:
+      type: object
+      properties:
+        feeTier:
+          type: integer
+          description: Account fee tier.
+        canTrade:
+          type: boolean
+          description: Can trade.
+        canDeposit:
+          type: boolean
+          description: Can deposit.
+        canWithdraw:
+          type: boolean
+          description: Can withdraw.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
+        multiAssetsMargin:
+          type: boolean
+          description: Multi-asset margin mode.
+        totalInitialMargin:
+          type: string
+          description: Total initial margin.
+        totalMaintMargin:
+          type: string
+          description: Total maintenance margin.
+        totalWalletBalance:
+          type: string
+          description: Total wallet balance.
+        totalUnrealizedProfit:
+          type: string
+          description: Total unrealized profit.
+        totalMarginBalance:
+          type: string
+          description: Total margin balance.
+        totalPositionInitialMargin:
+          type: string
+          description: Total position initial margin.
+        totalOpenOrderInitialMargin:
+          type: string
+          description: Total open order initial margin.
+        totalCrossWalletBalance:
+          type: string
+          description: Total cross wallet balance.
+        totalCrossUnPnl:
+          type: string
+          description: Total cross unrealized PnL.
+        availableBalance:
+          type: string
+          description: Available balance.
+        maxWithdrawAmount:
+          type: string
+          description: Maximum withdrawal amount.
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/FuturesBalance'
+          description: Asset balances.
+        positions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PositionRisk'
+          description: Positions.
+    Account:
+      type: object
+      properties:
+        makerCommission:
+          type: integer
+          description: Maker commission rate in basis points.
+        takerCommission:
+          type: integer
+          description: Taker commission rate in basis points.
+        buyerCommission:
+          type: integer
+          description: Buyer commission rate.
+        sellerCommission:
+          type: integer
+          description: Seller commission rate.
+        commissionRates:
+          type: object
+          properties:
+            maker:
+              type: string
+              description: Maker commission rate as decimal string.
+            taker:
+              type: string
+              description: Taker commission rate as decimal string.
+            buyer:
+              type: string
+              description: Buyer commission rate as decimal string.
+            seller:
+              type: string
+              description: Seller commission rate as decimal string.
+        canTrade:
+          type: boolean
+          description: Whether the account can trade.
+        canWithdraw:
+          type: boolean
+          description: Whether the account can withdraw.
+        canDeposit:
+          type: boolean
+          description: Whether the account can deposit.
+        brokered:
+          type: boolean
+          description: Whether this is a brokered account.
+        requireSelfTradePrevention:
+          type: boolean
+          description: Whether self-trade prevention is required.
+        preventSor:
+          type: boolean
+          description: Whether SOR is prevented.
+        updateTime:
+          type: integer
+          format: int64
+          description: Last update time in milliseconds.
+        accountType:
+          type: string
+          description: Account type (e.g., SPOT).
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'
+          description: Asset balances.
+        permissions:
+          type: array
+          items:
+            type: string
+          description: Account permissions.
+        uid:
+          type: integer
+          format: int64
+          description: User ID.
+    PositionRisk:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Symbol.
+        positionAmt:
+          type: string
+          description: Position amount.
+        entryPrice:
+          type: string
+          description: Entry price.
+        breakEvenPrice:
+          type: string
+          description: Break-even price.
+        markPrice:
+          type: string
+          description: Mark price.
+        unRealizedProfit:
+          type: string
+          description: Unrealized profit.
+        liquidationPrice:
+          type: string
+          description: Liquidation price.
+        leverage:
+          type: string
+          description: Leverage.
+        maxNotionalValue:
+          type: string
+          description: Maximum notional value.
+        marginType:
+          type: string
+          description: Margin type (cross or isolated).
+        isolatedMargin:
+          type: string
+          description: Isolated margin amount.
+        isAutoAddMargin:
+          type: boolean
+          description: Auto add margin flag.
+        positionSide:
+          type: string
+          description: Position side.
+        notional:
+          type: string
+          description: Notional value.
+        isolatedWallet:
+          type: string
+          description: Isolated wallet balance.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
+    AccountTrade:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        id:
+          type: integer
+          format: int64
+          description: Trade ID.
+        orderId:
+          type: integer
+          format: int64
+          description: Order ID.
+        orderListId:
+          type: integer
+          format: int64
+          description: Order list ID.
+        price:
+          type: string
+          description: Trade price.
+        qty:
+          type: string
+          description: Trade quantity.
+        quoteQty:
+          type: string
+          description: Quote quantity.
+        commission:
+          type: string
+          description: Commission paid.
+        commissionAsset:
+          type: string
+          description: Asset used for commission.
+        time:
+          type: integer
+          format: int64
+          description: Trade time in milliseconds.
+        isBuyer:
+          type: boolean
+          description: Whether the trade was a buy.
+        isMaker:
+          type: boolean
+          description: Whether the trade was a maker.
+        isBestMatch:
+          type: boolean
+          description: Whether this was the best price match.
+    Balance:
+      type: object
+      properties:
+        asset:
+          type: string
+          description: Asset symbol.
+        free:
+          type: string
+          description: Available balance.
+        locked:
+          type: string
+          description: Locked balance (in open orders).
+  parameters:
+    signature:
+      name: signature
+      in: query
+      required: true
+      schema:
+        type: string
+    timestamp_3:
+      name: timestamp
+      in: query
+      required: true
+      description: Request timestamp in milliseconds.
+      schema:
+        type: integer
+        format: int64
+    symbol:
+      name: symbol
+      in: query
+      schema:
+        type: string
+    recvWindow_3:
+      name: recvWindow
+      in: query
+      description: Milliseconds the request is valid for.
+      schema:
+        type: integer
+        default: 5000
+        maximum: 60000
+    symbol_2:
+      name: symbol
+      in: query
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    recvWindow_2:
+      name: recvWindow
+      in: query
+      description: The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000.
+      schema:
+        type: integer
+        default: 5000
+        maximum: 60000
+    recvWindow:
+      name: recvWindow
+      in: query
+      schema:
+        type: integer
+    symbolRequired:
+      name: symbol
+      in: query
+      required: true
+      schema:
+        type: string
+    signature_2:
+      name: signature
+      in: query
+      required: true
+      description: HMAC SHA256 signature of the total query string using the API secret key.
+      schema:
+        type: string
+    timestamp:
+      name: timestamp
+      in: query
+      required: true
+      schema:
+        type: integer
+        format: int64
+    symbolRequired_3:
+      name: symbol
+      in: query
+      required: true
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    symbolRequired_2:
+      name: symbol
+      in: query
+      required: true
+      description: Trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+      example: BTCUSDT
+    timestamp_2:
+      name: timestamp
+      in: query
+      required: true
+      description: Request timestamp in milliseconds since Unix epoch.
+      schema:
+        type: integer
+        format: int64
+    signature_3:
+      name: signature
+      in: query
+      required: true
+      description: HMAC SHA256 signature.
+      schema:
+        type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info

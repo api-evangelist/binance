@@ -1,0 +1,200 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Trading Account Sub-Account Management API
+  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+servers:
+- url: https://api.binance.com
+  description: Production Server
+security:
+- apiKey: []
+tags:
+- name: Sub-Account Management
+  description: Endpoints for creating and managing sub-accounts.
+paths:
+  /sapi/v1/sub-account/list:
+    get:
+      operationId: getSubAccountList
+      summary: Query sub-account list
+      description: Get the list of sub-accounts under the master account.
+      tags:
+      - Sub-Account Management
+      parameters:
+      - name: email
+        in: query
+        description: Sub-account email.
+        schema:
+          type: string
+      - name: isFreeze
+        in: query
+        description: Filter by freeze status.
+        schema:
+          type: string
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 1
+          maximum: 200
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subAccounts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                        isFreeze:
+                          type: boolean
+                        createTime:
+                          type: integer
+                          format: int64
+                        isManagedSubAccount:
+                          type: boolean
+                        isAssetManagementSubAccount:
+                          type: boolean
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/sub-account/virtualSubAccount:
+    post:
+      operationId: createVirtualSubAccount
+      summary: Create a virtual sub-account
+      description: Create a virtual sub-account under the master account.
+      tags:
+      - Sub-Account Management
+      parameters:
+      - name: subAccountString
+        in: query
+        required: true
+        description: Sub-account email prefix.
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/sub-account/status:
+    get:
+      operationId: getSubAccountStatus
+      summary: Query sub-account status
+      description: Get sub-account status including margin and futures enable status.
+      tags:
+      - Sub-Account Management
+      parameters:
+      - name: email
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    isSubUserEnabled:
+                      type: boolean
+                    isUserActive:
+                      type: boolean
+                    insertTime:
+                      type: integer
+                      format: int64
+                    isMarginEnabled:
+                      type: boolean
+                    isFutureEnabled:
+                      type: boolean
+                    mobile:
+                      type: integer
+                      format: int64
+      security:
+      - apiKey: []
+        hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info

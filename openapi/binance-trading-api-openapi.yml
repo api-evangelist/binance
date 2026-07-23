@@ -1,0 +1,2176 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Account Trading API
+  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+servers:
+- url: https://api.binance.com
+  description: Production Server
+security:
+- apiKey: []
+tags:
+- name: Trading
+  description: Trading endpoints for COIN-M futures orders.
+paths:
+  /dapi/v1/order:
+    post:
+      operationId: createOrder
+      summary: New order
+      description: Send in a new COIN-M futures order.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired'
+      - name: side
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - BUY
+          - SELL
+      - name: positionSide
+        in: query
+        schema:
+          type: string
+          enum:
+          - BOTH
+          - LONG
+          - SHORT
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - LIMIT
+          - MARKET
+          - STOP
+          - STOP_MARKET
+          - TAKE_PROFIT
+          - TAKE_PROFIT_MARKET
+          - TRAILING_STOP_MARKET
+      - name: timeInForce
+        in: query
+        schema:
+          type: string
+          enum:
+          - GTC
+          - IOC
+          - FOK
+          - GTX
+      - name: quantity
+        in: query
+        schema:
+          type: string
+      - name: reduceOnly
+        in: query
+        schema:
+          type: boolean
+      - name: price
+        in: query
+        schema:
+          type: string
+      - name: newClientOrderId
+        in: query
+        schema:
+          type: string
+      - name: stopPrice
+        in: query
+        schema:
+          type: string
+      - name: activationPrice
+        in: query
+        schema:
+          type: string
+      - name: callbackRate
+        in: query
+        schema:
+          type: string
+      - name: workingType
+        in: query
+        schema:
+          type: string
+          enum:
+          - MARK_PRICE
+          - CONTRACT_PRICE
+      - name: newOrderRespType
+        in: query
+        schema:
+          type: string
+          enum:
+          - ACK
+          - RESULT
+      - $ref: '#/components/parameters/recvWindow'
+      - $ref: '#/components/parameters/timestamp'
+      - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apiKey: []
+        hmacSignature: []
+    get:
+      operationId: getOrder
+      summary: Query order
+      description: Check an order's status.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired'
+      - name: orderId
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: origClientOrderId
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/recvWindow'
+      - $ref: '#/components/parameters/timestamp'
+      - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+    delete:
+      operationId: cancelOrder
+      summary: Cancel order
+      description: Cancel an active COIN-M futures order.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired'
+      - name: orderId
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: origClientOrderId
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/recvWindow'
+      - $ref: '#/components/parameters/timestamp'
+      - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /dapi/v1/openOrders:
+    get:
+      operationId: getOpenOrders
+      summary: Current all open orders
+      description: Get all open COIN-M futures orders.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbol'
+      - $ref: '#/components/parameters/recvWindow'
+      - $ref: '#/components/parameters/timestamp'
+      - $ref: '#/components/parameters/signature'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /eapi/v1/order:
+    post:
+      operationId: createOrder
+      summary: New order
+      description: Send in a new options order.
+      tags:
+      - Trading
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        description: Option symbol.
+        schema:
+          type: string
+      - name: side
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - BUY
+          - SELL
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - LIMIT
+      - name: quantity
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: price
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: timeInForce
+        in: query
+        schema:
+          type: string
+          enum:
+          - GTC
+          - IOC
+          - FOK
+      - name: reduceOnly
+        in: query
+        schema:
+          type: boolean
+      - name: postOnly
+        in: query
+        schema:
+          type: boolean
+      - name: newOrderRespType
+        in: query
+        schema:
+          type: string
+          enum:
+          - ACK
+          - RESULT
+      - name: clientOrderId
+        in: query
+        schema:
+          type: string
+      - name: isMmp
+        in: query
+        description: Market maker protection flag.
+        schema:
+          type: boolean
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apiKey: []
+        hmacSignature: []
+    get:
+      operationId: getOrder
+      summary: Query single order
+      description: Check an options order status.
+      tags:
+      - Trading
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: orderId
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: clientOrderId
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+    delete:
+      operationId: cancelOrder
+      summary: Cancel order
+      description: Cancel an active options order.
+      tags:
+      - Trading
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: orderId
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: clientOrderId
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /eapi/v1/openOrders:
+    get:
+      operationId: getOpenOrders
+      summary: Query current open orders
+      description: Get all open options orders.
+      tags:
+      - Trading
+      parameters:
+      - name: symbol
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/margin/order:
+    post:
+      operationId: createMarginOrder
+      summary: Margin account new order
+      description: Place a new order for margin account.
+      tags:
+      - Trading
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: isIsolated
+        in: query
+        description: TRUE for isolated margin, FALSE for cross margin.
+        schema:
+          type: string
+          enum:
+          - 'TRUE'
+          - 'FALSE'
+      - name: side
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - BUY
+          - SELL
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - LIMIT
+          - MARKET
+          - STOP_LOSS
+          - STOP_LOSS_LIMIT
+          - TAKE_PROFIT
+          - TAKE_PROFIT_LIMIT
+          - LIMIT_MAKER
+      - name: quantity
+        in: query
+        schema:
+          type: string
+      - name: quoteOrderQty
+        in: query
+        schema:
+          type: string
+      - name: price
+        in: query
+        schema:
+          type: string
+      - name: stopPrice
+        in: query
+        schema:
+          type: string
+      - name: newClientOrderId
+        in: query
+        schema:
+          type: string
+      - name: newOrderRespType
+        in: query
+        schema:
+          type: string
+          enum:
+          - ACK
+          - RESULT
+          - FULL
+      - name: timeInForce
+        in: query
+        schema:
+          type: string
+          enum:
+          - GTC
+          - IOC
+          - FOK
+      - name: sideEffectType
+        in: query
+        description: NO_SIDE_EFFECT, MARGIN_BUY, or AUTO_REPAY.
+        schema:
+          type: string
+          enum:
+          - NO_SIDE_EFFECT
+          - MARGIN_BUY
+          - AUTO_REPAY
+          - AUTO_BORROW_REPAY
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+    get:
+      operationId: getMarginOrder
+      summary: Query margin account order
+      description: Query a margin account order.
+      tags:
+      - Trading
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: isIsolated
+        in: query
+        schema:
+          type: string
+      - name: orderId
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: origClientOrderId
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+    delete:
+      operationId: cancelMarginOrder
+      summary: Cancel margin account order
+      description: Cancel an active margin order.
+      tags:
+      - Trading
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: isIsolated
+        in: query
+        schema:
+          type: string
+      - name: orderId
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: origClientOrderId
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/margin/openOrders:
+    get:
+      operationId: getMarginOpenOrders
+      summary: Query margin account open orders
+      description: Get all open margin orders for a symbol.
+      tags:
+      - Trading
+      parameters:
+      - name: symbol
+        in: query
+        schema:
+          type: string
+      - name: isIsolated
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /papi/v1/um/order:
+    post:
+      operationId: createUmOrder
+      summary: New UM order
+      description: Place a new USDT-M futures order through portfolio margin.
+      tags:
+      - Trading
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: side
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - BUY
+          - SELL
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: quantity
+        in: query
+        schema:
+          type: string
+      - name: price
+        in: query
+        schema:
+          type: string
+      - name: timeInForce
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /papi/v1/cm/order:
+    post:
+      operationId: createCmOrder
+      summary: New CM order
+      description: Place a new COIN-M futures order through portfolio margin.
+      tags:
+      - Trading
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: side
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - BUY
+          - SELL
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: quantity
+        in: query
+        schema:
+          type: string
+      - name: price
+        in: query
+        schema:
+          type: string
+      - name: timeInForce
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /papi/v1/margin/order:
+    post:
+      operationId: createMarginOrder
+      summary: New margin order
+      description: Place a new margin order through portfolio margin.
+      tags:
+      - Trading
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: side
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - BUY
+          - SELL
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: quantity
+        in: query
+        schema:
+          type: string
+      - name: price
+        in: query
+        schema:
+          type: string
+      - name: timeInForce
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /api/v3/order:
+    post:
+      operationId: createOrder
+      summary: New order
+      description: Send in a new order. Requires SIGNED authentication with the TRADE permission. Order types include LIMIT, MARKET, STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, TAKE_PROFIT_LIMIT, and LIMIT_MAKER.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - $ref: '#/components/parameters/side'
+      - $ref: '#/components/parameters/orderType'
+      - $ref: '#/components/parameters/timeInForce'
+      - name: quantity
+        in: query
+        description: Order quantity in base asset.
+        schema:
+          type: string
+      - name: quoteOrderQty
+        in: query
+        description: Order quantity in quote asset. Used for MARKET orders.
+        schema:
+          type: string
+      - name: price
+        in: query
+        description: Order price. Required for LIMIT orders.
+        schema:
+          type: string
+      - name: newClientOrderId
+        in: query
+        description: A unique ID for the order. Automatically generated if not sent.
+        schema:
+          type: string
+      - name: strategyId
+        in: query
+        description: Arbitrary numeric value identifying the strategy.
+        schema:
+          type: integer
+      - name: strategyType
+        in: query
+        description: Arbitrary numeric value identifying the strategy type. Values smaller than 1000000 are reserved.
+        schema:
+          type: integer
+      - name: stopPrice
+        in: query
+        description: Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
+        schema:
+          type: string
+      - name: trailingDelta
+        in: query
+        description: Used with STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders. Basis points.
+        schema:
+          type: integer
+      - name: icebergQty
+        in: query
+        description: Used with LIMIT, STOP_LOSS_LIMIT, and TAKE_PROFIT_LIMIT to create an iceberg order.
+        schema:
+          type: string
+      - name: newOrderRespType
+        in: query
+        description: Set the response JSON. ACK, RESULT, or FULL.
+        schema:
+          type: string
+          enum:
+          - ACK
+          - RESULT
+          - FULL
+      - name: selfTradePreventionMode
+        in: query
+        description: The self-trade prevention mode.
+        schema:
+          type: string
+          enum:
+          - EXPIRE_TAKER
+          - EXPIRE_MAKER
+          - EXPIRE_BOTH
+          - NONE
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_2'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_2'
+      security:
+      - apiKey: []
+        hmacSignature: []
+    get:
+      operationId: getOrder
+      summary: Query order
+      description: Check an order's status. Either orderId or origClientOrderId must be sent.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - name: orderId
+        in: query
+        description: The order ID to query.
+        schema:
+          type: integer
+          format: int64
+      - name: origClientOrderId
+        in: query
+        description: The client order ID to query.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_2'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_2'
+      security:
+      - apiKey: []
+        hmacSignature: []
+    delete:
+      operationId: cancelOrder
+      summary: Cancel order
+      description: Cancel an active order. Either orderId or origClientOrderId must be sent.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - name: orderId
+        in: query
+        description: The order ID to cancel.
+        schema:
+          type: integer
+          format: int64
+      - name: origClientOrderId
+        in: query
+        description: The client order ID to cancel.
+        schema:
+          type: string
+      - name: newClientOrderId
+        in: query
+        description: Used to uniquely identify this cancel request.
+        schema:
+          type: string
+      - name: cancelRestrictions
+        in: query
+        description: Supported values ONLY_NEW and ONLY_PARTIALLY_FILLED.
+        schema:
+          type: string
+          enum:
+          - ONLY_NEW
+          - ONLY_PARTIALLY_FILLED
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelOrderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_2'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /api/v3/openOrders:
+    get:
+      operationId: getOpenOrders
+      summary: Current open orders
+      description: Get all open orders on a symbol. Careful when accessing this with no symbol as the weight is very high.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbol_2'
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+      security:
+      - apiKey: []
+        hmacSignature: []
+    delete:
+      operationId: cancelAllOpenOrders
+      summary: Cancel all open orders on a symbol
+      description: Cancels all active orders on a symbol, including OCO orders.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CancelOrderResponse'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /api/v3/allOrders:
+    get:
+      operationId: getAllOrders
+      summary: All orders
+      description: 'Get all account orders for a symbol: active, canceled, or filled. If orderId is set, it will get orders starting from that orderId.'
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - name: orderId
+        in: query
+        description: Order ID to start from.
+        schema:
+          type: integer
+          format: int64
+      - name: startTime
+        in: query
+        description: Start time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        description: End time in milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: Number of results. Default 500, max 1000.
+        schema:
+          type: integer
+          default: 500
+          maximum: 1000
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /api/v3/order/oco:
+    post:
+      operationId: createOcoOrder
+      summary: New OCO order
+      description: Send in a new OCO (One-Cancels-the-Other) order. An OCO consists of a limit order and a stop-loss or stop-loss-limit order with the same quantity and side.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - $ref: '#/components/parameters/side'
+      - name: quantity
+        in: query
+        required: true
+        description: Order quantity.
+        schema:
+          type: string
+      - name: price
+        in: query
+        required: true
+        description: Limit order price.
+        schema:
+          type: string
+      - name: stopPrice
+        in: query
+        required: true
+        description: Stop-loss trigger price.
+        schema:
+          type: string
+      - name: stopLimitPrice
+        in: query
+        description: Stop-loss limit order price. Required if stop-loss order type is STOP_LOSS_LIMIT.
+        schema:
+          type: string
+      - name: stopLimitTimeInForce
+        in: query
+        description: Time in force for the stop-loss limit order.
+        schema:
+          type: string
+          enum:
+          - GTC
+          - FOK
+          - IOC
+      - name: listClientOrderId
+        in: query
+        description: A unique ID for the OCO order list.
+        schema:
+          type: string
+      - name: limitClientOrderId
+        in: query
+        description: A unique ID for the limit order.
+        schema:
+          type: string
+      - name: stopClientOrderId
+        in: query
+        description: A unique ID for the stop-loss order.
+        schema:
+          type: string
+      - name: newOrderRespType
+        in: query
+        description: Set the response JSON type.
+        schema:
+          type: string
+          enum:
+          - ACK
+          - RESULT
+          - FULL
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OcoOrderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_2'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /api/v3/order/test:
+    post:
+      operationId: testNewOrder
+      summary: Test new order
+      description: Test new order creation and signature/recvWindow validation. Creates and validates a new order but does not send it to the matching engine.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - $ref: '#/components/parameters/side'
+      - $ref: '#/components/parameters/orderType'
+      - $ref: '#/components/parameters/timeInForce'
+      - name: quantity
+        in: query
+        description: Order quantity.
+        schema:
+          type: string
+      - name: price
+        in: query
+        description: Order price.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /api/v3/sor/order:
+    post:
+      operationId: createSorOrder
+      summary: New order using SOR
+      description: Place a new order using Smart Order Routing (SOR). SOR automatically routes orders across multiple liquidity sources for best execution.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_2'
+      - $ref: '#/components/parameters/side'
+      - $ref: '#/components/parameters/orderType'
+      - $ref: '#/components/parameters/timeInForce'
+      - name: quantity
+        in: query
+        required: true
+        description: Order quantity.
+        schema:
+          type: string
+      - name: price
+        in: query
+        description: Order price.
+        schema:
+          type: string
+      - name: newClientOrderId
+        in: query
+        description: A unique ID for the order.
+        schema:
+          type: string
+      - name: newOrderRespType
+        in: query
+        description: Set the response JSON type.
+        schema:
+          type: string
+          enum:
+          - ACK
+          - RESULT
+          - FULL
+      - $ref: '#/components/parameters/recvWindow_2'
+      - $ref: '#/components/parameters/timestamp_2'
+      - $ref: '#/components/parameters/signature_2'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /fapi/v1/order:
+    post:
+      operationId: createOrder
+      summary: New order
+      description: Send in a new futures order. Supports LIMIT, MARKET, STOP, STOP_MARKET, TAKE_PROFIT, TAKE_PROFIT_MARKET, and TRAILING_STOP_MARKET order types.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_3'
+      - name: side
+        in: query
+        required: true
+        description: Order side.
+        schema:
+          type: string
+          enum:
+          - BUY
+          - SELL
+      - name: positionSide
+        in: query
+        description: Position side for hedge mode. BOTH for one-way mode.
+        schema:
+          type: string
+          enum:
+          - BOTH
+          - LONG
+          - SHORT
+          default: BOTH
+      - name: type
+        in: query
+        required: true
+        description: Order type.
+        schema:
+          type: string
+          enum:
+          - LIMIT
+          - MARKET
+          - STOP
+          - STOP_MARKET
+          - TAKE_PROFIT
+          - TAKE_PROFIT_MARKET
+          - TRAILING_STOP_MARKET
+      - name: timeInForce
+        in: query
+        description: Time in force. Required for LIMIT orders.
+        schema:
+          type: string
+          enum:
+          - GTC
+          - IOC
+          - FOK
+          - GTX
+          - GTD
+      - name: quantity
+        in: query
+        description: Order quantity.
+        schema:
+          type: string
+      - name: reduceOnly
+        in: query
+        description: Reduce only flag. Cannot be sent with closePosition.
+        schema:
+          type: boolean
+      - name: price
+        in: query
+        description: Order price.
+        schema:
+          type: string
+      - name: newClientOrderId
+        in: query
+        description: A unique ID among open orders.
+        schema:
+          type: string
+      - name: stopPrice
+        in: query
+        description: Stop price for stop orders.
+        schema:
+          type: string
+      - name: closePosition
+        in: query
+        description: Close all positions when triggered.
+        schema:
+          type: boolean
+      - name: activationPrice
+        in: query
+        description: Activation price for TRAILING_STOP_MARKET orders.
+        schema:
+          type: string
+      - name: callbackRate
+        in: query
+        description: Callback rate for TRAILING_STOP_MARKET orders.
+        schema:
+          type: string
+      - name: workingType
+        in: query
+        description: Stop price working type.
+        schema:
+          type: string
+          enum:
+          - MARK_PRICE
+          - CONTRACT_PRICE
+          default: CONTRACT_PRICE
+      - name: priceProtect
+        in: query
+        description: Price protection flag.
+        schema:
+          type: boolean
+      - name: newOrderRespType
+        in: query
+        description: Response type. ACK or RESULT.
+        schema:
+          type: string
+          enum:
+          - ACK
+          - RESULT
+      - $ref: '#/components/parameters/recvWindow_3'
+      - $ref: '#/components/parameters/timestamp_3'
+      - $ref: '#/components/parameters/signature_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuturesOrderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_3'
+      security:
+      - apiKey: []
+        hmacSignature: []
+    get:
+      operationId: getOrder
+      summary: Query order
+      description: Check a futures order's status.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_3'
+      - name: orderId
+        in: query
+        description: Order ID.
+        schema:
+          type: integer
+          format: int64
+      - name: origClientOrderId
+        in: query
+        description: Client order ID.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/recvWindow_3'
+      - $ref: '#/components/parameters/timestamp_3'
+      - $ref: '#/components/parameters/signature_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuturesOrder'
+      security:
+      - apiKey: []
+        hmacSignature: []
+    delete:
+      operationId: cancelOrder
+      summary: Cancel order
+      description: Cancel an active futures order.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbolRequired_3'
+      - name: orderId
+        in: query
+        description: Order ID.
+        schema:
+          type: integer
+          format: int64
+      - name: origClientOrderId
+        in: query
+        description: Client order ID.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/recvWindow_3'
+      - $ref: '#/components/parameters/timestamp_3'
+      - $ref: '#/components/parameters/signature_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuturesOrder'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /fapi/v1/batchOrders:
+    post:
+      operationId: createBatchOrders
+      summary: Place multiple orders
+      description: Send in new multiple orders. Maximum of 5 orders per request.
+      tags:
+      - Trading
+      parameters:
+      - name: batchOrders
+        in: query
+        required: true
+        description: JSON array of order parameters. Max 5 orders.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/recvWindow_3'
+      - $ref: '#/components/parameters/timestamp_3'
+      - $ref: '#/components/parameters/signature_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FuturesOrderResponse'
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /fapi/v1/openOrders:
+    get:
+      operationId: getOpenOrders
+      summary: Current all open orders
+      description: Get all open futures orders for a symbol or all symbols.
+      tags:
+      - Trading
+      parameters:
+      - $ref: '#/components/parameters/symbol_3'
+      - $ref: '#/components/parameters/recvWindow_3'
+      - $ref: '#/components/parameters/timestamp_3'
+      - $ref: '#/components/parameters/signature_3'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FuturesOrder'
+      security:
+      - apiKey: []
+        hmacSignature: []
+components:
+  parameters:
+    signature:
+      name: signature
+      in: query
+      required: true
+      schema:
+        type: string
+    side:
+      name: side
+      in: query
+      required: true
+      description: Order side.
+      schema:
+        type: string
+        enum:
+        - BUY
+        - SELL
+    timestamp_3:
+      name: timestamp
+      in: query
+      required: true
+      description: Request timestamp in milliseconds.
+      schema:
+        type: integer
+        format: int64
+    symbol:
+      name: symbol
+      in: query
+      schema:
+        type: string
+    recvWindow_3:
+      name: recvWindow
+      in: query
+      description: Milliseconds the request is valid for.
+      schema:
+        type: integer
+        default: 5000
+        maximum: 60000
+    symbol_2:
+      name: symbol
+      in: query
+      description: Trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+      example: BTCUSDT
+    recvWindow_2:
+      name: recvWindow
+      in: query
+      description: The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000.
+      schema:
+        type: integer
+        default: 5000
+        maximum: 60000
+    recvWindow:
+      name: recvWindow
+      in: query
+      schema:
+        type: integer
+    symbolRequired:
+      name: symbol
+      in: query
+      required: true
+      schema:
+        type: string
+    signature_2:
+      name: signature
+      in: query
+      required: true
+      description: HMAC SHA256 signature of the total query string using the API secret key.
+      schema:
+        type: string
+    timestamp:
+      name: timestamp
+      in: query
+      required: true
+      schema:
+        type: integer
+        format: int64
+    symbol_3:
+      name: symbol
+      in: query
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    orderType:
+      name: type
+      in: query
+      required: true
+      description: Order type.
+      schema:
+        type: string
+        enum:
+        - LIMIT
+        - MARKET
+        - STOP_LOSS
+        - STOP_LOSS_LIMIT
+        - TAKE_PROFIT
+        - TAKE_PROFIT_LIMIT
+        - LIMIT_MAKER
+    timeInForce:
+      name: timeInForce
+      in: query
+      description: Time in force policy for the order.
+      schema:
+        type: string
+        enum:
+        - GTC
+        - IOC
+        - FOK
+    symbolRequired_3:
+      name: symbol
+      in: query
+      required: true
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    symbolRequired_2:
+      name: symbol
+      in: query
+      required: true
+      description: Trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+      example: BTCUSDT
+    timestamp_2:
+      name: timestamp
+      in: query
+      required: true
+      description: Request timestamp in milliseconds since Unix epoch.
+      schema:
+        type: integer
+        format: int64
+    signature_3:
+      name: signature
+      in: query
+      required: true
+      description: HMAC SHA256 signature.
+      schema:
+        type: string
+  schemas:
+    CancelOrderResponse:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        origClientOrderId:
+          type: string
+          description: Original client order ID.
+        orderId:
+          type: integer
+          format: int64
+          description: Order ID.
+        orderListId:
+          type: integer
+          format: int64
+          description: Order list ID.
+        clientOrderId:
+          type: string
+          description: Client order ID for the cancel request.
+        transactTime:
+          type: integer
+          format: int64
+          description: Transaction time.
+        price:
+          type: string
+          description: Order price.
+        origQty:
+          type: string
+          description: Original quantity.
+        executedQty:
+          type: string
+          description: Executed quantity before cancellation.
+        cummulativeQuoteQty:
+          type: string
+          description: Cumulative quote asset quantity.
+        status:
+          type: string
+          description: Order status after cancellation.
+        timeInForce:
+          type: string
+          description: Time in force.
+        type:
+          type: string
+          description: Order type.
+        side:
+          type: string
+          description: Order side.
+        selfTradePreventionMode:
+          type: string
+          description: Self-trade prevention mode.
+    Error_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Binance error code.
+        msg:
+          type: string
+          description: Human-readable error message.
+    Fill:
+      type: object
+      properties:
+        price:
+          type: string
+          description: Fill price.
+        qty:
+          type: string
+          description: Fill quantity.
+        commission:
+          type: string
+          description: Commission amount.
+        commissionAsset:
+          type: string
+          description: Commission asset.
+        tradeId:
+          type: integer
+          format: int64
+          description: Trade ID.
+    OcoOrderResponse:
+      type: object
+      properties:
+        orderListId:
+          type: integer
+          format: int64
+          description: Order list ID.
+        contingencyType:
+          type: string
+          description: Contingency type, always OCO.
+        listStatusType:
+          type: string
+          description: List status type.
+        listOrderStatus:
+          type: string
+          description: List order status.
+        listClientOrderId:
+          type: string
+          description: Client order ID for the list.
+        transactionTime:
+          type: integer
+          format: int64
+          description: Transaction time.
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        orders:
+          type: array
+          items:
+            type: object
+            properties:
+              symbol:
+                type: string
+              orderId:
+                type: integer
+                format: int64
+              clientOrderId:
+                type: string
+          description: List of orders in the OCO.
+        orderReports:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderResponse'
+          description: Detailed order reports.
+    Order:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        orderId:
+          type: integer
+          format: int64
+          description: Order ID.
+        orderListId:
+          type: integer
+          format: int64
+          description: Order list ID. -1 if not part of an OCO.
+        clientOrderId:
+          type: string
+          description: Client-specified order ID.
+        price:
+          type: string
+          description: Order price.
+        origQty:
+          type: string
+          description: Original order quantity.
+        executedQty:
+          type: string
+          description: Executed quantity.
+        cummulativeQuoteQty:
+          type: string
+          description: Cumulative quote asset quantity.
+        status:
+          type: string
+          enum:
+          - NEW
+          - PARTIALLY_FILLED
+          - FILLED
+          - CANCELED
+          - PENDING_CANCEL
+          - REJECTED
+          - EXPIRED
+          - EXPIRED_IN_MATCH
+          description: Order status.
+        timeInForce:
+          type: string
+          description: Time in force.
+        type:
+          type: string
+          description: Order type.
+        side:
+          type: string
+          description: Order side.
+        stopPrice:
+          type: string
+          description: Stop price.
+        icebergQty:
+          type: string
+          description: Iceberg quantity.
+        time:
+          type: integer
+          format: int64
+          description: Order time in milliseconds.
+        updateTime:
+          type: integer
+          format: int64
+          description: Last update time in milliseconds.
+        isWorking:
+          type: boolean
+          description: Whether the order is on the order book.
+        workingTime:
+          type: integer
+          format: int64
+          description: Time when the order started working on the order book.
+        origQuoteOrderQty:
+          type: string
+          description: Original quote order quantity.
+        selfTradePreventionMode:
+          type: string
+          description: Self-trade prevention mode.
+    FuturesOrderResponse:
+      type: object
+      properties:
+        clientOrderId:
+          type: string
+          description: Client order ID.
+        cumQty:
+          type: string
+          description: Cumulative filled quantity.
+        cumQuote:
+          type: string
+          description: Cumulative filled quote.
+        executedQty:
+          type: string
+          description: Executed quantity.
+        orderId:
+          type: integer
+          format: int64
+          description: Order ID.
+        avgPrice:
+          type: string
+          description: Average fill price.
+        origQty:
+          type: string
+          description: Original quantity.
+        price:
+          type: string
+          description: Order price.
+        reduceOnly:
+          type: boolean
+          description: Reduce only flag.
+        side:
+          type: string
+          description: Order side.
+        positionSide:
+          type: string
+          description: Position side.
+        status:
+          type: string
+          description: Order status.
+        stopPrice:
+          type: string
+          description: Stop price.
+        closePosition:
+          type: boolean
+          description: Close position flag.
+        symbol:
+          type: string
+          description: Symbol.
+        timeInForce:
+          type: string
+          description: Time in force.
+        type:
+          type: string
+          description: Order type.
+        origType:
+          type: string
+          description: Original order type.
+        activatePrice:
+          type: string
+          description: Activation price for trailing stop.
+        priceRate:
+          type: string
+          description: Callback rate for trailing stop.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
+        workingType:
+          type: string
+          description: Working type.
+        priceProtect:
+          type: boolean
+          description: Price protection.
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+    FuturesOrder:
+      type: object
+      properties:
+        avgPrice:
+          type: string
+          description: Average fill price.
+        clientOrderId:
+          type: string
+          description: Client order ID.
+        cumQuote:
+          type: string
+          description: Cumulative quote quantity.
+        executedQty:
+          type: string
+          description: Executed quantity.
+        orderId:
+          type: integer
+          format: int64
+          description: Order ID.
+        origQty:
+          type: string
+          description: Original quantity.
+        origType:
+          type: string
+          description: Original order type.
+        price:
+          type: string
+          description: Order price.
+        reduceOnly:
+          type: boolean
+          description: Reduce only.
+        side:
+          type: string
+          description: Order side.
+        positionSide:
+          type: string
+          description: Position side.
+        status:
+          type: string
+          description: Order status.
+        stopPrice:
+          type: string
+          description: Stop price.
+        closePosition:
+          type: boolean
+          description: Close position flag.
+        symbol:
+          type: string
+          description: Symbol.
+        time:
+          type: integer
+          format: int64
+          description: Order time.
+        timeInForce:
+          type: string
+          description: Time in force.
+        type:
+          type: string
+          description: Order type.
+        activatePrice:
+          type: string
+          description: Activation price.
+        priceRate:
+          type: string
+          description: Callback rate.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
+        workingType:
+          type: string
+          description: Working type.
+        priceProtect:
+          type: boolean
+          description: Price protect flag.
+    Error_3:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code.
+        msg:
+          type: string
+          description: Error message.
+    OrderResponse:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        orderId:
+          type: integer
+          format: int64
+          description: Order ID.
+        orderListId:
+          type: integer
+          format: int64
+          description: Order list ID.
+        clientOrderId:
+          type: string
+          description: Client order ID.
+        transactTime:
+          type: integer
+          format: int64
+          description: Transaction time.
+        price:
+          type: string
+          description: Order price.
+        origQty:
+          type: string
+          description: Original quantity.
+        executedQty:
+          type: string
+          description: Executed quantity.
+        cummulativeQuoteQty:
+          type: string
+          description: Cumulative quote asset transacted quantity.
+        status:
+          type: string
+          description: Order status.
+        timeInForce:
+          type: string
+          description: Time in force.
+        type:
+          type: string
+          description: Order type.
+        side:
+          type: string
+          description: Order side.
+        workingTime:
+          type: integer
+          format: int64
+          description: Time when order started working.
+        selfTradePreventionMode:
+          type: string
+          description: Self-trade prevention mode.
+        fills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fill'
+          description: Trade fills for the order (FULL response type).
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info

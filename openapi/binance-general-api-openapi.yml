@@ -1,0 +1,199 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Trading Account General API
+  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+servers:
+- url: https://api.binance.com
+  description: Production Server
+security:
+- apiKey: []
+tags:
+- name: General
+  description: General endpoints for connectivity testing and exchange information.
+paths:
+  /api/v3/ping:
+    get:
+      operationId: testConnectivity
+      summary: Test connectivity
+      description: Test connectivity to the REST API. Returns an empty object on success.
+      tags:
+      - General
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security: []
+  /api/v3/time:
+    get:
+      operationId: getServerTime
+      summary: Check server time
+      description: Test connectivity to the REST API and get the current server time as a Unix timestamp in milliseconds.
+      tags:
+      - General
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serverTime:
+                    type: integer
+                    format: int64
+                    description: Current server time in milliseconds since Unix epoch.
+      security: []
+  /api/v3/exchangeInfo:
+    get:
+      operationId: getExchangeInfo
+      summary: Exchange information
+      description: Get current exchange trading rules and symbol information, including available trading pairs, price filters, lot size filters, and order type constraints.
+      tags:
+      - General
+      parameters:
+      - $ref: '#/components/parameters/symbol'
+      - name: symbols
+        in: query
+        description: JSON array of trading pair symbols to query. Cannot be used with the symbol parameter.
+        schema:
+          type: string
+        example: '["BTCUSDT","ETHUSDT"]'
+      - name: permissions
+        in: query
+        description: Filter by account permissions such as SPOT or MARGIN.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangeInfo'
+      security: []
+components:
+  schemas:
+    ExchangeInfo:
+      type: object
+      properties:
+        timezone:
+          type: string
+          description: Server timezone, always UTC.
+        serverTime:
+          type: integer
+          format: int64
+          description: Current server time in milliseconds.
+        rateLimits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimit'
+          description: Rate limit rules for the exchange.
+        exchangeFilters:
+          type: array
+          items:
+            type: object
+          description: Exchange-level filters.
+        symbols:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymbolInfo'
+          description: List of trading pair symbols and their rules.
+    SymbolInfo:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        status:
+          type: string
+          description: Trading status of the symbol.
+        baseAsset:
+          type: string
+          description: Base asset of the trading pair.
+        baseAssetPrecision:
+          type: integer
+          description: Precision of the base asset.
+        quoteAsset:
+          type: string
+          description: Quote asset of the trading pair.
+        quotePrecision:
+          type: integer
+          description: Precision of the quote asset.
+        orderTypes:
+          type: array
+          items:
+            type: string
+          description: Allowed order types for this symbol.
+        icebergAllowed:
+          type: boolean
+          description: Whether iceberg orders are allowed.
+        ocoAllowed:
+          type: boolean
+          description: Whether OCO orders are allowed.
+        isSpotTradingAllowed:
+          type: boolean
+          description: Whether spot trading is allowed.
+        isMarginTradingAllowed:
+          type: boolean
+          description: Whether margin trading is allowed.
+        filters:
+          type: array
+          items:
+            type: object
+          description: Symbol-specific filters such as price filter, lot size, etc.
+        permissions:
+          type: array
+          items:
+            type: string
+          description: Account permissions required to trade this symbol.
+    RateLimit:
+      type: object
+      properties:
+        rateLimitType:
+          type: string
+          enum:
+          - REQUEST_WEIGHT
+          - ORDERS
+          - RAW_REQUESTS
+          description: The type of rate limit.
+        interval:
+          type: string
+          enum:
+          - SECOND
+          - MINUTE
+          - DAY
+          description: The interval unit.
+        intervalNum:
+          type: integer
+          description: The interval number.
+        limit:
+          type: integer
+          description: The maximum count within the interval.
+  parameters:
+    symbol:
+      name: symbol
+      in: query
+      description: Trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+      example: BTCUSDT
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info

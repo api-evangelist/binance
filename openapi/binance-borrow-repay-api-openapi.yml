@@ -1,0 +1,113 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Trading Account Borrow/Repay API
+  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+servers:
+- url: https://api.binance.com
+  description: Production Server
+security:
+- apiKey: []
+tags:
+- name: Borrow/Repay
+  description: Endpoints for borrowing and repaying margin assets.
+paths:
+  /sapi/v1/margin/borrow-repay:
+    get:
+      operationId: getBorrowRepayRecords
+      summary: Query borrow/repay records
+      description: Query margin borrow and repay records.
+      tags:
+      - Borrow/Repay
+      parameters:
+      - name: asset
+        in: query
+        description: Asset to query.
+        schema:
+          type: string
+      - name: isolatedSymbol
+        in: query
+        description: Isolated margin symbol.
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: true
+        description: BORROW or REPAY.
+        schema:
+          type: string
+          enum:
+          - BORROW
+          - REPAY
+      - name: startTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: current
+        in: query
+        description: Current page. Default 1.
+        schema:
+          type: integer
+          default: 1
+      - name: size
+        in: query
+        description: Page size. Default 10, max 100.
+        schema:
+          type: integer
+          default: 10
+          maximum: 100
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                  total:
+                    type: integer
+      security:
+      - apiKey: []
+        hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info

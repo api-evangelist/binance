@@ -1,0 +1,229 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Trading Account Orders API
+  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+servers:
+- url: https://api.binance.com
+  description: Production Server
+security:
+- apiKey: []
+tags:
+- name: Orders
+  description: Payment order management endpoints for creating, querying, and closing orders.
+paths:
+  /binancepay/openapi/v3/order/create:
+    post:
+      operationId: createOrder
+      summary: Create order
+      description: Create a new payment order. Returns a checkout URL and QR code data for the customer to complete payment.
+      tags:
+      - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - merchantTradeNo
+              - totalFee
+              - currency
+              properties:
+                merchantTradeNo:
+                  type: string
+                  description: Unique merchant trade number.
+                  maxLength: 32
+                totalFee:
+                  type: string
+                  description: Order amount.
+                currency:
+                  type: string
+                  description: Currency, e.g. USDT, BTC.
+                productType:
+                  type: string
+                  description: Product type.
+                productName:
+                  type: string
+                  description: Product name.
+                productDetail:
+                  type: string
+                  description: Product detail.
+                tradeType:
+                  type: string
+                  enum:
+                  - WEB
+                  - APP
+                  - WAP
+                  - MINI_PROGRAM
+                  - OTHERS
+                  description: Trade type.
+                orderExpireTime:
+                  type: integer
+                  format: int64
+                  description: Order expiration time in milliseconds.
+                returnUrl:
+                  type: string
+                  description: URL to redirect after payment.
+                cancelUrl:
+                  type: string
+                  description: URL to redirect on cancellation.
+                webhookUrl:
+                  type: string
+                  description: Webhook URL for payment notifications.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Response status. SUCCESS or FAIL.
+                  code:
+                    type: string
+                    description: Response code.
+                  data:
+                    type: object
+                    properties:
+                      prepayId:
+                        type: string
+                        description: Prepay order ID.
+                      terminalType:
+                        type: string
+                        description: Terminal type.
+                      expireTime:
+                        type: integer
+                        format: int64
+                        description: Order expire time.
+                      qrcodeLink:
+                        type: string
+                        description: QR code link.
+                      qrContent:
+                        type: string
+                        description: QR code content.
+                      checkoutUrl:
+                        type: string
+                        description: Checkout URL for customer.
+                      deeplink:
+                        type: string
+                        description: Deep link for Binance app.
+                      universalUrl:
+                        type: string
+                        description: Universal URL.
+  /binancepay/openapi/v2/order/query:
+    post:
+      operationId: queryOrder
+      summary: Query order
+      description: Query a payment order by merchant trade number or prepay ID.
+      tags:
+      - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                merchantTradeNo:
+                  type: string
+                  description: Merchant trade number.
+                prepayId:
+                  type: string
+                  description: Prepay order ID.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  code:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      merchantTradeNo:
+                        type: string
+                      prepayId:
+                        type: string
+                      transactTime:
+                        type: integer
+                        format: int64
+                      totalFee:
+                        type: string
+                      currency:
+                        type: string
+                      orderStatus:
+                        type: string
+                        enum:
+                        - INITIAL
+                        - PENDING
+                        - PAID
+                        - CANCELED
+                        - ERROR
+                        - REFUNDING
+                        - REFUNDED
+                        - EXPIRED
+                      transactionId:
+                        type: string
+                      payerInfo:
+                        type: object
+  /binancepay/openapi/order/close:
+    post:
+      operationId: closeOrder
+      summary: Close order
+      description: Close an unpaid order.
+      tags:
+      - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - merchantTradeNo
+              properties:
+                merchantTradeNo:
+                  type: string
+                  description: Merchant trade number to close.
+                prepayId:
+                  type: string
+                  description: Prepay ID to close.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  code:
+                    type: string
+                  data:
+                    type: boolean
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info

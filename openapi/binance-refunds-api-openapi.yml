@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Trading Account Refunds API
+  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+servers:
+- url: https://api.binance.com
+  description: Production Server
+security:
+- apiKey: []
+tags:
+- name: Refunds
+  description: Refund processing endpoints.
+paths:
+  /binancepay/openapi/order/refund:
+    post:
+      operationId: refundOrder
+      summary: Refund order
+      description: Refund a paid order fully or partially.
+      tags:
+      - Refunds
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - refundRequestId
+              - prepayId
+              - refundAmount
+              properties:
+                refundRequestId:
+                  type: string
+                  description: Unique refund request ID.
+                prepayId:
+                  type: string
+                  description: Original prepay ID.
+                refundAmount:
+                  type: string
+                  description: Refund amount.
+                refundReason:
+                  type: string
+                  description: Refund reason.
+                webhookUrl:
+                  type: string
+                  description: Webhook URL for refund notifications.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  code:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      refundRequestId:
+                        type: string
+                      prepayId:
+                        type: string
+                      orderAmount:
+                        type: string
+                      refundedAmount:
+                        type: string
+                      refundAmount:
+                        type: string
+                      remainingAttempts:
+                        type: integer
+                      payerOpenId:
+                        type: string
+                      duplicateRequest:
+                        type: boolean
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info

@@ -1,0 +1,209 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Trading Account Withdrawals API
+  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+servers:
+- url: https://api.binance.com
+  description: Production Server
+security:
+- apiKey: []
+tags:
+- name: Withdrawals
+  description: Withdrawal endpoints for initiating and tracking withdrawals.
+paths:
+  /sapi/v1/capital/withdraw/apply:
+    post:
+      operationId: withdraw
+      summary: Withdraw
+      description: Submit a withdrawal request.
+      tags:
+      - Withdrawals
+      parameters:
+      - name: coin
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: withdrawOrderId
+        in: query
+        description: Client ID for withdraw.
+        schema:
+          type: string
+      - name: network
+        in: query
+        schema:
+          type: string
+      - name: address
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: addressTag
+        in: query
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: transactionFeeFlag
+        in: query
+        description: When true, the fee will be deducted from the amount.
+        schema:
+          type: boolean
+      - name: name
+        in: query
+        description: Address label.
+        schema:
+          type: string
+      - name: walletType
+        in: query
+        description: 0 for spot wallet, 1 for funding wallet.
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Withdrawal ID.
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/capital/withdraw/history:
+    get:
+      operationId: getWithdrawHistory
+      summary: Withdraw history
+      description: Fetch withdrawal history.
+      tags:
+      - Withdrawals
+      parameters:
+      - name: coin
+        in: query
+        schema:
+          type: string
+      - name: withdrawOrderId
+        in: query
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: 0=email sent, 1=cancelled, 2=awaiting approval, 3=rejected, 4=processing, 5=failure, 6=completed.
+        schema:
+          type: integer
+      - name: startTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: offset
+        in: query
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 1000
+          maximum: 1000
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    amount:
+                      type: string
+                    transactionFee:
+                      type: string
+                    coin:
+                      type: string
+                    status:
+                      type: integer
+                    address:
+                      type: string
+                    txId:
+                      type: string
+                    applyTime:
+                      type: string
+                    network:
+                      type: string
+                    transferType:
+                      type: integer
+                    confirmNo:
+                      type: integer
+                    info:
+                      type: string
+                    walletType:
+                      type: integer
+      security:
+      - apiKey: []
+        hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info

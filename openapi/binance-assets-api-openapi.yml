@@ -1,0 +1,396 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Trading Account Assets API
+  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+servers:
+- url: https://api.binance.com
+  description: Production Server
+security:
+- apiKey: []
+tags:
+- name: Assets
+  description: Asset balance and information endpoints.
+paths:
+  /sapi/v1/capital/config/getall:
+    get:
+      operationId: getAllCoinsInfo
+      summary: All coins information
+      description: Get information of all coins available for deposit and withdrawal, including networks and fee details.
+      tags:
+      - Assets
+      parameters:
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    coin:
+                      type: string
+                      description: Coin symbol.
+                    depositAllEnable:
+                      type: boolean
+                      description: Whether deposits are enabled.
+                    free:
+                      type: string
+                      description: Available balance.
+                    freeze:
+                      type: string
+                      description: Frozen balance.
+                    ipoable:
+                      type: string
+                      description: IPO-able balance.
+                    ipoing:
+                      type: string
+                      description: IPO-ing balance.
+                    isLegalMoney:
+                      type: boolean
+                      description: Whether the coin is legal money.
+                    locked:
+                      type: string
+                      description: Locked balance.
+                    name:
+                      type: string
+                      description: Full coin name.
+                    networkList:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          addressRegex:
+                            type: string
+                          coin:
+                            type: string
+                          depositDesc:
+                            type: string
+                          depositEnable:
+                            type: boolean
+                          isDefault:
+                            type: boolean
+                          memoRegex:
+                            type: string
+                          minConfirm:
+                            type: integer
+                          name:
+                            type: string
+                          network:
+                            type: string
+                          resetAddressStatus:
+                            type: boolean
+                          specialTips:
+                            type: string
+                          unLockConfirm:
+                            type: integer
+                          withdrawDesc:
+                            type: string
+                          withdrawEnable:
+                            type: boolean
+                          withdrawFee:
+                            type: string
+                          withdrawIntegerMultiple:
+                            type: string
+                          withdrawMax:
+                            type: string
+                          withdrawMin:
+                            type: string
+                          sameAddress:
+                            type: boolean
+                          estimatedArrivalTime:
+                            type: integer
+                          busy:
+                            type: boolean
+                      description: Available networks for the coin.
+                    storage:
+                      type: string
+                      description: Storage balance.
+                    trading:
+                      type: boolean
+                      description: Whether trading is enabled.
+                    withdrawAllEnable:
+                      type: boolean
+                      description: Whether withdrawals are enabled.
+                    withdrawing:
+                      type: string
+                      description: Withdrawing balance.
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/asset/dust:
+    post:
+      operationId: dustTransfer
+      summary: Dust transfer
+      description: Convert dust (small balance assets) to BNB.
+      tags:
+      - Assets
+      parameters:
+      - name: asset
+        in: query
+        required: true
+        description: Assets to convert, separated by comma.
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalServiceCharge:
+                    type: string
+                  totalTransfered:
+                    type: string
+                  transferResult:
+                    type: array
+                    items:
+                      type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/asset/assetDividend:
+    get:
+      operationId: getAssetDividend
+      summary: Asset dividend record
+      description: Query asset dividend record.
+      tags:
+      - Assets
+      parameters:
+      - name: asset
+        in: query
+        schema:
+          type: string
+      - name: startTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 20
+          maximum: 500
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                  total:
+                    type: integer
+      security:
+      - apiKey: []
+        hmacSignature: []
+  /sapi/v1/asset/transfer:
+    post:
+      operationId: userUniversalTransfer
+      summary: User universal transfer
+      description: Transfer assets between Binance accounts (spot, margin, futures, etc.).
+      tags:
+      - Assets
+      parameters:
+      - name: type
+        in: query
+        required: true
+        description: Transfer type, e.g. MAIN_UMFUTURE, MAIN_CMFUTURE, MAIN_MARGIN, UMFUTURE_MAIN, etc.
+        schema:
+          type: string
+      - name: asset
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: fromSymbol
+        in: query
+        schema:
+          type: string
+      - name: toSymbol
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tranId:
+                    type: integer
+                    format: int64
+      security:
+      - apiKey: []
+        hmacSignature: []
+    get:
+      operationId: getUserUniversalTransferHistory
+      summary: Query user universal transfer history
+      description: Query universal transfer history.
+      tags:
+      - Assets
+      parameters:
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: startTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: endTime
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: current
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: size
+        in: query
+        schema:
+          type: integer
+          default: 10
+          maximum: 100
+      - name: fromSymbol
+        in: query
+        schema:
+          type: string
+      - name: toSymbol
+        in: query
+        schema:
+          type: string
+      - name: recvWindow
+        in: query
+        schema:
+          type: integer
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: signature
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  rows:
+                    type: array
+                    items:
+                      type: object
+      security:
+      - apiKey: []
+        hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info

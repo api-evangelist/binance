@@ -1,0 +1,292 @@
+openapi: 3.1.0
+info:
+  title: Binance Algo Trading Account User Data Stream API
+  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+servers:
+- url: https://api.binance.com
+  description: Production Server
+security:
+- apiKey: []
+tags:
+- name: User Data Stream
+  description: User data stream listen key management for COIN-M futures.
+paths:
+  /dapi/v1/listenKey:
+    post:
+      operationId: createListenKey
+      summary: Start user data stream
+      description: Start a new COIN-M futures user data stream.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  listenKey:
+                    type: string
+      security:
+      - apiKey: []
+    put:
+      operationId: keepAliveListenKey
+      summary: Keepalive user data stream
+      description: Keepalive a COIN-M futures user data stream.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+    delete:
+      operationId: closeListenKey
+      summary: Close user data stream
+      description: Close a COIN-M futures user data stream.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+  /eapi/v1/listenKey:
+    post:
+      operationId: createListenKey
+      summary: Start user data stream
+      description: Start a new options user data stream.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  listenKey:
+                    type: string
+      security:
+      - apiKey: []
+    put:
+      operationId: keepAliveListenKey
+      summary: Keepalive user data stream
+      description: Keepalive an options user data stream.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+    delete:
+      operationId: closeListenKey
+      summary: Close user data stream
+      description: Close an options user data stream.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+  /papi/v1/listenKey:
+    post:
+      operationId: createListenKey
+      summary: Start user data stream
+      description: Start a portfolio margin user data stream.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  listenKey:
+                    type: string
+      security:
+      - apiKey: []
+    put:
+      operationId: keepAliveListenKey
+      summary: Keepalive user data stream
+      description: Keepalive a portfolio margin user data stream.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+    delete:
+      operationId: closeListenKey
+      summary: Close user data stream
+      description: Close a portfolio margin user data stream.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+  /api/v3/userDataStream:
+    post:
+      operationId: createListenKey
+      summary: Create a listen key
+      description: Start a new user data stream. The stream is closed after 60 minutes unless a keepalive is sent. If the account has an active listenKey, that listenKey will be returned and its validity extended for 60 minutes.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  listenKey:
+                    type: string
+                    description: The listen key to use for the user data WebSocket stream subscription.
+      security:
+      - apiKey: []
+    put:
+      operationId: keepAliveListenKey
+      summary: Ping/Keep-alive a listen key
+      description: Keepalive a user data stream to prevent a timeout. User data streams will close after 60 minutes. It is recommended to send a ping about every 30 minutes.
+      tags:
+      - User Data Stream
+      parameters:
+      - name: listenKey
+        in: query
+        required: true
+        description: The listen key to keep alive.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+    delete:
+      operationId: closeListenKey
+      summary: Close a listen key
+      description: Close out a user data stream.
+      tags:
+      - User Data Stream
+      parameters:
+      - name: listenKey
+        in: query
+        required: true
+        description: The listen key to close.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+  /fapi/v1/listenKey:
+    post:
+      operationId: createListenKey
+      summary: Start user data stream
+      description: Start a new user data stream for futures. Returns a listen key that can be used to subscribe to user data WebSocket streams.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  listenKey:
+                    type: string
+                    description: Listen key for WebSocket subscription.
+      security:
+      - apiKey: []
+    put:
+      operationId: keepAliveListenKey
+      summary: Keepalive user data stream
+      description: Keepalive a user data stream to prevent timeout.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+    delete:
+      operationId: closeListenKey
+      summary: Close user data stream
+      description: Close out a user data stream.
+      tags:
+      - User Data Stream
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - apiKey: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
+externalDocs:
+  description: Binance Algo Trading Documentation
+  url: https://developers.binance.com/docs/algo/general-info
