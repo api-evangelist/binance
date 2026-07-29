@@ -1,0 +1,48 @@
+# Kin Score artifact — binance — 2026-07-28T170848
+# The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
+---
+kin_score:
+  slug: binance
+  schema_version: 0.6
+  scored_at: '2026-07-28'
+  run_ts: 2026-07-28T170848
+  composite: 50.2
+  band: developing
+  facets:
+    discoverability: 50.0
+    contract_quality: 72.2
+    governance: 58.3
+    operational_transparency: 36.8
+    developer_ergonomics: 39.1
+    commercial_clarity: 39.5
+  agent_readiness:
+    score: 50.9
+    band: agent-ready
+    dimensions:
+      spec_presence: true
+      agentic_access: derived
+      mcp_server: false
+      auth_clarity: true
+      idempotency: false
+      error_semantics: verified
+      openapi_examples: partial
+      rate_limit_signal: documented
+      asyncapi_events: true
+      agent_skills: true
+      well_known_catalog: false
+      consent_identity: false
+      agent_card: false
+      dry_run_mode: false
+  regulatory:
+    applies: true
+    regime: Securities & Market Data
+    regime_id: securities_market_data
+    score: 48.3
+    matched_via: tags
+  provenance:
+    agentic_access: derived
+    contracts:
+      total: 27
+      derived: 0
+      coverage: 0.0
+      callable: 96.3
