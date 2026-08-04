@@ -1,0 +1,304 @@
+openapi: 3.1.0
+info:
+  title: Binance NFT API
+  description: >-
+    The Binance NFT API provides endpoints for interacting with the Binance
+    NFT marketplace programmatically. Developers can query NFT transaction
+    history, deposit and withdrawal records, and asset information for
+    non-fungible tokens held on the platform.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance NFT Documentation
+  url: https://developers.binance.com/docs/nft/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: NFT
+    description: >-
+      NFT transaction history, deposit, withdrawal, and asset endpoints.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/nft/history/transactions:
+    get:
+      operationId: getTransactionHistory
+      summary: Get NFT transaction history
+      description: >-
+        Get NFT transaction history including purchases, sales, and trades.
+      tags:
+        - NFT
+      parameters:
+        - name: orderType
+          in: query
+          required: true
+          description: >-
+            0=purchase, 1=sell, 2=royalty income, 3=primary market,
+            4=mint fee.
+          schema:
+            type: integer
+            enum: [0, 1, 2, 3, 4]
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 50
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  list:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        orderNo:
+                          type: string
+                        tokens:
+                          type: array
+                          items:
+                            type: object
+                        tradeTime:
+                          type: integer
+                          format: int64
+                        tradeAmount:
+                          type: string
+                        tradeCurrency:
+                          type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/nft/history/deposit:
+    get:
+      operationId: getDepositHistory
+      summary: Get NFT deposit history
+      description: >-
+        Get NFT deposit history.
+      tags:
+        - NFT
+      parameters:
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 50
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  list:
+                    type: array
+                    items:
+                      type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/nft/history/withdraw:
+    get:
+      operationId: getWithdrawHistory
+      summary: Get NFT withdraw history
+      description: >-
+        Get NFT withdrawal history.
+      tags:
+        - NFT
+      parameters:
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 50
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  list:
+                    type: array
+                    items:
+                      type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/nft/user/getAsset:
+    get:
+      operationId: getNftAssets
+      summary: Get NFT asset
+      description: >-
+        Get NFT assets owned by the user.
+      tags:
+        - NFT
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 50
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  list:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        network:
+                          type: string
+                        contractAddress:
+                          type: string
+                        tokenId:
+                          type: string
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

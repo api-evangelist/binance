@@ -1,0 +1,416 @@
+openapi: 3.1.0
+info:
+  title: Binance Auto-Invest API
+  description: >-
+    The Binance Auto-Invest API enables developers to create and manage
+    recurring cryptocurrency purchase plans, also known as dollar-cost
+    averaging (DCA) strategies. Users can set up automated investment
+    plans that periodically buy specified cryptocurrencies at regular
+    intervals.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Auto-Invest Documentation
+  url: https://developers.binance.com/docs/auto_invest/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Auto-Invest
+    description: >-
+      Auto-invest plan management and query endpoints.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/lending/auto-invest/target-asset/list:
+    get:
+      operationId: getTargetAssetList
+      summary: Get target asset list
+      description: >-
+        Get the list of target assets available for auto-invest plans.
+      tags:
+        - Auto-Invest
+      parameters:
+        - name: targetAsset
+          in: query
+          schema:
+            type: string
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 8
+            maximum: 100
+        - name: current
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  targetAssets:
+                    type: array
+                    items:
+                      type: object
+                  totalSize:
+                    type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/lending/auto-invest/source-asset/list:
+    get:
+      operationId: getSourceAssetList
+      summary: Get source asset list
+      description: >-
+        Get the list of source assets that can be used for auto-invest plans.
+      tags:
+        - Auto-Invest
+      parameters:
+        - name: usageType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [RECURRING, ONE_TIME]
+        - name: targetAsset
+          in: query
+          schema:
+            type: string
+        - name: indexId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: flexibleAllowedToUse
+          in: query
+          schema:
+            type: boolean
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/lending/auto-invest/plan/add:
+    post:
+      operationId: createPlan
+      summary: Create auto-invest plan
+      description: >-
+        Create a new auto-invest plan for recurring or one-time purchases.
+      tags:
+        - Auto-Invest
+      parameters:
+        - name: sourceType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [MAIN_SITE, TR]
+        - name: planType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [SINGLE, PORTFOLIO, INDEX]
+        - name: subscriptionAmount
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: subscriptionCycle
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [H1, H4, H8, H12, WEEKLY, DAILY, BI_WEEKLY, MONTHLY]
+        - name: subscriptionStartTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: sourceAsset
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: flexibleAllowedToUse
+          in: query
+          schema:
+            type: boolean
+        - name: details
+          in: query
+          description: >-
+            JSON array of target asset details.
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  planId:
+                    type: integer
+                    format: int64
+                  nextExecutionDateTime:
+                    type: integer
+                    format: int64
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/lending/auto-invest/plan/edit:
+    post:
+      operationId: editPlan
+      summary: Edit auto-invest plan
+      description: >-
+        Edit an existing auto-invest plan.
+      tags:
+        - Auto-Invest
+      parameters:
+        - name: planId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: subscriptionAmount
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: subscriptionCycle
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: sourceAsset
+          in: query
+          schema:
+            type: string
+        - name: flexibleAllowedToUse
+          in: query
+          schema:
+            type: boolean
+        - name: details
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  planId:
+                    type: integer
+                    format: int64
+                  nextExecutionDateTime:
+                    type: integer
+                    format: int64
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/lending/auto-invest/plan/list:
+    get:
+      operationId: listPlans
+      summary: List auto-invest plans
+      description: >-
+        Get the list of auto-invest plans.
+      tags:
+        - Auto-Invest
+      parameters:
+        - name: planType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [SINGLE, PORTFOLIO, INDEX, ALL]
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  planValueInUSD:
+                    type: string
+                  planValueInBTC:
+                    type: string
+                  plans:
+                    type: array
+                    items:
+                      type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/lending/auto-invest/history/list:
+    get:
+      operationId: getSubscriptionHistory
+      summary: Query subscription transaction history
+      description: >-
+        Get auto-invest subscription transaction history.
+      tags:
+        - Auto-Invest
+      parameters:
+        - name: planId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: targetAsset
+          in: query
+          schema:
+            type: string
+        - name: planType
+          in: query
+          schema:
+            type: string
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 100
+        - name: current
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

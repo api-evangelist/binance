@@ -1,0 +1,407 @@
+openapi: 3.1.0
+info:
+  title: Binance Pay API
+  description: >-
+    The Binance Pay API enables merchants and businesses to accept
+    cryptocurrency payments from Binance users. Developers can create
+    payment orders, query payment status, process refunds, and manage
+    merchant accounts. The API supports QR code payments, in-app payments,
+    and online checkout flows for e-commerce integration.
+  version: '2'
+  contact:
+    name: Binance Pay Support
+    url: https://merchant.binance.com/en/docs/getting-started
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Pay Documentation
+  url: https://developers.binance.com/docs/binance-pay/introduction
+servers:
+  - url: https://bpay.binanceapi.com
+    description: Production Server
+tags:
+  - name: Orders
+    description: >-
+      Payment order management endpoints for creating, querying, and
+      closing orders.
+  - name: Payouts
+    description: >-
+      Batch payout and transfer endpoints.
+  - name: Refunds
+    description: >-
+      Refund processing endpoints.
+security:
+  - apiKey: []
+paths:
+  /binancepay/openapi/v3/order/create:
+    post:
+      operationId: createOrder
+      summary: Create order
+      description: >-
+        Create a new payment order. Returns a checkout URL and QR code
+        data for the customer to complete payment.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - merchantTradeNo
+                - totalFee
+                - currency
+              properties:
+                merchantTradeNo:
+                  type: string
+                  description: >-
+                    Unique merchant trade number.
+                  maxLength: 32
+                totalFee:
+                  type: string
+                  description: >-
+                    Order amount.
+                currency:
+                  type: string
+                  description: >-
+                    Currency, e.g. USDT, BTC.
+                productType:
+                  type: string
+                  description: >-
+                    Product type.
+                productName:
+                  type: string
+                  description: >-
+                    Product name.
+                productDetail:
+                  type: string
+                  description: >-
+                    Product detail.
+                tradeType:
+                  type: string
+                  enum: [WEB, APP, WAP, MINI_PROGRAM, OTHERS]
+                  description: >-
+                    Trade type.
+                orderExpireTime:
+                  type: integer
+                  format: int64
+                  description: >-
+                    Order expiration time in milliseconds.
+                returnUrl:
+                  type: string
+                  description: >-
+                    URL to redirect after payment.
+                cancelUrl:
+                  type: string
+                  description: >-
+                    URL to redirect on cancellation.
+                webhookUrl:
+                  type: string
+                  description: >-
+                    Webhook URL for payment notifications.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: >-
+                      Response status. SUCCESS or FAIL.
+                  code:
+                    type: string
+                    description: >-
+                      Response code.
+                  data:
+                    type: object
+                    properties:
+                      prepayId:
+                        type: string
+                        description: >-
+                          Prepay order ID.
+                      terminalType:
+                        type: string
+                        description: >-
+                          Terminal type.
+                      expireTime:
+                        type: integer
+                        format: int64
+                        description: >-
+                          Order expire time.
+                      qrcodeLink:
+                        type: string
+                        description: >-
+                          QR code link.
+                      qrContent:
+                        type: string
+                        description: >-
+                          QR code content.
+                      checkoutUrl:
+                        type: string
+                        description: >-
+                          Checkout URL for customer.
+                      deeplink:
+                        type: string
+                        description: >-
+                          Deep link for Binance app.
+                      universalUrl:
+                        type: string
+                        description: >-
+                          Universal URL.
+  /binancepay/openapi/v2/order/query:
+    post:
+      operationId: queryOrder
+      summary: Query order
+      description: >-
+        Query a payment order by merchant trade number or prepay ID.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                merchantTradeNo:
+                  type: string
+                  description: >-
+                    Merchant trade number.
+                prepayId:
+                  type: string
+                  description: >-
+                    Prepay order ID.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  code:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      merchantTradeNo:
+                        type: string
+                      prepayId:
+                        type: string
+                      transactTime:
+                        type: integer
+                        format: int64
+                      totalFee:
+                        type: string
+                      currency:
+                        type: string
+                      orderStatus:
+                        type: string
+                        enum: [INITIAL, PENDING, PAID, CANCELED, ERROR, REFUNDING, REFUNDED, EXPIRED]
+                      transactionId:
+                        type: string
+                      payerInfo:
+                        type: object
+  /binancepay/openapi/order/close:
+    post:
+      operationId: closeOrder
+      summary: Close order
+      description: >-
+        Close an unpaid order.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - merchantTradeNo
+              properties:
+                merchantTradeNo:
+                  type: string
+                  description: >-
+                    Merchant trade number to close.
+                prepayId:
+                  type: string
+                  description: >-
+                    Prepay ID to close.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  code:
+                    type: string
+                  data:
+                    type: boolean
+  /binancepay/openapi/payout/transfer:
+    post:
+      operationId: batchPayout
+      summary: Batch payout
+      description: >-
+        Make batch payout transfers to multiple recipients. Supports
+        payout to Binance ID or email. Maximum 500 recipients per batch.
+      tags:
+        - Payouts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - requestId
+                - batchName
+                - currency
+                - totalAmount
+                - totalNumber
+                - transferDetailList
+              properties:
+                requestId:
+                  type: string
+                  description: >-
+                    Unique request ID.
+                batchName:
+                  type: string
+                  description: >-
+                    Batch name.
+                currency:
+                  type: string
+                  description: >-
+                    Payout currency.
+                totalAmount:
+                  type: string
+                  description: >-
+                    Total payout amount.
+                totalNumber:
+                  type: integer
+                  description: >-
+                    Total number of recipients.
+                  maximum: 500
+                transferDetailList:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      merchantSendId:
+                        type: string
+                      transferAmount:
+                        type: string
+                      receiveType:
+                        type: string
+                        enum: [BINANCE_ID, EMAIL]
+                      receiver:
+                        type: string
+                      remark:
+                        type: string
+                  description: >-
+                    List of transfer details.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  code:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      requestId:
+                        type: string
+                      status:
+                        type: string
+  /binancepay/openapi/order/refund:
+    post:
+      operationId: refundOrder
+      summary: Refund order
+      description: >-
+        Refund a paid order fully or partially.
+      tags:
+        - Refunds
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - refundRequestId
+                - prepayId
+                - refundAmount
+              properties:
+                refundRequestId:
+                  type: string
+                  description: >-
+                    Unique refund request ID.
+                prepayId:
+                  type: string
+                  description: >-
+                    Original prepay ID.
+                refundAmount:
+                  type: string
+                  description: >-
+                    Refund amount.
+                refundReason:
+                  type: string
+                  description: >-
+                    Refund reason.
+                webhookUrl:
+                  type: string
+                  description: >-
+                    Webhook URL for refund notifications.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  code:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      refundRequestId:
+                        type: string
+                      prepayId:
+                        type: string
+                      orderAmount:
+                        type: string
+                      refundedAmount:
+                        type: string
+                      refundAmount:
+                        type: string
+                      remainingAttempts:
+                        type: integer
+                      payerOpenId:
+                        type: string
+                      duplicateRequest:
+                        type: boolean
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: BinancePay-Certificate-SN
+      description: >-
+        Binance Pay API key/certificate serial number.

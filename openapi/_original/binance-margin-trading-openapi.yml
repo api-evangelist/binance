@@ -1,0 +1,655 @@
+openapi: 3.1.0
+info:
+  title: Binance Margin Trading API
+  description: >-
+    The Binance Margin Trading API allows developers to programmatically
+    access cross-margin and isolated-margin trading functionality. Users
+    can borrow assets, place leveraged trades, repay loans, and manage
+    margin account balances.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Margin Trading Documentation
+  url: https://developers.binance.com/docs/margin_trading/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Borrow/Repay
+    description: >-
+      Endpoints for borrowing and repaying margin assets.
+  - name: Trading
+    description: >-
+      Margin order trading endpoints.
+  - name: Account
+    description: >-
+      Margin account information and transfer endpoints.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/margin/borrow-repay:
+    post:
+      operationId: marginBorrowRepay
+      summary: Margin borrow or repay
+      description: >-
+        Borrow or repay assets in margin account. Unified endpoint for
+        both cross margin and isolated margin borrowing and repayment.
+      tags:
+        - Borrow/Repay
+      parameters:
+        - name: asset
+          in: query
+          required: true
+          description: >-
+            Asset to borrow or repay.
+          schema:
+            type: string
+        - name: isIsolated
+          in: query
+          description: >-
+            Whether this is for isolated margin. TRUE or FALSE.
+          schema:
+            type: string
+            enum: ['TRUE', 'FALSE']
+        - name: symbol
+          in: query
+          description: >-
+            Required for isolated margin.
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          description: >-
+            Amount to borrow or repay.
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: true
+          description: >-
+            BORROW or REPAY.
+          schema:
+            type: string
+            enum: [BORROW, REPAY]
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tranId:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Transaction ID.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/margin/borrow-repay:
+    get:
+      operationId: getBorrowRepayRecords
+      summary: Query borrow/repay records
+      description: >-
+        Query margin borrow and repay records.
+      tags:
+        - Borrow/Repay
+      parameters:
+        - name: asset
+          in: query
+          description: >-
+            Asset to query.
+          schema:
+            type: string
+        - name: isolatedSymbol
+          in: query
+          description: >-
+            Isolated margin symbol.
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: true
+          description: >-
+            BORROW or REPAY.
+          schema:
+            type: string
+            enum: [BORROW, REPAY]
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: current
+          in: query
+          description: >-
+            Current page. Default 1.
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: >-
+            Page size. Default 10, max 100.
+          schema:
+            type: integer
+            default: 10
+            maximum: 100
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                  total:
+                    type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/margin/order:
+    post:
+      operationId: createMarginOrder
+      summary: Margin account new order
+      description: >-
+        Place a new order for margin account.
+      tags:
+        - Trading
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: isIsolated
+          in: query
+          description: >-
+            TRUE for isolated margin, FALSE for cross margin.
+          schema:
+            type: string
+            enum: ['TRUE', 'FALSE']
+        - name: side
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [BUY, SELL]
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [LIMIT, MARKET, STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, TAKE_PROFIT_LIMIT, LIMIT_MAKER]
+        - name: quantity
+          in: query
+          schema:
+            type: string
+        - name: quoteOrderQty
+          in: query
+          schema:
+            type: string
+        - name: price
+          in: query
+          schema:
+            type: string
+        - name: stopPrice
+          in: query
+          schema:
+            type: string
+        - name: newClientOrderId
+          in: query
+          schema:
+            type: string
+        - name: newOrderRespType
+          in: query
+          schema:
+            type: string
+            enum: [ACK, RESULT, FULL]
+        - name: timeInForce
+          in: query
+          schema:
+            type: string
+            enum: [GTC, IOC, FOK]
+        - name: sideEffectType
+          in: query
+          description: >-
+            NO_SIDE_EFFECT, MARGIN_BUY, or AUTO_REPAY.
+          schema:
+            type: string
+            enum: [NO_SIDE_EFFECT, MARGIN_BUY, AUTO_REPAY, AUTO_BORROW_REPAY]
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+    get:
+      operationId: getMarginOrder
+      summary: Query margin account order
+      description: >-
+        Query a margin account order.
+      tags:
+        - Trading
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: isIsolated
+          in: query
+          schema:
+            type: string
+        - name: orderId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: origClientOrderId
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+    delete:
+      operationId: cancelMarginOrder
+      summary: Cancel margin account order
+      description: >-
+        Cancel an active margin order.
+      tags:
+        - Trading
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: isIsolated
+          in: query
+          schema:
+            type: string
+        - name: orderId
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: origClientOrderId
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/margin/openOrders:
+    get:
+      operationId: getMarginOpenOrders
+      summary: Query margin account open orders
+      description: >-
+        Get all open margin orders for a symbol.
+      tags:
+        - Trading
+      parameters:
+        - name: symbol
+          in: query
+          schema:
+            type: string
+        - name: isIsolated
+          in: query
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/margin/account:
+    get:
+      operationId: getMarginAccountInfo
+      summary: Query cross margin account details
+      description: >-
+        Get cross margin account details including balances and margin
+        level.
+      tags:
+        - Account
+      parameters:
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  borrowEnabled:
+                    type: boolean
+                    description: >-
+                      Whether borrowing is enabled.
+                  marginLevel:
+                    type: string
+                    description: >-
+                      Current margin level.
+                  totalAssetOfBtc:
+                    type: string
+                    description: >-
+                      Total asset value in BTC.
+                  totalLiabilityOfBtc:
+                    type: string
+                    description: >-
+                      Total liability in BTC.
+                  totalNetAssetOfBtc:
+                    type: string
+                    description: >-
+                      Total net asset in BTC.
+                  tradeEnabled:
+                    type: boolean
+                    description: >-
+                      Whether trading is enabled.
+                  transferEnabled:
+                    type: boolean
+                    description: >-
+                      Whether transfers are enabled.
+                  accountType:
+                    type: string
+                    description: >-
+                      Account type.
+                  userAssets:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        asset:
+                          type: string
+                        borrowed:
+                          type: string
+                        free:
+                          type: string
+                        interest:
+                          type: string
+                        locked:
+                          type: string
+                        netAsset:
+                          type: string
+                    description: >-
+                      User asset balances.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/margin/transfer:
+    post:
+      operationId: marginTransfer
+      summary: Cross margin account transfer
+      description: >-
+        Execute a transfer between spot and cross margin accounts.
+      tags:
+        - Account
+      parameters:
+        - name: asset
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: true
+          description: >-
+            1 for spot to margin, 2 for margin to spot.
+          schema:
+            type: integer
+            enum: [1, 2]
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tranId:
+                    type: integer
+                    format: int64
+                    description: >-
+                      Transaction ID.
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/margin/interestRateHistory:
+    get:
+      operationId: getInterestRateHistory
+      summary: Query margin interest rate history
+      description: >-
+        Get margin interest rate history for an asset.
+      tags:
+        - Account
+      parameters:
+        - name: asset
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: vipLevel
+          in: query
+          schema:
+            type: integer
+        - name: startTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          schema:
+            type: integer
+            format: int64
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    asset:
+                      type: string
+                    dailyInterestRate:
+                      type: string
+                    timestamp:
+                      type: integer
+                      format: int64
+                    vipLevel:
+                      type: integer
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

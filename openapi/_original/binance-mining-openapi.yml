@@ -1,0 +1,332 @@
+openapi: 3.1.0
+info:
+  title: Binance Mining API
+  description: >-
+    The Binance Mining API provides access to Binance Pool mining services.
+    Developers can retrieve mining algorithms, available coins for mining,
+    detailed miner statistics, earnings and revenue data, and hashrate
+    resale information.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Mining Documentation
+  url: https://developers.binance.com/docs/mining/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Mining
+    description: >-
+      Mining algorithms, coin info, worker stats, and earnings endpoints.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/mining/pub/algoList:
+    get:
+      operationId: getAlgorithmList
+      summary: Acquiring algorithm
+      description: >-
+        Get the list of mining algorithms available on Binance Pool.
+      tags:
+        - Mining
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  msg:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        algoName:
+                          type: string
+                        algoId:
+                          type: integer
+                        poolIndex:
+                          type: integer
+                        unit:
+                          type: string
+      security: []
+  /sapi/v1/mining/pub/coinList:
+    get:
+      operationId: getCoinList
+      summary: Acquiring coin name
+      description: >-
+        Get the list of coins available for mining.
+      tags:
+        - Mining
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  msg:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        coinName:
+                          type: string
+                        coinId:
+                          type: integer
+                        poolIndex:
+                          type: integer
+                        algoId:
+                          type: integer
+                        algoName:
+                          type: string
+      security: []
+  /sapi/v1/mining/worker/detail:
+    get:
+      operationId: getWorkerDetail
+      summary: Request for detail miner list
+      description: >-
+        Get detailed miner/worker information including hashrate and status.
+      tags:
+        - Mining
+      parameters:
+        - name: algo
+          in: query
+          required: true
+          description: >-
+            Algorithm name, e.g. sha256.
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          description: >-
+            Mining account username.
+          schema:
+            type: string
+        - name: workerName
+          in: query
+          required: true
+          description: >-
+            Worker/miner name.
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/mining/worker/list:
+    get:
+      operationId: getWorkerList
+      summary: Request for miner list
+      description: >-
+        Get the list of miners/workers for an account.
+      tags:
+        - Mining
+      parameters:
+        - name: algo
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: pageIndex
+          in: query
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          schema:
+            type: integer
+        - name: sortColumn
+          in: query
+          schema:
+            type: integer
+        - name: workerStatus
+          in: query
+          description: >-
+            0=all, 1=valid, 2=invalid, 3=failure.
+          schema:
+            type: integer
+            enum: [0, 1, 2, 3]
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/mining/payment/list:
+    get:
+      operationId: getEarningsList
+      summary: Earnings list
+      description: >-
+        Get mining earnings and revenue data.
+      tags:
+        - Mining
+      parameters:
+        - name: algo
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: coin
+          in: query
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          schema:
+            type: string
+        - name: pageIndex
+          in: query
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/mining/statistics/user/status:
+    get:
+      operationId: getStatistics
+      summary: Statistic list
+      description: >-
+        Get mining account statistics including hashrate.
+      tags:
+        - Mining
+      parameters:
+        - name: algo
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature

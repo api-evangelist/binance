@@ -1,0 +1,105 @@
+openapi: 3.1.0
+info:
+  title: Binance Copy Trading API
+  description: >-
+    The Binance Copy Trading API allows developers to interact with the
+    copy trading platform where users can automatically replicate the
+    trades of experienced lead traders. The API provides endpoints for
+    managing copy trading positions, querying lead trader portfolios and
+    performance metrics, and configuring copy trading parameters.
+  version: '1'
+  contact:
+    name: Binance Support
+    url: https://www.binance.com/en/support
+  termsOfService: https://www.binance.com/en/terms
+externalDocs:
+  description: Binance Copy Trading Documentation
+  url: https://developers.binance.com/docs/copy_trading/general-info
+servers:
+  - url: https://api.binance.com
+    description: Production Server
+tags:
+  - name: Copy Trading
+    description: >-
+      Copy trading position and portfolio management endpoints.
+security:
+  - apiKey: []
+paths:
+  /sapi/v1/copy-trading/futures/userStatus:
+    get:
+      operationId: getUserStatus
+      summary: Get copy trading user status
+      description: >-
+        Get the copy trading status of the current user.
+      tags:
+        - Copy Trading
+      parameters:
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+  /sapi/v1/copy-trading/futures/leadSymbol:
+    get:
+      operationId: getLeadSymbols
+      summary: Get lead trading symbol whitelist
+      description: >-
+        Get the list of symbols available for lead trading.
+      tags:
+        - Copy Trading
+      parameters:
+        - name: recvWindow
+          in: query
+          schema:
+            type: integer
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - apiKey: []
+          hmacSignature: []
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-MBX-APIKEY
+    hmacSignature:
+      type: apiKey
+      in: query
+      name: signature
