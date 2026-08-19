@@ -1,0 +1,380 @@
+{
+  "item": [
+    {
+      "id": "5694323c-804d-455f-a1ac-b65264d47f0d",
+      "name": "Locked Products",
+      "description": {
+        "content": "Locked savings products with fixed-term commitments.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d8afdbee-106b-41b6-89bc-aa16c8b47012",
+          "name": "Get simple earn locked product list",
+          "request": {
+            "name": "Get simple earn locked product list",
+            "description": {
+              "content": "Get available locked earn products.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "simple-earn",
+                "locked",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asset",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "current",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e61e6146-f908-4b8a-aebf-cbd26943f056",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "simple-earn",
+                    "locked",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "current",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 2542\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "784c0742-2577-4c55-af13-93a84fcbf370",
+          "name": "Subscribe locked product",
+          "request": {
+            "name": "Subscribe locked product",
+            "description": {
+              "content": "Subscribe to a locked earn product.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "simple-earn",
+                "locked",
+                "subscribe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "projectId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "autoSubscribe",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceAccount",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0143df9d-d1ee-496d-9638-2603a3ee7cb9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "simple-earn",
+                    "locked",
+                    "subscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "projectId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "autoSubscribe",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sourceAccount",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"purchaseId\": 193,\n  \"positionId\": \"string\",\n  \"success\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.binance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-MBX-APIKEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ba5cd32b-accd-4fe0-b825-e5a4cb27b5b3",
+    "name": "Binance Algo Trading Account Locked Products API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.\n\nContact Support:\n Name: Binance Support",
+      "type": "text/plain"
+    }
+  }
+}

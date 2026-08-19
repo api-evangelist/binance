@@ -1,0 +1,3457 @@
+{
+  "item": [
+    {
+      "id": "c056bee9-a23d-4851-8213-34c1957961af",
+      "name": "Account",
+      "description": {
+        "content": "Account endpoints for COIN-M futures positions and balances.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d3bd17af-1ffe-4397-a473-7f8b9a4ef4e3",
+          "name": "Account information",
+          "request": {
+            "name": "Account information",
+            "description": {
+              "content": "Get current COIN-M futures account information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c5a1b8be-990c-4e42-9494-499abaeee029",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ad65ac2-0749-475c-b723-2e28559e9d7f",
+          "name": "Account balance",
+          "request": {
+            "name": "Account balance",
+            "description": {
+              "content": "Get COIN-M futures account balance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "balance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7946edbf-5f73-4852-882e-ac2820109f95",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e2881c1-ce44-4f79-8dec-581f458b4dee",
+          "name": "Position information",
+          "request": {
+            "name": "Position information",
+            "description": {
+              "content": "Get current COIN-M position information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "positionRisk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a0973449-fa13-4da3-99c0-bd70d64cfec3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "positionRisk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d260274-ee8e-40b0-bc02-1c6fb032b60c",
+          "name": "Change initial leverage",
+          "request": {
+            "name": "Change initial leverage",
+            "description": {
+              "content": "Change initial leverage for a COIN-M futures symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "leverage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "leverage",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5f4fbce2-b477-4374-889b-1bc33330db26",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "leverage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leverage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "453ca9ff-3ebf-4847-80bd-13594b6d69eb",
+          "name": "Option position information",
+          "request": {
+            "name": "Option position information",
+            "description": {
+              "content": "Get current options position information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "position"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5e79e63d-69ab-4978-a6c4-721afe94971b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "position"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"side\": \"string\",\n    \"quantity\": \"string\",\n    \"reducibleQty\": \"string\",\n    \"markValue\": \"string\",\n    \"ror\": \"string\",\n    \"unrealizedPNL\": \"string\",\n    \"markPrice\": \"string\",\n    \"strikePrice\": \"string\",\n    \"positionCost\": \"string\",\n    \"expiryDate\": 7155,\n    \"priceScale\": 6456,\n    \"quantityScale\": 2026,\n    \"optionSide\": \"string\",\n    \"quoteAsset\": \"string\"\n  },\n  {\n    \"symbol\": \"string\",\n    \"side\": \"string\",\n    \"quantity\": \"string\",\n    \"reducibleQty\": \"string\",\n    \"markValue\": \"string\",\n    \"ror\": \"string\",\n    \"unrealizedPNL\": \"string\",\n    \"markPrice\": \"string\",\n    \"strikePrice\": \"string\",\n    \"positionCost\": \"string\",\n    \"expiryDate\": 4145,\n    \"priceScale\": 2131,\n    \"quantityScale\": 3424,\n    \"optionSide\": \"string\",\n    \"quoteAsset\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0572892-f82d-4c80-87f6-fd470e84dc9b",
+          "name": "Account information",
+          "request": {
+            "name": "Account information",
+            "description": {
+              "content": "Get current options account information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "471eddd1-3b30-4f1f-9416-4de989e014fe",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e126f7a7-8c58-49fd-855a-6404cfb1d302",
+          "name": "Query cross margin account details",
+          "request": {
+            "name": "Query cross margin account details",
+            "description": {
+              "content": "Get cross margin account details including balances and margin level.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "margin",
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "05689065-d5b8-44ae-a3a1-d50e1f50f44c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "margin",
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"borrowEnabled\": false,\n  \"marginLevel\": \"string\",\n  \"totalAssetOfBtc\": \"string\",\n  \"totalLiabilityOfBtc\": \"string\",\n  \"totalNetAssetOfBtc\": \"string\",\n  \"tradeEnabled\": false,\n  \"transferEnabled\": true,\n  \"accountType\": \"string\",\n  \"userAssets\": [\n    {\n      \"asset\": \"string\",\n      \"borrowed\": \"string\",\n      \"free\": \"string\",\n      \"interest\": \"string\",\n      \"locked\": \"string\",\n      \"netAsset\": \"string\"\n    },\n    {\n      \"asset\": \"string\",\n      \"borrowed\": \"string\",\n      \"free\": \"string\",\n      \"interest\": \"string\",\n      \"locked\": \"string\",\n      \"netAsset\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "418e5207-0aa0-46b7-9713-351aa3bf9b11",
+          "name": "Cross margin account transfer",
+          "request": {
+            "name": "Cross margin account transfer",
+            "description": {
+              "content": "Execute a transfer between spot and cross margin accounts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "margin",
+                "transfer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asset",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<integer>",
+                  "description": "(Required) 1 for spot to margin, 2 for margin to spot."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0b36a2d5-5a4d-454c-abd9-876f74dba4d1",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "margin",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tranId\": 6124\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a38c879c-dd84-4988-bf20-9b08c0831f01",
+          "name": "Query margin interest rate history",
+          "request": {
+            "name": "Query margin interest rate history",
+            "description": {
+              "content": "Get margin interest rate history for an asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "margin",
+                "interestRateHistory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asset",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "vipLevel",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1796254a-ad7d-43e9-becc-c5ca995bd796",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "margin",
+                    "interestRateHistory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vipLevel",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"asset\": \"string\",\n    \"dailyInterestRate\": \"string\",\n    \"timestamp\": 3700,\n    \"vipLevel\": 7845\n  },\n  {\n    \"asset\": \"string\",\n    \"dailyInterestRate\": \"string\",\n    \"timestamp\": 7099,\n    \"vipLevel\": 7191\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a899fb0a-7465-4574-80d2-937dc5221b13",
+          "name": "Query portfolio margin balance",
+          "request": {
+            "name": "Query portfolio margin balance",
+            "description": {
+              "content": "Get portfolio margin account balance information across all asset types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "papi",
+                "v1",
+                "balance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asset",
+                  "value": "<string>",
+                  "description": "Asset to query. If not sent, returns all assets."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cab1a742-3817-44f8-8ab2-67b2443cbbab",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "papi",
+                    "v1",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"asset\": \"string\",\n    \"totalWalletBalance\": \"string\",\n    \"crossMarginAsset\": \"string\",\n    \"crossMarginBorrowed\": \"string\",\n    \"crossMarginFree\": \"string\",\n    \"crossMarginInterest\": \"string\",\n    \"crossMarginLocked\": \"string\",\n    \"umWalletBalance\": \"string\",\n    \"umUnrealizedPNL\": \"string\",\n    \"cmWalletBalance\": \"string\",\n    \"cmUnrealizedPNL\": \"string\",\n    \"updateTime\": 782,\n    \"negativeBalance\": \"string\"\n  },\n  {\n    \"asset\": \"string\",\n    \"totalWalletBalance\": \"string\",\n    \"crossMarginAsset\": \"string\",\n    \"crossMarginBorrowed\": \"string\",\n    \"crossMarginFree\": \"string\",\n    \"crossMarginInterest\": \"string\",\n    \"crossMarginLocked\": \"string\",\n    \"umWalletBalance\": \"string\",\n    \"umUnrealizedPNL\": \"string\",\n    \"cmWalletBalance\": \"string\",\n    \"cmUnrealizedPNL\": \"string\",\n    \"updateTime\": 8792,\n    \"negativeBalance\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd4079d1-fe03-4ed0-a583-e71cb3eccb26",
+          "name": "Query portfolio margin account info",
+          "request": {
+            "name": "Query portfolio margin account info",
+            "description": {
+              "content": "Get portfolio margin account information including margin ratios and account status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "papi",
+                "v1",
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "35e23808-474a-4198-9a41-89e5f1bb6bd8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "papi",
+                    "v1",
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uniMMR\": \"string\",\n  \"accountEquity\": \"string\",\n  \"actualEquity\": \"string\",\n  \"accountInitialMargin\": \"string\",\n  \"accountMaintMargin\": \"string\",\n  \"accountStatus\": \"string\",\n  \"virtualMaxWithdrawAmount\": \"string\",\n  \"totalAvailableBalance\": \"string\",\n  \"totalMarginOpenLoss\": \"string\",\n  \"updateTime\": 6417\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eed99b24-edcc-4bef-bd13-17cbb1cec86a",
+          "name": "Simple account",
+          "request": {
+            "name": "Simple account",
+            "description": {
+              "content": "Get simple earn account information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "simple-earn",
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aa035be5-f115-447c-b845-d928d840abe8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "simple-earn",
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalAmountInBTC\": \"string\",\n  \"totalAmountInUSDT\": \"string\",\n  \"totalFlexibleAmountInBTC\": \"string\",\n  \"totalFlexibleAmountInUSDT\": \"string\",\n  \"totalLockedInBTC\": \"string\",\n  \"totalLockedInUSDT\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55a0851d-2ac5-4a13-a670-b946b50d8630",
+          "name": "Account information",
+          "request": {
+            "name": "Account information",
+            "description": {
+              "content": "Get current account information including balances, permissions, and commission rates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "omitZeroBalances",
+                  "value": "<boolean>",
+                  "description": "When set to true, emits only non-zero balances."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "5000",
+                  "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) Request timestamp in milliseconds since Unix epoch."
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) HMAC SHA256 signature of the total query string using the API secret key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "afaa7ea8-1741-48e1-b99c-add2c08e3274",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "omitZeroBalances",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"makerCommission\": 475,\n  \"takerCommission\": 8520,\n  \"buyerCommission\": 182,\n  \"sellerCommission\": 592,\n  \"commissionRates\": {\n    \"maker\": \"string\",\n    \"taker\": \"string\",\n    \"buyer\": \"string\",\n    \"seller\": \"string\"\n  },\n  \"canTrade\": false,\n  \"canWithdraw\": false,\n  \"canDeposit\": true,\n  \"brokered\": false,\n  \"requireSelfTradePrevention\": false,\n  \"preventSor\": false,\n  \"updateTime\": 9309,\n  \"accountType\": \"string\",\n  \"balances\": [\n    {\n      \"asset\": \"string\",\n      \"free\": \"string\",\n      \"locked\": \"string\"\n    },\n    {\n      \"asset\": \"string\",\n      \"free\": \"string\",\n      \"locked\": \"string\"\n    }\n  ],\n  \"permissions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"uid\": 9202\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "219f4c3e-d0ca-45cd-a7c9-88ae86b87085",
+          "name": "Account trade list",
+          "request": {
+            "name": "Account trade list",
+            "description": {
+              "content": "Get trades for a specific account and symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "myTrades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderId",
+                  "value": "<long>",
+                  "description": "Only return trades for this order ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>",
+                  "description": "Start time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>",
+                  "description": "End time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromId",
+                  "value": "<long>",
+                  "description": "Trade ID to fetch from."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of results. Default 500, max 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "5000",
+                  "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) Request timestamp in milliseconds since Unix epoch."
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) HMAC SHA256 signature of the total query string using the API secret key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0e45608e-094c-436e-8d17-af1ea80dba1e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "myTrades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "orderId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "fromId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"id\": 7209,\n    \"orderId\": 6580,\n    \"orderListId\": 9099,\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"commission\": \"string\",\n    \"commissionAsset\": \"string\",\n    \"time\": 5728,\n    \"isBuyer\": false,\n    \"isMaker\": true,\n    \"isBestMatch\": true\n  },\n  {\n    \"symbol\": \"string\",\n    \"id\": 359,\n    \"orderId\": 7035,\n    \"orderListId\": 98,\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"commission\": \"string\",\n    \"commissionAsset\": \"string\",\n    \"time\": 8372,\n    \"isBuyer\": true,\n    \"isMaker\": true,\n    \"isBestMatch\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "607e491e-784e-4d92-a784-d9148e078d5d",
+          "name": "Query current order count usage",
+          "request": {
+            "name": "Query current order count usage",
+            "description": {
+              "content": "Displays the user's current order count usage for all intervals.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "rateLimit",
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "5000",
+                  "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) Request timestamp in milliseconds since Unix epoch."
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) HMAC SHA256 signature of the total query string using the API secret key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "987e3ada-a1df-4b29-b5fa-75ce022e9c8b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "rateLimit",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recvWindow",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"rateLimitType\": \"string\",\n    \"interval\": \"string\",\n    \"intervalNum\": 3100,\n    \"limit\": 8404,\n    \"count\": 7503\n  },\n  {\n    \"rateLimitType\": \"string\",\n    \"interval\": \"string\",\n    \"intervalNum\": 6545,\n    \"limit\": 6675,\n    \"count\": 7874\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "350287d5-2443-4cb6-a2ce-f41f35f31509",
+          "name": "Query prevented matches",
+          "request": {
+            "name": "Query prevented matches",
+            "description": {
+              "content": "Displays the list of orders that were expired because of STP (Self Trade Prevention).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "myPreventedMatches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "preventedMatchId",
+                  "value": "<long>",
+                  "description": "Prevented match ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderId",
+                  "value": "<long>",
+                  "description": "Order ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromPreventedMatchId",
+                  "value": "<long>",
+                  "description": "Start from this prevented match ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of results. Default 500, max 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "5000",
+                  "description": "The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) Request timestamp in milliseconds since Unix epoch."
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) HMAC SHA256 signature of the total query string using the API secret key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8b62946a-91e5-405e-a9f8-71900407be1f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "myPreventedMatches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "preventedMatchId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "orderId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "fromPreventedMatchId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"preventedMatchId\": 9505,\n    \"takerOrderId\": 4066,\n    \"makerOrderId\": 4857,\n    \"tradeGroupId\": 5735,\n    \"selfTradePreventionMode\": \"string\",\n    \"price\": \"string\",\n    \"makerPreventedQuantity\": \"string\",\n    \"transactTime\": 8324\n  },\n  {\n    \"symbol\": \"string\",\n    \"preventedMatchId\": 3801,\n    \"takerOrderId\": 3948,\n    \"makerOrderId\": 2873,\n    \"tradeGroupId\": 9297,\n    \"selfTradePreventionMode\": \"string\",\n    \"price\": \"string\",\n    \"makerPreventedQuantity\": \"string\",\n    \"transactTime\": 3703\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44feb118-4c54-40ef-a7bb-f546df10ade3",
+          "name": "Account information",
+          "request": {
+            "name": "Account information",
+            "description": {
+              "content": "Get current futures account information including positions and balances.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v2",
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "5000",
+                  "description": "Milliseconds the request is valid for."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) Request timestamp in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) HMAC SHA256 signature."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aa8312b5-2a91-4992-96ac-89da13a796d7",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v2",
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recvWindow",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"feeTier\": 2792,\n  \"canTrade\": false,\n  \"canDeposit\": false,\n  \"canWithdraw\": true,\n  \"updateTime\": 9449,\n  \"multiAssetsMargin\": true,\n  \"totalInitialMargin\": \"string\",\n  \"totalMaintMargin\": \"string\",\n  \"totalWalletBalance\": \"string\",\n  \"totalUnrealizedProfit\": \"string\",\n  \"totalMarginBalance\": \"string\",\n  \"totalPositionInitialMargin\": \"string\",\n  \"totalOpenOrderInitialMargin\": \"string\",\n  \"totalCrossWalletBalance\": \"string\",\n  \"totalCrossUnPnl\": \"string\",\n  \"availableBalance\": \"string\",\n  \"maxWithdrawAmount\": \"string\",\n  \"assets\": [\n    {\n      \"accountAlias\": \"string\",\n      \"asset\": \"string\",\n      \"balance\": \"string\",\n      \"crossWalletBalance\": \"string\",\n      \"crossUnPnl\": \"string\",\n      \"availableBalance\": \"string\",\n      \"maxWithdrawAmount\": \"string\",\n      \"marginAvailable\": true,\n      \"updateTime\": 5199\n    },\n    {\n      \"accountAlias\": \"string\",\n      \"asset\": \"string\",\n      \"balance\": \"string\",\n      \"crossWalletBalance\": \"string\",\n      \"crossUnPnl\": \"string\",\n      \"availableBalance\": \"string\",\n      \"maxWithdrawAmount\": \"string\",\n      \"marginAvailable\": false,\n      \"updateTime\": 6996\n    }\n  ],\n  \"positions\": [\n    {\n      \"symbol\": \"string\",\n      \"positionAmt\": \"string\",\n      \"entryPrice\": \"string\",\n      \"breakEvenPrice\": \"string\",\n      \"markPrice\": \"string\",\n      \"unRealizedProfit\": \"string\",\n      \"liquidationPrice\": \"string\",\n      \"leverage\": \"string\",\n      \"maxNotionalValue\": \"string\",\n      \"marginType\": \"string\",\n      \"isolatedMargin\": \"string\",\n      \"isAutoAddMargin\": false,\n      \"positionSide\": \"string\",\n      \"notional\": \"string\",\n      \"isolatedWallet\": \"string\",\n      \"updateTime\": 0\n    },\n    {\n      \"symbol\": \"string\",\n      \"positionAmt\": \"string\",\n      \"entryPrice\": \"string\",\n      \"breakEvenPrice\": \"string\",\n      \"markPrice\": \"string\",\n      \"unRealizedProfit\": \"string\",\n      \"liquidationPrice\": \"string\",\n      \"leverage\": \"string\",\n      \"maxNotionalValue\": \"string\",\n      \"marginType\": \"string\",\n      \"isolatedMargin\": \"string\",\n      \"isAutoAddMargin\": true,\n      \"positionSide\": \"string\",\n      \"notional\": \"string\",\n      \"isolatedWallet\": \"string\",\n      \"updateTime\": 9322\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a27f4915-7d34-4ff7-abff-815c4b5bde9c",
+          "name": "Futures account balance",
+          "request": {
+            "name": "Futures account balance",
+            "description": {
+              "content": "Get futures account balance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v2",
+                "balance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "5000",
+                  "description": "Milliseconds the request is valid for."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) Request timestamp in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) HMAC SHA256 signature."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d77509e0-e53f-4f89-93b0-3f68cb1981d7",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v2",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recvWindow",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"accountAlias\": \"string\",\n    \"asset\": \"string\",\n    \"balance\": \"string\",\n    \"crossWalletBalance\": \"string\",\n    \"crossUnPnl\": \"string\",\n    \"availableBalance\": \"string\",\n    \"maxWithdrawAmount\": \"string\",\n    \"marginAvailable\": false,\n    \"updateTime\": 9106\n  },\n  {\n    \"accountAlias\": \"string\",\n    \"asset\": \"string\",\n    \"balance\": \"string\",\n    \"crossWalletBalance\": \"string\",\n    \"crossUnPnl\": \"string\",\n    \"availableBalance\": \"string\",\n    \"maxWithdrawAmount\": \"string\",\n    \"marginAvailable\": false,\n    \"updateTime\": 5849\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6d726b1-7d9b-4c86-99ac-3d5ec1a498c9",
+          "name": "Position information",
+          "request": {
+            "name": "Position information",
+            "description": {
+              "content": "Get current position information for all or a specific symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v2",
+                "positionRisk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Futures trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "5000",
+                  "description": "Milliseconds the request is valid for."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) Request timestamp in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) HMAC SHA256 signature."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "585401f8-e027-4341-9bb8-51e0418db991",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v2",
+                    "positionRisk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"positionAmt\": \"string\",\n    \"entryPrice\": \"string\",\n    \"breakEvenPrice\": \"string\",\n    \"markPrice\": \"string\",\n    \"unRealizedProfit\": \"string\",\n    \"liquidationPrice\": \"string\",\n    \"leverage\": \"string\",\n    \"maxNotionalValue\": \"string\",\n    \"marginType\": \"string\",\n    \"isolatedMargin\": \"string\",\n    \"isAutoAddMargin\": true,\n    \"positionSide\": \"string\",\n    \"notional\": \"string\",\n    \"isolatedWallet\": \"string\",\n    \"updateTime\": 2457\n  },\n  {\n    \"symbol\": \"string\",\n    \"positionAmt\": \"string\",\n    \"entryPrice\": \"string\",\n    \"breakEvenPrice\": \"string\",\n    \"markPrice\": \"string\",\n    \"unRealizedProfit\": \"string\",\n    \"liquidationPrice\": \"string\",\n    \"leverage\": \"string\",\n    \"maxNotionalValue\": \"string\",\n    \"marginType\": \"string\",\n    \"isolatedMargin\": \"string\",\n    \"isAutoAddMargin\": false,\n    \"positionSide\": \"string\",\n    \"notional\": \"string\",\n    \"isolatedWallet\": \"string\",\n    \"updateTime\": 314\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37ddd58c-7d48-46c0-a3cd-5e7a3afef119",
+          "name": "Change initial leverage",
+          "request": {
+            "name": "Change initial leverage",
+            "description": {
+              "content": "Change user's initial leverage of a specific futures symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "leverage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Futures trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "leverage",
+                  "value": "<integer>",
+                  "description": "(Required) Target initial leverage. 1 to 125."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "5000",
+                  "description": "Milliseconds the request is valid for."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) Request timestamp in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) HMAC SHA256 signature."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "320bf631-9cee-4005-8507-057ab747af59",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "leverage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "leverage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"leverage\": 8148,\n  \"maxNotionalValue\": \"string\",\n  \"symbol\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27ab5945-b0ff-457c-9ead-81edcb910fa5",
+          "name": "Change margin type",
+          "request": {
+            "name": "Change margin type",
+            "description": {
+              "content": "Change the margin type for a futures symbol between ISOLATED and CROSSED.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "marginType"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Futures trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "marginType",
+                  "value": "<string>",
+                  "description": "(Required) Margin type."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "5000",
+                  "description": "Milliseconds the request is valid for."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) Request timestamp in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) HMAC SHA256 signature."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "772a9690-a3d1-4ee1-9df8-a7e548a53269",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "marginType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "marginType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7428,\n  \"msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9ce66b9-0ad0-485d-be93-4a6f2c9144d8",
+          "name": "Get income history",
+          "request": {
+            "name": "Get income history",
+            "description": {
+              "content": "Get futures income history including realized PnL, funding fees, commissions, and transfers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "income"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Futures trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "incomeType",
+                  "value": "<string>",
+                  "description": "Income type filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>",
+                  "description": "Start time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>",
+                  "description": "End time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of results. Default 100, max 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "5000",
+                  "description": "Milliseconds the request is valid for."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) Request timestamp in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) HMAC SHA256 signature."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8f802ff8-13f4-44f8-bf2d-066f4a7c2829",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "income"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "incomeType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"incomeType\": \"string\",\n    \"income\": \"string\",\n    \"asset\": \"string\",\n    \"info\": \"string\",\n    \"time\": 1403,\n    \"tranId\": 5518,\n    \"tradeId\": \"string\"\n  },\n  {\n    \"symbol\": \"string\",\n    \"incomeType\": \"string\",\n    \"income\": \"string\",\n    \"asset\": \"string\",\n    \"info\": \"string\",\n    \"time\": 680,\n    \"tranId\": 8324,\n    \"tradeId\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df845a9c-453c-4e56-91e8-2452dda04bca",
+          "name": "System status",
+          "request": {
+            "name": "System status",
+            "description": {
+              "content": "Fetch system status. Returns 0 for normal and 1 for system maintenance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "system",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de0404cd-8de7-47ab-8bd0-d7b902e699fe",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "system",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 7410,\n  \"msg\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06a1a1ab-3f81-4871-bc50-4a5ae93a3e38",
+          "name": "Account API trading status",
+          "request": {
+            "name": "Account API trading status",
+            "description": {
+              "content": "Fetch account API trading status with details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "account",
+                "apiTradingStatus"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d90ca247-96df-4a3f-8cd5-6d907d9b9b51",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "account",
+                    "apiTradingStatus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"isLocked\": false,\n    \"plannedRecoverTime\": 4940,\n    \"triggerCondition\": {},\n    \"updateTime\": 3990\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.binance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-MBX-APIKEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9e4d886c-fd17-4bb4-a0d9-dd1d212bd316",
+    "name": "Binance Algo Trading Account API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.\n\nContact Support:\n Name: Binance Support",
+      "type": "text/plain"
+    }
+  }
+}

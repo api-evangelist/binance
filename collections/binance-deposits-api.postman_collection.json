@@ -1,0 +1,401 @@
+{
+  "item": [
+    {
+      "id": "0f19eb5a-1b63-400d-8ea8-06792d65cc38",
+      "name": "Deposits",
+      "description": {
+        "content": "Deposit-related endpoints for addresses and history.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "63e0575f-d59f-441d-b86f-c5a392b669d7",
+          "name": "Deposit history",
+          "request": {
+            "name": "Deposit history",
+            "description": {
+              "content": "Fetch deposit history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "capital",
+                "deposit",
+                "hisrec"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "coin",
+                  "value": "<string>",
+                  "description": "Coin to query."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<integer>",
+                  "description": "Deposit status. 0=pending, 6=credited, 1=success."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "1000",
+                  "description": "Number of results. Default 1000, max 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "txId",
+                  "value": "<string>",
+                  "description": "Transaction ID."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2a3e6b96-586f-4029-a207-be7b9dcd60b2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "capital",
+                    "deposit",
+                    "hisrec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "coin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "txId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"amount\": \"string\",\n    \"coin\": \"string\",\n    \"network\": \"string\",\n    \"status\": 9135,\n    \"address\": \"string\",\n    \"addressTag\": \"string\",\n    \"txId\": \"string\",\n    \"insertTime\": 8202,\n    \"transferType\": 1434,\n    \"confirmTimes\": \"string\",\n    \"unlockConfirm\": 3781,\n    \"walletType\": 7425\n  },\n  {\n    \"id\": \"string\",\n    \"amount\": \"string\",\n    \"coin\": \"string\",\n    \"network\": \"string\",\n    \"status\": 3820,\n    \"address\": \"string\",\n    \"addressTag\": \"string\",\n    \"txId\": \"string\",\n    \"insertTime\": 1632,\n    \"transferType\": 5064,\n    \"confirmTimes\": \"string\",\n    \"unlockConfirm\": 5346,\n    \"walletType\": 6098\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27d37ae9-9b2e-45a6-82c6-0df86c52a2a0",
+          "name": "Deposit address",
+          "request": {
+            "name": "Deposit address",
+            "description": {
+              "content": "Fetch deposit address for a coin and network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "capital",
+                "deposit",
+                "address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "coin",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "network",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "45e3cec7-eecf-4ef2-b89a-dd835eb25327",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "capital",
+                    "deposit",
+                    "address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "coin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"string\",\n  \"coin\": \"string\",\n  \"tag\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.binance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-MBX-APIKEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6c3a5c6e-d2be-43ae-983e-0af65f1339ce",
+    "name": "Binance Algo Trading Account Deposits API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.\n\nContact Support:\n Name: Binance Support",
+      "type": "text/plain"
+    }
+  }
+}

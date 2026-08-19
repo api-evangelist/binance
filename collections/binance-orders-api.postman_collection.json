@@ -1,0 +1,368 @@
+{
+  "item": [
+    {
+      "id": "31a82a26-d438-4fbb-bb8c-c699ca818266",
+      "name": "Orders",
+      "description": {
+        "content": "Payment order management endpoints for creating, querying, and closing orders.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2109d499-2736-4c71-b5a0-8631c6843f06",
+          "name": "Create order",
+          "request": {
+            "name": "Create order",
+            "description": {
+              "content": "Create a new payment order. Returns a checkout URL and QR code data for the customer to complete payment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "binancepay",
+                "openapi",
+                "v3",
+                "order",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"totalFee\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"productType\": \"<string>\",\n  \"productName\": \"<string>\",\n  \"productDetail\": \"<string>\",\n  \"tradeType\": \"<string>\",\n  \"orderExpireTime\": \"<long>\",\n  \"returnUrl\": \"<string>\",\n  \"cancelUrl\": \"<string>\",\n  \"webhookUrl\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "877e0962-f737-4565-9d52-c35bc7092a89",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "binancepay",
+                    "openapi",
+                    "v3",
+                    "order",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"totalFee\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"productType\": \"<string>\",\n  \"productName\": \"<string>\",\n  \"productDetail\": \"<string>\",\n  \"tradeType\": \"<string>\",\n  \"orderExpireTime\": \"<long>\",\n  \"returnUrl\": \"<string>\",\n  \"cancelUrl\": \"<string>\",\n  \"webhookUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"code\": \"string\",\n  \"data\": {\n    \"prepayId\": \"string\",\n    \"terminalType\": \"string\",\n    \"expireTime\": 2141,\n    \"qrcodeLink\": \"string\",\n    \"qrContent\": \"string\",\n    \"checkoutUrl\": \"string\",\n    \"deeplink\": \"string\",\n    \"universalUrl\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61db60a6-06c1-46f8-812c-a896cbfd2609",
+          "name": "Query order",
+          "request": {
+            "name": "Query order",
+            "description": {
+              "content": "Query a payment order by merchant trade number or prepay ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "binancepay",
+                "openapi",
+                "v2",
+                "order",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"prepayId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "64d13b4b-5149-4398-90b8-798353ed58ab",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "binancepay",
+                    "openapi",
+                    "v2",
+                    "order",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"prepayId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"code\": \"string\",\n  \"data\": {\n    \"merchantTradeNo\": \"string\",\n    \"prepayId\": \"string\",\n    \"transactTime\": 9725,\n    \"totalFee\": \"string\",\n    \"currency\": \"string\",\n    \"orderStatus\": \"PENDING\",\n    \"transactionId\": \"string\",\n    \"payerInfo\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0bf56c0-1c7f-48b8-8409-77a8603bdfbe",
+          "name": "Close order",
+          "request": {
+            "name": "Close order",
+            "description": {
+              "content": "Close an unpaid order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "binancepay",
+                "openapi",
+                "order",
+                "close"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"prepayId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af1f4d0b-b9fb-4ea3-aad3-2548dcd25e39",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "binancepay",
+                    "openapi",
+                    "order",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantTradeNo\": \"<string>\",\n  \"prepayId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"code\": \"string\",\n  \"data\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.binance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-MBX-APIKEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3875aaa1-fb82-4029-b443-9faed49145e4",
+    "name": "Binance Algo Trading Account Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.\n\nContact Support:\n Name: Binance Support",
+      "type": "text/plain"
+    }
+  }
+}

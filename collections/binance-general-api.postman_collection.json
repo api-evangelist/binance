@@ -1,0 +1,327 @@
+{
+  "item": [
+    {
+      "id": "e6fc3d45-81b0-4847-8f14-ae6aabdff1cd",
+      "name": "General",
+      "description": {
+        "content": "General endpoints for connectivity testing and exchange information.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bec6d1b3-642a-49d6-b5c0-13fb6c4c19cb",
+          "name": "Test connectivity",
+          "request": {
+            "name": "Test connectivity",
+            "description": {
+              "content": "Test connectivity to the REST API. Returns an empty object on success.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b371b6c0-47f4-4f7b-b607-29123ce12dd4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "ping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d344846-8ea8-410d-937b-21deacdfe46b",
+          "name": "Check server time",
+          "request": {
+            "name": "Check server time",
+            "description": {
+              "content": "Test connectivity to the REST API and get the current server time as a Unix timestamp in milliseconds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b168cc66-334c-439b-beb7-8665f88637c4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"serverTime\": 7381\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95fff834-d5ef-4004-b339-99d22f5e4bd5",
+          "name": "Exchange information",
+          "request": {
+            "name": "Exchange information",
+            "description": {
+              "content": "Get current exchange trading rules and symbol information, including available trading pairs, price filters, lot size filters, and order type constraints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "exchangeInfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "JSON array of trading pair symbols to query. Cannot be used with the symbol parameter."
+                },
+                {
+                  "disabled": false,
+                  "key": "permissions",
+                  "value": "<string>",
+                  "description": "Filter by account permissions such as SPOT or MARGIN."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7534faf9-3f54-4302-a5e9-0199ddff448e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "exchangeInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "[\"BTCUSDT\",\"ETHUSDT\"]"
+                    },
+                    {
+                      "key": "permissions",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timezone\": \"string\",\n  \"serverTime\": 5765,\n  \"rateLimits\": [\n    {\n      \"rateLimitType\": \"ORDERS\",\n      \"interval\": \"SECOND\",\n      \"intervalNum\": 6716,\n      \"limit\": 7692\n    },\n    {\n      \"rateLimitType\": \"REQUEST_WEIGHT\",\n      \"interval\": \"SECOND\",\n      \"intervalNum\": 6264,\n      \"limit\": 3227\n    }\n  ],\n  \"symbols\": [\n    {\n      \"symbol\": \"string\",\n      \"status\": \"string\",\n      \"baseAsset\": \"string\",\n      \"baseAssetPrecision\": 5952,\n      \"quoteAsset\": \"string\",\n      \"quotePrecision\": 2325,\n      \"orderTypes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"icebergAllowed\": true,\n      \"ocoAllowed\": false,\n      \"isSpotTradingAllowed\": false,\n      \"isMarginTradingAllowed\": true,\n      \"permissions\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"symbol\": \"string\",\n      \"status\": \"string\",\n      \"baseAsset\": \"string\",\n      \"baseAssetPrecision\": 2015,\n      \"quoteAsset\": \"string\",\n      \"quotePrecision\": 2207,\n      \"orderTypes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"icebergAllowed\": true,\n      \"ocoAllowed\": true,\n      \"isSpotTradingAllowed\": false,\n      \"isMarginTradingAllowed\": true,\n      \"permissions\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.binance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-MBX-APIKEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0aebf0d0-f480-40f8-94b0-4d5fda34f7a4",
+    "name": "Binance Algo Trading Account General API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.\n\nContact Support:\n Name: Binance Support",
+      "type": "text/plain"
+    }
+  }
+}

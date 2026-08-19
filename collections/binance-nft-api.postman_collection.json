@@ -1,0 +1,717 @@
+{
+  "item": [
+    {
+      "id": "b64039a3-b7f2-44ee-91df-b5fcc1c77ead",
+      "name": "NFT",
+      "description": {
+        "content": "NFT transaction history, deposit, withdrawal, and asset endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91c0c78e-740b-4220-aef2-f59fd5992cd1",
+          "name": "Get NFT transaction history",
+          "request": {
+            "name": "Get NFT transaction history",
+            "description": {
+              "content": "Get NFT transaction history including purchases, sales, and trades.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "nft",
+                "history",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orderType",
+                  "value": "<integer>",
+                  "description": "(Required) 0=purchase, 1=sell, 2=royalty income, 3=primary market, 4=mint fee."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a3184fb5-aeea-4e47-9f78-986fbac37b0f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "nft",
+                    "history",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderType",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 8473,\n  \"list\": [\n    {\n      \"orderNo\": \"string\",\n      \"tradeTime\": 7668,\n      \"tradeAmount\": \"string\",\n      \"tradeCurrency\": \"string\"\n    },\n    {\n      \"orderNo\": \"string\",\n      \"tradeTime\": 1998,\n      \"tradeAmount\": \"string\",\n      \"tradeCurrency\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1dfda5b2-8ceb-45a9-921c-e90f33132910",
+          "name": "Get NFT deposit history",
+          "request": {
+            "name": "Get NFT deposit history",
+            "description": {
+              "content": "Get NFT deposit history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "nft",
+                "history",
+                "deposit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8346bfe5-abca-42e8-9726-640aec0c0919",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "nft",
+                    "history",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 5705\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc72ae6a-2d98-49a6-bf28-9c09b8f1439f",
+          "name": "Get NFT withdraw history",
+          "request": {
+            "name": "Get NFT withdraw history",
+            "description": {
+              "content": "Get NFT withdrawal history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "nft",
+                "history",
+                "withdraw"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "433fb2df-4a8c-4899-923e-72cdf2a13974",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "nft",
+                    "history",
+                    "withdraw"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 5705\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c30f715-5610-4cc8-862f-26ba7a03b329",
+          "name": "Get NFT asset",
+          "request": {
+            "name": "Get NFT asset",
+            "description": {
+              "content": "Get NFT assets owned by the user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sapi",
+                "v1",
+                "nft",
+                "user",
+                "getAsset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "recvWindow",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "signature",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-MBX-APIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f5503c93-17b3-4435-b372-496baff0e1ec",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sapi",
+                    "v1",
+                    "nft",
+                    "user",
+                    "getAsset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "recvWindow",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "signature",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 4713,\n  \"list\": [\n    {\n      \"network\": \"string\",\n      \"contractAddress\": \"string\",\n      \"tokenId\": \"string\"\n    },\n    {\n      \"network\": \"string\",\n      \"contractAddress\": \"string\",\n      \"tokenId\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.binance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-MBX-APIKEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "da241af4-eecd-42f1-94ce-4dda022ccf48",
+    "name": "Binance Algo Trading Account NFT API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.\n\nContact Support:\n Name: Binance Support",
+      "type": "text/plain"
+    }
+  }
+}

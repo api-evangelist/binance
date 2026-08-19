@@ -1,0 +1,4283 @@
+{
+  "item": [
+    {
+      "id": "21d3c392-13cb-4cce-bdb5-56c8305a0151",
+      "name": "Market Data",
+      "description": {
+        "content": "Public market data endpoints for COIN-M futures.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6cc7fb84-20ed-43f8-b024-8efdaa860a42",
+          "name": "Test connectivity",
+          "request": {
+            "name": "Test connectivity",
+            "description": {
+              "content": "Test connectivity to the COIN-M futures REST API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9842a95f-0e02-4cf6-8862-778c8658bbc3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "ping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4671e65d-9488-40d6-80b2-5657fd348f7b",
+          "name": "Check server time",
+          "request": {
+            "name": "Check server time",
+            "description": {
+              "content": "Get the current server time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3a163cca-d4f5-4c80-bc21-cba728a71b06",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"serverTime\": 4411\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d5e00c4-3b3a-4493-964a-bc6e888f7802",
+          "name": "Exchange information",
+          "request": {
+            "name": "Exchange information",
+            "description": {
+              "content": "Get current COIN-M futures exchange trading rules and symbol information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "exchangeInfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88adff9e-361c-4859-a5a9-d43d03749598",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "exchangeInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"serverTime\": 8719,\n  \"timezone\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6bf532fe-e173-45fc-a4c7-4ee5e750d990",
+          "name": "Order book",
+          "request": {
+            "name": "Order book",
+            "description": {
+              "content": "Get the current order book for a COIN-M futures symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "depth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of levels. Default 500."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1411c315-ddbf-426c-921a-9bcbbd879e47",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "depth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lastUpdateId\": 6799,\n  \"bids\": [\n    [\n      \"string\",\n      \"string\"\n    ],\n    [\n      \"string\",\n      \"string\"\n    ]\n  ],\n  \"asks\": [\n    [\n      \"string\",\n      \"string\"\n    ],\n    [\n      \"string\",\n      \"string\"\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45d9da1e-741c-4f12-ae40-ce1a26f5e41f",
+          "name": "Recent trades list",
+          "request": {
+            "name": "Recent trades list",
+            "description": {
+              "content": "Get recent COIN-M futures trades.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "trades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of trades. Default 500, max 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f822478-2916-40d8-a2da-763dbd137746",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 9818,\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"baseQty\": \"string\",\n    \"time\": 6896,\n    \"isBuyerMaker\": false\n  },\n  {\n    \"id\": 4692,\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"baseQty\": \"string\",\n    \"time\": 479,\n    \"isBuyerMaker\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0b04e04-6ac2-49a1-aa45-1c85f30800a8",
+          "name": "Kline/Candlestick data",
+          "request": {
+            "name": "Kline/Candlestick data",
+            "description": {
+              "content": "Get kline/candlestick data for a COIN-M futures symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "klines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<string>",
+                  "description": "(Required) Kline interval."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fcc02d4d-dbd9-4efd-8fa6-94c0e7e873b2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "klines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  [],\n  []\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9dadd7a4-071f-4bd4-beec-4ba08c00702e",
+          "name": "Mark price",
+          "request": {
+            "name": "Mark price",
+            "description": {
+              "content": "Get mark price and funding rate for COIN-M futures.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "premiumIndex"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76256145-93f5-4f2d-a6e9-c418556b3444",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "premiumIndex"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"string\",\n  \"pair\": \"string\",\n  \"markPrice\": \"string\",\n  \"indexPrice\": \"string\",\n  \"estimatedSettlePrice\": \"string\",\n  \"lastFundingRate\": \"string\",\n  \"nextFundingTime\": 5361,\n  \"interestRate\": \"string\",\n  \"time\": 9484\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed0c9a87-fe96-4f44-be8d-c10a1573ff7f",
+          "name": "Get funding rate history",
+          "request": {
+            "name": "Get funding rate history",
+            "description": {
+              "content": "Get historical funding rate data for COIN-M futures.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "fundingRate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a8dc0f24-3164-4bac-a975-cbc3eaf12bac",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "fundingRate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"fundingRate\": \"string\",\n    \"fundingTime\": 1985\n  },\n  {\n    \"symbol\": \"string\",\n    \"fundingRate\": \"string\",\n    \"fundingTime\": 2844\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "962bbc0f-805a-4a8b-9dfd-6647ccf6fccb",
+          "name": "Open interest",
+          "request": {
+            "name": "Open interest",
+            "description": {
+              "content": "Get open interest for a COIN-M futures symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dapi",
+                "v1",
+                "openInterest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60622218-58f9-434c-b85e-001d8493dde9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dapi",
+                    "v1",
+                    "openInterest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"openInterest\": \"string\",\n  \"symbol\": \"string\",\n  \"pair\": \"string\",\n  \"contractType\": \"string\",\n  \"time\": 7916\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9da536c3-d922-4a8b-bade-420b75dfe7da",
+          "name": "Test connectivity",
+          "request": {
+            "name": "Test connectivity",
+            "description": {
+              "content": "Test connectivity to the options REST API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59630c7c-5d3e-49c2-a74e-dfce66bc9b98",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "ping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75daee63-202c-47d8-8784-2a51e51b6bcc",
+          "name": "Check server time",
+          "request": {
+            "name": "Check server time",
+            "description": {
+              "content": "Get the current server time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "31a0981e-2713-4a64-b361-85f6dabe53fc",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"serverTime\": 4411\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6682c309-4d43-4707-8512-d588d9136180",
+          "name": "Exchange information",
+          "request": {
+            "name": "Exchange information",
+            "description": {
+              "content": "Get current options exchange information including available options symbols, strike prices, and expiration dates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "exchangeInfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb5deb36-cf81-46e3-801a-f588a97579f4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "exchangeInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timezone\": \"string\",\n  \"serverTime\": 802\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e47e9dd5-e08b-430e-98f3-e6764bde8419",
+          "name": "Order book",
+          "request": {
+            "name": "Order book",
+            "description": {
+              "content": "Get the current order book for an options symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "depth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Option symbol, e.g. BTC-250328-80000-C."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of levels. Default 100."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e58e004c-5239-4780-a630-0cb6891825b6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "depth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bids\": [\n    [\n      \"string\",\n      \"string\"\n    ],\n    [\n      \"string\",\n      \"string\"\n    ]\n  ],\n  \"asks\": [\n    [\n      \"string\",\n      \"string\"\n    ],\n    [\n      \"string\",\n      \"string\"\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "548fd0ee-efc9-488b-a34b-2b15165aed43",
+          "name": "Recent trades list",
+          "request": {
+            "name": "Recent trades list",
+            "description": {
+              "content": "Get recent options trades.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "trades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Option symbol."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of trades. Default 100, max 500."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "92459966-e2fb-40fe-825b-5a95bef95744",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 8575,\n    \"symbol\": \"string\",\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"side\": 2316,\n    \"time\": 4171\n  },\n  {\n    \"id\": 9941,\n    \"symbol\": \"string\",\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"side\": 5685,\n    \"time\": 1537\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a12c7d7c-7d3f-4f73-a7c2-b6028a2c3e20",
+          "name": "Kline/Candlestick data",
+          "request": {
+            "name": "Kline/Candlestick data",
+            "description": {
+              "content": "Get kline/candlestick data for an options symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "klines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ea5bde39-4b48-4f1e-9479-e1ab61bc6f59",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "klines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  [],\n  []\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb2a1c64-a6fb-4492-80d7-b20acf7a0167",
+          "name": "Option mark price",
+          "request": {
+            "name": "Option mark price",
+            "description": {
+              "content": "Get mark price for options symbols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "mark"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Option symbol. If not specified, returns all symbols."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "120abf5d-6630-4e81-9929-37f4e2252fc5",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "mark"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"markPrice\": \"string\",\n    \"bidIV\": \"string\",\n    \"askIV\": \"string\",\n    \"markIV\": \"string\",\n    \"delta\": \"string\",\n    \"theta\": \"string\",\n    \"gamma\": \"string\",\n    \"vega\": \"string\",\n    \"highPriceLimit\": \"string\",\n    \"lowPriceLimit\": \"string\"\n  },\n  {\n    \"symbol\": \"string\",\n    \"markPrice\": \"string\",\n    \"bidIV\": \"string\",\n    \"askIV\": \"string\",\n    \"markIV\": \"string\",\n    \"delta\": \"string\",\n    \"theta\": \"string\",\n    \"gamma\": \"string\",\n    \"vega\": \"string\",\n    \"highPriceLimit\": \"string\",\n    \"lowPriceLimit\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94ea42f9-e28f-4d94-9a15-41ef99532f5e",
+          "name": "24hr ticker price change statistics",
+          "request": {
+            "name": "24hr ticker price change statistics",
+            "description": {
+              "content": "Get 24-hour ticker statistics for options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "ticker"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Option symbol."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6a4fdf65-2c41-4066-8a05-38ab12015697",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "ticker"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"priceChange\": \"string\",\n    \"priceChangePercent\": \"string\",\n    \"lastPrice\": \"string\",\n    \"lastQty\": \"string\",\n    \"open\": \"string\",\n    \"high\": \"string\",\n    \"low\": \"string\",\n    \"volume\": \"string\",\n    \"amount\": \"string\",\n    \"bidPrice\": \"string\",\n    \"askPrice\": \"string\",\n    \"openTime\": 7041,\n    \"closeTime\": 2025,\n    \"firstTradeId\": 288,\n    \"tradeCount\": 8971,\n    \"strikePrice\": \"string\",\n    \"exercisePrice\": \"string\"\n  },\n  {\n    \"symbol\": \"string\",\n    \"priceChange\": \"string\",\n    \"priceChangePercent\": \"string\",\n    \"lastPrice\": \"string\",\n    \"lastQty\": \"string\",\n    \"open\": \"string\",\n    \"high\": \"string\",\n    \"low\": \"string\",\n    \"volume\": \"string\",\n    \"amount\": \"string\",\n    \"bidPrice\": \"string\",\n    \"askPrice\": \"string\",\n    \"openTime\": 1867,\n    \"closeTime\": 8539,\n    \"firstTradeId\": 5951,\n    \"tradeCount\": 4733,\n    \"strikePrice\": \"string\",\n    \"exercisePrice\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "363c3396-6ded-48fb-bce1-3680fe3a5bae",
+          "name": "Open interest",
+          "request": {
+            "name": "Open interest",
+            "description": {
+              "content": "Get open interest for an options underlying asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eapi",
+                "v1",
+                "openInterest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "underlyingAsset",
+                  "value": "<string>",
+                  "description": "(Required) Underlying asset, e.g. BTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "expiration",
+                  "value": "<string>",
+                  "description": "(Required) Expiration date, e.g. 250328."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a712a46b-04e3-41a8-98cb-c75b38a59186",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eapi",
+                    "v1",
+                    "openInterest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "underlyingAsset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expiration",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"sumOpenInterest\": \"string\",\n    \"sumOpenInterestUsd\": \"string\",\n    \"timestamp\": \"string\"\n  },\n  {\n    \"symbol\": \"string\",\n    \"sumOpenInterest\": \"string\",\n    \"sumOpenInterestUsd\": \"string\",\n    \"timestamp\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d99c6f4b-ba7a-453f-bd79-90c11a0ff653",
+          "name": "Order book",
+          "request": {
+            "name": "Order book",
+            "description": {
+              "content": "Get the current order book depth for a given trading pair. Returns bids and asks with price and quantity at each level.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "depth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of price levels to return. Default 100. Valid limits are 5, 10, 20, 50, 100, 500, 1000, 5000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "429d3c17-1f31-40c2-8737-7b5538a582cd",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "depth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lastUpdateId\": 1710,\n  \"bids\": [\n    [\n      \"string\",\n      \"string\"\n    ],\n    [\n      \"string\",\n      \"string\"\n    ]\n  ],\n  \"asks\": [\n    [\n      \"string\",\n      \"string\"\n    ],\n    [\n      \"string\",\n      \"string\"\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c65ccfcb-ade3-42b8-a512-6186b4c2a3c4",
+          "name": "Recent trades list",
+          "request": {
+            "name": "Recent trades list",
+            "description": {
+              "content": "Get recent trades for a given symbol. Returns the most recent trades up to the specified limit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "trades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of trades to return. Default 500, max 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10b51e37-15c5-46f4-8482-f01fcbab8618",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 5442,\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"time\": 1567,\n    \"isBuyerMaker\": true,\n    \"isBestMatch\": true\n  },\n  {\n    \"id\": 529,\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"time\": 1241,\n    \"isBuyerMaker\": false,\n    \"isBestMatch\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7732e76-13e0-4b77-80f0-689737934db4",
+          "name": "Old trade lookup",
+          "request": {
+            "name": "Old trade lookup",
+            "description": {
+              "content": "Get older trades for a given symbol. Requires API key authentication but does not require a signature.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "historicalTrades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of trades to return. Default 500, max 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromId",
+                  "value": "<long>",
+                  "description": "Trade ID to fetch from. Default gets most recent trades."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f65018e5-a197-42d6-9ebc-f7be7a8aaff7",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "historicalTrades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "key": "fromId",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 5442,\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"time\": 1567,\n    \"isBuyerMaker\": true,\n    \"isBestMatch\": true\n  },\n  {\n    \"id\": 529,\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"time\": 1241,\n    \"isBuyerMaker\": false,\n    \"isBestMatch\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b6cd80d-ef9b-4621-ba6a-2c09d567365a",
+          "name": "Compressed/Aggregate trades list",
+          "request": {
+            "name": "Compressed/Aggregate trades list",
+            "description": {
+              "content": "Get compressed, aggregate trades. Trades that fill at the same time, from the same order, with the same price will have the quantity aggregated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "aggTrades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromId",
+                  "value": "<long>",
+                  "description": "ID to get aggregate trades from (inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>",
+                  "description": "Start time in milliseconds (inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>",
+                  "description": "End time in milliseconds (inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of results to return. Default 500, max 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "528cb5d7-de30-4ace-94fd-ac911501060c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "aggTrades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "fromId",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"a\": 9862,\n    \"p\": \"string\",\n    \"q\": \"string\",\n    \"f\": 5112,\n    \"l\": 8290,\n    \"T\": 2297,\n    \"m\": true,\n    \"M\": false\n  },\n  {\n    \"a\": 1997,\n    \"p\": \"string\",\n    \"q\": \"string\",\n    \"f\": 6413,\n    \"l\": 2240,\n    \"T\": 7561,\n    \"m\": true,\n    \"M\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0416cf4-cce0-4fff-9d3d-cf66693358dc",
+          "name": "Kline/Candlestick data",
+          "request": {
+            "name": "Kline/Candlestick data",
+            "description": {
+              "content": "Get kline/candlestick bars for a symbol. Klines are uniquely identified by their open time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "klines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<string>",
+                  "description": "(Required) Kline/candlestick interval."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>",
+                  "description": "Start time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>",
+                  "description": "End time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeZone",
+                  "value": "0",
+                  "description": "Timezone for kline open/close times. Default is UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of results to return. Default 500, max 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "68956dc9-56b5-40d6-8c98-369334281f8d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "klines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "timeZone",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  [],\n  []\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62b2b649-d2ad-4138-aa97-6874ceb8407c",
+          "name": "UIKlines",
+          "request": {
+            "name": "UIKlines",
+            "description": {
+              "content": "Get kline/candlestick bars optimized for presentation of candlestick charts. Returns modified kline data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "uiKlines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<string>",
+                  "description": "(Required) Kline/candlestick interval."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>",
+                  "description": "Start time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>",
+                  "description": "End time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeZone",
+                  "value": "0",
+                  "description": "Timezone for kline open/close times. Default is UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of results to return. Default 500, max 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1df4b9d-ad83-4061-9713-a7ab570d4492",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "uiKlines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "timeZone",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  [],\n  []\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26df7267-e295-4c44-9fe8-561470e43639",
+          "name": "Current average price",
+          "request": {
+            "name": "Current average price",
+            "description": {
+              "content": "Get the current average price for a symbol over the last 5 minutes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "avgPrice"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair symbol, e.g. BTCUSDT."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b61fb54b-875a-4cbb-a349-451a82b5f6e8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "avgPrice"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"mins\": 2478,\n  \"price\": \"string\",\n  \"closeTime\": 2015\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed472ea4-4fd3-4221-9f90-cc4a6394eecc",
+          "name": "24hr ticker price change statistics",
+          "request": {
+            "name": "24hr ticker price change statistics",
+            "description": {
+              "content": "Get 24-hour rolling window price change statistics for a symbol or all symbols. Careful when accessing this with no symbol as the weight is very high.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "ticker",
+                "24hr"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "JSON array of symbols to query."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "FULL",
+                  "description": "Supported values are FULL or MINI. MINI omits some fields."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0c033f84-a871-43c2-89fe-f21587d44709",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "ticker",
+                    "24hr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "FULL"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"string\",\n  \"priceChange\": \"string\",\n  \"priceChangePercent\": \"string\",\n  \"weightedAvgPrice\": \"string\",\n  \"prevClosePrice\": \"string\",\n  \"lastPrice\": \"string\",\n  \"lastQty\": \"string\",\n  \"bidPrice\": \"string\",\n  \"bidQty\": \"string\",\n  \"askPrice\": \"string\",\n  \"askQty\": \"string\",\n  \"openPrice\": \"string\",\n  \"highPrice\": \"string\",\n  \"lowPrice\": \"string\",\n  \"volume\": \"string\",\n  \"quoteVolume\": \"string\",\n  \"openTime\": 4645,\n  \"closeTime\": 3358,\n  \"firstId\": 2040,\n  \"lastId\": 5184,\n  \"count\": 8555\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc1b2917-2df8-454a-bd54-beeba03ac81d",
+          "name": "Symbol price ticker",
+          "request": {
+            "name": "Symbol price ticker",
+            "description": {
+              "content": "Get the latest price for a symbol or symbols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "ticker",
+                "price"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "JSON array of symbols to query."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f89a4307-3aa4-4b86-96a5-656f243bdf99",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "ticker",
+                    "price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"string\",\n  \"price\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e632e32-88cb-45d9-9d55-a9ffe16a9aea",
+          "name": "Symbol order book ticker",
+          "request": {
+            "name": "Symbol order book ticker",
+            "description": {
+              "content": "Get the best price and quantity on the order book for a symbol or symbols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "ticker",
+                "bookTicker"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "JSON array of symbols to query."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8eb5d7ff-2545-4e3e-9c2b-f7efb7824bea",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "ticker",
+                    "bookTicker"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"string\",\n  \"bidPrice\": \"string\",\n  \"bidQty\": \"string\",\n  \"askPrice\": \"string\",\n  \"askQty\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1dcb1939-fcb1-4f69-a426-7861c249952d",
+          "name": "Rolling window price change statistics",
+          "request": {
+            "name": "Rolling window price change statistics",
+            "description": {
+              "content": "Get rolling window price change statistics with a configurable window size. Unlike the 24hr ticker, this allows specifying the statistics window.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "ticker"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "JSON array of symbols to query."
+                },
+                {
+                  "disabled": false,
+                  "key": "windowSize",
+                  "value": "1d",
+                  "description": "Window size for the rolling statistics. Defaults to 1d. Supported values include 1m, 2m, ... 59m, 1h, 2h, ... 23h, 1d, 2d, ... 7d."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "FULL",
+                  "description": "Response type. FULL or MINI."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0dfcf86-3713-4e07-ba7d-35896fae01db",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "ticker"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTCUSDT"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "windowSize",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "type",
+                      "value": "FULL"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"string\",\n  \"priceChange\": \"string\",\n  \"priceChangePercent\": \"string\",\n  \"weightedAvgPrice\": \"string\",\n  \"prevClosePrice\": \"string\",\n  \"lastPrice\": \"string\",\n  \"lastQty\": \"string\",\n  \"bidPrice\": \"string\",\n  \"bidQty\": \"string\",\n  \"askPrice\": \"string\",\n  \"askQty\": \"string\",\n  \"openPrice\": \"string\",\n  \"highPrice\": \"string\",\n  \"lowPrice\": \"string\",\n  \"volume\": \"string\",\n  \"quoteVolume\": \"string\",\n  \"openTime\": 4645,\n  \"closeTime\": 3358,\n  \"firstId\": 2040,\n  \"lastId\": 5184,\n  \"count\": 8555\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb878da2-e8d6-4949-9bac-98b12cad94d8",
+          "name": "Test connectivity",
+          "request": {
+            "name": "Test connectivity",
+            "description": {
+              "content": "Test connectivity to the futures REST API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0713d2a-f2c9-4c09-856c-24780b28976c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "ping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5730c68a-4fdf-4fb3-926b-4667bfa0af4f",
+          "name": "Check server time",
+          "request": {
+            "name": "Check server time",
+            "description": {
+              "content": "Test connectivity and get the current server time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95d052e1-4dc0-4c74-b65f-999e314fc790",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"serverTime\": 4411\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9e4c7cf-2b3a-4bb4-b807-1b64c14b9865",
+          "name": "Exchange information",
+          "request": {
+            "name": "Exchange information",
+            "description": {
+              "content": "Get current futures exchange trading rules and symbol information including contract types, margin assets, and filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "exchangeInfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f7e47292-b558-4e39-b72a-63ffb31bb97f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "exchangeInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"serverTime\": 9781,\n  \"symbols\": [\n    {\n      \"symbol\": \"string\",\n      \"pair\": \"string\",\n      \"contractType\": \"CURRENT_MONTH\",\n      \"deliveryDate\": 7906,\n      \"onboardDate\": 5735,\n      \"status\": \"string\",\n      \"baseAsset\": \"string\",\n      \"quoteAsset\": \"string\",\n      \"marginAsset\": \"string\",\n      \"pricePrecision\": 1763,\n      \"quantityPrecision\": 8163,\n      \"underlyingType\": \"string\",\n      \"settlePlan\": 4095,\n      \"triggerProtect\": \"string\",\n      \"orderTypes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"timeInForce\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"symbol\": \"string\",\n      \"pair\": \"string\",\n      \"contractType\": \"CURRENT_MONTH\",\n      \"deliveryDate\": 2263,\n      \"onboardDate\": 8014,\n      \"status\": \"string\",\n      \"baseAsset\": \"string\",\n      \"quoteAsset\": \"string\",\n      \"marginAsset\": \"string\",\n      \"pricePrecision\": 8686,\n      \"quantityPrecision\": 1227,\n      \"underlyingType\": \"string\",\n      \"settlePlan\": 4517,\n      \"triggerProtect\": \"string\",\n      \"orderTypes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"timeInForce\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"timezone\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d639910-6f62-4178-8e27-d215249f1591",
+          "name": "Order book",
+          "request": {
+            "name": "Order book",
+            "description": {
+              "content": "Get the current order book depth for a futures symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "depth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Futures trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of levels. Default 500. Valid values are 5, 10, 20, 50, 100, 500, 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "037ea159-f75a-4944-b9d0-5c2ddea6222d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "depth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lastUpdateId\": 2705,\n  \"E\": 5531,\n  \"T\": 1499,\n  \"bids\": [\n    [\n      \"string\",\n      \"string\"\n    ],\n    [\n      \"string\",\n      \"string\"\n    ]\n  ],\n  \"asks\": [\n    [\n      \"string\",\n      \"string\"\n    ],\n    [\n      \"string\",\n      \"string\"\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5d1a7ec-84db-41dc-b211-e5787c67e3d3",
+          "name": "Recent trades list",
+          "request": {
+            "name": "Recent trades list",
+            "description": {
+              "content": "Get recent futures trades for a symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "trades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Futures trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of trades. Default 500, max 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "022f0344-eafa-4191-bae5-3cf048eb233a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 3951,\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"time\": 256,\n    \"isBuyerMaker\": true\n  },\n  {\n    \"id\": 5142,\n    \"price\": \"string\",\n    \"qty\": \"string\",\n    \"quoteQty\": \"string\",\n    \"time\": 1535,\n    \"isBuyerMaker\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9d92f6d-63d2-4374-a65e-6e701ab3ef35",
+          "name": "Kline/Candlestick data",
+          "request": {
+            "name": "Kline/Candlestick data",
+            "description": {
+              "content": "Get kline/candlestick bars for a futures symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "klines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Futures trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<string>",
+                  "description": "(Required) Kline interval."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>",
+                  "description": "Start time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>",
+                  "description": "End time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Number of results. Default 500, max 1500."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9bfd044b-9276-41d7-8b7d-380564fdca60",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "klines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  [],\n  []\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8a189cd-115a-411b-9051-73df49863b24",
+          "name": "Mark price",
+          "request": {
+            "name": "Mark price",
+            "description": {
+              "content": "Get mark price and funding rate for a futures symbol or all symbols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "premiumIndex"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Futures trading pair symbol, e.g. BTCUSDT."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "153df92a-1bc3-4574-a264-26482e5d1ac0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "premiumIndex"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"string\",\n  \"markPrice\": \"string\",\n  \"indexPrice\": \"string\",\n  \"estimatedSettlePrice\": \"string\",\n  \"lastFundingRate\": \"string\",\n  \"nextFundingTime\": 9022,\n  \"interestRate\": \"string\",\n  \"time\": 3312\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b71c29aa-f1b2-4961-976c-969560053980",
+          "name": "Get funding rate history",
+          "request": {
+            "name": "Get funding rate history",
+            "description": {
+              "content": "Get historical funding rate data for a futures symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "fundingRate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Futures trading pair symbol, e.g. BTCUSDT."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<long>",
+                  "description": "Start time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<long>",
+                  "description": "End time in milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of results. Default 100, max 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "91a8faa2-4096-431e-9445-453077b042bd",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "fundingRate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"fundingRate\": \"string\",\n    \"fundingTime\": 733,\n    \"markPrice\": \"string\"\n  },\n  {\n    \"symbol\": \"string\",\n    \"fundingRate\": \"string\",\n    \"fundingTime\": 1655,\n    \"markPrice\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98d540e5-ea2f-47f0-a7f0-a02757bfeb3c",
+          "name": "Get funding rate info",
+          "request": {
+            "name": "Get funding rate info",
+            "description": {
+              "content": "Get funding rate configuration for all symbols including funding interval and cap/floor rates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "fundingInfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a10b1e8-948d-4f00-9104-269fcb85f020",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "fundingInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"adjustedFundingRateCap\": \"string\",\n    \"adjustedFundingRateFloor\": \"string\",\n    \"fundingIntervalHours\": 5629\n  },\n  {\n    \"symbol\": \"string\",\n    \"adjustedFundingRateCap\": \"string\",\n    \"adjustedFundingRateFloor\": \"string\",\n    \"fundingIntervalHours\": 680\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd8be5ac-983a-4347-825c-7728230ae530",
+          "name": "24hr ticker price change statistics",
+          "request": {
+            "name": "24hr ticker price change statistics",
+            "description": {
+              "content": "Get 24-hour rolling window price change statistics for futures.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "ticker",
+                "24hr"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Futures trading pair symbol, e.g. BTCUSDT."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "426058e8-afbc-47f6-aa70-668e4d2c9249",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "ticker",
+                    "24hr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"string\",\n  \"priceChange\": \"string\",\n  \"priceChangePercent\": \"string\",\n  \"weightedAvgPrice\": \"string\",\n  \"lastPrice\": \"string\",\n  \"lastQty\": \"string\",\n  \"openPrice\": \"string\",\n  \"highPrice\": \"string\",\n  \"lowPrice\": \"string\",\n  \"volume\": \"string\",\n  \"quoteVolume\": \"string\",\n  \"openTime\": 5209,\n  \"closeTime\": 2002,\n  \"firstId\": 6111,\n  \"lastId\": 3224,\n  \"count\": 5438\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98de6919-b937-4be9-bae2-fb3f914213ed",
+          "name": "Symbol price ticker",
+          "request": {
+            "name": "Symbol price ticker",
+            "description": {
+              "content": "Get the latest price for a futures symbol or all symbols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "ticker",
+                "price"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Futures trading pair symbol, e.g. BTCUSDT."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5bba6e3d-1af4-4734-aa3c-237dda15ef8f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "ticker",
+                    "price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"string\",\n  \"price\": \"string\",\n  \"time\": 2949\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cdc9fa6-ced5-499a-a061-13f829a26879",
+          "name": "Open interest",
+          "request": {
+            "name": "Open interest",
+            "description": {
+              "content": "Get present open interest of a specific symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fapi",
+                "v1",
+                "openInterest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Futures trading pair symbol, e.g. BTCUSDT."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be928d31-2aa3-4de3-afb4-309071ed0d48",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fapi",
+                    "v1",
+                    "openInterest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-MBX-APIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"openInterest\": \"string\",\n  \"symbol\": \"string\",\n  \"time\": 9432\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.binance.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-MBX-APIKEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1244b611-748d-4fb7-98c0-87f813775bec",
+    "name": "Binance Algo Trading Account Market Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.\n\nContact Support:\n Name: Binance Support",
+      "type": "text/plain"
+    }
+  }
+}

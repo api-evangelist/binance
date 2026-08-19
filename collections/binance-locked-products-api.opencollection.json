@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Binance Algo Trading Account Locked Products API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-MBX-APIKEY",
+      "value": "{{X-MBX-APIKEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Locked Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get simple earn locked product list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.binance.com/sapi/v1/simple-earn/locked/list",
+            "params": [
+              {
+                "name": "asset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "current",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get available locked earn products."
+        },
+        {
+          "info": {
+            "name": "Subscribe locked product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.binance.com/sapi/v1/simple-earn/locked/subscribe",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "autoSubscribe",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sourceAccount",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "recvWindow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signature",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-MBX-APIKEY",
+              "value": "{{X-MBX-APIKEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Subscribe to a locked earn product."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
