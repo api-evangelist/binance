@@ -635,7 +635,8 @@ apis:
   description: General endpoints for connectivity testing and exchange information.
   humanURL: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
   baseURL: https://api.binance.com
-  tags:
+  tags: []
+  tags_raw:
   - General
   properties:
   - type: OpenAPI
@@ -948,6 +949,8 @@ apis:
   humanURL: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
   baseURL: https://api.binance.com
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
