@@ -1,14 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Binance Algo Trading Account Refunds API
-  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
-  version: '1'
+  title: Binance Pay Refunds API
+  description: The Binance Pay API enables merchants and businesses to accept cryptocurrency payments from Binance users. Developers can create payment orders, query payment status, process refunds, and manage merchant accounts. The API supports QR code payments, in-app payments, and online checkout flows for e-commerce integration.
+  version: '2'
   contact:
-    name: Binance Support
-    url: https://www.binance.com/en/support
+    name: Binance Pay Support
+    url: https://merchant.binance.com/en/docs/getting-started
   termsOfService: https://www.binance.com/en/terms
 servers:
-- url: https://api.binance.com
+- url: https://bpay.binanceapi.com
   description: Production Server
 security:
 - apiKey: []
@@ -85,11 +85,8 @@ components:
     apiKey:
       type: apiKey
       in: header
-      name: X-MBX-APIKEY
-    hmacSignature:
-      type: apiKey
-      in: query
-      name: signature
+      name: BinancePay-Certificate-SN
+      description: Binance Pay API key/certificate serial number.
 externalDocs:
-  description: Binance Algo Trading Documentation
-  url: https://developers.binance.com/docs/algo/general-info
+  description: Binance Pay Documentation
+  url: https://developers.binance.com/docs/binance-pay/introduction

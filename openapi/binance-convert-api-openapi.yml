@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Binance Algo Trading Account Convert API
-  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
+  title: Binance Convert API
+  description: The Binance Convert API provides a simple interface for converting between cryptocurrencies and fiat currencies at quoted prices. Unlike order-book trading, the Convert API offers instant swaps with price quotes that are valid for a limited time window.
   version: '1'
   contact:
     name: Binance Support
@@ -354,5 +354,5 @@ components:
       in: query
       name: signature
 externalDocs:
-  description: Binance Algo Trading Documentation
-  url: https://developers.binance.com/docs/algo/general-info
+  description: Binance Convert Documentation
+  url: https://developers.binance.com/docs/convert/general-info

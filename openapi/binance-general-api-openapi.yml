@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Binance Algo Trading Account General API
-  description: The Binance Algo Trading API provides access to algorithmic order execution strategies such as TWAP (Time-Weighted Average Price) and volume participation algorithms. Developers can place large orders that are automatically broken into smaller child orders and executed over time to minimize market impact.
-  version: '1'
+  title: Binance Spot Trading General API
+  description: The Binance Spot Trading REST API provides programmatic access to the Binance spot exchange, the world's largest cryptocurrency trading platform by volume. Developers can place and manage orders, query account balances, retrieve real-time and historical market data, and manage trading pairs. The API supports limit, market, stop-loss, and other order types, along with account and trade history endpoints. Authentication uses HMAC SHA256 signed requests with API key and secret key credentials.
+  version: '3'
   contact:
     name: Binance Support
     url: https://www.binance.com/en/support
@@ -10,6 +10,16 @@ info:
 servers:
 - url: https://api.binance.com
   description: Production Server
+- url: https://api1.binance.com
+  description: Production Server (Backup 1)
+- url: https://api2.binance.com
+  description: Production Server (Backup 2)
+- url: https://api3.binance.com
+  description: Production Server (Backup 3)
+- url: https://api4.binance.com
+  description: Production Server (Backup 4)
+- url: https://testnet.binance.vision
+  description: Testnet Server
 security:
 - apiKey: []
 tags:
@@ -81,31 +91,29 @@ paths:
       security: []
 components:
   schemas:
-    ExchangeInfo:
+    RateLimit:
       type: object
       properties:
-        timezone:
+        rateLimitType:
           type: string
-          description: Server timezone, always UTC.
-        serverTime:
+          enum:
+          - REQUEST_WEIGHT
+          - ORDERS
+          - RAW_REQUESTS
+          description: The type of rate limit.
+        interval:
+          type: string
+          enum:
+          - SECOND
+          - MINUTE
+          - DAY
+          description: The interval unit.
+        intervalNum:
           type: integer
-          format: int64
-          description: Current server time in milliseconds.
-        rateLimits:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimit'
-          description: Rate limit rules for the exchange.
-        exchangeFilters:
-          type: array
-          items:
-            type: object
-          description: Exchange-level filters.
-        symbols:
-          type: array
-          items:
-            $ref: '#/components/schemas/SymbolInfo'
-          description: List of trading pair symbols and their rules.
+          description: The interval number.
+        limit:
+          type: integer
+          description: The maximum count within the interval.
     SymbolInfo:
       type: object
       properties:
@@ -154,29 +162,31 @@ components:
           items:
             type: string
           description: Account permissions required to trade this symbol.
-    RateLimit:
+    ExchangeInfo:
       type: object
       properties:
-        rateLimitType:
+        timezone:
           type: string
-          enum:
-          - REQUEST_WEIGHT
-          - ORDERS
-          - RAW_REQUESTS
-          description: The type of rate limit.
-        interval:
-          type: string
-          enum:
-          - SECOND
-          - MINUTE
-          - DAY
-          description: The interval unit.
-        intervalNum:
+          description: Server timezone, always UTC.
+        serverTime:
           type: integer
-          description: The interval number.
-        limit:
-          type: integer
-          description: The maximum count within the interval.
+          format: int64
+          description: Current server time in milliseconds.
+        rateLimits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimit'
+          description: Rate limit rules for the exchange.
+        exchangeFilters:
+          type: array
+          items:
+            type: object
+          description: Exchange-level filters.
+        symbols:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymbolInfo'
+          description: List of trading pair symbols and their rules.
   parameters:
     symbol:
       name: symbol
@@ -190,10 +200,12 @@ components:
       type: apiKey
       in: header
       name: X-MBX-APIKEY
+      description: Binance API key passed in the X-MBX-APIKEY header.
     hmacSignature:
       type: apiKey
       in: query
       name: signature
+      description: HMAC SHA256 signature of the query string using the API secret key. Required for SIGNED endpoints.
 externalDocs:
-  description: Binance Algo Trading Documentation
-  url: https://developers.binance.com/docs/algo/general-info
+  description: Binance Spot API Documentation
+  url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
