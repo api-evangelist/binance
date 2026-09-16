@@ -25,7 +25,7 @@ accessModel:
   - security
   generated: '2026-09-03'
   method: derived
-modified: '2026-05-19'
+modified: '2026-09-16'
 apis:
 - aid: binance:spot-websocket-api
   name: Binance Spot WebSocket API
@@ -43,10 +43,9 @@ apis:
     type: Documentation
   - url: asyncapi/binance-spot-websocket-api-asyncapi.yml
     type: AsyncAPI
-  description: >-
-    The Binance Spot WebSocket API provides an alternative way to access spot trading functionality through
-    persistent WebSocket connections. It is functionally equivalent to the REST API, accepting the same
-    parameters and returning the same status and error codes, but offers lower latency for time-sensitive
+  description: The Binance Spot WebSocket API provides an alternative way to access spot trading functionality
+    through persistent WebSocket connections. It is functionally equivalent to the REST API, accepting
+    the same parameters and returning the same status and error codes, but offers lower latency for time-sensitive
     trading operations.
 - aid: binance:spot-websocket-streams
   name: Binance Spot WebSocket Streams
@@ -64,12 +63,11 @@ apis:
     type: Documentation
   - url: asyncapi/binance-spot-websocket-streams-asyncapi.yml
     type: AsyncAPI
-  description: >-
-    Binance Spot WebSocket Streams deliver real-time market data updates via persistent WebSocket connections.
-    Developers can subscribe to individual symbol ticker streams, aggregate trade streams, kline and candlestick
-    data, depth-of-book updates, and mini-ticker streams. The service supports both single and combined
-    stream subscriptions, enabling efficient consumption of live market data for trading bots, dashboards,
-    and analytics applications without polling the REST API.
+  description: Binance Spot WebSocket Streams deliver real-time market data updates via persistent WebSocket
+    connections. Developers can subscribe to individual symbol ticker streams, aggregate trade streams,
+    kline and candlestick data, depth-of-book updates, and mini-ticker streams. The service supports both
+    single and combined stream subscriptions, enabling efficient consumption of live market data for trading
+    bots, dashboards, and analytics applications without polling the REST API.
 - aid: binance:binance-account-api
   name: Binance Account API
   description: Account endpoints for COIN-M futures positions and balances.
@@ -1426,6 +1424,8 @@ apis:
   - type: Documentation
     url: https://developers.binance.com/docs/fiat/general-info
 common:
+- type: Website
+  url: https://binance.com
 - type: AgenticAccess
   url: agentic-access/binance-agentic-access.yml
 - type: VulnerabilityDisclosure
@@ -1451,8 +1451,7 @@ common:
 - type: Features
   data:
   - name: Spot Trading
-    description: Buy and sell 500+ cryptocurrency pairs with limit, market, and stop-loss
-      orders.
+    description: Buy and sell 500+ cryptocurrency pairs with limit, market, and stop-loss orders.
   - name: USD-M Futures
     description: Trade perpetual and delivery futures contracts settled in USDT.
   - name: Coin-M Futures
@@ -1466,8 +1465,7 @@ common:
   - name: Wallet Management
     description: Manage deposits, withdrawals, and asset transfers between wallets.
   - name: Simple Earn
-    description: Earn interest on idle cryptocurrency assets through flexible and
-      locked products.
+    description: Earn interest on idle cryptocurrency assets through flexible and locked products.
 - type: UseCases
   data:
   - name: Algorithmic Trading
@@ -1479,13 +1477,11 @@ common:
   - name: DeFi Integration
     description: Bridge centralized Binance liquidity into DeFi protocols.
   - name: Arbitrage Trading
-    description: Exploit price differences across Binance spot, futures, and margin
-      markets.
+    description: Exploit price differences across Binance spot, futures, and margin markets.
 - type: Integrations
   data:
   - name: TradingView
-    description: Connect Binance to TradingView for charting and automated alert-based
-      trading.
+    description: Connect Binance to TradingView for charting and automated alert-based trading.
   - name: MetaTrader
     description: Use MetaTrader bridge adapters to trade Binance from MT4/MT5.
   - name: Telegram
@@ -1497,9 +1493,9 @@ common:
 - name: Agent Skills
   url: https://github.com/binance/binance-skills-hub
   type: AgentSkills
-description: Binance is the world's largest cryptocurrency exchange by trading volume,
-  providing APIs for spot trading, futures, margin, wallet management, and market
-  data across 19+ specialized REST APIs and WebSocket streams.
+description: Binance is the world's largest cryptocurrency exchange by trading volume, providing APIs
+  for spot trading, futures, margin, wallet management, and market data across 19+ specialized REST APIs
+  and WebSocket streams.
 name: Binance
 kind: contract
 access: 3rd-Party
