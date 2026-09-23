@@ -76,7 +76,8 @@
     "tag 'Account' spans 8 source specs (binance-coin-margined-futures-openapi.yml, binance-european-options-openapi.yml, binance-margin-trading-openapi.yml, binance-portfolio-margin-openapi.yml, binance-simple-earn-openapi.yml, binance-spot-trading-openapi.yml, binance-usds-margined-futures-openapi.yml, binance-wallet-openapi.yml): per-path servers applied",
     "tag 'Market Data' spans 4 source specs (binance-coin-margined-futures-openapi.yml, binance-european-options-openapi.yml, binance-spot-trading-openapi.yml, binance-usds-margined-futures-openapi.yml): per-path servers applied",
     "tag 'Trading' spans 6 source specs (binance-coin-margined-futures-openapi.yml, binance-european-options-openapi.yml, binance-margin-trading-openapi.yml, binance-portfolio-margin-openapi.yml, binance-spot-trading-openapi.yml, binance-usds-margined-futures-openapi.yml): per-path servers applied",
-    "tag 'User Data Stream' spans 5 source specs (binance-coin-margined-futures-openapi.yml, binance-european-options-openapi.yml, binance-portfolio-margin-openapi.yml, binance-spot-trading-openapi.yml, binance-usds-margined-futures-openapi.yml): per-path servers applied"
+    "tag 'User Data Stream' spans 5 source specs (binance-coin-margined-futures-openapi.yml, binance-european-options-openapi.yml, binance-portfolio-margin-openapi.yml, binance-spot-trading-openapi.yml, binance-usds-margined-futures-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "binance-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",

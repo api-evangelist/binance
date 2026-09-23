@@ -1265,20 +1265,8 @@ paths:
       description: Production Server
 components:
   parameters:
-    timestamp:
-      name: timestamp
-      in: query
-      required: true
-      schema:
-        type: integer
-        format: int64
-    recvWindow:
-      name: recvWindow
-      in: query
-      schema:
-        type: integer
-    signature:
-      name: signature
+    symbolRequired:
+      name: symbol
       in: query
       required: true
       schema:
@@ -1288,10 +1276,37 @@ components:
       in: query
       schema:
         type: string
-    symbolRequired:
+    signature:
+      name: signature
+      in: query
+      required: true
+      schema:
+        type: string
+    recvWindow:
+      name: recvWindow
+      in: query
+      schema:
+        type: integer
+    timestamp:
+      name: timestamp
+      in: query
+      required: true
+      schema:
+        type: integer
+        format: int64
+    symbolRequired_2:
       name: symbol
       in: query
       required: true
+      description: Trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+      example: BTCUSDT
+    signature_2:
+      name: signature
+      in: query
+      required: true
+      description: HMAC SHA256 signature of the total query string using the API secret key.
       schema:
         type: string
     recvWindow_2:
@@ -1310,42 +1325,11 @@ components:
       schema:
         type: integer
         format: int64
-    signature_2:
-      name: signature
-      in: query
-      required: true
-      description: HMAC SHA256 signature of the total query string using the API secret key.
-      schema:
-        type: string
-    symbolRequired_2:
+    symbolRequired_3:
       name: symbol
       in: query
       required: true
-      description: Trading pair symbol, e.g. BTCUSDT.
-      schema:
-        type: string
-      example: BTCUSDT
-    recvWindow_3:
-      name: recvWindow
-      in: query
-      description: Milliseconds the request is valid for.
-      schema:
-        type: integer
-        default: 5000
-        maximum: 60000
-    timestamp_3:
-      name: timestamp
-      in: query
-      required: true
-      description: Request timestamp in milliseconds.
-      schema:
-        type: integer
-        format: int64
-    signature_3:
-      name: signature
-      in: query
-      required: true
-      description: HMAC SHA256 signature.
+      description: Futures trading pair symbol, e.g. BTCUSDT.
       schema:
         type: string
     symbol_2:
@@ -1354,72 +1338,30 @@ components:
       description: Futures trading pair symbol, e.g. BTCUSDT.
       schema:
         type: string
-    symbolRequired_3:
-      name: symbol
+    recvWindow_3:
+      name: recvWindow
+      in: query
+      description: Milliseconds the request is valid for.
+      schema:
+        type: integer
+        default: 5000
+        maximum: 60000
+    signature_3:
+      name: signature
       in: query
       required: true
-      description: Futures trading pair symbol, e.g. BTCUSDT.
+      description: HMAC SHA256 signature.
       schema:
         type: string
+    timestamp_3:
+      name: timestamp
+      in: query
+      required: true
+      description: Request timestamp in milliseconds.
+      schema:
+        type: integer
+        format: int64
   schemas:
-    Balance:
-      type: object
-      properties:
-        asset:
-          type: string
-          description: Asset symbol.
-        free:
-          type: string
-          description: Available balance.
-        locked:
-          type: string
-          description: Locked balance (in open orders).
-    AccountTrade:
-      type: object
-      properties:
-        symbol:
-          type: string
-          description: Trading pair symbol.
-        id:
-          type: integer
-          format: int64
-          description: Trade ID.
-        orderId:
-          type: integer
-          format: int64
-          description: Order ID.
-        orderListId:
-          type: integer
-          format: int64
-          description: Order list ID.
-        price:
-          type: string
-          description: Trade price.
-        qty:
-          type: string
-          description: Trade quantity.
-        quoteQty:
-          type: string
-          description: Quote quantity.
-        commission:
-          type: string
-          description: Commission paid.
-        commissionAsset:
-          type: string
-          description: Asset used for commission.
-        time:
-          type: integer
-          format: int64
-          description: Trade time in milliseconds.
-        isBuyer:
-          type: boolean
-          description: Whether the trade was a buy.
-        isMaker:
-          type: boolean
-          description: Whether the trade was a maker.
-        isBestMatch:
-          type: boolean
-          description: Whether this was the best price match.
     Account:
       type: object
       properties:
@@ -1489,37 +1431,64 @@ components:
           type: integer
           format: int64
           description: User ID.
-    FuturesBalance:
+    AccountTrade:
       type: object
       properties:
-        accountAlias:
+        symbol:
           type: string
-          description: Account alias.
+          description: Trading pair symbol.
+        id:
+          type: integer
+          format: int64
+          description: Trade ID.
+        orderId:
+          type: integer
+          format: int64
+          description: Order ID.
+        orderListId:
+          type: integer
+          format: int64
+          description: Order list ID.
+        price:
+          type: string
+          description: Trade price.
+        qty:
+          type: string
+          description: Trade quantity.
+        quoteQty:
+          type: string
+          description: Quote quantity.
+        commission:
+          type: string
+          description: Commission paid.
+        commissionAsset:
+          type: string
+          description: Asset used for commission.
+        time:
+          type: integer
+          format: int64
+          description: Trade time in milliseconds.
+        isBuyer:
+          type: boolean
+          description: Whether the trade was a buy.
+        isMaker:
+          type: boolean
+          description: Whether the trade was a maker.
+        isBestMatch:
+          type: boolean
+          description: Whether this was the best price match.
+    Balance:
+      type: object
+      properties:
         asset:
           type: string
           description: Asset symbol.
-        balance:
-          type: string
-          description: Total balance.
-        crossWalletBalance:
-          type: string
-          description: Cross wallet balance.
-        crossUnPnl:
-          type: string
-          description: Cross unrealized PnL.
-        availableBalance:
+        free:
           type: string
           description: Available balance.
-        maxWithdrawAmount:
+        locked:
           type: string
-          description: Maximum withdrawal amount.
-        marginAvailable:
-          type: boolean
-          description: Whether the asset can be used as margin.
-        updateTime:
-          type: integer
-          format: int64
-          description: Update time.
+          description: Locked balance (in open orders).
     PositionRisk:
       type: object
       properties:
@@ -1568,6 +1537,37 @@ components:
         isolatedWallet:
           type: string
           description: Isolated wallet balance.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
+    FuturesBalance:
+      type: object
+      properties:
+        accountAlias:
+          type: string
+          description: Account alias.
+        asset:
+          type: string
+          description: Asset symbol.
+        balance:
+          type: string
+          description: Total balance.
+        crossWalletBalance:
+          type: string
+          description: Cross wallet balance.
+        crossUnPnl:
+          type: string
+          description: Cross unrealized PnL.
+        availableBalance:
+          type: string
+          description: Available balance.
+        maxWithdrawAmount:
+          type: string
+          description: Maximum withdrawal amount.
+        marginAvailable:
+          type: boolean
+          description: Whether the asset can be used as margin.
         updateTime:
           type: integer
           format: int64

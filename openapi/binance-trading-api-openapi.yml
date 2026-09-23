@@ -1746,6 +1746,145 @@ paths:
     - url: https://demo-fapi.binance.com
       description: Testnet Server
 components:
+  parameters:
+    symbolRequired:
+      name: symbol
+      in: query
+      required: true
+      schema:
+        type: string
+    symbol:
+      name: symbol
+      in: query
+      schema:
+        type: string
+    recvWindow:
+      name: recvWindow
+      in: query
+      schema:
+        type: integer
+    signature:
+      name: signature
+      in: query
+      required: true
+      schema:
+        type: string
+    timestamp:
+      name: timestamp
+      in: query
+      required: true
+      schema:
+        type: integer
+        format: int64
+    symbolRequired_2:
+      name: symbol
+      in: query
+      required: true
+      description: Trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+      example: BTCUSDT
+    side:
+      name: side
+      in: query
+      required: true
+      description: Order side.
+      schema:
+        type: string
+        enum:
+        - BUY
+        - SELL
+    symbol_2:
+      name: symbol
+      in: query
+      description: Trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+      example: BTCUSDT
+    recvWindow_2:
+      name: recvWindow
+      in: query
+      description: The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000.
+      schema:
+        type: integer
+        default: 5000
+        maximum: 60000
+    signature_2:
+      name: signature
+      in: query
+      required: true
+      description: HMAC SHA256 signature of the total query string using the API secret key.
+      schema:
+        type: string
+    orderType:
+      name: type
+      in: query
+      required: true
+      description: Order type.
+      schema:
+        type: string
+        enum:
+        - LIMIT
+        - MARKET
+        - STOP_LOSS
+        - STOP_LOSS_LIMIT
+        - TAKE_PROFIT
+        - TAKE_PROFIT_LIMIT
+        - LIMIT_MAKER
+    timestamp_2:
+      name: timestamp
+      in: query
+      required: true
+      description: Request timestamp in milliseconds since Unix epoch.
+      schema:
+        type: integer
+        format: int64
+    timeInForce:
+      name: timeInForce
+      in: query
+      description: Time in force policy for the order.
+      schema:
+        type: string
+        enum:
+        - GTC
+        - IOC
+        - FOK
+    symbolRequired_3:
+      name: symbol
+      in: query
+      required: true
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    symbol_3:
+      name: symbol
+      in: query
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    recvWindow_3:
+      name: recvWindow
+      in: query
+      description: Milliseconds the request is valid for.
+      schema:
+        type: integer
+        default: 5000
+        maximum: 60000
+    signature_3:
+      name: signature
+      in: query
+      required: true
+      description: HMAC SHA256 signature.
+      schema:
+        type: string
+    timestamp_3:
+      name: timestamp
+      in: query
+      required: true
+      description: Request timestamp in milliseconds.
+      schema:
+        type: integer
+        format: int64
   schemas:
     Error:
       type: object
@@ -1882,50 +2021,25 @@ components:
         selfTradePreventionMode:
           type: string
           description: Self-trade prevention mode.
-    OcoOrderResponse:
+    Fill:
       type: object
       properties:
-        orderListId:
+        price:
+          type: string
+          description: Fill price.
+        qty:
+          type: string
+          description: Fill quantity.
+        commission:
+          type: string
+          description: Commission amount.
+        commissionAsset:
+          type: string
+          description: Commission asset.
+        tradeId:
           type: integer
           format: int64
-          description: Order list ID.
-        contingencyType:
-          type: string
-          description: Contingency type, always OCO.
-        listStatusType:
-          type: string
-          description: List status type.
-        listOrderStatus:
-          type: string
-          description: List order status.
-        listClientOrderId:
-          type: string
-          description: Client order ID for the list.
-        transactionTime:
-          type: integer
-          format: int64
-          description: Transaction time.
-        symbol:
-          type: string
-          description: Trading pair symbol.
-        orders:
-          type: array
-          items:
-            type: object
-            properties:
-              symbol:
-                type: string
-              orderId:
-                type: integer
-                format: int64
-              clientOrderId:
-                type: string
-          description: List of orders in the OCO.
-        orderReports:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderResponse'
-          description: Detailed order reports.
+          description: Trade ID.
     Error_2:
       type: object
       properties:
@@ -1992,25 +2106,124 @@ components:
           items:
             $ref: '#/components/schemas/Fill'
           description: Trade fills for the order (FULL response type).
-    Fill:
+    OcoOrderResponse:
       type: object
       properties:
-        price:
-          type: string
-          description: Fill price.
-        qty:
-          type: string
-          description: Fill quantity.
-        commission:
-          type: string
-          description: Commission amount.
-        commissionAsset:
-          type: string
-          description: Commission asset.
-        tradeId:
+        orderListId:
           type: integer
           format: int64
-          description: Trade ID.
+          description: Order list ID.
+        contingencyType:
+          type: string
+          description: Contingency type, always OCO.
+        listStatusType:
+          type: string
+          description: List status type.
+        listOrderStatus:
+          type: string
+          description: List order status.
+        listClientOrderId:
+          type: string
+          description: Client order ID for the list.
+        transactionTime:
+          type: integer
+          format: int64
+          description: Transaction time.
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        orders:
+          type: array
+          items:
+            type: object
+            properties:
+              symbol:
+                type: string
+              orderId:
+                type: integer
+                format: int64
+              clientOrderId:
+                type: string
+          description: List of orders in the OCO.
+        orderReports:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderResponse'
+          description: Detailed order reports.
+    FuturesOrderResponse:
+      type: object
+      properties:
+        clientOrderId:
+          type: string
+          description: Client order ID.
+        cumQty:
+          type: string
+          description: Cumulative filled quantity.
+        cumQuote:
+          type: string
+          description: Cumulative filled quote.
+        executedQty:
+          type: string
+          description: Executed quantity.
+        orderId:
+          type: integer
+          format: int64
+          description: Order ID.
+        avgPrice:
+          type: string
+          description: Average fill price.
+        origQty:
+          type: string
+          description: Original quantity.
+        price:
+          type: string
+          description: Order price.
+        reduceOnly:
+          type: boolean
+          description: Reduce only flag.
+        side:
+          type: string
+          description: Order side.
+        positionSide:
+          type: string
+          description: Position side.
+        status:
+          type: string
+          description: Order status.
+        stopPrice:
+          type: string
+          description: Stop price.
+        closePosition:
+          type: boolean
+          description: Close position flag.
+        symbol:
+          type: string
+          description: Symbol.
+        timeInForce:
+          type: string
+          description: Time in force.
+        type:
+          type: string
+          description: Order type.
+        origType:
+          type: string
+          description: Original order type.
+        activatePrice:
+          type: string
+          description: Activation price for trailing stop.
+        priceRate:
+          type: string
+          description: Callback rate for trailing stop.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
+        workingType:
+          type: string
+          description: Working type.
+        priceProtect:
+          type: boolean
+          description: Price protection.
     Error_3:
       type: object
       properties:
@@ -2095,219 +2308,6 @@ components:
         priceProtect:
           type: boolean
           description: Price protect flag.
-    FuturesOrderResponse:
-      type: object
-      properties:
-        clientOrderId:
-          type: string
-          description: Client order ID.
-        cumQty:
-          type: string
-          description: Cumulative filled quantity.
-        cumQuote:
-          type: string
-          description: Cumulative filled quote.
-        executedQty:
-          type: string
-          description: Executed quantity.
-        orderId:
-          type: integer
-          format: int64
-          description: Order ID.
-        avgPrice:
-          type: string
-          description: Average fill price.
-        origQty:
-          type: string
-          description: Original quantity.
-        price:
-          type: string
-          description: Order price.
-        reduceOnly:
-          type: boolean
-          description: Reduce only flag.
-        side:
-          type: string
-          description: Order side.
-        positionSide:
-          type: string
-          description: Position side.
-        status:
-          type: string
-          description: Order status.
-        stopPrice:
-          type: string
-          description: Stop price.
-        closePosition:
-          type: boolean
-          description: Close position flag.
-        symbol:
-          type: string
-          description: Symbol.
-        timeInForce:
-          type: string
-          description: Time in force.
-        type:
-          type: string
-          description: Order type.
-        origType:
-          type: string
-          description: Original order type.
-        activatePrice:
-          type: string
-          description: Activation price for trailing stop.
-        priceRate:
-          type: string
-          description: Callback rate for trailing stop.
-        updateTime:
-          type: integer
-          format: int64
-          description: Update time.
-        workingType:
-          type: string
-          description: Working type.
-        priceProtect:
-          type: boolean
-          description: Price protection.
-  parameters:
-    timestamp:
-      name: timestamp
-      in: query
-      required: true
-      schema:
-        type: integer
-        format: int64
-    recvWindow:
-      name: recvWindow
-      in: query
-      schema:
-        type: integer
-    signature:
-      name: signature
-      in: query
-      required: true
-      schema:
-        type: string
-    symbol:
-      name: symbol
-      in: query
-      schema:
-        type: string
-    symbolRequired:
-      name: symbol
-      in: query
-      required: true
-      schema:
-        type: string
-    timestamp_2:
-      name: timestamp
-      in: query
-      required: true
-      description: Request timestamp in milliseconds since Unix epoch.
-      schema:
-        type: integer
-        format: int64
-    recvWindow_2:
-      name: recvWindow
-      in: query
-      description: The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000.
-      schema:
-        type: integer
-        default: 5000
-        maximum: 60000
-    side:
-      name: side
-      in: query
-      required: true
-      description: Order side.
-      schema:
-        type: string
-        enum:
-        - BUY
-        - SELL
-    signature_2:
-      name: signature
-      in: query
-      required: true
-      description: HMAC SHA256 signature of the total query string using the API secret key.
-      schema:
-        type: string
-    timeInForce:
-      name: timeInForce
-      in: query
-      description: Time in force policy for the order.
-      schema:
-        type: string
-        enum:
-        - GTC
-        - IOC
-        - FOK
-    orderType:
-      name: type
-      in: query
-      required: true
-      description: Order type.
-      schema:
-        type: string
-        enum:
-        - LIMIT
-        - MARKET
-        - STOP_LOSS
-        - STOP_LOSS_LIMIT
-        - TAKE_PROFIT
-        - TAKE_PROFIT_LIMIT
-        - LIMIT_MAKER
-    symbol_2:
-      name: symbol
-      in: query
-      description: Trading pair symbol, e.g. BTCUSDT.
-      schema:
-        type: string
-      example: BTCUSDT
-    symbolRequired_2:
-      name: symbol
-      in: query
-      required: true
-      description: Trading pair symbol, e.g. BTCUSDT.
-      schema:
-        type: string
-      example: BTCUSDT
-    recvWindow_3:
-      name: recvWindow
-      in: query
-      description: Milliseconds the request is valid for.
-      schema:
-        type: integer
-        default: 5000
-        maximum: 60000
-    timestamp_3:
-      name: timestamp
-      in: query
-      required: true
-      description: Request timestamp in milliseconds.
-      schema:
-        type: integer
-        format: int64
-    signature_3:
-      name: signature
-      in: query
-      required: true
-      description: HMAC SHA256 signature.
-      schema:
-        type: string
-    symbol_3:
-      name: symbol
-      in: query
-      description: Futures trading pair symbol, e.g. BTCUSDT.
-      schema:
-        type: string
-    symbolRequired_3:
-      name: symbol
-      in: query
-      required: true
-      description: Futures trading pair symbol, e.g. BTCUSDT.
-      schema:
-        type: string
   securitySchemes:
     apiKey:
       type: apiKey

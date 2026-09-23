@@ -1809,17 +1809,25 @@ paths:
       description: Testnet Server
 components:
   parameters:
-    symbol:
-      name: symbol
-      in: query
-      schema:
-        type: string
     symbolRequired:
       name: symbol
       in: query
       required: true
       schema:
         type: string
+    symbol:
+      name: symbol
+      in: query
+      schema:
+        type: string
+    symbolRequired_2:
+      name: symbol
+      in: query
+      required: true
+      description: Trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+      example: BTCUSDT
     interval:
       name: interval
       in: query
@@ -1851,20 +1859,6 @@ components:
       schema:
         type: string
       example: BTCUSDT
-    symbolRequired_2:
-      name: symbol
-      in: query
-      required: true
-      description: Trading pair symbol, e.g. BTCUSDT.
-      schema:
-        type: string
-      example: BTCUSDT
-    symbol_3:
-      name: symbol
-      in: query
-      description: Futures trading pair symbol, e.g. BTCUSDT.
-      schema:
-        type: string
     symbolRequired_3:
       name: symbol
       in: query
@@ -1872,28 +1866,13 @@ components:
       description: Futures trading pair symbol, e.g. BTCUSDT.
       schema:
         type: string
+    symbol_3:
+      name: symbol
+      in: query
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
   schemas:
-    OrderBook:
-      type: object
-      properties:
-        lastUpdateId:
-          type: integer
-          format: int64
-          description: Last update ID for the order book.
-        bids:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-          description: Bid price and quantity pairs.
-        asks:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-          description: Ask price and quantity pairs.
     Trade:
       type: object
       properties:
@@ -1920,46 +1899,24 @@ components:
         isBestMatch:
           type: boolean
           description: Whether this is the best price match.
-    AggTrade:
-      type: object
-      properties:
-        a:
-          type: integer
-          format: int64
-          description: Aggregate trade ID.
-        p:
-          type: string
-          description: Price.
-        q:
-          type: string
-          description: Quantity.
-        f:
-          type: integer
-          format: int64
-          description: First trade ID.
-        l:
-          type: integer
-          format: int64
-          description: Last trade ID.
-        T:
-          type: integer
-          format: int64
-          description: Timestamp in milliseconds.
-        m:
-          type: boolean
-          description: Was the buyer the maker.
-        M:
-          type: boolean
-          description: Was the trade the best price match.
-    PriceTicker:
+    BookTicker:
       type: object
       properties:
         symbol:
           type: string
           description: Trading pair symbol.
-        price:
+        bidPrice:
           type: string
-          description: Current price.
+          description: Best bid price.
+        bidQty:
+          type: string
+          description: Best bid quantity.
+        askPrice:
+          type: string
+          description: Best ask price.
+        askQty:
+          type: string
+          description: Best ask quantity.
     Ticker24hr:
       type: object
       properties:
@@ -2030,24 +1987,90 @@ components:
         count:
           type: integer
           description: Total number of trades.
-    BookTicker:
+    OrderBook:
+      type: object
+      properties:
+        lastUpdateId:
+          type: integer
+          format: int64
+          description: Last update ID for the order book.
+        bids:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          description: Bid price and quantity pairs.
+        asks:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          description: Ask price and quantity pairs.
+    PriceTicker:
       type: object
       properties:
         symbol:
           type: string
           description: Trading pair symbol.
-        bidPrice:
+        price:
           type: string
-          description: Best bid price.
-        bidQty:
+          description: Current price.
+    AggTrade:
+      type: object
+      properties:
+        a:
+          type: integer
+          format: int64
+          description: Aggregate trade ID.
+        p:
           type: string
-          description: Best bid quantity.
-        askPrice:
+          description: Price.
+        q:
           type: string
-          description: Best ask price.
-        askQty:
+          description: Quantity.
+        f:
+          type: integer
+          format: int64
+          description: First trade ID.
+        l:
+          type: integer
+          format: int64
+          description: Last trade ID.
+        T:
+          type: integer
+          format: int64
+          description: Timestamp in milliseconds.
+        m:
+          type: boolean
+          description: Was the buyer the maker.
+        M:
+          type: boolean
+          description: Was the trade the best price match.
+    FuturesTrade:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Trade ID.
+        price:
           type: string
-          description: Best ask quantity.
+          description: Trade price.
+        qty:
+          type: string
+          description: Trade quantity.
+        quoteQty:
+          type: string
+          description: Quote quantity.
+        time:
+          type: integer
+          format: int64
+          description: Trade time.
+        isBuyerMaker:
+          type: boolean
+          description: Whether buyer is maker.
     MarkPrice:
       type: object
       properties:
@@ -2077,29 +2100,6 @@ components:
           type: integer
           format: int64
           description: Timestamp.
-    FuturesTrade:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Trade ID.
-        price:
-          type: string
-          description: Trade price.
-        qty:
-          type: string
-          description: Trade quantity.
-        quoteQty:
-          type: string
-          description: Quote quantity.
-        time:
-          type: integer
-          format: int64
-          description: Trade time.
-        isBuyerMaker:
-          type: boolean
-          description: Whether buyer is maker.
     FuturesSymbol:
       type: object
       properties:
