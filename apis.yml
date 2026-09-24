@@ -80,8 +80,6 @@ apis:
     url: openapi/binance-account-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -132,8 +130,6 @@ apis:
     url: openapi/binance-assets-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -184,8 +180,6 @@ apis:
     url: openapi/binance-auto-invest-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -236,8 +230,6 @@ apis:
     url: openapi/binance-borrow-repay-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -288,8 +280,6 @@ apis:
     url: openapi/binance-convert-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -340,8 +330,6 @@ apis:
     url: openapi/binance-copy-trading-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -392,8 +380,6 @@ apis:
     url: openapi/binance-crypto-loan-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -444,8 +430,6 @@ apis:
     url: openapi/binance-deposits-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -496,8 +480,6 @@ apis:
     url: openapi/binance-fiat-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -548,8 +530,6 @@ apis:
     url: openapi/binance-flexible-products-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -600,8 +580,6 @@ apis:
     url: openapi/binance-futures-algo-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -653,8 +631,6 @@ apis:
     url: openapi/binance-general-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -705,8 +681,6 @@ apis:
     url: openapi/binance-gift-card-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -757,8 +731,6 @@ apis:
     url: openapi/binance-locked-products-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -809,8 +781,6 @@ apis:
     url: openapi/binance-market-data-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -861,8 +831,6 @@ apis:
     url: openapi/binance-mining-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -913,8 +881,6 @@ apis:
     url: openapi/binance-nft-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -967,8 +933,6 @@ apis:
     url: openapi/binance-orders-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -1019,8 +983,6 @@ apis:
     url: openapi/binance-payouts-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -1071,8 +1033,6 @@ apis:
     url: openapi/binance-refunds-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -1123,8 +1083,6 @@ apis:
     url: openapi/binance-spot-algo-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -1175,8 +1133,6 @@ apis:
     url: openapi/binance-sub-account-assets-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -1227,8 +1183,6 @@ apis:
     url: openapi/binance-sub-account-management-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -1279,8 +1233,6 @@ apis:
     url: openapi/binance-trading-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -1331,8 +1283,6 @@ apis:
     url: openapi/binance-user-data-stream-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -1383,8 +1333,6 @@ apis:
     url: openapi/binance-withdrawals-api-openapi.yml
   - type: Documentation
     url: https://developers.binance.com/docs/binance-spot-api-docs/rest-api
-  - type: GraphQL
-    url: graphql/binance-graphql.md
   - type: Documentation
     url: https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
   - type: Documentation
@@ -1509,6 +1457,7 @@ tags:
 - Finance
 - DeFi
 - Market Data
+- Real-Time
 created: '2025-01-01'
 specificationVersion: '0.23'
 maintainers:
