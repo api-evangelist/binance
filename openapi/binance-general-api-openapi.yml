@@ -91,6 +91,29 @@ paths:
       security: []
 components:
   schemas:
+    RateLimit:
+      type: object
+      properties:
+        rateLimitType:
+          type: string
+          enum:
+          - REQUEST_WEIGHT
+          - ORDERS
+          - RAW_REQUESTS
+          description: The type of rate limit.
+        interval:
+          type: string
+          enum:
+          - SECOND
+          - MINUTE
+          - DAY
+          description: The interval unit.
+        intervalNum:
+          type: integer
+          description: The interval number.
+        limit:
+          type: integer
+          description: The maximum count within the interval.
     ExchangeInfo:
       type: object
       properties:
@@ -116,29 +139,6 @@ components:
           items:
             $ref: '#/components/schemas/SymbolInfo'
           description: List of trading pair symbols and their rules.
-    RateLimit:
-      type: object
-      properties:
-        rateLimitType:
-          type: string
-          enum:
-          - REQUEST_WEIGHT
-          - ORDERS
-          - RAW_REQUESTS
-          description: The type of rate limit.
-        interval:
-          type: string
-          enum:
-          - SECOND
-          - MINUTE
-          - DAY
-          description: The interval unit.
-        intervalNum:
-          type: integer
-          description: The interval number.
-        limit:
-          type: integer
-          description: The maximum count within the interval.
     SymbolInfo:
       type: object
       properties:

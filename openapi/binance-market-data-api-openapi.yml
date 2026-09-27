@@ -402,7 +402,7 @@ paths:
       description: Testnet Server
   /eapi/v1/ping:
     get:
-      operationId: testConnectivity
+      operationId: getEapiV1Ping
       summary: Test connectivity
       description: Test connectivity to the options REST API.
       tags:
@@ -415,12 +415,14 @@ paths:
               schema:
                 type: object
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: testConnectivity
     servers:
     - url: https://eapi.binance.com
       description: Production Server
   /eapi/v1/time:
     get:
-      operationId: getServerTime
+      operationId: getEapiV1Time
       summary: Check server time
       description: Get the current server time.
       tags:
@@ -438,12 +440,14 @@ paths:
                     format: int64
                     description: Current server time in milliseconds.
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getServerTime
     servers:
     - url: https://eapi.binance.com
       description: Production Server
   /eapi/v1/exchangeInfo:
     get:
-      operationId: getExchangeInfo
+      operationId: getEapiV1ExchangeInfo
       summary: Exchange information
       description: Get current options exchange information including available options symbols, strike prices, and expiration dates.
       tags:
@@ -484,12 +488,14 @@ paths:
                       type: object
                     description: Rate limit rules.
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getExchangeInfo
     servers:
     - url: https://eapi.binance.com
       description: Production Server
   /eapi/v1/depth:
     get:
-      operationId: getOrderBook
+      operationId: getEapiV1Depth
       summary: Order book
       description: Get the current order book for an options symbol.
       tags:
@@ -530,12 +536,14 @@ paths:
                         type: string
                     description: Ask levels.
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getOrderBook
     servers:
     - url: https://eapi.binance.com
       description: Production Server
   /eapi/v1/trades:
     get:
-      operationId: getRecentTrades
+      operationId: getEapiV1Trades
       summary: Recent trades list
       description: Get recent options trades.
       tags:
@@ -588,12 +596,14 @@ paths:
                       format: int64
                       description: Trade time.
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getRecentTrades
     servers:
     - url: https://eapi.binance.com
       description: Production Server
   /eapi/v1/klines:
     get:
-      operationId: getKlines
+      operationId: getEapiV1Klines
       summary: Kline/Candlestick data
       description: Get kline/candlestick data for an options symbol.
       tags:
@@ -650,12 +660,14 @@ paths:
                 items:
                   type: array
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getKlines
     servers:
     - url: https://eapi.binance.com
       description: Production Server
   /eapi/v1/mark:
     get:
-      operationId: getMarkPrice
+      operationId: getEapiV1Mark
       summary: Option mark price
       description: Get mark price for options symbols.
       tags:
@@ -710,6 +722,8 @@ paths:
                       type: string
                       description: Lower price limit.
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getMarkPrice
     servers:
     - url: https://eapi.binance.com
       description: Production Server
@@ -781,7 +795,7 @@ paths:
       description: Production Server
   /eapi/v1/openInterest:
     get:
-      operationId: getOpenInterest
+      operationId: getEapiV1OpenInterest
       summary: Open interest
       description: Get open interest for an options underlying asset.
       tags:
@@ -818,12 +832,14 @@ paths:
                     timestamp:
                       type: string
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getOpenInterest
     servers:
     - url: https://eapi.binance.com
       description: Production Server
   /api/v3/depth:
     get:
-      operationId: getOrderBook
+      operationId: getApiV3Depth
       summary: Order book
       description: Get the current order book depth for a given trading pair. Returns bids and asks with price and quantity at each level.
       tags:
@@ -853,6 +869,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderBook'
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getOrderBook
     servers:
     - url: https://api.binance.com
       description: Production Server
@@ -868,7 +886,7 @@ paths:
       description: Testnet Server
   /api/v3/trades:
     get:
-      operationId: getRecentTrades
+      operationId: getApiV3Trades
       summary: Recent trades list
       description: Get recent trades for a given symbol. Returns the most recent trades up to the specified limit.
       tags:
@@ -892,6 +910,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Trade'
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getRecentTrades
     servers:
     - url: https://api.binance.com
       description: Production Server
@@ -1008,7 +1028,7 @@ paths:
       description: Testnet Server
   /api/v3/klines:
     get:
-      operationId: getKlines
+      operationId: getApiV3Klines
       summary: Kline/Candlestick data
       description: Get kline/candlestick bars for a symbol. Klines are uniquely identified by their open time.
       tags:
@@ -1052,6 +1072,8 @@ paths:
                   type: array
                   description: Kline data array with open time, open, high, low, close, volume, close time, quote asset volume, number of trades, taker buy base asset volume, taker buy quote asset volume.
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getKlines
     servers:
     - url: https://api.binance.com
       description: Production Server
@@ -1346,7 +1368,7 @@ paths:
       description: Testnet Server
   /fapi/v1/ping:
     get:
-      operationId: testConnectivity
+      operationId: getFapiV1Ping
       summary: Test connectivity
       description: Test connectivity to the futures REST API.
       tags:
@@ -1359,6 +1381,8 @@ paths:
               schema:
                 type: object
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: testConnectivity
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1366,7 +1390,7 @@ paths:
       description: Testnet Server
   /fapi/v1/time:
     get:
-      operationId: getServerTime
+      operationId: getFapiV1Time
       summary: Check server time
       description: Test connectivity and get the current server time.
       tags:
@@ -1384,6 +1408,8 @@ paths:
                     format: int64
                     description: Current server time in milliseconds.
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getServerTime
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1391,7 +1417,7 @@ paths:
       description: Testnet Server
   /fapi/v1/exchangeInfo:
     get:
-      operationId: getExchangeInfo
+      operationId: getFapiV1ExchangeInfo
       summary: Exchange information
       description: Get current futures exchange trading rules and symbol information including contract types, margin assets, and filters.
       tags:
@@ -1432,6 +1458,8 @@ paths:
                     type: string
                     description: Server timezone.
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getExchangeInfo
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1439,7 +1467,7 @@ paths:
       description: Testnet Server
   /fapi/v1/depth:
     get:
-      operationId: getOrderBook
+      operationId: getFapiV1Depth
       summary: Order book
       description: Get the current order book depth for a futures symbol.
       tags:
@@ -1487,6 +1515,8 @@ paths:
                         type: string
                     description: Ask price and quantity pairs.
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getOrderBook
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1494,7 +1524,7 @@ paths:
       description: Testnet Server
   /fapi/v1/trades:
     get:
-      operationId: getRecentTrades
+      operationId: getFapiV1Trades
       summary: Recent trades list
       description: Get recent futures trades for a symbol.
       tags:
@@ -1518,6 +1548,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/FuturesTrade'
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getRecentTrades
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1525,7 +1557,7 @@ paths:
       description: Testnet Server
   /fapi/v1/klines:
     get:
-      operationId: getKlines
+      operationId: getFapiV1Klines
       summary: Kline/Candlestick data
       description: Get kline/candlestick bars for a futures symbol.
       tags:
@@ -1583,6 +1615,8 @@ paths:
                 items:
                   type: array
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getKlines
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1590,7 +1624,7 @@ paths:
       description: Testnet Server
   /fapi/v1/premiumIndex:
     get:
-      operationId: getMarkPrice
+      operationId: getFapiV1PremiumIndex
       summary: Mark price
       description: Get mark price and funding rate for a futures symbol or all symbols.
       tags:
@@ -1609,6 +1643,8 @@ paths:
                   items:
                     $ref: '#/components/schemas/MarkPrice'
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getMarkPrice
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1616,7 +1652,7 @@ paths:
       description: Testnet Server
   /fapi/v1/fundingRate:
     get:
-      operationId: getFundingRateHistory
+      operationId: getFapiV1FundingRate
       summary: Get funding rate history
       description: Get historical funding rate data for a futures symbol.
       tags:
@@ -1666,6 +1702,8 @@ paths:
                       type: string
                       description: Mark price at funding time.
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getFundingRateHistory
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1708,7 +1746,7 @@ paths:
       description: Testnet Server
   /fapi/v1/ticker/24hr:
     get:
-      operationId: get24hrTicker
+      operationId: getFapiV1Ticker24hr
       summary: 24hr ticker price change statistics
       description: Get 24-hour rolling window price change statistics for futures.
       tags:
@@ -1727,6 +1765,8 @@ paths:
                   items:
                     $ref: '#/components/schemas/FuturesTicker24hr'
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: get24hrTicker
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1734,7 +1774,7 @@ paths:
       description: Testnet Server
   /fapi/v1/ticker/price:
     get:
-      operationId: getTickerPrice
+      operationId: getFapiV1TickerPrice
       summary: Symbol price ticker
       description: Get the latest price for a futures symbol or all symbols.
       tags:
@@ -1769,6 +1809,8 @@ paths:
                         type: integer
                         format: int64
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getTickerPrice
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1776,7 +1818,7 @@ paths:
       description: Testnet Server
   /fapi/v1/openInterest:
     get:
-      operationId: getOpenInterest
+      operationId: getFapiV1OpenInterest
       summary: Open interest
       description: Get present open interest of a specific symbol.
       tags:
@@ -1802,6 +1844,8 @@ paths:
                     format: int64
                     description: Timestamp in milliseconds.
       security: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getOpenInterest
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1809,25 +1853,17 @@ paths:
       description: Testnet Server
 components:
   parameters:
+    symbol:
+      name: symbol
+      in: query
+      schema:
+        type: string
     symbolRequired:
       name: symbol
       in: query
       required: true
       schema:
         type: string
-    symbol:
-      name: symbol
-      in: query
-      schema:
-        type: string
-    symbolRequired_2:
-      name: symbol
-      in: query
-      required: true
-      description: Trading pair symbol, e.g. BTCUSDT.
-      schema:
-        type: string
-      example: BTCUSDT
     interval:
       name: interval
       in: query
@@ -1859,6 +1895,20 @@ components:
       schema:
         type: string
       example: BTCUSDT
+    symbolRequired_2:
+      name: symbol
+      in: query
+      required: true
+      description: Trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+      example: BTCUSDT
+    symbol_3:
+      name: symbol
+      in: query
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
     symbolRequired_3:
       name: symbol
       in: query
@@ -1866,57 +1916,7 @@ components:
       description: Futures trading pair symbol, e.g. BTCUSDT.
       schema:
         type: string
-    symbol_3:
-      name: symbol
-      in: query
-      description: Futures trading pair symbol, e.g. BTCUSDT.
-      schema:
-        type: string
   schemas:
-    Trade:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: Trade ID.
-        price:
-          type: string
-          description: Trade price.
-        qty:
-          type: string
-          description: Trade quantity.
-        quoteQty:
-          type: string
-          description: Trade quote quantity.
-        time:
-          type: integer
-          format: int64
-          description: Trade time in milliseconds.
-        isBuyerMaker:
-          type: boolean
-          description: Whether the buyer is the maker.
-        isBestMatch:
-          type: boolean
-          description: Whether this is the best price match.
-    BookTicker:
-      type: object
-      properties:
-        symbol:
-          type: string
-          description: Trading pair symbol.
-        bidPrice:
-          type: string
-          description: Best bid price.
-        bidQty:
-          type: string
-          description: Best bid quantity.
-        askPrice:
-          type: string
-          description: Best ask price.
-        askQty:
-          type: string
-          description: Best ask quantity.
     Ticker24hr:
       type: object
       properties:
@@ -1987,27 +1987,6 @@ components:
         count:
           type: integer
           description: Total number of trades.
-    OrderBook:
-      type: object
-      properties:
-        lastUpdateId:
-          type: integer
-          format: int64
-          description: Last update ID for the order book.
-        bids:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-          description: Bid price and quantity pairs.
-        asks:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-          description: Ask price and quantity pairs.
     PriceTicker:
       type: object
       properties:
@@ -2017,6 +1996,50 @@ components:
         price:
           type: string
           description: Current price.
+    BookTicker:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        bidPrice:
+          type: string
+          description: Best bid price.
+        bidQty:
+          type: string
+          description: Best bid quantity.
+        askPrice:
+          type: string
+          description: Best ask price.
+        askQty:
+          type: string
+          description: Best ask quantity.
+    Trade:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Trade ID.
+        price:
+          type: string
+          description: Trade price.
+        qty:
+          type: string
+          description: Trade quantity.
+        quoteQty:
+          type: string
+          description: Trade quote quantity.
+        time:
+          type: integer
+          format: int64
+          description: Trade time in milliseconds.
+        isBuyerMaker:
+          type: boolean
+          description: Whether the buyer is the maker.
+        isBestMatch:
+          type: boolean
+          description: Whether this is the best price match.
     AggTrade:
       type: object
       properties:
@@ -2048,6 +2071,27 @@ components:
         M:
           type: boolean
           description: Was the trade the best price match.
+    OrderBook:
+      type: object
+      properties:
+        lastUpdateId:
+          type: integer
+          format: int64
+          description: Last update ID for the order book.
+        bids:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          description: Bid price and quantity pairs.
+        asks:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          description: Ask price and quantity pairs.
     FuturesTrade:
       type: object
       properties:

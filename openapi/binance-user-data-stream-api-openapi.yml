@@ -94,7 +94,7 @@ paths:
       description: Testnet Server
   /eapi/v1/listenKey:
     post:
-      operationId: createListenKey
+      operationId: postEapiV1ListenKey
       summary: Start user data stream
       description: Start a new options user data stream.
       tags:
@@ -111,8 +111,10 @@ paths:
                     type: string
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: createListenKey
     put:
-      operationId: keepAliveListenKey
+      operationId: putEapiV1ListenKey
       summary: Keepalive user data stream
       description: Keepalive an options user data stream.
       tags:
@@ -126,8 +128,10 @@ paths:
                 type: object
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: keepAliveListenKey
     delete:
-      operationId: closeListenKey
+      operationId: deleteEapiV1ListenKey
       summary: Close user data stream
       description: Close an options user data stream.
       tags:
@@ -141,12 +145,14 @@ paths:
                 type: object
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: closeListenKey
     servers:
     - url: https://eapi.binance.com
       description: Production Server
   /papi/v1/listenKey:
     post:
-      operationId: createListenKey
+      operationId: postPapiV1ListenKey
       summary: Start user data stream
       description: Start a portfolio margin user data stream.
       tags:
@@ -163,8 +169,10 @@ paths:
                     type: string
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: createListenKey
     put:
-      operationId: keepAliveListenKey
+      operationId: putPapiV1ListenKey
       summary: Keepalive user data stream
       description: Keepalive a portfolio margin user data stream.
       tags:
@@ -178,8 +186,10 @@ paths:
                 type: object
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: keepAliveListenKey
     delete:
-      operationId: closeListenKey
+      operationId: deletePapiV1ListenKey
       summary: Close user data stream
       description: Close a portfolio margin user data stream.
       tags:
@@ -193,12 +203,14 @@ paths:
                 type: object
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: closeListenKey
     servers:
     - url: https://papi.binance.com
       description: Production Server
   /api/v3/userDataStream:
     post:
-      operationId: createListenKey
+      operationId: postApiV3UserDataStream
       summary: Create a listen key
       description: Start a new user data stream. The stream is closed after 60 minutes unless a keepalive is sent. If the account has an active listenKey, that listenKey will be returned and its validity extended for 60 minutes.
       tags:
@@ -216,8 +228,10 @@ paths:
                     description: The listen key to use for the user data WebSocket stream subscription.
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: createListenKey
     put:
-      operationId: keepAliveListenKey
+      operationId: putApiV3UserDataStream
       summary: Ping/Keep-alive a listen key
       description: Keepalive a user data stream to prevent a timeout. User data streams will close after 60 minutes. It is recommended to send a ping about every 30 minutes.
       tags:
@@ -238,8 +252,10 @@ paths:
                 type: object
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: keepAliveListenKey
     delete:
-      operationId: closeListenKey
+      operationId: deleteApiV3UserDataStream
       summary: Close a listen key
       description: Close out a user data stream.
       tags:
@@ -260,6 +276,8 @@ paths:
                 type: object
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: closeListenKey
     servers:
     - url: https://api.binance.com
       description: Production Server
@@ -275,7 +293,7 @@ paths:
       description: Testnet Server
   /fapi/v1/listenKey:
     post:
-      operationId: createListenKey
+      operationId: postFapiV1ListenKey
       summary: Start user data stream
       description: Start a new user data stream for futures. Returns a listen key that can be used to subscribe to user data WebSocket streams.
       tags:
@@ -293,8 +311,10 @@ paths:
                     description: Listen key for WebSocket subscription.
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: createListenKey
     put:
-      operationId: keepAliveListenKey
+      operationId: putFapiV1ListenKey
       summary: Keepalive user data stream
       description: Keepalive a user data stream to prevent timeout.
       tags:
@@ -308,8 +328,10 @@ paths:
                 type: object
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: keepAliveListenKey
     delete:
-      operationId: closeListenKey
+      operationId: deleteFapiV1ListenKey
       summary: Close user data stream
       description: Close out a user data stream.
       tags:
@@ -323,6 +345,8 @@ paths:
                 type: object
       security:
       - apiKey: []
+      x-operation-id-source: normalized
+      x-operation-id-original: closeListenKey
     servers:
     - url: https://fapi.binance.com
       description: Production Server

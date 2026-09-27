@@ -242,7 +242,7 @@ paths:
       description: Testnet Server
   /eapi/v1/order:
     post:
-      operationId: createOrder
+      operationId: postEapiV1Order
       summary: New order
       description: Send in a new options order.
       tags:
@@ -342,8 +342,10 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: createOrder
     get:
-      operationId: getOrder
+      operationId: getEapiV1Order
       summary: Query single order
       description: Check an options order status.
       tags:
@@ -388,8 +390,10 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getOrder
     delete:
-      operationId: cancelOrder
+      operationId: deleteEapiV1Order
       summary: Cancel order
       description: Cancel an active options order.
       tags:
@@ -434,12 +438,14 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: cancelOrder
     servers:
     - url: https://eapi.binance.com
       description: Production Server
   /eapi/v1/openOrders:
     get:
-      operationId: getOpenOrders
+      operationId: getEapiV1OpenOrders
       summary: Query current open orders
       description: Get all open options orders.
       tags:
@@ -476,6 +482,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getOpenOrders
     servers:
     - url: https://eapi.binance.com
       description: Production Server
@@ -875,7 +883,7 @@ paths:
       description: Production Server
   /papi/v1/margin/order:
     post:
-      operationId: createMarginOrder
+      operationId: postPapiV1MarginOrder
       summary: New margin order
       description: Place a new margin order through portfolio margin.
       tags:
@@ -936,12 +944,14 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: createMarginOrder
     servers:
     - url: https://papi.binance.com
       description: Production Server
   /api/v3/order:
     post:
-      operationId: createOrder
+      operationId: postApiV3Order
       summary: New order
       description: Send in a new order. Requires SIGNED authentication with the TRADE permission. Order types include LIMIT, MARKET, STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, TAKE_PROFIT_LIMIT, and LIMIT_MAKER.
       tags:
@@ -1040,8 +1050,10 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: createOrder
     get:
-      operationId: getOrder
+      operationId: getApiV3Order
       summary: Query order
       description: Check an order's status. Either orderId or origClientOrderId must be sent.
       tags:
@@ -1084,8 +1096,10 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getOrder
     delete:
-      operationId: cancelOrder
+      operationId: deleteApiV3Order
       summary: Cancel order
       description: Cancel an active order. Either orderId or origClientOrderId must be sent.
       tags:
@@ -1135,6 +1149,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: cancelOrder
     servers:
     - url: https://api.binance.com
       description: Production Server
@@ -1150,7 +1166,7 @@ paths:
       description: Testnet Server
   /api/v3/openOrders:
     get:
-      operationId: getOpenOrders
+      operationId: getApiV3OpenOrders
       summary: Current open orders
       description: Get all open orders on a symbol. Careful when accessing this with no symbol as the weight is very high.
       tags:
@@ -1172,6 +1188,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getOpenOrders
     delete:
       operationId: cancelAllOpenOrders
       summary: Cancel all open orders on a symbol
@@ -1481,7 +1499,7 @@ paths:
       description: Testnet Server
   /fapi/v1/order:
     post:
-      operationId: createOrder
+      operationId: postFapiV1Order
       summary: New order
       description: Send in a new futures order. Supports LIMIT, MARKET, STOP, STOP_MARKET, TAKE_PROFIT, TAKE_PROFIT_MARKET, and TRAILING_STOP_MARKET order types.
       tags:
@@ -1613,8 +1631,10 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: createOrder
     get:
-      operationId: getOrder
+      operationId: getFapiV1Order
       summary: Query order
       description: Check a futures order's status.
       tags:
@@ -1645,8 +1665,10 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getOrder
     delete:
-      operationId: cancelOrder
+      operationId: deleteFapiV1Order
       summary: Cancel order
       description: Cancel an active futures order.
       tags:
@@ -1677,6 +1699,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: cancelOrder
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1718,7 +1742,7 @@ paths:
       description: Testnet Server
   /fapi/v1/openOrders:
     get:
-      operationId: getOpenOrders
+      operationId: getFapiV1OpenOrders
       summary: Current all open orders
       description: Get all open futures orders for a symbol or all symbols.
       tags:
@@ -1740,6 +1764,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getOpenOrders
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1747,15 +1773,10 @@ paths:
       description: Testnet Server
 components:
   parameters:
-    symbolRequired:
-      name: symbol
+    signature:
+      name: signature
       in: query
       required: true
-      schema:
-        type: string
-    symbol:
-      name: symbol
-      in: query
       schema:
         type: string
     recvWindow:
@@ -1763,12 +1784,6 @@ components:
       in: query
       schema:
         type: integer
-    signature:
-      name: signature
-      in: query
-      required: true
-      schema:
-        type: string
     timestamp:
       name: timestamp
       in: query
@@ -1776,27 +1791,38 @@ components:
       schema:
         type: integer
         format: int64
+    symbol:
+      name: symbol
+      in: query
+      schema:
+        type: string
+    symbolRequired:
+      name: symbol
+      in: query
+      required: true
+      schema:
+        type: string
+    signature_2:
+      name: signature
+      in: query
+      required: true
+      description: HMAC SHA256 signature of the total query string using the API secret key.
+      schema:
+        type: string
+    timeInForce:
+      name: timeInForce
+      in: query
+      description: Time in force policy for the order.
+      schema:
+        type: string
+        enum:
+        - GTC
+        - IOC
+        - FOK
     symbolRequired_2:
       name: symbol
       in: query
       required: true
-      description: Trading pair symbol, e.g. BTCUSDT.
-      schema:
-        type: string
-      example: BTCUSDT
-    side:
-      name: side
-      in: query
-      required: true
-      description: Order side.
-      schema:
-        type: string
-        enum:
-        - BUY
-        - SELL
-    symbol_2:
-      name: symbol
-      in: query
       description: Trading pair symbol, e.g. BTCUSDT.
       schema:
         type: string
@@ -1809,13 +1835,16 @@ components:
         type: integer
         default: 5000
         maximum: 60000
-    signature_2:
-      name: signature
+    side:
+      name: side
       in: query
       required: true
-      description: HMAC SHA256 signature of the total query string using the API secret key.
+      description: Order side.
       schema:
         type: string
+        enum:
+        - BUY
+        - SELL
     orderType:
       name: type
       in: query
@@ -1839,27 +1868,18 @@ components:
       schema:
         type: integer
         format: int64
-    timeInForce:
-      name: timeInForce
+    symbol_2:
+      name: symbol
       in: query
-      description: Time in force policy for the order.
+      description: Trading pair symbol, e.g. BTCUSDT.
       schema:
         type: string
-        enum:
-        - GTC
-        - IOC
-        - FOK
-    symbolRequired_3:
-      name: symbol
+      example: BTCUSDT
+    signature_3:
+      name: signature
       in: query
       required: true
-      description: Futures trading pair symbol, e.g. BTCUSDT.
-      schema:
-        type: string
-    symbol_3:
-      name: symbol
-      in: query
-      description: Futures trading pair symbol, e.g. BTCUSDT.
+      description: HMAC SHA256 signature.
       schema:
         type: string
     recvWindow_3:
@@ -1870,13 +1890,6 @@ components:
         type: integer
         default: 5000
         maximum: 60000
-    signature_3:
-      name: signature
-      in: query
-      required: true
-      description: HMAC SHA256 signature.
-      schema:
-        type: string
     timestamp_3:
       name: timestamp
       in: query
@@ -1885,6 +1898,19 @@ components:
       schema:
         type: integer
         format: int64
+    symbol_3:
+      name: symbol
+      in: query
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    symbolRequired_3:
+      name: symbol
+      in: query
+      required: true
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
   schemas:
     Error:
       type: object
@@ -1893,6 +1919,50 @@ components:
           type: integer
         msg:
           type: string
+    OcoOrderResponse:
+      type: object
+      properties:
+        orderListId:
+          type: integer
+          format: int64
+          description: Order list ID.
+        contingencyType:
+          type: string
+          description: Contingency type, always OCO.
+        listStatusType:
+          type: string
+          description: List status type.
+        listOrderStatus:
+          type: string
+          description: List order status.
+        listClientOrderId:
+          type: string
+          description: Client order ID for the list.
+        transactionTime:
+          type: integer
+          format: int64
+          description: Transaction time.
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        orders:
+          type: array
+          items:
+            type: object
+            properties:
+              symbol:
+                type: string
+              orderId:
+                type: integer
+                format: int64
+              clientOrderId:
+                type: string
+          description: List of orders in the OCO.
+        orderReports:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderResponse'
+          description: Detailed order reports.
     CancelOrderResponse:
       type: object
       properties:
@@ -1944,6 +2014,25 @@ components:
         selfTradePreventionMode:
           type: string
           description: Self-trade prevention mode.
+    Fill:
+      type: object
+      properties:
+        price:
+          type: string
+          description: Fill price.
+        qty:
+          type: string
+          description: Fill quantity.
+        commission:
+          type: string
+          description: Commission amount.
+        commissionAsset:
+          type: string
+          description: Commission asset.
+        tradeId:
+          type: integer
+          format: int64
+          description: Trade ID.
     Order:
       type: object
       properties:
@@ -2021,25 +2110,6 @@ components:
         selfTradePreventionMode:
           type: string
           description: Self-trade prevention mode.
-    Fill:
-      type: object
-      properties:
-        price:
-          type: string
-          description: Fill price.
-        qty:
-          type: string
-          description: Fill quantity.
-        commission:
-          type: string
-          description: Commission amount.
-        commissionAsset:
-          type: string
-          description: Commission asset.
-        tradeId:
-          type: integer
-          format: int64
-          description: Trade ID.
     Error_2:
       type: object
       properties:
@@ -2106,50 +2176,81 @@ components:
           items:
             $ref: '#/components/schemas/Fill'
           description: Trade fills for the order (FULL response type).
-    OcoOrderResponse:
+    FuturesOrder:
       type: object
       properties:
-        orderListId:
+        avgPrice:
+          type: string
+          description: Average fill price.
+        clientOrderId:
+          type: string
+          description: Client order ID.
+        cumQuote:
+          type: string
+          description: Cumulative quote quantity.
+        executedQty:
+          type: string
+          description: Executed quantity.
+        orderId:
           type: integer
           format: int64
-          description: Order list ID.
-        contingencyType:
+          description: Order ID.
+        origQty:
           type: string
-          description: Contingency type, always OCO.
-        listStatusType:
+          description: Original quantity.
+        origType:
           type: string
-          description: List status type.
-        listOrderStatus:
+          description: Original order type.
+        price:
           type: string
-          description: List order status.
-        listClientOrderId:
+          description: Order price.
+        reduceOnly:
+          type: boolean
+          description: Reduce only.
+        side:
           type: string
-          description: Client order ID for the list.
-        transactionTime:
-          type: integer
-          format: int64
-          description: Transaction time.
+          description: Order side.
+        positionSide:
+          type: string
+          description: Position side.
+        status:
+          type: string
+          description: Order status.
+        stopPrice:
+          type: string
+          description: Stop price.
+        closePosition:
+          type: boolean
+          description: Close position flag.
         symbol:
           type: string
-          description: Trading pair symbol.
-        orders:
-          type: array
-          items:
-            type: object
-            properties:
-              symbol:
-                type: string
-              orderId:
-                type: integer
-                format: int64
-              clientOrderId:
-                type: string
-          description: List of orders in the OCO.
-        orderReports:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderResponse'
-          description: Detailed order reports.
+          description: Symbol.
+        time:
+          type: integer
+          format: int64
+          description: Order time.
+        timeInForce:
+          type: string
+          description: Time in force.
+        type:
+          type: string
+          description: Order type.
+        activatePrice:
+          type: string
+          description: Activation price.
+        priceRate:
+          type: string
+          description: Callback rate.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
+        workingType:
+          type: string
+          description: Working type.
+        priceProtect:
+          type: boolean
+          description: Price protect flag.
     FuturesOrderResponse:
       type: object
       properties:
@@ -2233,81 +2334,6 @@ components:
         msg:
           type: string
           description: Error message.
-    FuturesOrder:
-      type: object
-      properties:
-        avgPrice:
-          type: string
-          description: Average fill price.
-        clientOrderId:
-          type: string
-          description: Client order ID.
-        cumQuote:
-          type: string
-          description: Cumulative quote quantity.
-        executedQty:
-          type: string
-          description: Executed quantity.
-        orderId:
-          type: integer
-          format: int64
-          description: Order ID.
-        origQty:
-          type: string
-          description: Original quantity.
-        origType:
-          type: string
-          description: Original order type.
-        price:
-          type: string
-          description: Order price.
-        reduceOnly:
-          type: boolean
-          description: Reduce only.
-        side:
-          type: string
-          description: Order side.
-        positionSide:
-          type: string
-          description: Position side.
-        status:
-          type: string
-          description: Order status.
-        stopPrice:
-          type: string
-          description: Stop price.
-        closePosition:
-          type: boolean
-          description: Close position flag.
-        symbol:
-          type: string
-          description: Symbol.
-        time:
-          type: integer
-          format: int64
-          description: Order time.
-        timeInForce:
-          type: string
-          description: Time in force.
-        type:
-          type: string
-          description: Order type.
-        activatePrice:
-          type: string
-          description: Activation price.
-        priceRate:
-          type: string
-          description: Callback rate.
-        updateTime:
-          type: integer
-          format: int64
-          description: Update time.
-        workingType:
-          type: string
-          description: Working type.
-        priceProtect:
-          type: boolean
-          description: Price protect flag.
   securitySchemes:
     apiKey:
       type: apiKey

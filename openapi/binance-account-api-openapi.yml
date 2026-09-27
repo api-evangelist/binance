@@ -231,7 +231,7 @@ paths:
       description: Production Server
   /eapi/v1/account:
     get:
-      operationId: getAccountInfo
+      operationId: getEapiV1Account
       summary: Account information
       description: Get current options account information.
       tags:
@@ -262,6 +262,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getAccountInfo
     servers:
     - url: https://eapi.binance.com
       description: Production Server
@@ -473,7 +475,7 @@ paths:
       description: Production Server
   /papi/v1/balance:
     get:
-      operationId: getBalance
+      operationId: getPapiV1Balance
       summary: Query portfolio margin balance
       description: Get portfolio margin account balance information across all asset types.
       tags:
@@ -552,12 +554,14 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getBalance
     servers:
     - url: https://papi.binance.com
       description: Production Server
   /papi/v1/account:
     get:
-      operationId: getAccountInfo
+      operationId: getPapiV1Account
       summary: Query portfolio margin account info
       description: Get portfolio margin account information including margin ratios and account status.
       tags:
@@ -620,6 +624,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getAccountInfo
     servers:
     - url: https://papi.binance.com
       description: Production Server
@@ -674,7 +680,7 @@ paths:
       description: Production Server
   /api/v3/account:
     get:
-      operationId: getAccountInfo
+      operationId: getApiV3Account
       summary: Account information
       description: Get current account information including balances, permissions, and commission rates.
       tags:
@@ -698,6 +704,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getAccountInfo
     servers:
     - url: https://api.binance.com
       description: Production Server
@@ -919,7 +927,7 @@ paths:
       description: Testnet Server
   /fapi/v2/account:
     get:
-      operationId: getAccountInfo
+      operationId: getFapiV2Account
       summary: Account information
       description: Get current futures account information including positions and balances.
       tags:
@@ -938,6 +946,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getAccountInfo
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -945,7 +955,7 @@ paths:
       description: Testnet Server
   /fapi/v2/balance:
     get:
-      operationId: getBalance
+      operationId: getFapiV2Balance
       summary: Futures account balance
       description: Get futures account balance.
       tags:
@@ -966,6 +976,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getBalance
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -973,7 +985,7 @@ paths:
       description: Testnet Server
   /fapi/v2/positionRisk:
     get:
-      operationId: getPositionRisk
+      operationId: getFapiV2PositionRisk
       summary: Position information
       description: Get current position information for all or a specific symbol.
       tags:
@@ -995,6 +1007,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getPositionRisk
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1002,7 +1016,7 @@ paths:
       description: Testnet Server
   /fapi/v1/leverage:
     post:
-      operationId: changeLeverage
+      operationId: postFapiV1Leverage
       summary: Change initial leverage
       description: Change user's initial leverage of a specific futures symbol.
       tags:
@@ -1040,6 +1054,8 @@ paths:
       security:
       - apiKey: []
         hmacSignature: []
+      x-operation-id-source: normalized
+      x-operation-id-original: changeLeverage
     servers:
     - url: https://fapi.binance.com
       description: Production Server
@@ -1265,17 +1281,6 @@ paths:
       description: Production Server
 components:
   parameters:
-    symbolRequired:
-      name: symbol
-      in: query
-      required: true
-      schema:
-        type: string
-    symbol:
-      name: symbol
-      in: query
-      schema:
-        type: string
     signature:
       name: signature
       in: query
@@ -1294,14 +1299,17 @@ components:
       schema:
         type: integer
         format: int64
-    symbolRequired_2:
+    symbol:
+      name: symbol
+      in: query
+      schema:
+        type: string
+    symbolRequired:
       name: symbol
       in: query
       required: true
-      description: Trading pair symbol, e.g. BTCUSDT.
       schema:
         type: string
-      example: BTCUSDT
     signature_2:
       name: signature
       in: query
@@ -1325,17 +1333,19 @@ components:
       schema:
         type: integer
         format: int64
-    symbolRequired_3:
+    symbolRequired_2:
       name: symbol
       in: query
       required: true
-      description: Futures trading pair symbol, e.g. BTCUSDT.
+      description: Trading pair symbol, e.g. BTCUSDT.
       schema:
         type: string
-    symbol_2:
-      name: symbol
+      example: BTCUSDT
+    signature_3:
+      name: signature
       in: query
-      description: Futures trading pair symbol, e.g. BTCUSDT.
+      required: true
+      description: HMAC SHA256 signature.
       schema:
         type: string
     recvWindow_3:
@@ -1346,13 +1356,6 @@ components:
         type: integer
         default: 5000
         maximum: 60000
-    signature_3:
-      name: signature
-      in: query
-      required: true
-      description: HMAC SHA256 signature.
-      schema:
-        type: string
     timestamp_3:
       name: timestamp
       in: query
@@ -1361,7 +1364,66 @@ components:
       schema:
         type: integer
         format: int64
+    symbol_2:
+      name: symbol
+      in: query
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
+    symbolRequired_3:
+      name: symbol
+      in: query
+      required: true
+      description: Futures trading pair symbol, e.g. BTCUSDT.
+      schema:
+        type: string
   schemas:
+    AccountTrade:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        id:
+          type: integer
+          format: int64
+          description: Trade ID.
+        orderId:
+          type: integer
+          format: int64
+          description: Order ID.
+        orderListId:
+          type: integer
+          format: int64
+          description: Order list ID.
+        price:
+          type: string
+          description: Trade price.
+        qty:
+          type: string
+          description: Trade quantity.
+        quoteQty:
+          type: string
+          description: Quote quantity.
+        commission:
+          type: string
+          description: Commission paid.
+        commissionAsset:
+          type: string
+          description: Asset used for commission.
+        time:
+          type: integer
+          format: int64
+          description: Trade time in milliseconds.
+        isBuyer:
+          type: boolean
+          description: Whether the trade was a buy.
+        isMaker:
+          type: boolean
+          description: Whether the trade was a maker.
+        isBestMatch:
+          type: boolean
+          description: Whether this was the best price match.
     Account:
       type: object
       properties:
@@ -1431,52 +1493,6 @@ components:
           type: integer
           format: int64
           description: User ID.
-    AccountTrade:
-      type: object
-      properties:
-        symbol:
-          type: string
-          description: Trading pair symbol.
-        id:
-          type: integer
-          format: int64
-          description: Trade ID.
-        orderId:
-          type: integer
-          format: int64
-          description: Order ID.
-        orderListId:
-          type: integer
-          format: int64
-          description: Order list ID.
-        price:
-          type: string
-          description: Trade price.
-        qty:
-          type: string
-          description: Trade quantity.
-        quoteQty:
-          type: string
-          description: Quote quantity.
-        commission:
-          type: string
-          description: Commission paid.
-        commissionAsset:
-          type: string
-          description: Asset used for commission.
-        time:
-          type: integer
-          format: int64
-          description: Trade time in milliseconds.
-        isBuyer:
-          type: boolean
-          description: Whether the trade was a buy.
-        isMaker:
-          type: boolean
-          description: Whether the trade was a maker.
-        isBestMatch:
-          type: boolean
-          description: Whether this was the best price match.
     Balance:
       type: object
       properties:
@@ -1489,89 +1505,6 @@ components:
         locked:
           type: string
           description: Locked balance (in open orders).
-    PositionRisk:
-      type: object
-      properties:
-        symbol:
-          type: string
-          description: Symbol.
-        positionAmt:
-          type: string
-          description: Position amount.
-        entryPrice:
-          type: string
-          description: Entry price.
-        breakEvenPrice:
-          type: string
-          description: Break-even price.
-        markPrice:
-          type: string
-          description: Mark price.
-        unRealizedProfit:
-          type: string
-          description: Unrealized profit.
-        liquidationPrice:
-          type: string
-          description: Liquidation price.
-        leverage:
-          type: string
-          description: Leverage.
-        maxNotionalValue:
-          type: string
-          description: Maximum notional value.
-        marginType:
-          type: string
-          description: Margin type (cross or isolated).
-        isolatedMargin:
-          type: string
-          description: Isolated margin amount.
-        isAutoAddMargin:
-          type: boolean
-          description: Auto add margin flag.
-        positionSide:
-          type: string
-          description: Position side.
-        notional:
-          type: string
-          description: Notional value.
-        isolatedWallet:
-          type: string
-          description: Isolated wallet balance.
-        updateTime:
-          type: integer
-          format: int64
-          description: Update time.
-    FuturesBalance:
-      type: object
-      properties:
-        accountAlias:
-          type: string
-          description: Account alias.
-        asset:
-          type: string
-          description: Asset symbol.
-        balance:
-          type: string
-          description: Total balance.
-        crossWalletBalance:
-          type: string
-          description: Cross wallet balance.
-        crossUnPnl:
-          type: string
-          description: Cross unrealized PnL.
-        availableBalance:
-          type: string
-          description: Available balance.
-        maxWithdrawAmount:
-          type: string
-          description: Maximum withdrawal amount.
-        marginAvailable:
-          type: boolean
-          description: Whether the asset can be used as margin.
-        updateTime:
-          type: integer
-          format: int64
-          description: Update time.
     FuturesAccount:
       type: object
       properties:
@@ -1637,6 +1570,89 @@ components:
           items:
             $ref: '#/components/schemas/PositionRisk'
           description: Positions.
+    FuturesBalance:
+      type: object
+      properties:
+        accountAlias:
+          type: string
+          description: Account alias.
+        asset:
+          type: string
+          description: Asset symbol.
+        balance:
+          type: string
+          description: Total balance.
+        crossWalletBalance:
+          type: string
+          description: Cross wallet balance.
+        crossUnPnl:
+          type: string
+          description: Cross unrealized PnL.
+        availableBalance:
+          type: string
+          description: Available balance.
+        maxWithdrawAmount:
+          type: string
+          description: Maximum withdrawal amount.
+        marginAvailable:
+          type: boolean
+          description: Whether the asset can be used as margin.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
+    PositionRisk:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Symbol.
+        positionAmt:
+          type: string
+          description: Position amount.
+        entryPrice:
+          type: string
+          description: Entry price.
+        breakEvenPrice:
+          type: string
+          description: Break-even price.
+        markPrice:
+          type: string
+          description: Mark price.
+        unRealizedProfit:
+          type: string
+          description: Unrealized profit.
+        liquidationPrice:
+          type: string
+          description: Liquidation price.
+        leverage:
+          type: string
+          description: Leverage.
+        maxNotionalValue:
+          type: string
+          description: Maximum notional value.
+        marginType:
+          type: string
+          description: Margin type (cross or isolated).
+        isolatedMargin:
+          type: string
+          description: Isolated margin amount.
+        isAutoAddMargin:
+          type: boolean
+          description: Auto add margin flag.
+        positionSide:
+          type: string
+          description: Position side.
+        notional:
+          type: string
+          description: Notional value.
+        isolatedWallet:
+          type: string
+          description: Isolated wallet balance.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
   securitySchemes:
     apiKey:
       type: apiKey
