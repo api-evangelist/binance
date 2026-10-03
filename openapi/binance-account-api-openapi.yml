@@ -1281,12 +1281,6 @@ paths:
       description: Production Server
 components:
   parameters:
-    signature:
-      name: signature
-      in: query
-      required: true
-      schema:
-        type: string
     recvWindow:
       name: recvWindow
       in: query
@@ -1299,6 +1293,12 @@ components:
       schema:
         type: integer
         format: int64
+    signature:
+      name: signature
+      in: query
+      required: true
+      schema:
+        type: string
     symbol:
       name: symbol
       in: query
@@ -1308,13 +1308,6 @@ components:
       name: symbol
       in: query
       required: true
-      schema:
-        type: string
-    signature_2:
-      name: signature
-      in: query
-      required: true
-      description: HMAC SHA256 signature of the total query string using the API secret key.
       schema:
         type: string
     recvWindow_2:
@@ -1333,6 +1326,13 @@ components:
       schema:
         type: integer
         format: int64
+    signature_2:
+      name: signature
+      in: query
+      required: true
+      description: HMAC SHA256 signature of the total query string using the API secret key.
+      schema:
+        type: string
     symbolRequired_2:
       name: symbol
       in: query
@@ -1341,13 +1341,6 @@ components:
       schema:
         type: string
       example: BTCUSDT
-    signature_3:
-      name: signature
-      in: query
-      required: true
-      description: HMAC SHA256 signature.
-      schema:
-        type: string
     recvWindow_3:
       name: recvWindow
       in: query
@@ -1364,6 +1357,13 @@ components:
       schema:
         type: integer
         format: int64
+    signature_3:
+      name: signature
+      in: query
+      required: true
+      description: HMAC SHA256 signature.
+      schema:
+        type: string
     symbol_2:
       name: symbol
       in: query
@@ -1505,6 +1505,58 @@ components:
         locked:
           type: string
           description: Locked balance (in open orders).
+    PositionRisk:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Symbol.
+        positionAmt:
+          type: string
+          description: Position amount.
+        entryPrice:
+          type: string
+          description: Entry price.
+        breakEvenPrice:
+          type: string
+          description: Break-even price.
+        markPrice:
+          type: string
+          description: Mark price.
+        unRealizedProfit:
+          type: string
+          description: Unrealized profit.
+        liquidationPrice:
+          type: string
+          description: Liquidation price.
+        leverage:
+          type: string
+          description: Leverage.
+        maxNotionalValue:
+          type: string
+          description: Maximum notional value.
+        marginType:
+          type: string
+          description: Margin type (cross or isolated).
+        isolatedMargin:
+          type: string
+          description: Isolated margin amount.
+        isAutoAddMargin:
+          type: boolean
+          description: Auto add margin flag.
+        positionSide:
+          type: string
+          description: Position side.
+        notional:
+          type: string
+          description: Notional value.
+        isolatedWallet:
+          type: string
+          description: Isolated wallet balance.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
     FuturesAccount:
       type: object
       properties:
@@ -1597,58 +1649,6 @@ components:
         marginAvailable:
           type: boolean
           description: Whether the asset can be used as margin.
-        updateTime:
-          type: integer
-          format: int64
-          description: Update time.
-    PositionRisk:
-      type: object
-      properties:
-        symbol:
-          type: string
-          description: Symbol.
-        positionAmt:
-          type: string
-          description: Position amount.
-        entryPrice:
-          type: string
-          description: Entry price.
-        breakEvenPrice:
-          type: string
-          description: Break-even price.
-        markPrice:
-          type: string
-          description: Mark price.
-        unRealizedProfit:
-          type: string
-          description: Unrealized profit.
-        liquidationPrice:
-          type: string
-          description: Liquidation price.
-        leverage:
-          type: string
-          description: Leverage.
-        maxNotionalValue:
-          type: string
-          description: Maximum notional value.
-        marginType:
-          type: string
-          description: Margin type (cross or isolated).
-        isolatedMargin:
-          type: string
-          description: Isolated margin amount.
-        isAutoAddMargin:
-          type: boolean
-          description: Auto add margin flag.
-        positionSide:
-          type: string
-          description: Position side.
-        notional:
-          type: string
-          description: Notional value.
-        isolatedWallet:
-          type: string
-          description: Isolated wallet balance.
         updateTime:
           type: integer
           format: int64

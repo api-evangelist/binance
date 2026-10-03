@@ -91,54 +91,6 @@ paths:
       security: []
 components:
   schemas:
-    RateLimit:
-      type: object
-      properties:
-        rateLimitType:
-          type: string
-          enum:
-          - REQUEST_WEIGHT
-          - ORDERS
-          - RAW_REQUESTS
-          description: The type of rate limit.
-        interval:
-          type: string
-          enum:
-          - SECOND
-          - MINUTE
-          - DAY
-          description: The interval unit.
-        intervalNum:
-          type: integer
-          description: The interval number.
-        limit:
-          type: integer
-          description: The maximum count within the interval.
-    ExchangeInfo:
-      type: object
-      properties:
-        timezone:
-          type: string
-          description: Server timezone, always UTC.
-        serverTime:
-          type: integer
-          format: int64
-          description: Current server time in milliseconds.
-        rateLimits:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimit'
-          description: Rate limit rules for the exchange.
-        exchangeFilters:
-          type: array
-          items:
-            type: object
-          description: Exchange-level filters.
-        symbols:
-          type: array
-          items:
-            $ref: '#/components/schemas/SymbolInfo'
-          description: List of trading pair symbols and their rules.
     SymbolInfo:
       type: object
       properties:
@@ -187,6 +139,54 @@ components:
           items:
             type: string
           description: Account permissions required to trade this symbol.
+    RateLimit:
+      type: object
+      properties:
+        rateLimitType:
+          type: string
+          enum:
+          - REQUEST_WEIGHT
+          - ORDERS
+          - RAW_REQUESTS
+          description: The type of rate limit.
+        interval:
+          type: string
+          enum:
+          - SECOND
+          - MINUTE
+          - DAY
+          description: The interval unit.
+        intervalNum:
+          type: integer
+          description: The interval number.
+        limit:
+          type: integer
+          description: The maximum count within the interval.
+    ExchangeInfo:
+      type: object
+      properties:
+        timezone:
+          type: string
+          description: Server timezone, always UTC.
+        serverTime:
+          type: integer
+          format: int64
+          description: Current server time in milliseconds.
+        rateLimits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimit'
+          description: Rate limit rules for the exchange.
+        exchangeFilters:
+          type: array
+          items:
+            type: object
+          description: Exchange-level filters.
+        symbols:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymbolInfo'
+          description: List of trading pair symbols and their rules.
   parameters:
     symbol:
       name: symbol
