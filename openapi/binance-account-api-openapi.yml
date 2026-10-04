@@ -1281,11 +1281,6 @@ paths:
       description: Production Server
 components:
   parameters:
-    recvWindow:
-      name: recvWindow
-      in: query
-      schema:
-        type: integer
     timestamp:
       name: timestamp
       in: query
@@ -1293,6 +1288,11 @@ components:
       schema:
         type: integer
         format: int64
+    recvWindow:
+      name: recvWindow
+      in: query
+      schema:
+        type: integer
     signature:
       name: signature
       in: query
@@ -1310,14 +1310,6 @@ components:
       required: true
       schema:
         type: string
-    recvWindow_2:
-      name: recvWindow
-      in: query
-      description: The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000.
-      schema:
-        type: integer
-        default: 5000
-        maximum: 60000
     timestamp_2:
       name: timestamp
       in: query
@@ -1326,6 +1318,14 @@ components:
       schema:
         type: integer
         format: int64
+    recvWindow_2:
+      name: recvWindow
+      in: query
+      description: The number of milliseconds after timestamp the request is valid for. Default 5000, max 60000.
+      schema:
+        type: integer
+        default: 5000
+        maximum: 60000
     signature_2:
       name: signature
       in: query
@@ -1341,14 +1341,6 @@ components:
       schema:
         type: string
       example: BTCUSDT
-    recvWindow_3:
-      name: recvWindow
-      in: query
-      description: Milliseconds the request is valid for.
-      schema:
-        type: integer
-        default: 5000
-        maximum: 60000
     timestamp_3:
       name: timestamp
       in: query
@@ -1357,6 +1349,14 @@ components:
       schema:
         type: integer
         format: int64
+    recvWindow_3:
+      name: recvWindow
+      in: query
+      description: Milliseconds the request is valid for.
+      schema:
+        type: integer
+        default: 5000
+        maximum: 60000
     signature_3:
       name: signature
       in: query
@@ -1378,52 +1378,6 @@ components:
       schema:
         type: string
   schemas:
-    AccountTrade:
-      type: object
-      properties:
-        symbol:
-          type: string
-          description: Trading pair symbol.
-        id:
-          type: integer
-          format: int64
-          description: Trade ID.
-        orderId:
-          type: integer
-          format: int64
-          description: Order ID.
-        orderListId:
-          type: integer
-          format: int64
-          description: Order list ID.
-        price:
-          type: string
-          description: Trade price.
-        qty:
-          type: string
-          description: Trade quantity.
-        quoteQty:
-          type: string
-          description: Quote quantity.
-        commission:
-          type: string
-          description: Commission paid.
-        commissionAsset:
-          type: string
-          description: Asset used for commission.
-        time:
-          type: integer
-          format: int64
-          description: Trade time in milliseconds.
-        isBuyer:
-          type: boolean
-          description: Whether the trade was a buy.
-        isMaker:
-          type: boolean
-          description: Whether the trade was a maker.
-        isBestMatch:
-          type: boolean
-          description: Whether this was the best price match.
     Account:
       type: object
       properties:
@@ -1505,6 +1459,52 @@ components:
         locked:
           type: string
           description: Locked balance (in open orders).
+    AccountTrade:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol.
+        id:
+          type: integer
+          format: int64
+          description: Trade ID.
+        orderId:
+          type: integer
+          format: int64
+          description: Order ID.
+        orderListId:
+          type: integer
+          format: int64
+          description: Order list ID.
+        price:
+          type: string
+          description: Trade price.
+        qty:
+          type: string
+          description: Trade quantity.
+        quoteQty:
+          type: string
+          description: Quote quantity.
+        commission:
+          type: string
+          description: Commission paid.
+        commissionAsset:
+          type: string
+          description: Asset used for commission.
+        time:
+          type: integer
+          format: int64
+          description: Trade time in milliseconds.
+        isBuyer:
+          type: boolean
+          description: Whether the trade was a buy.
+        isMaker:
+          type: boolean
+          description: Whether the trade was a maker.
+        isBestMatch:
+          type: boolean
+          description: Whether this was the best price match.
     PositionRisk:
       type: object
       properties:
@@ -1553,6 +1553,37 @@ components:
         isolatedWallet:
           type: string
           description: Isolated wallet balance.
+        updateTime:
+          type: integer
+          format: int64
+          description: Update time.
+    FuturesBalance:
+      type: object
+      properties:
+        accountAlias:
+          type: string
+          description: Account alias.
+        asset:
+          type: string
+          description: Asset symbol.
+        balance:
+          type: string
+          description: Total balance.
+        crossWalletBalance:
+          type: string
+          description: Cross wallet balance.
+        crossUnPnl:
+          type: string
+          description: Cross unrealized PnL.
+        availableBalance:
+          type: string
+          description: Available balance.
+        maxWithdrawAmount:
+          type: string
+          description: Maximum withdrawal amount.
+        marginAvailable:
+          type: boolean
+          description: Whether the asset can be used as margin.
         updateTime:
           type: integer
           format: int64
@@ -1622,37 +1653,6 @@ components:
           items:
             $ref: '#/components/schemas/PositionRisk'
           description: Positions.
-    FuturesBalance:
-      type: object
-      properties:
-        accountAlias:
-          type: string
-          description: Account alias.
-        asset:
-          type: string
-          description: Asset symbol.
-        balance:
-          type: string
-          description: Total balance.
-        crossWalletBalance:
-          type: string
-          description: Cross wallet balance.
-        crossUnPnl:
-          type: string
-          description: Cross unrealized PnL.
-        availableBalance:
-          type: string
-          description: Available balance.
-        maxWithdrawAmount:
-          type: string
-          description: Maximum withdrawal amount.
-        marginAvailable:
-          type: boolean
-          description: Whether the asset can be used as margin.
-        updateTime:
-          type: integer
-          format: int64
-          description: Update time.
   securitySchemes:
     apiKey:
       type: apiKey
