@@ -1,0 +1,34 @@
+edges:
+- partner_name: CCXT
+  partner: null
+  partner_match: null
+  type: coverage
+  channel: open-source-node
+  relationship: connector-coverage
+  direction: partner-built
+  evidence: https://github.com/ccxt/ccxt/blob/master/ts/src/binance.ts
+  ccxt_id: binance
+  ccxt_certified: true
+  ccxt_pro: true
+  matched_by: domain:binance.com
+  partner_gap: no ccxt repo in all/* (catalog gap)
+  detected_by: sweep-crypto.py
+  first_seen: '2026-10-13'
+- partner_name: CoinGecko
+  partner: coingecko
+  partner_match: aggregator
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://api.coingecko.com/api/v3/exchanges/binance
+  matched_by: domain:binance.com
+  coingecko_id: binance
+  trust_score: 10
+  detected_by: sweep-crypto.py
+  first_seen: '2026-10-13'
+generated: '2026-10-13'
+method: searched
+checked:
+- https://api.coingecko.com/api/v3/exchanges
+- https://raw.githubusercontent.com/ccxt/ccxt/master/exchanges.json
