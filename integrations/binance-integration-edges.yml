@@ -13,7 +13,7 @@ edges:
   matched_by: domain:binance.com
   partner_gap: no ccxt repo in all/* (catalog gap)
   detected_by: sweep-crypto.py
-  first_seen: '2026-10-13'
+  first_seen: '2026-10-14'
 - partner_name: CoinGecko
   partner: coingecko
   partner_match: aggregator
@@ -26,7 +26,7 @@ edges:
   coingecko_id: binance
   trust_score: 10
   detected_by: sweep-crypto.py
-  first_seen: '2026-10-13'
+  first_seen: '2026-10-14'
 generated: '2026-10-13'
 method: searched
 checked:
