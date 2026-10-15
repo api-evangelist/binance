@@ -24,3 +24,35 @@
   relationship: connector-coverage
   status: not-a-workflow
   arazzo: null
+- slug: binance-iso-10383-mic
+  label: ISO 10383 (MIC)
+  partner_name: ISO 10383 (MIC)
+  category: registered trading venues and market segments
+  type: register
+  channel: standard-directory
+  evidence: https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: ISO 10383 Market Identifier Codes (ISO 20022 registration authority)
+    spec_file: null
+    standard: ISO 10383
+    role: venue operator
+    matched_domain: binance.com
+    matched_by: domain+verified:binance.com
+    categories:
+    - RMOS
+    operating_mics:
+    - BNCX
+    mics:
+    - mic: BNCX
+      operating_mic: BNCX
+      segment: OPRT
+      market: BINANCE
+      category: RMOS
+      legal_name: NEST SERVICES LIMITED
+      country: AE
+    detected_by: sweep-capital-markets.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
